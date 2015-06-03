@@ -1,0 +1,164 @@
+/*navigation .scss file*/
+#nav {
+  height: 38px;
+  zoom: 1;
+  margin: 0 auto;
+  max-width: $page-max-width;
+  min-width: $page-min-width;
+  z-index: -1;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-table;
+    z-index: 501;
+    > li {
+      float: left;
+      width: 12em;
+    }
+    &:after {
+      content: ""; clear: both; display: block;
+    }
+  }
+  li a {     
+    display: block;
+    margin-right: 2px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    height: 28px;      
+    text-shadow: 4px 4px 3px #2C2D2E;
+    padding: 5px;
+    background-color: #343435;
+    border-radius: $border-radius-base $border-radius-base 0 0;
+    &:hover {
+      background-color: #185B8B;
+      color: #fff;
+    }
+  }
+}
+
+#nav ul {
+  ul {
+    display: none;
+    li {
+      float: none;
+      border-top: 1px solid #6b727c;
+      position: relative;
+      a {
+        border-radius: 0px;
+      }
+    }
+  }
+  li:hover > ul {
+    display: block;
+  }
+}
+
+/* sets background-color when selected page is active */
+#homepage #nav-homepage a,
+#tags #nav-tags a,
+#categories #nav-categories a,
+#support #nav-support a,
+#add-podcast #nav-add-podcast a,
+#contact #nav-contact a,
+#podcasting #nav-podcasting a{
+  background-color:#185B8B;	
+}
+
+/** set size of icon fonts that appear after menu entries */
+#nav li a:after {
+	font-family:"podcastpedia";
+	padding-left:3px;
+	font-size:0.9em;		
+}
+// incon font for menu icon should be bigger 
+#nav #nav-responsive > a:after{
+	content: "\e663";
+    font-size: 1.3em;
+}
+
+/** to make a responsive menu duplicate list elements from the menu*/
+#nav-homepage a:after{
+	content: "\e600";
+}
+#nav-tags a:after, #nav-tags-resp a:after{
+	content: "\e620";
+}
+#nav-categories a:after, #nav-categories-resp a:after{
+	content: "\e649";
+}
+#nav-contact a:after, #nav-contact-resp a:after{
+	content: "\e660";
+}
+#nav-add-podcast a:after, #nav-add-podcast-resp a:after{
+	content: "\e618";
+}
+#nav-support a:after, #nav-support-resp a:after{
+	content: "\e661";
+}
+#nav-podcasting a:after, #nav-podcasting-resp a:after{
+	content: "\e609";
+}
+
+#nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp {
+  display: none;
+}
+
+#nav #nav-podcasting-resp > a{
+  border-radius: 0 0 $border-radius-base $border-radius-base;
+}
+
+/** media queries to hide and show menu items, based on the display width */
+@media screen and (min-width: 1040px) {
+  #nav-responsive {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1039px) {
+  #nav-podcasting-resp, #nav-contact-resp {
+    display: block;
+  }
+  #nav-podcasting, #nav-contact {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #nav-support-resp { 
+    display: block;
+  }
+  #nav-support {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #nav-add-podcast-resp { 
+    display: block;
+  }
+  #nav-add-podcast {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  #nav-categories-resp { 
+    display: block;
+  }
+  #nav-categories {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  #nav-tags-resp { 
+    display: block;
+  }
+  #nav-tags {
+    display: none;
+  }
+}

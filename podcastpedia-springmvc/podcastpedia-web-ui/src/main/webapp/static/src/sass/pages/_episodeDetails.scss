@@ -1,0 +1,52 @@
+#episode_metadata {
+  margin-top: 15px;
+  padding: 5px;
+  h2 {
+    font-size: 20px;
+    text-transform: normal;
+    font-weight: 700;
+    margin: 10px 0 10px 160px;
+  }
+  img {
+    margin: 8px;
+    float: left;
+    width: 90px;
+    height: 90px;
+  }
+  p {
+    margin: 18px 0 10px 10px;
+  }
+  #feed-and-ep-link {
+    margin-top:3px;
+  }
+}
+
+.link_input {
+  width: 60%;
+  background-color: #F5F7FA;
+  font-size: 0.9em;
+}
+
+#current_episode {
+  padding: 5px 0;
+  position: relative;
+  h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 10px 0px 10px;
+  }
+  .pub_date {
+    margin-left: 10px;
+  }
+}
+
+.pub_date,.pub_date_pic {
+  font-style:italic;
+  font-size:.9em;
+  margin:0;
+  padding:2px 0;
+}
+
+#current_episode img {
+  margin-left:10px
+}

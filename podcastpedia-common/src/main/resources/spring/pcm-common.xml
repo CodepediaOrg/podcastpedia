@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jaxws="http://cxf.apache.org/jaxws"
+	    xmlns:p="http://www.springframework.org/schema/p" 
+	    xmlns:context="http://www.springframework.org/schema/context"
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+	    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	    xsi:schemaLocation="
+ 
+	http://www.springframework.org/schema/beans	 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	 
+	http://www.springframework.org/schema/mvc	 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd
+	
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	
+	<bean id="configService" class="org.podcastpedia.common.util.config.ConfigServiceImpl">
+		<property name="configBean" ref="configBean"/>
+	</bean> 
+		
+    <bean id="configBean" class="org.podcastpedia.common.util.config.ConfigBeanJdbcImpl">
+        <property name="dataSource" ref="configDataSource" />
+    </bean>	
+	<bean id="configDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
+		<property name="jndiName" value="java:comp/env/jdbc/pcmDB" />
+		<property name="resourceRef" value="true" />		
+	</bean>     
+    
+    <!-- ********************************* email service configuration ******************************* -->
+   <bean id="smtpSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+   		<property name="jndiName" value="java:comp/env/mail/Session"/>
+   </bean>          
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   		<property name="session" ref="smtpSession" />
+   </bean>    
+   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+          resource.loader=class
+          class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>    
+	
+</beans>

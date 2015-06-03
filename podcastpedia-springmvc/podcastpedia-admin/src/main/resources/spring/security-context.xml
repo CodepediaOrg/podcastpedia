@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans 
+    	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    	
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+	<!-- 
+    <global-method-security pre-post-annotations="enabled">
+    </global-method-security>
+   --> 
+    <http pattern="/static/**" security="none" />
+    <http auto-config="true" access-denied-page="/users/denied" use-expressions="true">
+		<!-- Order is important. The most specific ones should be at the top, they will be the first ones evaluated. -->	
+        <intercept-url pattern="/users/login" access="permitAll" />              
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/**" access="permitAll" />  
+        <!-- <intercept-url pattern="/secure/**" access="isAuthenticated()" />  -->
+        <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
+        <intercept-url pattern="/listAccounts.html" access="isRememberMe()" />
+        <intercept-url pattern="/post.html" access="hasRole('ROLE_TELLER')" />
+        -->
+                      
+        <!-- Login configuration -->                     
+	    <form-login 
+	    	login-page="/users/login" 
+	    	default-target-url="/admin"
+	    	authentication-failure-url="/users/login?error=true"
+	        always-use-default-target="false" />
+
+ 		<!-- Logout configuration - STILL to solve this little shit   
+        <logout
+        	invalidate-session="true"
+        	logout-url="/users/login" 
+        	logout-success-url="/podcasts/all"/>
+        --> 	
+        <logout
+	        invalidate-session="true" 
+	        logout-success-url="/admin"/>
+        <remember-me />
+        
+        <!-- Uncomment to limit the number of sessions a user can have -->
+        <session-management invalid-session-url="/users/session_expired">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+ 		
+    </http>
+    
+    <!-- import the dataSource definition -->
+    <beans:import resource="data-source.xml"/>
+
+    <authentication-manager>
+        <!-- Many authentication providers can be chosen, in case which the order counts. -->
+        <authentication-provider>
+        	<jdbc-user-service data-source-ref="dataSource"/>
+    	</authentication-provider>
+  	
+    	<!-- 
+		<authentication-provider>
+		    <password-encoder hash="sha"/>
+		    <user-service>
+		      <user name="admin" password="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+		            authorities="ROLE_USER, ROLE_ADMIN" />
+		    </user-service>
+		</authentication-provider>      	
+		<authentication-provider>
+		    <password-encoder hash="sha"/>
+		    <user-service>
+		      <user name="jimi" password="d7e6351eaa13189a5a3641bab846c8e8c69ba39f"
+		            authorities="ROLE_USER, ROLE_ADMIN" />
+		      <user name="bob" password="4e7421b1b8765d8f9406d87e7cc6aa784c4ab97f"
+		            authorities="ROLE_USER" />
+		    </user-service>
+		</authentication-provider>
+		 -->
+	    <!--
+	    Usernames/Passwords are
+	        rod/koala
+	        dianne/emu
+	        scott/wombat
+	        peter/opal
+	     -->	
+	     <!--  	  
+        <authentication-provider>
+            <password-encoder hash="md5"/>
+            <user-service>
+                <user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="ROLE_ADMIN" />
+                <user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a" authorities="ROLE_USER" />
+                <user name="peter" password="22b5c9accc6e1ba628cedc63a72d57f8" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>  
+        -->  	
+    </authentication-manager> 
+
+</beans:beans>

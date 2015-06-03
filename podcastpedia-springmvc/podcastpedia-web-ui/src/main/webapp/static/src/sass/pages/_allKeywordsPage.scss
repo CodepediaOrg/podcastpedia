@@ -1,0 +1,54 @@
+#all_tags ul {
+  margin-top: 5px;
+  margin-left: 5px;
+  list-style: none;
+  padding-left: 0px;
+  > li {
+    float: left;
+    display: block;
+    list-style: none;
+    margin-bottom: 13px;
+    margin-right: 5px;
+    height: 15px;
+    border-style: none;
+    > span {
+      float: left;
+      width: 162px;
+    }
+  }
+}
+
+.fw_bk {
+  box-shadow:3px 3px 4px #28313A;
+}
+
+#tags_fw {
+  margin-left:8px;
+}
+
+//search keyword autocomplete
+#find_keyword, #selected_tags {
+  float: left;
+  padding: 15px 15px 0;
+}
+
+#find_keyword input {
+  width: 220px;
+  padding-left: 5px;
+}
+
+#find_kw_sep_line {
+  margin: 18px;
+}
+
+#selected_tags {
+  width: 100%;
+  a {
+    padding-right: 8px;
+    font-size: 1.2em;
+  }
+}
+
+#all_tags {
+  float:left;
+}

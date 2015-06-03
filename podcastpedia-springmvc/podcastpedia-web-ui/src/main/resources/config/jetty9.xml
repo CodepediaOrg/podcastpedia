@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<New id="pcmdbDS" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/pcmDB</Arg>
+		<Arg>
+			<New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+				<Set name="Url">jdbc:mysql://localhost:3307/pcmDB?allowMultiQueries=true
+				</Set>
+				<Set name="User">pcm</Set>
+				<Set name="Password">pcm_pw</Set>
+			</New>
+		</Arg>
+	</New>
+	<New id="mailSessionId" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>mail/Session</Arg>
+		<Arg>
+			<New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
+				<Set name="user">test-dev@podcastpedia.org</Set>
+				<Set name="password">test-dev</Set>
+				<Set name="properties">
+					<New class="java.util.Properties">
+						<Put name="mail.host">mail.podcastpedia.org</Put>
+						<Put name="mail.debug">true</Put>
+						<Put name="mail.transport.protocol">smtp</Put>
+						<Put name="mail.smtp.port">25</Put>
+						<Put name="mail.smtp.auth">true</Put>
+					</New>
+				</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>

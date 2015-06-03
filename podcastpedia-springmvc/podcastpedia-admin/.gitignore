@@ -1,0 +1,9 @@
+
+.classpath
+.project
+target
+src/main/resources/log4j/log4j.prod.xml
+src/main/resources/log4j/log4j.prod.tunnel.xml
+src/main/webapp/META-INF/context.xml.tunnel.prod
+src/main/webapp/META-INF/context.xml.prod
+src/main/webapp/META-INF/context.xml.personal.dev

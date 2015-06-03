@@ -1,0 +1,36 @@
+//body id
+#support_content {
+  font-size: 1.2em; 
+  padding: 10px;
+  padding-bottom: 20px;
+  #codingpedia_assoc_ul {
+    padding-left: 25px;
+    list-style-type: none;
+    margin-bottom:25px;
+    margin-top:-10px;
+    font-size:0.9em;    
+  }
+}
+
+#social_logos {
+  margin-top: 5px;
+  a {
+    color: #053855;
+    font-size: 1.5em;
+    padding-right: 5px;
+    text-decoration: none;
+    &:HOVER {
+      color: #A73030;
+    }
+  }
+}
+
+#pcp_pic_contribute {
+  float:left;
+  width:150px;
+  height:150px;
+  margin-right:25px;
+  @include until-mq(560px){ 
+    display: none;
+  }  
+}

@@ -1,0 +1,115 @@
+#podcast_metadata {
+  border-radius: $border-radius-base;
+  padding: 8px 8px 3px 8px;
+  position: relative;
+  h2 {
+    font-size: 2em;
+    text-transform: normal;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding-top: 8px;
+    @include until-mq($break-point-normal){        
+      font-size:1.9em;
+    }
+    @include until-mq($break-point-smaller){   
+      font-size:1.6em;
+    }
+    @include until-mq($break-point-small){
+      font-size: 1.3em;
+      margin-bottom:0px;
+      padding-top:0px;      
+    }
+    @include until-mq($break-point-very-small){
+      font-size: 14px;
+    }    
+  }
+  #pod_image {
+    float: left;
+    width: 220px;
+    height: 220px;
+    margin: 0 10px 10px 0;
+    @include until-mq($break-point-small){
+      height: 150px;
+      width: 150px;
+      margin:0 8px 8px 0;     
+    }
+    @include until-mq($break-point-very-small){
+      height: 100px;	    
+      width: 100px;
+      margin:0 5px 5px 0;   
+    }    
+  }
+  p {
+    margin: 0 0 13px;
+  }
+  #pod_desc {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 45px;
+  }
+}
+
+/** categories and keywords buttons */
+#categs > ul, #keywords > ul {
+  list-style: none;
+  overflow: hidden;
+}
+#categs > ul > li, #keywords > ul > li {
+  float: left;
+  margin: 5px 0;
+}
+@include until-mq($break-point-very-small){						
+	#categs, #keywords {clear:left;}
+}
+
+#pod_like {
+  margin-top:5px
+}
+
+#podcast_copyright {
+  background-color:#F8E0E6;
+  color:#580404;
+  padding:10px;
+}
+
+/** social page of producers */
+a.producer-social {
+    font-size: 2em;
+    text-decoration: none;
+    margin-right: 5px;  
+}
+.icon-social-producer {
+  vertical-align: middle;
+}
+.icon-globe-producer:before {
+    @extend .icon-social-producer;
+    color: #084B8A;
+	content: "\e658";
+}
+.icon-feed-producer:before {
+    @extend .icon-social-producer;
+    color: #DF7401;
+	content: "\e643";
+}
+.icon-facebook-producer:before {
+    @extend .icon-social-producer;
+    color: #3B5998;
+	content: "\e63e";
+}
+.icon-twitter-producer:before {
+    @extend .icon-social-producer;  
+    color: #55ACEE;
+	content: "\e640";
+}
+.icon-google-plus-producer:before {
+    @extend .icon-social-producer;  
+    color: #dd4b39;
+	content: "\e63c";
+}
+.icon-email-subscribe:before {
+    @extend .icon-social-producer; 
+    font-size: 2em;
+    text-decoration: none;  
+	content: "\e63a"; 
+}

@@ -1,0 +1,31 @@
+//Global variables file
+
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+$border-radius-base:        5px !default;
+$border-radius-large:       7px !default;
+$border-radius-small:       3px !default;
+
+//** the min/max width of the content that appears in center for all web pages...
+$page-min-width: 300px !default; 
+$page-max-width: 1060px !default; 
+
+
+//**colors
+$background-grey: #DADADE;
+$background-grey-lighter: lighten($background-grey, 10%);
+$red: #FF0000;
+$red-darker: darken($red, 20%);
+
+/* links visited */
+$link-visited-color: #053855;
+
+/** break points values used throughout podcastpedia for responsive - design */
+$break-point-normal: 1050px;
+$break-point-smaller: 820px;
+$break-point-small: 640px;
+$break-point-very-small: 480px;
+$break-point-tiny: 365px;
+
+
+
+

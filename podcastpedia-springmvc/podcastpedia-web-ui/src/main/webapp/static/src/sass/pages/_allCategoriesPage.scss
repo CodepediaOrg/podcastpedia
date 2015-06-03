@@ -1,0 +1,28 @@
+#all_categories_with_podcasts ul {
+  margin-top: 10px;
+  margin-left: 10px;
+  list-style: none;
+  > li {
+    float: left;
+    display: block;
+    list-style: none;
+    height: 20px;
+    width: 260px;
+    border-style: none;
+    padding: 10px;
+    .nrPods {
+      font-size: 15px;
+      color: #185B8B;
+      margin-left: 2px;
+    }
+    > a {
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+}
+
+#all_categories_with_podcasts{
+float:left;
+}

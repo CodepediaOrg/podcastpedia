@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.admin.dao.InsertDao">
+
+    <insert id="insertEpisode" parameterType="Episode" >
+		INSERT into episodes 
+			(
+				podcast_id, 
+				episode_id, 
+				description, 
+				link,  
+				title, 
+				publication_date, 
+				media_url, 
+				media_type,  
+				length,
+				title_in_url,
+				availability,
+				enclosure_type								
+			)
+	    VALUES
+	      	(
+	      		#{podcastId}, 
+	      		#{episodeId}, 
+	      		#{description}, 
+	      		#{link}, 
+	      		#{title}, 
+	      		#{publicationDate}, 
+	      		#{mediaUrl}, 
+	      		#{mediaType}, 
+	      		#{length},
+	      		#{titleInUrl},
+	      		#{availability},
+	      		#{enclosureType}
+	      	)
+  	</insert>
+   
+  <!-- inserts a new podcast in the database -->  	
+  <insert id="addPodcast" parameterType="Podcast" useGeneratedKeys="true" keyProperty="podcastId" >
+	INSERT into podcasts 
+	(
+		url,
+		identifier, 
+		insertion_date, 
+		publication_date, 
+		last_update,
+		LANGUAGE_CODE,
+		media_type, 
+		description, 
+		podcast_image_url, 
+		title,
+		copyright, 
+		podcast_link, 
+		last_episode_url,
+		last_modified_header_field,
+		last_modified_header_field_str,
+		etag_header_field,
+		title_in_url,
+		update_frequency,
+		availability,
+		social_fb_page,
+		social_twitter_page,
+		social_gplus_page
+	)
+    VALUES
+    (
+      	#{url}, 
+      	#{identifier},
+      	#{insertionDate}, 
+      	#{publicationDate},
+      	#{lastUpdate},  
+      	#{languageCode},   
+        #{mediaType},
+        #{description}, 
+        #{urlOfImageToDisplay}, 
+        #{title}, 
+        #{copyright},  
+        #{link}, 
+        #{lastEpisodeMediaUrl},
+        #{lastModifiedHeaderField},
+        #{lastModifiedHeaderFieldStr},
+        #{etagHeaderField},
+        #{titleInUrl},
+        #{updateFrequency},
+        #{availability},
+        #{fbPage},
+        #{twitterPage},
+        #{gplusPage}
+    )
+  </insert>    
+	
+	  
+	<insert id="insertPodcastCategory" parameterType="PodcastCategory" >
+		INSERT into podcasts_categories
+			(podcast_id, category_id)
+	    VALUES
+	      (#{podcastId}, #{categoryId} )
+  	</insert>		
+  	
+	  
+	<!-- tags -->
+	<insert id="insertPodcastTag" parameterType="PodcastTag" >
+		INSERT into podcasts_tags 
+			(podcast_id, tag_id)
+	    VALUES
+	      (#{podcastId}, #{tagId} )
+  	</insert>	
+  	
+	<insert id="insertTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="tagId" >
+		INSERT into tags 
+			(name)
+	    VALUES
+	      (#{name})
+  	</insert>  	
+  		  
+</mapper>

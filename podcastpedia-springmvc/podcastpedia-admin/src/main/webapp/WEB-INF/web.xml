@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<display-name>Podcastpedia.org - Admin tool </display-name>
+	
+	<description> Admin tool for podcastpedia.org</description>
+
+	<!--
+		Key of the system property that should specify the root directory of this
+		web app. Applied by WebAppRootListener or Log4jConfigListener.
+		
+		Useful link - http://www.gridpulse.com/using-spring-webapprootlistener-access-webapp-root/ 
+	-->
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>podcastpedia.admin.root</param-value>
+	</context-param>
+	
+	<!--
+		Location of the Log4J config file, for initialization and refresh checks.
+		Applied by Log4jConfigListener.
+	-->	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j/log4j.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring/application-context.xml
+			classpath:spring/security-context.xml			
+		</param-value>
+	</context-param>	
+    
+  <!--
+	  - Configures Log4J for this web app.
+	  - As this context specifies a context-param "log4jConfigLocation", its file path
+	  - is used to load the Log4J configuration, including periodic refresh checks.
+	  -
+	  - Would fall back to default Log4J initialization (non-refreshing) if no special
+	  - context-params are given.
+	  -
+	  - Exports a "web app root key", i.e. a system property that specifies the root
+	  - directory of this web app, for usage in log file paths.
+	  - This web app specifies "podcastmania.root" (see log4j.properties file).
+	-->
+	
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener> 
+	
+	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
+	<!--
+		- Loads the root application context of this web app at startup,
+		- by default from "/WEB-INF/applicationContext.xml".
+		- Note that you need to fall back to Spring's ContextLoaderServlet for
+		- J2EE servers that do not follow the Servlet 2.4 initialization order.
+		-
+		- Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+		- to access it anywhere in the web application, outside of the framework.
+		-
+		- The root context is the parent of all servlet-specific contexts.
+		- This means that its beans are automatically available in these child contexts,
+		- both for getBean(name) calls and (external) bean references.
+	-->	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+	<!-- Keeps Spring Security updated about session life cycle events (listens to session requests). 
+		Used for concurrent Session Control  -->
+	<listener>
+	    <listener-class>
+	      org.springframework.security.web.session.HttpSessionEventPublisher
+	    </listener-class>
+	</listener>
+
+	<!--
+	 - Map static resources to the default servlet
+	 - examples:
+	 -     http://localhost:8080/static/images/pets.png
+	 -     http://localhost:8080/static/styles/petclinic.css
+	-->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--
+		- Servlet that dispatches request to registered handlers (Controller implementations).
+		- Has its own application context, by default defined in "{servlet-name}-servlet.xml",
+		- i.e. "petclinic-servlet.xml".
+		-
+		- A web app can contain any number of such servlets.
+		- Note that this web app has a shared root application context, serving as parent
+		- of all DispatcherServlet contexts.
+	-->	
+	<servlet>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<init-param>
+      		<param-name>contextConfigLocation</param-name>
+      		<param-value>
+      			classpath:spring/application-context.xml
+      		</param-value>
+    	</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+				
+	<!-- Reads request input using UTF-8 encoding
+	The character encoding type for the request can be set using the CharacterEncodingFilter. 
+	By setting this, when a form values are retrieved from the request the encoding type will be UTF-8. 
+	 -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- hook into Spring Security web infrastructure -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <url-pattern>/*</url-pattern>
+      <url-pattern>/j_spring_security_logout</url-pattern>
+    </filter-mapping>	
+	
+	<!-- set session timeout for 60 minutes -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+			
+	<resource-ref>
+        <description>Database resource for podcastpedia-admin web application </description>
+        <res-ref-name>jdbc/pcmDB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+	<resource-ref>
+	  <description>
+	    Resource reference to a factory for javax.mail.Session
+	    instances that may be used for sending electronic mail
+	    messages, preconfigured to connect to the appropriate
+	    SMTP server.
+	  </description>
+	  <res-ref-name>mail/Session</res-ref-name>
+	  <res-type>javax.mail.Session</res-type>
+	  <res-auth>Container</res-auth>
+	</resource-ref>    
+</web-app>

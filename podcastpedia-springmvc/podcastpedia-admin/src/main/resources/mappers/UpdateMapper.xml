@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.admin.dao.UpdateDao">
+ 	
+  <update id="updatePodcastOwnMetadatabyId" parameterType="Podcast">
+    UPDATE podcasts SET
+      media_type = #{mediaType},
+      update_frequency = #{updateFrequency},
+      language_code = #{languageCode}      
+    WHERE PODCAST_ID = #{podcastId}
+  </update>
+  
+  <update id="updatePodcastFeedAttributesById" parameterType="Podcast">
+    UPDATE podcasts SET
+      description = #{description},
+      podcast_image_url = #{urlOfImageToDisplay},
+      title = #{title},
+      title_in_url = #{titleInUrl},
+      copyright = #{copyright},
+      podcast_link = #{link},
+      author = #{author}
+    WHERE PODCAST_ID = #{podcastId}
+  </update>
+  
+  <update id="updateTransientDataForPodcastById" parameterType="Podcast">
+    UPDATE podcasts SET
+      last_episode_url = #{lastEpisodeMediaUrl},
+      last_modified_header_field = #{lastModifiedHeaderField},
+      last_modified_header_field_str = #{lastModifiedHeaderFieldStr},
+      etag_header_field = #{etagHeaderField},
+      publication_date = #{publicationDate},
+      last_update = #{lastUpdate},
+      availability=#{availability}      
+    WHERE PODCAST_ID = #{podcastId}
+  </update>  
+    
+  <update id="updatePodcastByFeedUrl" parameterType="Podcast">
+    UPDATE podcasts SET
+      description = #{description},
+      podcast_image_url = #{urlOfImageToDisplay},
+      title = #{title},
+      copyright = #{copyright},
+      podcast_link = #{link},
+      last_episode_url = #{lastEpisodeMediaUrl},
+      last_modified_header_field = #{lastModifiedHeaderField},
+      last_modified_header_field_str = #{lastModifiedHeaderFieldStr},
+      etag_header_field = #{etagHeaderField},
+      title_in_url = #{titleInUrl},
+      publication_date = #{publicationDate},
+      last_update = #{lastUpdate},      
+      availability = #{availability}         
+    WHERE url = #{url}
+  </update>   	
+
+  <update id="updateEpisodeAvailability" parameterType="Episode">
+    UPDATE episodes SET
+      is_available = #{isAvailable},
+      availability = #{availability}         
+    WHERE 
+	  podcast_id = #{podcastId}
+	AND
+	  episode_id = #{episodeId}
+  </update>   
+
+  <update id="updatePodcastAvailability" parameterType="Podcast">
+    UPDATE podcasts SET      
+      availability = #{availability}         
+    WHERE 
+	  podcast_id = #{podcastId}
+  </update>  
+  
+  <update id="updatePodcastEpisodesAvailability" parameterType="hashmap">
+    UPDATE episodes SET
+      is_available = 0,
+      availability = #{availability}         
+    WHERE 
+	  podcast_id = #{podcastId}
+  </update>     
+      		  
+  <update id="markAllEpisodesAsNotNew" parameterType="Integer">
+    UPDATE episodes SET      
+      is_new = null         
+    WHERE 
+	  podcast_id = #{podcastId}
+	  and
+	  availability = 200
+  </update> 
+  
+  <update id="markNewEpisodesAsNew" parameterType="org.podcastpedia.admin.dao.helper.InputMarkNewEpisodesAsNew">
+    UPDATE episodes SET      
+      is_new = 1         
+    WHERE 
+	  podcast_id = #{podcastId}
+	  AND
+	  episode_id IN
+      <foreach item="element" index="index" collection="episodes"
+          open="(" separator="," close=")">
+          #{element.episodeId}
+      </foreach>
+  </update>       
+      		  
+</mapper>

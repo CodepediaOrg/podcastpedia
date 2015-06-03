@@ -1,0 +1,18 @@
+<html>
+	<body>
+		<h3>Hi Podcastpedia team, you have one new contact message!</h3>
+		<p>
+			from - ${newMessage.name}
+		</p>
+		<p>
+			email - ${newMessage.email}
+		</p>
+		<p>
+			topic - ${newMessage.topic}
+		</p>
+		<p>
+			message - ${newMessage.message}
+		</p>
+	</body>
+
+</html>

@@ -1,0 +1,35 @@
+<html>
+	<body>
+		#if( $XHTML )
+		  #set( $br = "<br />" )
+		#else
+		  #set( $br = "<br>" )
+		#end	
+
+			Dear ${name},
+			<p style="margin: 4px 0px;">			
+				Thank you very much for your suggestion. Your podcast has been added to the directory:
+				$br
+				<a href="${podcastUrl}">${podcastUrl}</a>
+			</p>
+		<p style="margin-top:13px">
+			Best regards,
+			<br>
+			<a href="http://www.podcastpedia.org">Podcastpedia.org</a>
+		</p>
+		<p style="margin-top:21px">
+			Thank you for sharing and connecting with us
+			$br
+			<a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://twitter.com/podcastpedia" style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
+			</a>
+			<a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
+				<img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
+			</a>									  
+		</p>  
+	</body>
+
+</html>

@@ -1,0 +1,135 @@
+.title_before_form {
+  color: #A73030;
+  font-family: Arial,sans-serif;
+  font-size: 2em;
+  margin: 10px;
+}
+
+.error_form_validation {
+  color: red;
+}
+
+.before_form_header_line {
+  margin-bottom: 15px;
+}
+
+.form_input {
+  background-color: #EEF4FC;
+  font-family: "Century Gothic", "Gill Sans", Arial, sans-serif;
+  font-size: .9em;
+  width: 210px;
+  margin-top: -8px;
+  &:focus {
+    background-color: #B9D7FA;
+  }
+}
+
+#whereToLook {
+  margin-left: 10px;
+}
+
+.input_in_error {
+  background-color: #FAD9D9;
+}
+
+.submit_form_button {
+  background-color: #94BADA;
+  float: right;
+  font-family: "Century Gothic","Gill Sans",Arial,sans-serif;
+  margin: 10px 20px 10px 10px;
+}
+
+#captcha_help_pic {
+  height: 15px;
+  width: 20px;
+  padding: 0 5px;
+}
+
+.vertical_style_form {
+  margin-top: 10px;
+  .label {
+    font-weight: 400;
+  }
+  #text {
+    width: 350px;
+  }
+  #feedUrl, #suggestedTags, #message {
+    width: 80%;
+  }
+  #category {
+    height: 250px;
+    margin-top: 2px;
+  }
+  p {
+    margin: 0 0 17px 10px;
+    padding: 0;
+    &.captcha_help_p {
+      font-weight: 700;
+      margin: 0 0 5px 10px;
+    }
+  }
+}
+
+.label_above_elements, #label_above_elements {
+margin:0 0 5px 10px;
+}
+
+div.error,.vertical_style_form #captcha_paragraph {
+margin-left:10px;
+}
+
+#advanced_search_wrapper {
+  padding: 10px;
+}
+
+.vertical_style_form {
+  #name, #email {
+    width: 150px;
+  }
+}
+
+#categId {
+    height: 250px;
+}
+
+#search_bar_form #subscribe, #quick_search_form #subscribe {
+  background-color: #94BADA;
+  font-family: "Century Gothic", "Gill Sans", Arial, sans-serif;
+  margin-top: 11px;
+  float: right;
+  margin-right: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#search_bar_form #queryText:focus {
+  background-color: #99C7FB;
+}
+
+#advanced_search_form {
+  #queryText:focus, #allTheseWords:focus, #exactPhrase:focus, #anyOfTheseWords:focus, #noneOfTheseWords:focus {
+    background-color: #99C7FB;
+  }
+}
+
+#contact_form_text_message {
+  padding-top:5px
+}
+#contact_follow_us {
+  margin-left:5px;
+}
+
+#thank_you_message {
+  margin-bottom:10px;
+  font-size:1.2em;
+}
+
+#natural_mode_part {
+  float:left;
+}
+
+img.recommend_social {
+  height:21px;
+  width:21px;
+  vertical-align:middle
+}

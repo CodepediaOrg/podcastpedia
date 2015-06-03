@@ -1,0 +1,12 @@
+/* media query mixin */
+@mixin until-mq($device-width) {
+  @media screen and (max-width: $device-width - 1) {
+    @content 
+  }
+}
+
+@mixin above-mq($device-width) {
+  @media screen and (min-width: $device-width) {
+    @content 
+  }
+}

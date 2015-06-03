@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="defaultTemplate" template="/WEB-INF/template/template.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/template/defaultHeader.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/template/defaultContent.jsp" />
+	</definition>
+
+
+	<!-- insert -->
+	<definition name="insert_podcasts_from_file_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Insert podcasts from file" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/insert/add_podcasts_from_file.jsp" />
+	</definition>
+
+	<!-- Administrator's definitions, I should also change the template for 
+		this one -->
+	<definition name="admin_podcastAdded" extends="defaultTemplate">
+		<put-attribute name="title" value="Podcast added!" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin_podcastAdded.jsp" />
+	</definition>
+
+	<!-- security pages -->
+	<definition name="loginpage" extends="defaultTemplate">
+		<put-attribute name="header" value="/WEB-INF/template/empty.jsp" />
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="content" value="/WEB-INF/jsp/security/login.jsp" />
+	</definition>
+	<definition name="deniedpage" extends="defaultTemplate">
+		<put-attribute name="title" value="AccessDenied" />
+		<put-attribute name="content" value="/WEB-INF/jsp/security/denied.jsp" />
+	</definition>
+	<definition name="sessionExpired" extends="defaultTemplate">
+		<put-attribute name="title" value="Session Expired" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/security/session_expired.jsp" />
+	</definition>
+
+	<!-- ******* homepage ******* -->
+	<definition name="homePage_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Admin home page" />
+		<put-attribute name="content" value="/WEB-INF/jsp/homepage/admin_homepage.jsp" />
+	</definition>
+	<definition name="episodesAddedDefinition" extends="defaultTemplate">
+		<put-attribute name="title" value="Advanced Search" />
+		<put-attribute name="content" value="/WEB-INF/jsp/episodesAddedInDB.jsp" />
+	</definition>
+
+	<!-- add podcast form -->
+	<definition name="podcastForm_definition" extends="defaultTemplate">
+		<put-attribute name="title" value="Admin add podcast form" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin_addPodcast_form.jsp" />
+	</definition>
+
+	<!-- error pages -->
+	<definition name="friendlyError" extends="defaultTemplate">
+		<put-attribute name="title" value="Error page" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/error/defaultErrorPage.jsp" />
+	</definition>
+
+	<!-- update -->
+	<definition name="updateForm_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Update categories and tags" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/update/update_categories_and_tags_form.jsp" />
+	</definition>
+	<definition name="batch_update_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Batch update jobs" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/update/batch_update_by_frequency.jsp" />
+	</definition>
+	<definition name="feed_update_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Update feed's attributes" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/update/update_feed_attributes.jsp" />
+	</definition>
+	<definition name="individual_podcast_episodes_update_def"
+		extends="defaultTemplate">
+		<put-attribute name="title" value="Update episodes for podcast(s)" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/update/update_individual_podcast_episodes.jsp" />
+	</definition>
+	<definition name="update_podcast_metadata_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Update metadata for podcast" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/update/update_podcast_metadata.jsp" />
+	</definition>
+
+	<!-- delete -->
+	<definition name="delete_podcasts_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Delete podcasts" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/delete/delete_podcasts.jsp" />
+	</definition>
+
+	<!-- sitemaps -->
+	<definition name="sitemaps_def" extends="defaultTemplate">
+		<put-attribute name="title" value="Create sitemaps" />
+		<put-attribute name="content" value="/WEB-INF/jsp/sitemaps/sitemaps.jsp" />
+	</definition>
+</tiles-definitions> 
+

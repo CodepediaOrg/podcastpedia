@@ -1,0 +1,43 @@
+#separating_search_mode_line {
+margin:20px;
+}
+
+#advanced_search_form {
+  font-size: 1.1em;
+  margin-top: 21px;
+  fieldset {
+    margin-top: 20px;
+    padding-top: 10px;
+    border: 1px dashed #9DA4AD;
+    border-radius: 5px;
+  }
+  legend {
+    color: #9C2C2C;
+    font-size: 1.2em;
+    margin-left: 15px;
+  }
+  #category_comment {
+    padding: 0 0 50px;
+  }
+  #queryText {
+    width: 270px;
+    color: #848484;
+  }
+  #category:focus {
+    background-color: #D8E9FC;
+  }
+  #search_mode_title {
+    font-size: 1.1em;
+    margin: 0 0 0 20px;
+  }
+  .search_type_selection {
+    font-size: 1.1em;
+    margin: 0 0 0 30px;
+  }
+  label {
+    font-weight: bold;
+  }
+  p {
+    margin-left: 10px;
+  }
+}

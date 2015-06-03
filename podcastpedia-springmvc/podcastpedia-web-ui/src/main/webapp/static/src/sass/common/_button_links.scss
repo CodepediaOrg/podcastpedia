@@ -1,0 +1,67 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin btn-background($color, $darken-percentage) {
+  background: $color;
+  background-image: linear-gradient(to bottom, $color, darken($color, $darken-percentage));   
+}
+
+.btn-share {
+  @include btn-background(#3498db, 10%);
+  border-radius : 5px;
+  text-decoration: none;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 1.2em;
+  padding: 5px 10px;
+  margin-right: 5px;
+  &:hover {
+    @include btn-background(#369EE4, 3%);
+    text-decoration: none;
+    color: $link-visited-color;
+  }
+  &:after {
+    font-family: 'podcastpedia';
+  }
+}
+
+/* btn share for website and feed TODO - bring all together with sass */
+.btn-metadata2 {
+  @include btn-background(#3498db, 10%);
+ 	border-radius: 8px;
+  color: #ffffff;
+  padding: 3px 8px;
+  margin: 2px;
+  border: solid #1f628d 1px;
+  text-decoration: none;
+  &:hover {
+    @include btn-background(#37A4ED, 3%);
+    text-decoration: none;
+    color: $link-visited-color;
+  }
+}
+
+.btn-metadata1 {
+  border-radius: 8px;
+  @include btn-background(#d15c2e, 10%);  
+  font-family: 'podcastpedia';
+  color: #ffffff;
+  font-size: 1.2em;
+  padding: 5px;
+  //border: solid #6b220a 1px;
+  text-decoration: none;
+  margin-right: 5px;
+  &:hover {
+    @include btn-background(#e67a53, 3%);
+    text-decoration: none;
+    color: $link-visited-color;
+  }
+}
+
+a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
+	color: #EFF5FB;
+}

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.admin.dao.AdminToolsDao">
+
+    <insert id="insertEpisode" parameterType="Episode" >
+		INSERT into episodes 
+			(
+				podcast_id, 
+				episode_id, 
+				description, 
+				link,  
+				title, 
+				publication_date, 
+				media_url, 
+				media_type,  
+				length,
+				title_in_url								
+			)
+	    VALUES
+	      	(
+	      		#{podcastId}, 
+	      		#{episodeId}, 
+	      		#{description}, 
+	      		#{link}, 
+	      		#{title}, 
+	      		#{publicationDate}, 
+	      		#{mediaUrl}, 
+	      		#{mediaType}, 
+	      		#{length},
+	      		#{titleInUrl}
+	      	)
+  	</insert>
+  	
+  <update id="updatePodcastById" parameterType="Podcast">
+    UPDATE podcasts SET
+      description = #{description},
+      podcast_image_url = #{urlOfImageToDisplay},
+      title = #{title},
+      copyright = #{copyright},
+      podcast_link = #{link},
+      last_episode_url = #{lastEpisodeMediaUrl},
+      last_modified_header_field = #{lastModifiedHeaderField},
+      last_modified_header_field_str = #{lastModifiedHeaderFieldStr},
+      etag_header_field = #{etagHeaderField},
+      title_in_url = #{titleInUrl}      
+    WHERE PODCAST_ID = #{podcastId}
+  </update>
+  
+  <update id="updatePodcastByFeedUrl" parameterType="Podcast">
+    UPDATE podcasts SET
+      description = #{description},
+      podcast_image_url = #{urlOfImageToDisplay},
+      title = #{title},
+      copyright = #{copyright},
+      podcast_link = #{link},
+      last_episode_url = #{lastEpisodeMediaUrl},
+      last_modified_header_field = #{lastModifiedHeaderField},
+      last_modified_header_field_str = #{lastModifiedHeaderFieldStr},
+      etag_header_field = #{etagHeaderField},
+      title_in_url = #{titleInUrl}        
+    WHERE url = #{url}
+  </update>  
+   
+  <!-- inserts a new podcast in the database -->  	
+  <insert id="addPodcast" parameterType="Podcast" useGeneratedKeys="true" keyProperty="podcastId" >
+	INSERT into podcasts 
+		(
+			url, 
+			insertion_date, 
+			publication_date, 
+			LANGUAGE_CODE,
+			media_type, 
+			description, 
+			podcast_image_url, 
+			title,
+			copyright, 
+			podcast_link, 
+			last_episode_url,
+			last_modified_header_field,
+			last_modified_header_field_str,
+			etag_header_field,
+			title_in_url
+		)
+    VALUES
+	      (
+	      	#{url}, 
+	      	#{insertionDate}, 
+	      	#{publicationDate}, 
+	      	#{languageCode},   
+	        #{mediaType},
+	        #{description}, 
+	        #{urlOfImageToDisplay}, 
+	        #{title}, 
+	        #{copyright},  
+	        #{link}, 
+	        #{lastEpisodeMediaUrl},
+	        #{lastModifiedHeaderField},
+	        #{lastModifiedHeaderFieldStr},
+	        #{etagHeaderField},
+	        #{titleInUrl}
+	      )
+  </insert>
+    
+    <!-- ********* delete podcasts and episodes section ********* --> 	
+	<delete id="deletePodcastById" parameterType="int">
+		DELETE FROM podcasts WHERE podcast_id = #{id}
+	</delete>    
+	
+	<delete id="deletePodcastByFeedUrl" parameterType="String">
+		DELETE FROM podcasts WHERE url = #{feedUrl}
+	</delete>
+	
+	<delete id="deleteEpisodesByPodcastId" parameterType="int">
+		DELETE FROM episodes WHERE podcast_id = #{id}
+	</delete>
+	
+	<delete id="deleteAllEpisodes">
+		DELETE FROM episodes WHERE 1=1
+	</delete>	
+		
+	<delete id="deleteEpisodesByFeedUrl" parameterType="String">
+		DELETE FROM episodes 		
+			WHERE 
+				podcast_id = (SELECT p.podcast_id FROM podcasts p
+									WHERE p.url = #{feedUrl} )
+	</delete>	
+	
+	<delete id="deletePodcastCategoriesByPodcastId" parameterType="int">
+		DELETE FROM podcasts_categories WHERE podcast_id = #{id}
+	</delete>
+		
+	<delete id="deletePodcastCategoriesByFeedUrl" parameterType="String">
+		DELETE FROM podcasts_categories 		
+			WHERE 
+				podcast_id = (SELECT p.podcast_id FROM podcasts p
+									WHERE p.url = #{feedUrl} )
+	</delete>	
+	
+	<delete id="deletePodcastTagsByPodcastId" parameterType="int">
+		DELETE FROM podcasts_tags WHERE podcast_id = #{id}
+	</delete>	
+	
+	<delete id="deletePodcastTagsByFeedUrl" parameterType="String">
+		DELETE FROM podcasts_tags 		
+			WHERE 
+				podcast_id = (SELECT p.podcast_id FROM podcasts p
+									WHERE p.url = #{feedUrl} )
+	</delete>	
+	
+	<!-- category stuff -->
+	<!--    result maps     -->
+	<resultMap id="allCategories" type="Category" >
+	    <id column="category_id" property="categoryId"  />
+	    <result column="NAME" property="name" />
+	    <result column="DESCRIPTION" property="description" />
+	    <result column="PARENT_CATEGORY_ID" property="parentCategoryId" />
+	    <result column="PARENT_CATEGORY_NAME" property="parentCategoryName" />	     
+	    <result column="NUMBER_OF_PODCASTS" property="numberOfPodcasts" />	      
+	</resultMap>   
+
+	  <select id="getAllCategories" resultMap="allCategories">
+	    SELECT 
+	    	category_id, 
+	    	NAME, 
+	    	DESCRIPTION, 
+	    	PARENT_CATEGORY_ID, 
+	    	PARENT_CATEGORY_NAME,
+	    	NUMBER_OF_PODCASTS
+	    FROM 
+	    	categories
+	    ORDER BY name ASC 
+	  </select>	
+	  
+	<insert id="insertPodcastCategory" parameterType="PodcastCategory" >
+		INSERT into podcasts_categories 
+			(podcast_id, category_id)
+	    VALUES
+	      (#{podcastId}, #{categoryId} )
+  	</insert>		
+  	
+  	<!-- podcasts stuff -->
+		<resultMap id="allPodcastsResultMap" type="Podcast" >
+		    <id column="podcast_id" property="podcastId"  />
+		    <result column="url" property="url" />
+		    <result column="rating" property="rating" />
+		    <result column="number_visitors" property="numberOfVisitors" />	  
+		    <result column="description" property="description" />
+		    <result column="last_modified_header_field" property="lastModifiedHeaderField" />
+		    <result column="last_modified_header_field_str" property="lastModifiedHeaderFieldStr" />			          
+		    <result column="etag_header_field" property="etagHeaderField" />
+		</resultMap>   
+	
+	  <select id="getAllPodcasts" resultMap="allPodcastsResultMap" parameterType="String">
+	    SELECT 
+	    	podcast_id, 
+	    	url, 
+	    	rating, 
+	    	number_visitors,
+	    	description,
+	    	media_type,
+      		last_modified_header_field,
+      		last_modified_header_field_str,
+     		etag_header_field   	    	
+	    FROM 
+	    	podcasts
+	  </select> 	
+	  
+	  <!-- tags -->
+	<insert id="insertPodcastTag" parameterType="PodcastTag" >
+		INSERT into podcasts_tags 
+			(podcast_id, tag_id)
+	    VALUES
+	      (#{podcastId}, #{tagId} )
+  	</insert>	
+  	
+	<insert id="insertTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="tagId" >
+		INSERT into tags 
+			(name)
+	    VALUES
+	      (#{name})
+  	</insert>  
+  		
+	<resultMap id="TagResultMap" type="Tag" >
+	    <id column="tag_id" property="tagId"  />
+	    <result column="name" property="name" />	  
+	</resultMap>   		
+ 	  <select id="getTagByName" resultMap="TagResultMap" parameterType="String">
+	    SELECT 
+	    	tag_id,
+	    	name  	    	
+	    FROM 
+	    	tags
+	    WHERE
+	    	name = #{value}
+	  </select>  	
+  		  
+</mapper>

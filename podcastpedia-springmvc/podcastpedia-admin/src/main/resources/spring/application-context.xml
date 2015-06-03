@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+ 
+	http://www.springframework.org/schema/beans	 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	 
+	http://www.springframework.org/schema/mvc	 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd
+	
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	<!-- import the dataSource definition -->
+	<import resource="data-source.xml" />
+
+	<!-- ========================= Import Tiles-related configuration ========================= -->
+	<import resource="tiles-context.xml" />
+
+	<import resource="classpath:spring/pcm-common.xml" />
+
+	<!-- - The controllers are autodetected POJOs labeled with the @Controller 
+		annotation. -->
+	<context:component-scan base-package="org.podcastpedia.*" />
+
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Instruct Spring to perform declarative transaction management automatically 
+		on annotated classes. -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<task:annotation-driven executor="taskExecutor" />
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean">
+		<property name="corePoolSize" value="20" />
+		<property name="maxPoolSize" value="50" />
+	</bean>
+
+	<!-- Forwards requests to the "/" resource to the "welcome" view -->
+	<mvc:view-controller path="/" view-name="adminHomePageDefinition" />
+
+	<!-- pcm-services.xml -->
+	<bean id="insertService" class="org.podcastpedia.admin.insert.InsertServiceImpl" />
+	<bean id="readService" class="org.podcastpedia.admin.util.read.ReadServiceImpl" />
+	<bean id="updateService" class="org.podcastpedia.admin.update.UpdateServiceImpl" />
+	<bean id="batchUpdateService" class="org.podcastpedia.admin.update.batch.BatchUpdateServiceImpl" />
+	<bean id="updateFeedAttributesService" class="org.podcastpedia.admin.update.feed.UpdateFeedAttributesServiceImpl" />
+	<bean id="updateMetadataService" class="org.podcastpedia.admin.update.metadata.UpdateMetadataServiceImpl" />
+	<bean id="deleteService" class="org.podcastpedia.admin.delete.DeleteServiceImpl" />
+	<bean id="restClient" class="org.podcastpedia.admin.util.restclient.RestClientImpl" />
+	<bean id="sitemapService" class="org.podcastpedia.admin.sitemaps.SitemapServiceImpl" />
+	<bean id="socialMediaService" class="org.podcastpedia.admin.insert.SocialMediaServiceImpl" />
+	<bean id="emailNotificationService" class="org.podcastpedia.admin.insert.EmailNotificationServiceImpl">
+		<property name="mailSender" ref="mailSender" />
+		<property name="velocityEngine" ref="velocityEngine" />
+	</bean>
+	<bean id="syndFeedService" class="org.podcastpedia.admin.util.SyndFeedServiceImpl" />	
+	<bean id="podcastAndEpisodeAttributesService" class="org.podcastpedia.admin.util.PodcastAndEpisodeAttributesServiceImpl" />
+
+	<!-- ========================= MyBATIS configuration ========================= -->
+	<bean id="adminToolsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="org.podcastpedia.admin.dao.AdminToolsDao" />
+	</bean>
+	<bean id="insertDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="org.podcastpedia.admin.dao.InsertDao" />
+	</bean>
+	<bean id="readDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="org.podcastpedia.admin.dao.ReadDao" />
+	</bean>
+	<bean id="updateDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="org.podcastpedia.admin.dao.UpdateDao" />
+	</bean>
+	<bean id="deleteDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="org.podcastpedia.admin.dao.DeleteDao" />
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatisV3-config.xml" />
+	</bean>
+
+	<!-- needed for transactional support when adding a new podcast (multiple 
+		inserts in podcasts and podcats_categories tables) -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- HTTP client -->
+	<bean id="poolingHttpClientConnectionManager"
+		class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager">
+		<property name="maxTotal" value="100" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="100000" />
+	</bean>
+	<!-- Exception handling configuration I WANT to see the full error trace 
+		as admin ... <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		<property name="exceptionMappings"> <props> <prop key="java.lang.Exception">friendlyError</prop> 
+		</props> </property> </bean> -->
+		
+			
+</beans>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans  xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jaxws="http://cxf.apache.org/jaxws"
+	    xmlns:p="http://www.springframework.org/schema/p" 
+	    xmlns:context="http://www.springframework.org/schema/context"
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+	    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	    xmlns:cache="http://www.springframework.org/schema/cache"
+	    xsi:schemaLocation="
+ 
+			http://www.springframework.org/schema/beans	 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			 
+			http://www.springframework.org/schema/mvc	 
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			
+			http://cxf.apache.org/jaxws 
+			http://cxf.apache.org/schemas/jaxws.xsd
+			
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			
+			http://www.springframework.org/schema/cache
+			http://www.springframework.org/schema/cache/spring-cache.xsd">
+ 
+	<!-- services configuration -->
+ 	<import resource="service-context.xml"/>
+ 	
+ 	<!-- DAOs configuration -->
+	<import resource="dao-context.xml"/>
+  
+	<!-- ========================= Import Tiles-related configuration ========================= -->
+	<import resource="tiles-context.xml" />
+	
+	<import resource="classpath:spring/pcm-common.xml" />
+	
+	 
+	<!--
+		- The controllers are autodetected POJOs labeled with the @Controller annotation.
+	-->
+	<context:component-scan base-package="org.podcastpedia.web.*"/>
+	
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven/>
+	
+	<cache:annotation-driven key-generator="enhancedDefaultKeyGenerator"/>
+	<bean id ="enhancedDefaultKeyGenerator" class="org.podcastpedia.web.caching.EnhancedDefaultKeyGenerator"/>
+	<!-- Forwards requests to the "/" resource to the "welcome" view -->
+	<!-- 
+		<mvc:view-controller path="/" view-name="welcome"/>	
+		<mvc:view-controller path="/" view-name="startPage_def"/>
+	 -->
+	 
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	-->	
+	<tx:annotation-driven transaction-manager="transactionManager" /> 
+	
+	<!-- Application Message Bundle -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages/messages" />
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" >
+		<property name="cookieName" value="preferredLanguage"/>
+		<property name="defaultLocale" value="en_US" /> 
+		<property name="cookieMaxAge" value="604800"/>		
+	</bean>
+		 		
+	<mvc:interceptors>
+		<!-- Changes the locale when a 'lang' request parameter is sent; e.g. /?lang=de -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"/>
+		</bean>
+		               
+	</mvc:interceptors>
+     
+    <!-- Exception handling configuration      
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+			    <prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
+			    <prop key=".TypeMismatchException">resourceNotFound</prop>
+			    <prop key=".MissingServletRequestParameterException">resourceNotFound</prop>			
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+		<property name="defaultErrorView" value="friendlyError"/>
+	</bean>
+	--> 
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" p:order="1" />
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:order="2" p:defaultErrorView="uncaughtException">
+	  <property name="exceptionMappings">
+	    <props>
+	      <prop key="org.springframework.core.NestedRuntimeException.DataAccessException">dataAccessFailure</prop>
+	      <prop key="org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException">resourceNotFound</prop>
+	      <prop key="org.springframework.beans.TypeMismatchException">resourceNotFound</prop>
+	      <prop key="org.springframework.web.bind.MissingServletRequestParameterException">resourceNotFound</prop>
+	    </props>
+	  </property>
+	</bean>	
+
+			
+	<!-- validators -->
+	<bean id="suggestPodcastValidator" class="org.podcastpedia.web.suggestpodcast.SuggestPodcastValidator"/>
+	<bean id="contactFormValidator" class="org.podcastpedia.web.contact.ContactFormValidator"/>
+	
+	<bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+		<property name="privateKey" value="6LcW3OASAAAAAKVX2duVsSy2uMMHL105-jPDrHMD"/>
+	</bean>
+
+	<!-- *******************************
+	     ***** CACHE CONFIGURATION *****
+		 ******************************* -->				
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+    	<property name="cacheManager" ref="ehcache"/>
+    </bean>
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    	<property name="configLocation" value="classpath:config/ehcache.xml"/>
+    	<property name="shared" value="true"/>
+    </bean>    
+    
+   <!-- use beans from pcm-common -->
+   <bean id="emailNotificationServiceSuggestPodcast" class="org.podcastpedia.web.suggestpodcast.EmailNotificationServiceImpl">
+      <property name="mailSender" ref="mailSender"/>
+      <property name="velocityEngine" ref="velocityEngine"/>
+   </bean>    
+
+   <bean id="emailNotificationServiceContact" class="org.podcastpedia.web.contact.EmailNotificationServiceImpl">
+      <property name="mailSender" ref="mailSender"/>
+      <property name="velocityEngine" ref="velocityEngine"/>
+   </bean>    
+   
+</beans>

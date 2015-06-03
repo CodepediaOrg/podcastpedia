@@ -1,0 +1,72 @@
+.pagination {
+  ul {
+    text-align: center;
+    font-size: 14px;
+    margin: 5px;
+    padding: 0;
+    > li {
+      list-style-type: none;
+      display: inline-block;
+      -webkit-box-shadow: 3px 3px 4px #28313A;
+      -moz-box-shadow: 3px 3px 4px #28313A;
+      box-shadow: 3px 3px 4px #28313A;
+      margin: 8px 2px 2px;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: #4f6a87;
+    background-color: #FFF;
+    border: 1px solid #c9d6df;
+    border-radius: 3px;
+    padding: 2px 5px;
+    &:visited {
+      text-decoration: none;
+      color: #4f6a87;
+      background-color: #FFF;
+      border: 1px solid #c9d6df;
+      border-radius: 3px;
+      padding: 2px 5px;
+    }
+    &:hover {
+      color: #333;
+      background-color: #C2C7CB;
+      border: 1px solid #f2f5f7;
+    }
+    &.currentpage {
+      color: #4f6a87!important;
+      cursor: default;
+      text-decoration: none;
+      font-weight: 700;
+      background-color: #C2C7CB;
+      border: 1px solid #C2C7CB;
+    }
+  }
+}
+
+.next-page:after {
+  content: ">";
+  margin-left: 3px;
+}
+
+.prev-page:before {
+  content: "<";
+  margin-right: 3px;
+}
+
+.pagination_top {
+  margin-bottom: 20px;
+  border-bottom-color: #E1E7E9;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding-bottom: 15px;
+}
+
+.pagination_bottom {
+  margin: 10px auto;
+  border-top-color: #E1E7E9;
+  border-top-style: solid;
+  border-top-width: 1px;
+  padding-top: 8px;
+  text-align: center;
+}

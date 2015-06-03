@@ -1,0 +1,141 @@
+html,body,h1,h2,h3,h4,h5,h6,p,ol,ul,li,pre,code,address,variable,form,fieldset,blockquote,hr {
+	font-size:100%;
+	font-weight:400;
+	margin:0;
+	padding:0;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+td,th,caption {
+	font-weight:400;
+	text-align:left;
+}
+
+img,fieldset {
+    border:0;
+}
+
+ol {
+    padding-left:1.4em;
+    list-style:decimal;
+}
+
+ul {
+    padding-left:1.4em;
+    list-style:square;
+}
+
+q:before,q:after {
+content:'';
+}
+
+body {
+	/* fallback */
+	background-color: #DADADE;
+	font-size:12px;
+	text-align:justify;
+	color:#5A5A5A;
+	font-family:Arial, sans-serif;
+	margin:0;
+	padding:5px;  
+}
+
+h1,h2,h3 {
+    font-weight:400;
+    color:#5C5C5C;
+    margin:0;
+}
+
+h1 {
+	letter-spacing:-1px;
+	font-size:34px;
+}
+
+h3 {
+	font-size:18px;
+}
+
+p,ul,ol {
+	text-align:justify;
+	margin:0 0 1em;
+}
+
+a {
+	color:#1B75A9;
+}
+
+a:hover,a:active {
+	text-decoration:none;
+	color:#053855;
+}
+
+a:visited {
+	color:#053855;  
+}
+
+img {
+	border:none;
+}
+
+img.left {
+	float:left;
+	margin-right:15px;
+}
+
+img.right {
+	float:right;
+	margin-left:15px;
+}
+
+/** should be moved to own file maybe _common.scss*/
+#page {
+	background:#FFF;
+	background-color:#185B8B;
+	border-bottom:5px #185B8B solid;
+	border-left:5px #185B8B solid;
+	border-right:5px #185B8B solid;
+	padding-top:5px;
+	margin:0 auto;
+	min-width: $page-min-width;
+	max-width: $page-max-width - 10;  
+}
+
+.bg_color {
+	background-color:$background-grey-lighter;
+}
+
+.shadowy {
+	box-shadow:3px 3px 4px #28313A;
+}
+
+.clear {
+	clear:both;
+	margin:0;
+	padding:0;
+}
+
+.common_mar_pad {
+	margin:0;
+	padding:10px;
+}
+
+
+* html a:hover {
+	background:transparent;
+}
+
+html {
+	overflow-y:scroll;
+}
+
+.border_radius,.common_radius {
+	border-radius:5px;
+}
+
+div.not_shown, .item_url, .item_url_ep{
+	display: none;
+}

@@ -1,0 +1,325 @@
+/* @group Global Browser Reset */
+* {
+	padding:0;	
+	margin:0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #28313A;
+	background-image: url(../images/img01.jpg); 
+	background-repeat:  repeat-x;
+	background-position: left top;
+	font-size: 12px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	text-align: justify;
+	color: #5C5C5C;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	text-transform: lowercase;
+	font-weight: normal;
+	color: #5C5C5C;
+}
+
+h1 {
+	letter-spacing: -1px;
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 23px;
+}
+
+p, ul, ol {
+	margin: 0 0 2em 0;
+	text-align: justify;
+	line-height: 26px;
+}
+
+a {
+	color: #1B75A9;
+}
+
+
+a:hover, a:active {
+	text-decoration: none;
+	color: #053855;
+}
+
+a:visited {
+	color: #053855;
+}
+
+img {
+	border: none;
+}
+
+img.left {
+	float: left;
+	margin-right: 15px;
+}
+
+img.right {
+	float: right;
+	margin-left: 15px;
+}
+
+/* Form */
+form {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+legend {
+	display: none;
+}
+
+input, textarea, select {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #333333;
+}
+
+#wrapper {
+	margin: 0;
+	padding: 0;
+}
+
+
+/* Menu */
+#menu {
+	float: left;
+	width: 880px;
+	height: 58px;
+	background: url(../images/img02.jpg) repeat-x left top;
+}
+
+#menu ul
+{
+	width: 100%;
+	float:left;
+	margin:0px; 
+	padding:0;
+	list-style: none;
+}
+
+#menu ul li {
+	display:block;
+	float:left;
+	list-style:none;
+	position:relative;
+}
+
+#menu ul li a {
+	display: block;
+	color:#fff; 
+	text-decoration:none;
+	font-size: 13px;
+	text-transform: uppercase;
+	height:58px;
+	padding: 8px 15px; 
+}
+
+#menu li a:hover {
+	text-decoration:underline;
+	background: url(../images/img02-1.jpg) repeat-x;
+	height:58px;
+}
+
+
+/** LOGO */
+#logo {
+	width: 880px;
+	height: 150px;
+	margin: 0 auto;
+}
+
+#logo h1, #logo h2 {
+	float: left;
+	margin: 0;
+	padding: 50px 0 0 0px;
+	line-height: normal;
+}
+
+#logo h1 { 
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size:40px;
+}
+
+#logo h1 a {
+	text-decoration: none;
+	color: #28313A; 
+}
+
+#logo h1 a:hover { 
+	text-decoration: underline; 
+}
+
+#logo h2 {
+	float: left;
+	padding: 65px 0 0 18px;
+	font: 18px Georgia, "Times New Roman", Times, serif;
+	color: #28313A; 
+}
+
+#logo p a {
+	text-decoration: none;
+	color: #28313A;
+}
+
+#logo p a:hover { 
+	text-decoration: underline; 
+}
+
+#header {
+	width: 880px;
+	margin: 0 auto;
+}
+
+/* Page */
+#page {
+	width: 880px;
+	margin: 0 auto;
+	background: #FFFFFF;
+	border: 10px #FFFFFF solid;
+}
+
+/* Content */
+#content {
+	float: left;
+	width: 620px;
+	border-right: 1px dashed #DFE1E0;
+}
+
+/* Post */
+
+.post {
+	padding: 0px 20px;
+	margin-bottom: 20px;
+}
+
+.post .title {
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+}
+
+.post h1 {
+	width: 520px;
+	padding: 0px 0 0 0px;
+	background: url(../images/img08.jpg) no-repeat left top;
+	font-size: 24px;
+	color: #28313A; 
+}
+
+.post h2 {
+	width: 520px;
+	padding: 0px 0 0 0px;
+	font-size: 22px;
+	color: #28313A; 
+}
+
+.post .entry {
+}
+
+.post .meta {
+	padding: 15px 15px 30px 0px;
+	font-size: 10px;
+}
+
+.post .meta p {
+	margin: 0;
+	padding-top: 15px;
+	line-height: normal;
+	color: #28313A; 
+}
+
+.post .meta .byline {
+	float: left;
+}
+
+.post .meta .links {
+	float: right;
+}
+
+.post .meta .more {
+	padding: 0 20px 0 18px;
+}
+
+.post .meta .comments {
+	padding-left: 22px;
+}
+
+.post .meta b {
+	display: none;
+}
+
+/* Footer */
+#footer-wrap {
+}
+
+#footer {
+	width: 880px;
+	margin: 0 auto;
+	background: #E5E5E5;
+	border: 10px #FFFFFF solid;
+}
+
+html>body #footer {
+	height: auto;
+}
+
+#footer p {
+	font-size: 12px;
+}
+
+#legal {
+	clear: both;
+	padding-top: 17px;
+	text-align: center;
+	color: #595959;
+}
+
+#legal a {
+	font-weight: normal;
+	color: #1B75A9;
+}
+
+.admin_command_link {
+	margin: 20px;
+}
+
+.delete_podcast_form {
+	margin: 20px;
+}
+
+.add_podcast_par_in_form {
+	padding: 3px;
+}
+
+.label {
+	font-weight:bold; 
+	float: left;
+	width: 160px;
+	margin-right: 5px;
+	text-align: right;
+	font-weight: bold;
+	clear: left;	
+}
+
+#category_select {
+	height: 350px;
+}
+
+.update_podcast_form {
+	padding: 20px; 
+}
+}

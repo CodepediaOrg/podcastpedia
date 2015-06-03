@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.web.categories.CategoryDao">
+<!-- org.podcastpedia.web.podcasts.PodcastDao  com.pcm.mybatis.mappers.PodcastMapper
+  <cache />
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+-->	
+	<!--    result maps     -->
+	<resultMap id="categoryMap" type="Category" >
+	    <id column="category_id" property="categoryId"  />
+	    <result column="NAME" property="name" />
+	    <result column="DESCRIPTION" property="description" />
+	    <result column="PARENT_CATEGORY_ID" property="parentCategoryId" />
+	    <result column="PARENT_CATEGORY_NAME" property="parentCategoryName" />	     
+	    <result column="NUMBER_OF_PODCASTS" property="numberOfPodcasts" />	      
+	</resultMap>   
+
+  <select id="getAllCategories" resultMap="categoryMap">
+    SELECT 
+    	category_id, 
+    	NAME, 
+    	DESCRIPTION, 
+    	PARENT_CATEGORY_ID, 
+    	PARENT_CATEGORY_NAME,
+    	NUMBER_OF_PODCASTS
+    FROM 
+    	categories
+  </select>
+  
+  <select id="getCategoriesOrderedByNoOfPodcasts" resultMap="categoryMap" useCache="false">
+    SELECT
+    	c.category_id,
+    	c.NAME,
+    	c.DESCRIPTION,
+        count(pc.podcast_id) as NUMBER_OF_PODCASTS,
+        c.PARENT_CATEGORY_ID,
+    	c.PARENT_CATEGORY_NAME
+    FROM
+       categories c,
+       podcasts_categories pc,
+       podcasts p
+	WHERE
+		c.category_id=pc.category_id
+		AND
+		p.podcast_id=pc.podcast_id
+		AND
+		p.availability = 200       
+    GROUP BY c.category_id
+    ORDER BY NUMBER_OF_PODCASTS desc;
+  </select>
+
+	<resultMap id="categoryByName" type="Category" >
+	    <id column="category_id" property="categoryId"  />
+	    <result column="NAME" property="name" />
+	    <result column="DESCRIPTION" property="description" />
+	    <result column="PARENT_CATEGORY_ID" property="parentCategoryId" />
+	    <result column="PARENT_CATEGORY_NAME" property="parentCategoryName" />	     
+	    <result column="NUMBER_OF_PODCASTS" property="numberOfPodcasts" />	      
+	</resultMap> 
+	
+  <select id="getCategoryByName" parameterType="String" resultMap="categoryByName">
+    SELECT 
+    	category_id, 
+    	name, 
+    	description, 
+    	parent_category_id, 
+    	parent_category_name,
+    	number_of_podcasts
+    FROM 
+    	categories
+    WHERE
+    	name = #{value}
+  </select>
+    
+    <insert id="insertPodcastCategory" parameterType="PodcastCategory" >
+		INSERT into PODCASTS_CATEGORIES 
+			(podcast_id, category_id)
+	    VALUES
+	      (#{podcastId}, #{categoryId} )
+  	</insert>
+  	
+</mapper>

@@ -1,0 +1,143 @@
+#logos {
+  float: left;
+  margin-bottom: 5px;
+  a {
+    font-size: 2em;
+    text-decoration: none;
+    padding-right: 10px;
+    color: #053855;
+    &:HOVER {
+      color: #A73030;
+    }
+    @include until-mq($break-point-small){ 
+      padding-right:5px;     
+    }
+  }
+}
+
+#flags {
+  margin-bottom: 5px;
+  float: right;
+  a {
+    text-decoration: none;
+    padding-left: 10px;
+    @include until-mq($break-point-small){ 
+      padding-right:5px;     
+    }    
+  }
+}
+
+#banner {
+  margin: 0 auto;
+  padding: 0;
+  max-width: $page-max-width;
+  min-width: $page-min-width;
+  #language_bar {
+    margin-bottom: 50px;
+    text-align: right;
+  }
+}
+
+#logo_title {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+#logo {
+  margin-bottom: 10px;
+  a {
+    text-decoration: none;
+    color: #053855;
+  }
+  #logo_subtitle {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3em;
+    margin: 0 160px 0 0;
+    padding: 0;
+    @include until-mq($break-point-normal){ 
+      display: none;
+    }    
+  }
+  @include until-mq($break-point-small){     
+    margin:0 auto;
+    margin-bottom:5px;
+    text-align: center;    
+    h1 {
+      font-size: 27px;
+    }
+  }
+}
+
+#queryTextWrapper, #searchImageWrapper {
+  float: right;
+  margin-top: 10px;
+}
+
+#queryTextWrapper {
+  width: 90%;
+  overflow: hidden;
+}
+
+#search_bar_form {
+  font-size: 15px;
+  margin-bottom: 8px;
+  display: block;
+  #simple_search_target {
+    width: 125%;
+    height: 26px;
+    margin-right: -2px;
+    font-size: 13px;
+    background-color: #EEF4FC;
+    border-radius: 0 3px 3px 0;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4) inset;
+    cursor: pointer;
+    border-style: none;
+    padding: 3px 0 0 5px;
+  }
+  #queryText {
+    font-size: 15px;
+    background-color: #EEF4FC;
+    margin-right: -2px;
+    height: 20px;
+    padding-left: 8px;
+    border-radius: 3px 0 0 3px;
+    width: 100%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4) inset;
+  }
+  #searchImageWrapper input {
+    height: 30px;
+    width: 30px;
+    margin-top: -3px;
+    background: url(/static/images/search-button.png) no-repeat center center;
+    cursor: pointer;
+    border: none;
+    color: transparent;
+    &:hover {
+      background: url(/static/images/search-button-hover.png) no-repeat center center;
+    }
+  }  
+}
+
+#search_bar {
+  @include until-mq($break-point-small){ 
+    margin-bottom:0px;
+    margin:0 auto;
+    margin-top: -5px;
+    text-align: center;    
+  }  
+  p {
+    margin-top: -5px;
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: right;
+    margin-right: 0;
+    a {
+      color: $red-darker;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 2px 2px 4px #8A8A8B;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+/** Here will be only just imported - the order is important*/
+
+//first import variables that might be used throughout all the other files
+@import "common/_variables";
+@import "common/_mixins";
+
+//initializing css
+@import "_init";
+
+//elements 
+@import "common/_icon_fonts";
+@import "common/_languageSelection";
+@import "common/_responsiveGrid";
+@import "common/_navigation";
+@import "common/_header";
+@import "common/_pagination";
+@import "common/_resultsList";
+@import "common/_forms";
+@import "common/_footer";
+@import "common/_social_media_share";
+@import "common/_button_links";
+@import "common/_github_ribbon";
+
+
+//pages
+@import "pages/_podcastDetails";
+@import "pages/_episodeDetails";
+@import "pages/_allCategoriesPage";
+@import "pages/_allKeywordsPage";
+@import "pages/_homePage";
+@import "pages/_advancedSearchForm";
+@import "pages/_mySupport";
+
+// what's left from the original css that I could not place in a someplace reasonable
+@import "_leftovers";
