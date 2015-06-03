@@ -17,7 +17,7 @@
     </properties>
 
     <modules>
-        <module>podcastpedia-web-ui</module>
+        <module>web-ui</module>
         <module>admin</module>
     </modules>
 
