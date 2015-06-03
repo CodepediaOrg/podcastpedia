@@ -142,7 +142,7 @@ public class InsertController {
 			urlOnPodcastpedia.append(String.valueOf(podcast.getPodcastId()));
 			urlOnPodcastpedia.append("/" + podcast.getTitleInUrl());
 		}
-		/*
+
 		// notify the submitter
 		try {
 			emailNotificationService.sendPodcastAdditionConfirmation(
@@ -153,7 +153,7 @@ public class InsertController {
 		}
 		socialMediaService.postOnTwitterAboutNewPodcast(podcast,
 				urlOnPodcastpedia.toString());
-				*/
+
 	}
 
 }
