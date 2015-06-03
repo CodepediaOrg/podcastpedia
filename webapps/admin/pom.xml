@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>org.podcastpedia</groupId>
-	<artifactId>podcastpedia-admin</artifactId>
+	<artifactId>admin</artifactId>
 	<packaging>war</packaging>
 	<name>Podcastpedia Admin</name>
 	<description>Web application with functionality to administer the data for Podcastpedia</description>

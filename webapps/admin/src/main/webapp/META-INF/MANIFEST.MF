@@ -8,7 +8,6 @@ Build-Jdk: 1.7.0_45
 Built-By: ama
 Specification-Title: Podcastpedia Admin
 Created-By: Apache Maven 3.3.3
-Implementation-URL: http://www.podcastpedia.org/webapps/podcastpedia-a
- dmin
+Implementation-URL: http://www.podcastpedia.org/webapps/admin
 Specification-Version: 0.0.1-SNAPSHOT
 
