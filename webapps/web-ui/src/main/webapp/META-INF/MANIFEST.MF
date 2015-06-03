@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Codingpedia Association
+Implementation-Title: Podcastpedia web ui (spring mvc)
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: org.podcastpedia
+Specification-Vendor: Codingpedia Association
+Build-Jdk: 1.7.0_45
+Built-By: ama
+Specification-Title: Podcastpedia web ui (spring mvc)
+Created-By: Apache Maven 3.3.3
+Implementation-URL: http://www.podcastpedia.org
+Specification-Version: 0.0.1-SNAPSHOT
+

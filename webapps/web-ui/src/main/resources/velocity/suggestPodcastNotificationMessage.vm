@@ -1,0 +1,21 @@
+<html>
+	<body>
+		<h3>Hey Podcastpedia Team, a new podcast was submitted</h3>
+		<p>
+			From - ${newPodcast.name} / ${newPodcast.email} 
+		</p>
+		<h3>
+			Podcast metadataline 
+		</h3>
+		<p>
+			${newPodcast.metadataLine}
+		</p>
+		<h3>
+			With the message
+		</h3>
+		<p>
+			${newPodcast.message}
+		</p>
+	</body>
+
+</html>
