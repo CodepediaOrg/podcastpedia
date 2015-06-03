@@ -24,7 +24,7 @@
     <dependencies>
         <dependency>
             <groupId>org.podcastpedia</groupId>
-            <artifactId>podcastpedia-common</artifactId>
+            <artifactId>common</artifactId>
         </dependency>
         <!--Spring-->
         <dependency>

@@ -52,7 +52,7 @@
     </licenses>
 
     <modules>
-        <module>podcastpedia-common</module>
+        <module>common</module>
         <module>podcastpedia-springmvc</module>
     </modules>
     <dependencyManagement>
@@ -60,7 +60,7 @@
 
             <dependency>
                 <groupId>org.podcastpedia</groupId>
-                <artifactId>podcastpedia-common</artifactId>
+                <artifactId>common</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
 

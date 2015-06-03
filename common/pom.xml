@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-    <artifactId>podcastpedia-common</artifactId>
+    <artifactId>common</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
