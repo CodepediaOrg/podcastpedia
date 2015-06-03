@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="Podcastamania-SOAP" 
+				  targetNamespace="http://www.podcastmania.eu/webservices/soap" 
+				  xmlns="http://schemas.xmlsoap.org/wsdl/" 
+				  xmlns:tns="http://www.podcastmania.eu/webservices/soap"
+				  xmlns:typesPCM="http://www.podcastmania.eu/webservices/soap/MessageTypes" 
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+				  
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.podcastmania.eu/webservices/soap/MessageTypes"
+                    schemaLocation="Podcastmania-SOAP.xsd"/>
+        </schema>
+    </types>
+    
+
+	<message name="PodcastReguestMessage">
+		<part name="payload" element="typesPCM:PodcastRequest"/>
+	</message>
+	<message name="PodcastResponseMessage">
+		<part name="payload" element="typesPCM:PodcastResponse"/>
+	</message>
+	    
+	<portType name="Podcastmania_SOAP_WS">
+		<operation name="getPodcasts">
+			<input message="tns:PodcastReguestMessage"/> 
+			<output message="tns:PodcastResponseMessage"/> 
+		</operation>
+	</portType>    
+</definitions>

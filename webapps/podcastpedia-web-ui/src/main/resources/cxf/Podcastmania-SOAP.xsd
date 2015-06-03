@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://www.podcastmania.eu/webservices/soap/MessageTypes" 
+		targetNamespace="http://www.podcastmania.eu/webservices/soap/MessageTypes">
+		
+		
+    <element name="PodcastRequest" type="tns:SelectionParamsType"/>
+
+    <complexType name="PodcastType">
+    	<sequence>
+    		<element name="Title" type="string"></element>
+    		<element name="Description" type="string"></element>
+    		<element name="URL" type="string"></element>
+    		<element name="Language" type="tns:languageCode"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="PodcastResponse" type="tns:PodcastList"></element>
+    
+    <complexType name="PodcastList">
+    	<sequence>
+    		<element name="Podcast" type="tns:PodcastType" minOccurs="0" maxOccurs="unbounded"/>
+    	</sequence>
+    </complexType>
+
+    <simpleType  name="languageCode" >
+	     <restriction base="string">
+		     <enumeration value="de"/>
+		     <enumeration value="en"/>
+		     <enumeration value="fr"/>
+		     <enumeration value="es"/>
+		     <enumeration value="ro"/>
+	     </restriction>	
+    </simpleType >
+
+    <complexType name="SelectionParamsType">
+    	<sequence>
+    		<element name="language" type="tns:languageCode"></element>
+    		<element name="maxNumber" type="int"></element>
+    	</sequence>
+    </complexType>
+</schema>

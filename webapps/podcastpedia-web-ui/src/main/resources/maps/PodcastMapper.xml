@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.web.podcasts.PodcastDao">
+	
+	<!--    result maps     -->
+	<resultMap id="podcastsMap" type="Podcast" >
+	    <id column="podcast_id" property="podcastId"  />
+	    <result column="url" property="url" />
+	    <result column="identifier" property="identifier" />
+	    <result column="number_visitors" property="numberOfVisitors" />	     
+	    <result column="DESCRIPTION" property="description" />	   
+	    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />	   
+	    <result column="TITLE" property="title" />	    	
+	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />   	    
+	    <result column="title_in_url" property="titleInUrl" />  
+	    <result column="publication_date" property="publicationDate"/>
+	</resultMap>   
+     
+  <select id="getPodcastAttributesByFeedUrl" resultMap="podcastsMap" parameterType="String">
+    SELECT
+    	p.PODCAST_ID,
+    	p.URL,
+    	p.identifier,
+    	p.NUMBER_VISITORS,
+    	p.DESCRIPTION,
+    	p.PODCAST_IMAGE_URL,
+    	p.TITLE,
+    	p.last_episode_url,
+    	p.title_in_url,
+    	p.publication_date    	
+    FROM
+    	podcasts p
+    WHERE
+    	p.availability=200    	
+    AND
+    	p.url=#{value}
+  </select>
+     
+	<!--    result maps     -->     
+	<resultMap id="podcastResultMap" type="Podcast" >
+	    <id column="podcast_id" property="podcastId"  />
+	    <result column="url" property="url" />
+	    <result column="identifier" property="identifier" />
+	    <result column="number_visitors" property="numberOfVisitors" />
+	    <result column="language_code" property="languageCode" />
+	    <result column="podcast_description" property="description" />
+	    <result column="podcast_title" property="title" />
+	    <result column="podcast_image_url" property="urlOfImageToDisplay" />	 
+	    <result column="podcast_link" property="link" /> 	
+	    <result column="copyright" property="copyright" /> 	
+	    <result column="podcast_media_type" property="mediaType" />     	
+	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />    
+	    <result column="podcast_title_in_url" property="titleInUrl" />
+	    <result column="etag_header_field" property="etagHeaderField" />
+	    <result column="last_modified_header_field" property="lastModifiedHeaderField" />
+	    <result column="last_modified_header_field_str" property="lastModifiedHeaderFieldStr" />  
+	    <result column="publication_date" property="publicationDate"/>    
+	    <result column="number_episodes" property="numberOfEpisodes"/>
+	    <result column="social_fb_page" property="fbPage"/>
+	    <result column="social_twitter_page" property="twitterPage"/>
+	    <result column="social_gplus_page" property="gplusPage"/>
+	    <result column="update_frequency" property="updateFrequency"/>			    
+		<collection property="categories" ofType="Category">
+			<id property="categoryId" column="category_id"/>
+			<result property="name" column="category_name"/>
+			<result property="description" column="category_descrption"/>
+			<association property="categoryId" column="category_id" javaType="PodcastCategory"/>
+		</collection>
+		<collection property="episodes" ofType="Episode">
+			<result property="description" column="episode_description"/>
+			<result property="podcastId" column="podcast_id"/>
+			<result property="link" column="episode_link"/>
+			<result property="mediaUrl" column="episode_media_url"/>
+			<result property="mediaType" column="episode_media_type"/>
+			<result property="title" column="episode_title"/>
+			<result property="episodeId" column="episode_id"/>
+			<result column="episode_pub_date" property="publicationDate" />  
+			<result column="episode_title_in_url" property="titleInUrl" />
+			<result column="is_new" property="isNew"/>
+			<association property="podcastId" column="podcast_id" javaType="Podcast"/>
+		</collection>	
+		<collection property="tags" ofType="Tag">
+			<id property="tagId" column="tag_id"/>
+			<result property="name" column="tag_name"/>
+			<association property="tagId" column="tag_id" javaType="PodcastTag"/>
+		</collection>			
+	</resultMap>	
+  <select id="getPodcastWithEpisodesById" parameterType="Integer" resultMap="podcastResultMap" useCache="true">
+    SELECT
+    	p.podcast_id,
+    	p.url,
+    	p.identifier,
+    	p.number_visitors,
+    	p.language_code,
+    	p.description as podcast_description,
+    	p.podcast_image_url,
+    	p.title as podcast_title,
+    	p.podcast_link,
+    	p.copyright,
+    	p.media_type as podcast_media_type,
+    	p.last_episode_url,
+    	p.title_in_url as podcast_title_in_url,
+    	p.etag_header_field,
+    	p.last_modified_header_field,
+    	p.last_modified_header_field_str,
+    	p.publication_date,
+    	p.number_episodes,
+    	p.social_fb_page,
+    	p.social_twitter_page,
+    	p.social_gplus_page,
+    	p.update_frequency,    	
+      	c.category_id,
+      	c.name as category_name,
+     	c.description as category_descrption,
+        e.description as episode_description,
+        e.link as episode_link,
+        e.media_url as episode_media_url,
+        e.media_type as episode_media_type, 
+      	e.title as episode_title,
+      	e.episode_id,
+      	e.publication_date as episode_pub_date,
+      	e.title_in_url as episode_title_in_url,
+      	e.is_new,
+      	t.tag_id,
+        t.name as tag_name
+   	FROM podcasts p
+   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+       LEFT OUTER JOIN episodes e ON p.podcast_id = e.podcast_id
+       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id 
+       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id    	
+    WHERE
+      p.availability = 200
+      AND
+      p.podcast_id = #{value}
+   	  AND
+      e.availability = 200       
+    ORDER BY
+    	e.publication_date DESC;
+  </select>
+  <select id="getPodcastWithEpisodesByIdentifier" parameterType="String" resultMap="podcastResultMap" useCache="true">
+    SELECT
+    	p.podcast_id,
+    	p.url,
+    	p.identifier,
+    	p.number_visitors,
+    	p.language_code,
+    	p.description as podcast_description,
+    	p.podcast_image_url,
+    	p.title as podcast_title,
+    	p.podcast_link,
+    	p.copyright,
+    	p.media_type as podcast_media_type,
+    	p.last_episode_url,
+    	p.title_in_url as podcast_title_in_url,
+    	p.etag_header_field,
+    	p.last_modified_header_field,
+    	p.last_modified_header_field_str,
+    	p.publication_date,
+    	p.number_episodes,
+    	p.social_fb_page,
+    	p.social_twitter_page,
+    	p.social_gplus_page,    
+    	p.update_frequency,
+      	c.category_id,
+      	c.name as category_name,
+     	c.description as category_descrption,
+        e.description as episode_description,
+        e.link as episode_link,
+        e.media_url as episode_media_url,
+        e.media_type as episode_media_type, 
+      	e.title as episode_title,
+      	e.episode_id,
+      	e.publication_date as episode_pub_date,
+      	e.title_in_url as episode_title_in_url,
+      	e.is_new,
+      	t.tag_id,
+        t.name as tag_name
+   	FROM podcasts p
+   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+       LEFT OUTER JOIN episodes e ON p.podcast_id = e.podcast_id
+       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id 
+       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id    	
+    WHERE
+      p.availability = 200
+      AND
+      p.identifier = #{value}
+   	  AND
+      e.availability = 200       
+    ORDER BY
+    	e.publication_date DESC;
+  </select>  
+  
+  <select id="getPodcastById" parameterType="Integer" resultMap="podcastResultMap">
+    SELECT
+    	p.podcast_id,
+    	p.url,
+    	p.identifier,
+    	p.number_visitors,
+    	p.language_code,
+    	p.description as podcast_description,
+    	p.podcast_image_url,
+    	p.title as podcast_title,
+    	p.podcast_link,
+    	p.copyright,
+    	p.media_type as podcast_media_type,
+    	p.last_episode_url,
+    	p.title_in_url as podcast_title_in_url,
+    	p.etag_header_field,
+    	p.last_modified_header_field,
+    	p.last_modified_header_field_str,
+    	p.publication_date,
+    	p.number_episodes,
+    	p.social_fb_page,
+    	p.social_twitter_page,
+    	p.social_gplus_page,
+    	p.update_frequency,    	
+      	c.category_id,
+      	c.name as category_name,
+     	c.description as category_descrption,
+      	t.tag_id,
+        t.name as tag_name
+   	FROM podcasts p
+   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id 
+       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id    	
+    WHERE
+      p.availability = 200
+      AND
+      p.podcast_id = #{value}
+  </select>
+  <select id="getPodcastByIdentifier" parameterType="String" resultMap="podcastResultMap">
+    SELECT
+    	p.podcast_id,
+    	p.url,
+    	p.identifier,
+    	p.number_visitors,
+    	p.language_code,
+    	p.description as podcast_description,
+    	p.podcast_image_url,
+    	p.title as podcast_title,
+    	p.podcast_link,
+    	p.copyright,
+    	p.media_type as podcast_media_type,
+    	p.last_episode_url,
+    	p.title_in_url as podcast_title_in_url,
+    	p.etag_header_field,
+    	p.last_modified_header_field,
+    	p.last_modified_header_field_str,
+    	p.publication_date,
+    	p.number_episodes,
+    	p.social_fb_page,
+    	p.social_twitter_page,
+    	p.social_gplus_page,
+    	p.update_frequency,
+      	c.category_id,
+      	c.name as category_name,
+     	c.description as category_descrption,
+      	t.tag_id,
+        t.name as tag_name
+   	FROM podcasts p
+   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id 
+       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id    	
+    WHERE
+      p.availability = 200
+      AND
+      p.identifier = #{value}
+  </select>    
+  <select id="getPodcastByURL" parameterType="String" resultMap="podcastResultMap" useCache="true">
+    SELECT
+    	p.podcast_id,
+    	p.url,
+    	p.identifier,
+    	p.number_visitors,
+    	p.language_code,
+    	p.description as podcast_description,
+    	p.podcast_image_url,
+    	p.title as podcast_title,
+    	p.podcast_link,
+    	p.copyright,    	
+    	p.media_type as podcast_media_type,
+    	p.last_episode_url,
+    	p.title_in_url as podcast_title_in_url,
+    	p.etag_header_field,
+    	p.last_modified_header_field,
+    	p.last_modified_header_field_str,
+    	p.publication_date,
+    	p.update_frequency,    	
+      	c.category_id,
+      	c.name as category_name,
+     	c.description as category_descrption,
+        e.description as episode_description,
+        e.link as episode_link,
+        e.media_url as episode_media_url,
+        e.media_type as episode_media_type, 
+      	e.title as episode_title,
+      	e.episode_id,
+      	e.publication_date as episode_pub_date,
+      	e.title_in_url as episode_title_in_url,
+      	e.is_new,
+      	t.tag_id,
+        t.name as tag_name
+   	FROM podcasts p
+   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+       LEFT OUTER JOIN episodes e ON p.podcast_id = e.podcast_id
+       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id 
+       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id    
+    WHERE
+      p.availability = 200
+      AND
+      p.url = #{value}
+   	  AND
+      e.availability = 200         
+    ORDER BY
+      e.publication_date DESC;
+  </select>
+       
+	<select id="getNumberEpisodesForPodcast"  parameterType="Integer" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			episodes e,
+			podcasts p
+		where 
+			e.podcast_id= #{value}
+		and
+			e.podcast_id = p.podcast_id
+		and 
+			e.availability = 200
+		and
+			p.availability = 200;
+	</select>	
+	<select id="getNumberEpisodesForPodcastIdentifier"  parameterType="String" resultType="Integer">
+		SELECT 
+			count(*) 
+		FROM 
+			episodes e,
+			podcasts p
+		WHERE 
+			e.podcast_id = p.podcast_id
+		AND 
+			p.identifier = #{value}
+		AND
+			e.podcast_id = p.podcast_id
+		AND 
+			e.availability = 200
+		AND
+			p.availability = 200;
+	</select>
+	
+		
+	<select id="getPodcastIdForIdentifier"  parameterType="String" resultType="Integer">
+		select 
+			p.podcast_id
+		from 
+			podcasts p
+		where 
+			p.identifier= #{value}
+		and
+			p.availability = 200
+	</select>
+</mapper>

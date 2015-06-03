@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jaxws="http://cxf.apache.org/jaxws"
+	    xmlns:p="http://www.springframework.org/schema/p" 
+	    xmlns:context="http://www.springframework.org/schema/context"
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+	    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	    xsi:schemaLocation="
+ 
+	http://www.springframework.org/schema/beans	 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	 
+	http://www.springframework.org/schema/mvc	 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd
+	
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+    <!-- ========================= Service beans configuration ========================= -->
+	<bean id="podcastService" class="org.podcastpedia.web.podcasts.PodcastServiceImpl">
+		<property name="podcastDao" ref="podcastDao"/>
+		<property name="episodeDao" ref="episodeDao"/>
+		<property name="configService" ref="configService"/>
+	</bean>
+	
+	<bean id="episodeService" class="org.podcastpedia.web.episodes.EpisodeServiceImpl">
+		<property name="episodeDao" ref="episodeDao"/>
+	</bean>
+		
+	<bean id="startPageService" class="org.podcastpedia.web.startpage.StartPageServiceImpl">
+		<property name="startPageDao" ref="startPageDao"/>
+	</bean>
+		
+	<bean id="searchService" class="org.podcastpedia.web.searching.SearchServiceImpl">
+		<property name="searchDao" ref="searchDao"/>
+	</bean>
+
+	<bean id="userInteractionService" class="org.podcastpedia.web.userinteraction.UserInteractionServiceImpl">
+		<property name="userInteractionDao" ref="userInteractionDao"/>
+	</bean> 
+		
+	<bean id="tagService" class="org.podcastpedia.web.tags.TagServiceImpl">
+		<property name="tagDao" ref="tagDao"/>
+	</bean> 	
+	
+	<bean id="categoryService" class="org.podcastpedia.web.categories.CategoryServiceImpl">
+		<property name="categoryDao" ref="categoryDao"/>
+	</bean> 	
+	<bean id="contactService" class="org.podcastpedia.web.contact.ContactServiceImpl"/>
+	
+	<bean id="cacheUpdateService" class="org.podcastpedia.web.caching.CacheUpdateServiceImpl"/>
+
+	<bean id="emailSubscriptionService" class="org.podcastpedia.web.userinteraction.emailsubscription.EmailSubscriptionServiceImpl">
+		<property name="emailSubscriptionDao" ref="emailSubscriptionDao"/>
+	</bean> 	   	
+</beans>

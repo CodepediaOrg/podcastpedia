@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+    
+-->
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="org.podcastpedia.common.domain.Podcast" alias="Podcast"/>
+		<typeAlias type="org.podcastpedia.common.domain.Category" alias="Category"/>
+		<typeAlias type="org.podcastpedia.common.domain.PodcastCategory" alias="PodcastCategory"/>
+		<typeAlias type="org.podcastpedia.web.searching.SearchData" alias="SearchData"/>	
+		<typeAlias type="org.podcastpedia.common.domain.Episode" alias="Episode"/>
+		<typeAlias type="org.podcastpedia.common.domain.Subscription" alias="Subscription"/>				
+		<typeAlias type="org.podcastpedia.common.domain.Rating" alias="Rating"/>
+		<typeAlias type="org.podcastpedia.common.domain.Tag" alias="Tag"/>	
+		<typeAlias type="org.podcastpedia.common.domain.PodcastTag" alias="PodcastTag"/>
+		<typeAlias type="org.podcastpedia.common.domain.Comment" alias="Comment"/>
+		<typeAlias type="org.podcastpedia.web.suggestpodcast.SuggestedPodcast" alias="SuggestedPodcast"/>
+		<typeAlias type="org.podcastpedia.web.contact.ContactForm" alias="ContactForm"/>
+		<typeAlias type="org.podcastpedia.web.userinteraction.emailsubscription.EmailSubscriber" alias="EmailSubscriber"/>	
+	</typeAliases>
+    <typeHandlers>
+    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.MediaTypeHandler" javaType="org.podcastpedia.common.types.MediaType"/>
+    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.UpdateFrequencyTypeHandler" javaType="org.podcastpedia.common.types.UpdateFrequencyType"/>
+    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.LanguageCodeHandler" javaType="org.podcastpedia.common.types.LanguageCode"/>    	
+    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.OrderByOptionHandler" javaType="org.podcastpedia.common.types.OrderByOption"/>
+    </typeHandlers>		
+    <mappers>
+        <mapper resource="maps/PodcastMapper.xml" />
+        <mapper resource="maps/EpisodeMapper.xml" />
+        <mapper resource="maps/CategoryMapper.xml" />
+        <mapper resource="maps/SearchMapper.xml" />
+        <mapper resource="maps/UserInteractionMapper.xml" />
+        <mapper resource="maps/StartPageMapper.xml" />
+        <mapper resource="maps/TagMapper.xml" />
+        <mapper resource="maps/EmailSubscriptionMapper.xml" />                         
+    </mappers>
+</configuration>
