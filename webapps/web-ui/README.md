@@ -1,7 +1,7 @@
-podcastpedia-web
+web-ui
 ================
 
-Web application backing the [Podcastpedia.org](http://www.podcastpedia.org) website
+The web application backing the [Podcastpedia.org](http://www.podcastpedia.org) website
 
 Setup Guide
 ================
