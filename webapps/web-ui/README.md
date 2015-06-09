@@ -1,4 +1,4 @@
-web-ui
+Podcastpedia web-ui
 ================
 
 The web application backing the [Podcastpedia.org](http://www.podcastpedia.org) website
