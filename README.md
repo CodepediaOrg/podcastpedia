@@ -3,6 +3,21 @@ podcastpedia
 
 Project backing [Podcastpedia.org](http://www.podcastpedia.org)
 
+## Project structure
+Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) project structured in the following way:
+```
++---podcastpedia
+|   +---common
+|   +---webapps
+|       +---web-ui
+|       +---admin
+```
+* **podcastpedia** is the parent project 
+* **common** sub-project that contains domain objects and types used by the other subprojects (web-ui & admin)
+* **webapps** sub-project is the parent project for web applications 
+  * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
+  * **admin** - administration web application used to insert/update/remove podcasts from the directory; both web applications are implemented with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
+
 Setup Guide
 ================
 
@@ -24,20 +39,7 @@ Setup Guide
   *  [Tomcat 7 Downloads](http://tomcat.apache.org/download-70.cgi)
   *  [Tomcat 7 Documentation](http://tomcat.apache.org/tomcat-7.0-doc/index.html)
 
-#### Project structure
-Podcastpedia is a multi-module Maven project structured in the following way:
-```
-+---podcastpedia
-|   +---common
-|   +---webapps
-|       +---web-ui
-|       +---admin
-```
-* The **common** sub-project contains domain objects and types used by the other subprojects (now web-ui and admin)
-* The **webapps** sub-project is the parent project of webapplication backing the podcastpedia.org website and the admin web application.
-  * web-ui - actually the web application that's behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
-  * admin - administration web application to insert/update/remove podcasts from the directory
-Both of the are implemented with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
+
 
 
 ## License
