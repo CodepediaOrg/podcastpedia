@@ -43,7 +43,7 @@ Setup Guide
   * [The Eclipse Project Downloads] (http://download.eclipse.org/eclipse/downloads/)  
   * [IntelliJ IDEA] (https://www.jetbrains.com/idea/download/)
 
-### (Download project)[https://github.com/PodcastpediaOrg/podcastpedia]
+### [Download project](https://github.com/PodcastpediaOrg/podcastpedia)
 
 ### Prepare MySql Database 
 Please follow the instructions defined in the [sql README.md](sql/README.md)
