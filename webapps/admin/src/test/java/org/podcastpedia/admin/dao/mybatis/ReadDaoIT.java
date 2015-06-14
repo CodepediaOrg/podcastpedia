@@ -34,8 +34,8 @@ import com.redfin.sitemapgenerator.WebSitemapUrl;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class ReadDaoTest {
-	private static Logger LOG = Logger.getLogger(ReadDaoTest.class);
+public class ReadDaoIT {
+	private static Logger LOG = Logger.getLogger(ReadDaoIT.class);
 	
 	
 	@Autowired

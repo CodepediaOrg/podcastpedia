@@ -22,9 +22,9 @@ import com.redfin.sitemapgenerator.WebSitemapGenerator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class SitemapServiceTest {
+public class SitemapServiceIT {
 	
-	private static Logger LOG = Logger.getLogger(SitemapServiceTest.class);
+	private static Logger LOG = Logger.getLogger(SitemapServiceIT.class);
 	
 		
 	@Autowired

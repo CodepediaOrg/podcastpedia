@@ -15,7 +15,6 @@ import org.podcastpedia.admin.test.util.TestUtils;
 import org.podcastpedia.common.domain.Category;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
-import org.podcastpedia.common.domain.PodcastTag;
 import org.podcastpedia.common.domain.Tag;
 import org.podcastpedia.common.types.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class AdminToolsDaoTest {
+public class AdminToolsDaoIT {
 	
 	private static final int INSERTED_PODCAST_ID = 111111;
 
-	private static Logger LOG = Logger.getLogger(AdminToolsDaoTest.class);	
+	private static Logger LOG = Logger.getLogger(AdminToolsDaoIT.class);
 	
 	@Autowired
 	private AdminToolsDao dao; 

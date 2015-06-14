@@ -20,9 +20,9 @@ import com.rometools.rome.io.FeedException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class UpdateServiceImplTest {
+public class UpdateServiceImplIT {
 	
-	private static Logger LOG = Logger.getLogger(UpdateServiceImplTest.class);	
+	private static Logger LOG = Logger.getLogger(UpdateServiceImplIT.class);
 	
 	@Autowired
 	private ReadDao readDao;

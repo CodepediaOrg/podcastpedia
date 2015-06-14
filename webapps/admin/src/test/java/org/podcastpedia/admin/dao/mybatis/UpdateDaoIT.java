@@ -19,8 +19,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class UpdateDaoTest {
-	private static Logger LOG = Logger.getLogger(UpdateDaoTest.class);
+public class UpdateDaoIT {
+	private static Logger LOG = Logger.getLogger(UpdateDaoIT.class);
 	
 	
 	@Autowired

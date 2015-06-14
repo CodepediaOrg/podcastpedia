@@ -29,11 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class InsertDaoTest {
+public class InsertDaoIT {
 	
 	private static final int INSERTED_PODCAST_ID = 111111;
 
-	private static Logger LOG = Logger.getLogger(InsertDaoTest.class);	
+	private static Logger LOG = Logger.getLogger(InsertDaoIT.class);
 	
 	@Autowired
 	private InsertDao insertDao; 

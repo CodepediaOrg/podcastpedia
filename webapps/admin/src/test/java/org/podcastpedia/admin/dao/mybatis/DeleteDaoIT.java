@@ -18,8 +18,8 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class DeleteDaoTest {
-	private static Logger LOG = Logger.getLogger(DeleteDaoTest.class);
+public class DeleteDaoIT {
+	private static Logger LOG = Logger.getLogger(DeleteDaoIT.class);
 	
 	
 	@Autowired

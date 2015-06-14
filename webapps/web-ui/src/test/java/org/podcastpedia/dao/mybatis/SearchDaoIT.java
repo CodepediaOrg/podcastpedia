@@ -23,9 +23,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/test-spring-context.xml") // the Spring context file
-public class SearchDaoTest {
+public class SearchDaoIT {
 	
-	private static Logger LOG = Logger.getLogger(SearchDaoTest.class);
+	private static Logger LOG = Logger.getLogger(SearchDaoIT.class);
 	
 	@Autowired
 	private SearchDao searchDao; 

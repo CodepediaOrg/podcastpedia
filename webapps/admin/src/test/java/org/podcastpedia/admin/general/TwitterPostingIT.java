@@ -20,9 +20,9 @@ import twitter4j.TwitterFactory;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class TestTwitterPosting {
+public class TwitterPostingIT {
 	
-	private static Logger LOG = Logger.getLogger(TestTwitterPosting.class);	
+	private static Logger LOG = Logger.getLogger(TwitterPostingIT.class);
 	
 	@Autowired
 	SocialMediaService socialMediaService;

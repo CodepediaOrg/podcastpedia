@@ -15,9 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/test-spring-context.xml") // the Spring context file
 //@TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class StartPageDaoTest {
+public class StartPageDaoIT {
 	
-	private static Logger LOG = Logger.getLogger(StartPageDaoTest.class);
+	private static Logger LOG = Logger.getLogger(StartPageDaoIT.class);
 	
 	@Autowired
 	private StartPageDao startPageDao;

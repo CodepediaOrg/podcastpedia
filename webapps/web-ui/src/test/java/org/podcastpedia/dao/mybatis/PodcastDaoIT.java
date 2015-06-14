@@ -14,9 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/test-spring-context.xml") // the Spring context file
 //@TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class PodcastDaoTest {
+public class PodcastDaoIT {
 	
-	private static Logger LOG = Logger.getLogger(PodcastDaoTest.class);
+	private static Logger LOG = Logger.getLogger(PodcastDaoIT.class);
 	
 	@Autowired
 	private PodcastDao podcastDao; 

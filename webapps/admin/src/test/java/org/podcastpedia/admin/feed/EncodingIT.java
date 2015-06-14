@@ -21,13 +21,13 @@ import com.rometools.rome.io.ParsingFeedException;
 import com.rometools.rome.io.SyndFeedInput;
 
 
-public class EncodingTest {
+public class EncodingIT {
 	
 	private static final String FEED_URL = "http://www.deutschlandfunk.de/podcast-pisaplus.1181.de.podcast";
 	
 	private static final String FEED_URL2 = "http://massage-ausbildung.podspot.de/rss";
 	
-	private static Logger LOG = Logger.getLogger(EncodingTest.class);
+	private static Logger LOG = Logger.getLogger(EncodingIT.class);
 	
 	@Test
 	public void testParseFeed() throws MalformedURLException, IOException, IllegalArgumentException, FeedException{

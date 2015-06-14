@@ -8,8 +8,6 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.podcastpedia.common.domain.Rating;
-import org.podcastpedia.common.domain.Subscription;
 import org.podcastpedia.common.domain.Tag;
 import org.podcastpedia.web.suggestpodcast.SuggestedPodcast;
 import org.podcastpedia.web.tags.TagDao;
@@ -17,11 +15,9 @@ import org.podcastpedia.web.userinteraction.UserInteractionDao;
 import org.podcastpedia.web.userinteraction.emailsubscription.EmailSubscriber;
 import org.podcastpedia.web.userinteraction.emailsubscription.EmailSubscriptionDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -33,9 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/test-spring-context.xml") // the Spring context file
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
-public class UserInteractionDaoTest {
+public class UserInteractionDaoIT {
 	
-	private static Logger LOG = Logger.getLogger(UserInteractionDaoTest.class);
+	private static Logger LOG = Logger.getLogger(UserInteractionDaoIT.class);
 	
 	@Autowired
 	private UserInteractionDao userInteractionDao;

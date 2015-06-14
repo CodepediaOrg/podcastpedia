@@ -39,10 +39,10 @@ import com.rometools.rome.io.XmlReader;
 
 
 
-public class ParseSyndFeedsTest {
+public class ParseSyndFeedsIT {
 
 	private static final String URL_OF_PROBLEM_FEED = "http://dradiowissen.de/podcast/einhundert";
-	private static Logger LOG = Logger.getLogger(ParseSyndFeedsTest.class);
+	private static Logger LOG = Logger.getLogger(ParseSyndFeedsIT.class);
 
 	@Test
 	public void testParseFeedWithInputSource() throws IOException {

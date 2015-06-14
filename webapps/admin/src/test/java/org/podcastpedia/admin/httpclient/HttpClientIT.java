@@ -3,23 +3,16 @@ package org.podcastpedia.admin.httpclient;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,11 +25,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
-public class HttpClientTest {
+public class HttpClientIT {
 
 	   private static final int TIMEOUT = 1;
 
-	private static Logger LOG = Logger.getLogger(HttpClientTest.class);	
+	private static Logger LOG = Logger.getLogger(HttpClientIT.class);
 	
 //	   @Autowired
 //	   private HttpClient httpClient;
