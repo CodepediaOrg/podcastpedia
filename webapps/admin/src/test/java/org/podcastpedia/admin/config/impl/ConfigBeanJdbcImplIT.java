@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-admin-context.xml") // the Spring context file
-public class ConfigBeanJdbcImplTest {
+public class ConfigBeanJdbcImplIT {
 	
-	private static Logger LOG = Logger.getLogger(ConfigBeanJdbcImplTest.class);	
+	private static Logger LOG = Logger.getLogger(ConfigBeanJdbcImplIT.class);
 	
 	@Autowired
 	private ConfigBean configBean;
