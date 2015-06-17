@@ -20,7 +20,7 @@ Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) pr
   * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
   * **admin** - administration web application used to insert/update/remove podcasts from the directory; both web applications are implemented with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
 
-Setup Guide
+Setup Guide (~15min)
 ================
 ## Install and run the Podcastpedia.org website on your local machine
 
