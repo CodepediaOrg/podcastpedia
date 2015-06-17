@@ -43,22 +43,55 @@ Setup Guide
   * [The Eclipse Project Downloads] (http://download.eclipse.org/eclipse/downloads/)  
   * [IntelliJ IDEA] (https://www.jetbrains.com/idea/download/)
 
+***
 ### [Download project](https://github.com/PodcastpediaOrg/podcastpedia)
+```
+git clone https://github.com/PodcastpediaOrg/podcastpedia.git
+```
+***
 
 ### Prepare MySql Database 
-Please follow the instructions defined in the [sql README.md](sql/README.md)
+#### Install MySql 5.5 and above
+1. [Download MySQL Community Server](http://dev.mysql.com/downloads/mysql/) version 5.5 or 5.6 for the platform of your choice. 
+2. [Install the MySQL Server](http://dev.mysql.com/doc/refman/5.6/en/installing.html)
+  1. [Installing MySQL on Microsoft Windows](http://dev.mysql.com/doc/refman/5.6/en/windows-installation.html)
+  2. [Installing MySQL on Linux](http://dev.mysql.com/doc/refman/5.6/en/linux-installation.html)
+  * The development database for Podcastpedia runs on port **3307**, so install the database on that port, or change the port in [_jett9.xml_](../../web-ui/src/main/resources/config/jetty9.xml) or [_context.xml_](https://github.com/podcastpedia/podcastpedia-web/blob/master/src/main/webapp/META-INF/context.xml) file, depending whether you are using Jetty or Tomcat for testing the application 
+3. __Optional__ - install [MySQL Workbench](http://www.mysql.com/products/workbench/) for easy DB development and administration
+4. Setup MySQL configuration file
+  1. For Windows place the configuration file where the MySQL server is installed - the [my.ini](_prepare_database_for_development/my.ini) file from above is an example used on a Windows 7 machine 
+  2. For linux you need to use .cnf files. You can see in this blog post -[Optimizing MySQL server settings](http://www.codingpedia.org/ama/optimizing-mysql-server-settings/) - how the MySQL database is configured in production for [Podcastpedia.org](http://www.podcastpedia.org)
+
+#### Connect to the MySql console
+Use the MySql "root" user, configured at installation
+```
+shell> mysql --host=localhost --user=root -p
+```
+####Execute db creation script
+execute the [__prepare_database_for_import.sql__](_prepare_database_for_development/prepare_database_for_import.sql) in the command line by issuing the following command
+>`mysql < "PATH_TO_FILE\prepare_database_for_import.sql"`
+
+### Import database from file
+Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-06-17-dev-db.sql"](_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database:
+```
+mysql -p -u pcm pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
+-- e.g. mysql -p -u pcm pcmDB < "C:\projects\podcastpedia\sql\_prepare_database_for_development\podcastpedia-2014-06-17-dev-db.sql"
+```
+More details about setting up the database are to find in the [sql README.md](sql/README.md)
+***
 
 ### Build project 
 ```
 mvn clean package -DskipTests=true
 ```
-
+***
 ### Run project with Maven Jetty Plugin
 Change to the webapps/web-ui folder and execute the following command
 
 ```
-jetty:run
+mvn jetty:run
 ```
+***
 
 Well, that's it. Feel free to make a pull request  
 ## License
