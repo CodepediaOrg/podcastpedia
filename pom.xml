@@ -40,6 +40,8 @@
         <rometools.version>1.5.0</rometools.version>
         <ehcache.version>2.9.0</ehcache.version>
         <tomcat.jdbc.version>7.0.57</tomcat.jdbc.version>
+        <java.mail.version>1.4.7</java.mail.version>
+        <mysql.connector.java.version>5.1.35</mysql.connector.java.version>
         <maven.war.plugin.version>2.6</maven.war.plugin.version>
         <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
         <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
