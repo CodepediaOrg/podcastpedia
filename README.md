@@ -86,13 +86,13 @@ mvn clean package -DskipTests=true
 ```
 ***
 ### Run project 
-#### Jetty [Maven Jetty Plugin](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
+#### Jetty [(Maven Jetty Plugin)](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
 Change to the webapps/web-ui folder and execute the following command
 
 ```
 mvn jetty:run
 ```
-#### Tomcat [with Maven Jetty Plugin](http://tomcat.apache.org/maven-plugin.html)
+#### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
 Change to the webapps/web-ui folder and execute the following command
 
 ```
