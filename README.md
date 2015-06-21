@@ -72,7 +72,7 @@ execute the [__prepare_database_for_import.sql__](sql/_prepare_database_for_deve
 `mysql> source "PATH_TO_FILE\prepare_database_for_import.sql"`
 
 #### Import database from file
-Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-06-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
+Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
 ```
 sudo mysql --user=pcm --password=pcm_pw pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
 -- e.g. mysql -p -u pcm pcmDB < "C:\projects\podcastpedia\sql\_prepare_database_for_development\podcastpedia-2014-06-17-dev-db.sql"
