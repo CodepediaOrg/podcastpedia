@@ -63,20 +63,33 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
   2. For linux you need to use .cnf files. You can see in this blog post -[Optimizing MySQL server settings](http://www.codingpedia.org/ama/optimizing-mysql-server-settings/) - how the MySQL database is configured in production for [Podcastpedia.org](http://www.podcastpedia.org)
 
 #### Connect to the MySql console
-Use the MySql "root" user, configured at installation
+Use the MySql **root** user, configured at installation
 ```
-shell> mysql --host=localhost --user=root --password=ROOT_PASSWORD
+shell> mysql --host=localhost --user=root --password=YOUR_ROOT_PASSWORD
 ```
 ####Execute db creation script
 execute the [__prepare_database_for_import.sql__](sql/_prepare_database_for_development/prepare_database_for_import.sql) in the mysql shell command line by issuing the following command
-`mysql> source "PATH_TO_FILE\prepare_database_for_import.sql"`
+`mysql> source "PATH_TO_FILE/prepare_database_for_import.sql"`
+
+Example:
+
+`mysql> source /home/ama/dev/repo/podcastpedia/sql/_prepare_db/prepare_db_and_user.sql`
 
 #### Import database from file
-Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
+Once the *pcmDB* and *pcm* user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
 ```
 sudo mysql --user=pcm --password=pcm_pw pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
--- e.g. mysql -p -u pcm pcmDB < "C:\projects\podcastpedia\sql\_prepare_database_for_development\podcastpedia-2014-06-17-dev-db.sql"
 ```
+Example: 
+
+```
+mysql -u pcm -ppcm_pw pcmdb < "C:\projects\podcastpedia\sql\_prepare_db\podcastpedia-2014-06-17-dev-db.sql"
+```
+or
+```
+mysql --user=pcm --password=pcm_pw pcmdb < /home/ama/dev/repo/podcastpedia/sql/_prepare_db/podcastpedia-2014-07-17-dev-db.sql
+```
+
 That should have the database ready. More details about setting up the database are to find in the [sql README.md](sql/README.md)
 ***
 
@@ -87,13 +100,13 @@ mvn clean package -DskipTests=true
 ***
 ### Run project 
 #### Jetty [(Maven Jetty Plugin)](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
-Change to the webapps/web-ui folder and execute the following command
+Change to the *webapps/web-ui* folder and execute the following command on the terminal
 
 ```
 mvn jetty:run
 ```
 #### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
-Change to the webapps/web-ui folder and execute the following command
+Change to the *webapps/web-ui* folder and execute the following command on the terminal
 
 ```
 mvn tomcat7:run
