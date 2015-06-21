@@ -92,11 +92,11 @@ Change to the webapps/web-ui folder and execute the following command
 ```
 mvn jetty:run
 ```
-#### Tomcat (with Maven Jetty Plugin)
+#### Tomcat [with Maven Jetty Plugin](http://tomcat.apache.org/maven-plugin.html)
 Change to the webapps/web-ui folder and execute the following command
 
 ```
-mvn jetty:run
+mvn tomcat7:run
 ```
 ***
 
