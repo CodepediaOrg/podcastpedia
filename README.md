@@ -65,19 +65,19 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
 #### Connect to the MySql console
 Use the MySql "root" user, configured at installation
 ```
-shell> mysql --host=localhost --user=root -p
+shell> mysql --host=localhost --user=root --password=ROOT_PASSWORD
 ```
 ####Execute db creation script
-execute the [__prepare_database_for_import.sql__](sql/_prepare_database_for_development/prepare_database_for_import.sql) in the command line by issuing the following command
->`mysql < "PATH_TO_FILE\prepare_database_for_import.sql"`
+execute the [__prepare_database_for_import.sql__](sql/_prepare_database_for_development/prepare_database_for_import.sql) in the mysql shell command line by issuing the following command
+`mysql> source "PATH_TO_FILE\prepare_database_for_import.sql"`
 
-### Import database from file
-Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-06-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database:
+#### Import database from file
+Once the "pcmDB" and "pcm" user are set up, import the ["podcastpedia-2014-06-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
 ```
-mysql -p -u pcm pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
+sudo mysql --user=pcm --password=pcm_pw pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
 -- e.g. mysql -p -u pcm pcmDB < "C:\projects\podcastpedia\sql\_prepare_database_for_development\podcastpedia-2014-06-17-dev-db.sql"
 ```
-More details about setting up the database are to find in the [sql README.md](sql/README.md)
+That should have the database ready. More details about setting up the database are to find in the [sql README.md](sql/README.md)
 ***
 
 ### Build project 
@@ -85,7 +85,14 @@ More details about setting up the database are to find in the [sql README.md](sq
 mvn clean package -DskipTests=true
 ```
 ***
-### Run project with Maven Jetty Plugin
+### Run project 
+#### Jetty [Maven Jetty Plugin](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
+Change to the webapps/web-ui folder and execute the following command
+
+```
+mvn jetty:run
+```
+#### Tomcat (with Maven Jetty Plugin)
 Change to the webapps/web-ui folder and execute the following command
 
 ```
@@ -93,7 +100,7 @@ mvn jetty:run
 ```
 ***
 
-Well, that's it. Feel free to make a pull request  
+Well, that's it. More than happy to get a pull request...  
 ## License
 
 [MIT](https://github.com/podcastpedia/podcastpedia-web/blob/master/LICENSE.txt) &copy; [Codingpedia Association](http://www.codingpedia.org/about-us/)
