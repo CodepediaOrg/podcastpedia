@@ -90,7 +90,7 @@ or
 mysql --user=pcm --password=pcm_pw pcmdb < /home/ama/dev/repo/podcastpedia/sql/_prepare_db/podcastpedia-2014-07-17-dev-db.sql
 ```
 
-That should have the database ready. More details about setting up the database are to find in the [sql README.md](sql/README.md)
+That database setup should be ready now. A more detailed explanation about setting up the database is to find in the [sql README.md](sql/README.md)
 ***
 
 ### Build project 
