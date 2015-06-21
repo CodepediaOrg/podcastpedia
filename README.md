@@ -76,9 +76,9 @@ Example:
 `mysql> source /home/ama/dev/repo/podcastpedia/sql/_prepare_db/prepare_db_and_user.sql`
 
 #### Import database from file
-Once the *pcmDB* and *pcm* user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the pcmDB database by executing the following command in the terminal:
+Once the *pcmDB* and *pcm* user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the **pcmdb** database by executing the following command in the terminal:
 ```
-sudo mysql --user=pcm --password=pcm_pw pcmDB < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
+mysql --user=pcm --password=pcm_pw pcmdb < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
 ```
 Example: 
 
