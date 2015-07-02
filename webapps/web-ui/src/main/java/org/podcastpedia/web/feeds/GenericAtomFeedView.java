@@ -39,8 +39,8 @@ public class GenericAtomFeedView extends AbstractAtomFeedView {
         	Episode episode = podcast.getLastEpisode();
             Entry entry = new Entry();
 //            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
-//            entry.setId(String.format("tag:podcatpedia.org,%s:%d", date, podcast.getPodcastId()));
-            entry.setId("tag:podcastpedia.org,2013-04-20:podcastId");            
+//            entry.setId(String.format("tags:podcatpedia.org,%s:%d", date, podcast.getPodcastId()));
+            entry.setId("tags:podcastpedia.org,2013-04-20:podcastId");
             entry.setTitle(podcast.getLastEpisode().getTitle());
             entry.setUpdated(podcast.getPublicationDate());
             Content summary = new Content();

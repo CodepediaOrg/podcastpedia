@@ -12,7 +12,7 @@
 	<groupId>org.podcastpedia</groupId>
 	<artifactId>admin</artifactId>
 	<packaging>war</packaging>
-	<name>Podcastpedia Admin</name>
+	<name>admin</name>
 	<description>Web application with functionality to administer the data for Podcastpedia</description>
 
 	<properties>

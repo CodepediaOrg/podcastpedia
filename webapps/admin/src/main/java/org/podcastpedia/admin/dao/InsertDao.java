@@ -29,7 +29,7 @@ public interface InsertDao {
 	
 
 	/**
-	 * Inserts a new tag in the Tags table
+	 * Inserts a new tags in the Tags table
 	 * @param tag
 	 * @return
 	 */

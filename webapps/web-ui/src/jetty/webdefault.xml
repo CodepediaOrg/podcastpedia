@@ -196,7 +196,7 @@
   <!--   development         Is Jasper used in development mode (will check -->
   <!--                       for JSP modification on every access)?  [true] -->
   <!--                                                                      -->
-  <!--   enablePooling       Determines whether tag handler pooling is      -->
+  <!--   enablePooling       Determines whether tags handler pooling is      -->
   <!--                       enabled  [true]                                -->
   <!--                                                                      -->
   <!--   fork                Tell Ant to fork compiles of JSP pages so that -->
@@ -237,7 +237,7 @@
   <!--                       compiling JSP pages?  [default work directory  -->
   <!--                       for the current web application]               -->
   <!--                                                                      -->
-  <!--   tagpoolMaxSize      The maximum tag handler pool size  [5]         -->
+  <!--   tagpoolMaxSize      The maximum tags handler pool size  [5]         -->
   <!--                                                                      -->
   <!--   xpoweredBy          Determines whether X-Powered-By response       -->
   <!--                       header is added by generated servlet  [false]  -->

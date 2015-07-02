@@ -36,8 +36,8 @@ public class FoundPodcastsAtomFeedView extends AbstractAtomFeedView {
         for (Podcast podcast : podcasts) {
             Entry entry = new Entry();
 //            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
-//            entry.setId(String.format("tag:podcastpedia.org,%s:%d", date, podcast.getPodcastId()));
-            entry.setId("tag:podcastpedia.org,2013-04-20:podcastId-" + podcast.getPodcastId());                        
+//            entry.setId(String.format("tags:podcastpedia.org,%s:%d", date, podcast.getPodcastId()));
+            entry.setId("tags:podcastpedia.org,2013-04-20:podcastId-" + podcast.getPodcastId());
             entry.setTitle(podcast.getTitle());
             entry.setUpdated(podcast.getPublicationDate());
             Content summary = new Content();

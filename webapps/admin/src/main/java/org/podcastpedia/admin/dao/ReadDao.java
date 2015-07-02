@@ -41,7 +41,7 @@ public interface ReadDao {
 	public List<Podcast> getPodcastsFromRangeWithUpdateFrequency(Map<String, Integer> input);	
 	
 	/**
-	 * Returns a tag type given the tag name
+	 * Returns a tags type given the tags name
 	 *  
 	 * @param tagStr
 	 * 

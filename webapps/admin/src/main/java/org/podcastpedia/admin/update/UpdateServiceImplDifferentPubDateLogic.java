@@ -116,15 +116,15 @@ public class UpdateServiceImplDifferentPubDateLogic {
 //		String[] tags = tagsString.split(",");
 //
 //		for (String tagStr : tags) {
-//			Tag tag = readDao.getTagByName(tagStr.trim());
-//			if (null != tag) {
-//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tag
+//			Tag tags = readDao.getTagByName(tagStr.trim());
+//			if (null != tags) {
+//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tags
 //						.getTagId()));
 //			} else {
-//				tag = new Tag();
-//				tag.setName(tagStr.trim());
-//				insertDao.insertTag(tag);
-//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tag
+//				tags = new Tag();
+//				tags.setName(tagStr.trim());
+//				insertDao.insertTag(tags);
+//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tags
 //						.getTagId()));
 //			}
 //		}
@@ -919,16 +919,16 @@ public class UpdateServiceImplDifferentPubDateLogic {
 //			// tags should be case sensitive . e.g. in German you say Computer
 //			// and in English computer -but trimmed should be; They are trimmed
 //			// also by insertion
-//			Tag tag = readDao.getTagByName(tagName.trim());
-//			if (null != tag) {
-//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tag
+//			Tag tags = readDao.getTagByName(tagName.trim());
+//			if (null != tags) {
+//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tags
 //						.getTagId()));
 //			} else {
-//				tag = new Tag();
-//				// make a trim on the tag to insert, to read after that properly
-//				tag.setName(tagName.trim());
-//				insertDao.insertTag(tag);
-//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tag
+//				tags = new Tag();
+//				// make a trim on the tags to insert, to read after that properly
+//				tags.setName(tagName.trim());
+//				insertDao.insertTag(tags);
+//				insertDao.insertPodcastTag(new PodcastTag(podcastId, tags
 //						.getTagId()));
 //			}
 //		}

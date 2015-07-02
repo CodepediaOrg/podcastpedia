@@ -19,7 +19,7 @@
 *
 * class: Inside the class attribute, wrapped in curly braces: { }
 *
-* elem: Inside a child element (e.g. a script tag). The
+* elem: Inside a child element (e.g. a script tags). The
 * name parameter indicates *which* element.
 *
 * The metadata for an element is loaded the first time the element is accessed via jQuery.

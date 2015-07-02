@@ -58,7 +58,7 @@ public interface AdminToolsDao {
 	
 
 	/**
-	 * Inserts a new tag in the Tags table
+	 * Inserts a new tags in the Tags table
 	 * @param tag
 	 * @return
 	 */
@@ -72,7 +72,7 @@ public interface AdminToolsDao {
 	public void insertPodcastTag(PodcastTag podcastTag);
 
 	/**
-	 * Returns a tag type given the tag name
+	 * Returns a tags type given the tags name
 	 *  
 	 * @param tagStr
 	 * 
