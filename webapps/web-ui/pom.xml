@@ -13,7 +13,7 @@
     <artifactId>web-ui</artifactId>
     <packaging>war</packaging>
 
-    <name>Website based on spring mvc</name>
+    <name>web-ui</name>
     <url>http://www.podcastpedia.org</url>
 
 	<properties>

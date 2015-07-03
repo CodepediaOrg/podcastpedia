@@ -67,7 +67,7 @@ public class SearchData implements Serializable {
 	/**flag to mark that the model attribute is for feed generation */
 	private boolean isForFeed;
 	
-	/** id of the tag that is being looked for */
+	/** id of the tags that is being looked for */
 	private Integer tagId;
 	
 	/** placeholder for the query string to be passed to the next request */

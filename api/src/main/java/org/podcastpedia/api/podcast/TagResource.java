@@ -1,4 +1,4 @@
-package org.podcastpedia.web.api.podcast;
+package org.podcastpedia.api.podcast;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 import org.podcastpedia.common.domain.Tag;
 import org.podcastpedia.common.exception.BusinessException;
-import org.podcastpedia.web.tags.TagService;
+import org.podcastpedia.core.tags.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

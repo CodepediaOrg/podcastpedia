@@ -99,7 +99,7 @@ public class SearchResultsFeedsController implements MessageSourceAware {
 
 		model.addAttribute("list_of_podcasts", foundPodcasts);
 		model.addAttribute("feed_id",
-				"tag:podcastpedia.org,2013-04-30:found-podcasts");
+				"tags:podcastpedia.org,2013-04-30:found-podcasts");
 		model.addAttribute("feed_title", messageSource.getMessage(
 				"podcasts.search.feed_title", null,
 				LocaleContextHolder.getLocale()));
@@ -177,7 +177,7 @@ public class SearchResultsFeedsController implements MessageSourceAware {
 
 		model.addAttribute("list_of_episodes", foundEpisodes);
 		model.addAttribute("feed_id",
-				"tag:podcastpedia.org,2013-04-30:found-episodes");
+				"tags:podcastpedia.org,2013-04-30:found-episodes");
 		model.addAttribute("feed_title", messageSource.getMessage(
 				"episodes.search.feed_title", null,
 				LocaleContextHolder.getLocale()));

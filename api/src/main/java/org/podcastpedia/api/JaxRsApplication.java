@@ -1,4 +1,4 @@
-package org.podcastpedia.web.api;
+package org.podcastpedia.api;
 
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;

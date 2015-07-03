@@ -15,13 +15,13 @@ public class Tag implements Serializable{
 	
 	private static final long serialVersionUID = -2370292880165225805L;
 
-	/** id of the tag - BIGINT in MySQL DB */
+	/** id of the tags - BIGINT in MySQL DB */
 	private long tagId;
 	
-	/** name of the tag */
+	/** name of the tags */
 	private String name;
 
-	/** number of podcasts the tag is used in */ 
+	/** number of podcasts the tags is used in */
 	private Integer nrOfPodcasts;
 		
 	public Integer getNrOfPodcasts() {

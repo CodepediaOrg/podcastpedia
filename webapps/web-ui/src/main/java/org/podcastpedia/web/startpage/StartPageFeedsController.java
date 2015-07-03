@@ -57,7 +57,7 @@ public class StartPageFeedsController implements MessageSourceAware {
     public String getTopRatedPodcastsAtomFeed(WebRequest request, Model model) {
     	Locale locale = LocaleContextHolder.getLocale();
         model.addAttribute("list_of_podcasts", getTopRatedPodcastsForLocale(locale));
-        model.addAttribute("feed_id", "tag:podcastpedia.org,2013-04-30:most_popular");
+        model.addAttribute("feed_id", "tags:podcastpedia.org,2013-04-30:most_popular");
         model.addAttribute("feed_title", messageSource.getMessage("podcasts.most_popular.feed_title", null, locale));
         model.addAttribute("feed_description", messageSource.getMessage("podcasts.most_popular.feed_description", null, locale));      
         model.addAttribute("feed_link", configService.getValue("HOST_AND_PORT_URL"));
@@ -115,7 +115,7 @@ public class StartPageFeedsController implements MessageSourceAware {
         recommendedList = startPageService.getRecommendedPodcasts();
          
         model.addAttribute("list_of_podcasts", recommendedList);
-        model.addAttribute("feed_id", "tag:podcastpedia.org,2013-04-30:recommended");
+        model.addAttribute("feed_id", "tags:podcastpedia.org,2013-04-30:recommended");
         model.addAttribute("feed_title", messageSource.getMessage("podcasts.recommended.feed_title", null, LocaleContextHolder.getLocale()));
         model.addAttribute("feed_description", messageSource.getMessage("podcasts.recommended.feed_description", null, LocaleContextHolder.getLocale()));
         model.addAttribute("feed_link", configService.getValue("HOST_AND_PORT_URL"));
@@ -158,7 +158,7 @@ public class StartPageFeedsController implements MessageSourceAware {
     public String getNewestPodcastsAtomFeed(WebRequest request, Model model) {
     	Locale locale = LocaleContextHolder.getLocale();         
         model.addAttribute("list_of_podcasts", getNewestPodcastsForLocale(locale));
-        model.addAttribute("feed_id", "tag:podcastpedia.org,2013-04-30:last_updated");
+        model.addAttribute("feed_id", "tags:podcastpedia.org,2013-04-30:last_updated");
         model.addAttribute("feed_title", messageSource.getMessage("podcasts.newest.feed_title", null, locale));
         model.addAttribute("feed_description", messageSource.getMessage("podcasts.newest.feed_description", null, locale));
         model.addAttribute("feed_link",  configService.getValue("HOST_AND_PORT_URL"));
@@ -214,7 +214,7 @@ public class StartPageFeedsController implements MessageSourceAware {
         randomPodcasts = startPageService.getRandomPodcasts(NUMBER_OF_PODCASTS_IN_CHART);
          
         model.addAttribute("list_of_podcasts", randomPodcasts);
-        model.addAttribute("feed_id", "tag:podcastpedia.org,2013-04-30:random_podcasts");
+        model.addAttribute("feed_id", "tags:podcastpedia.org,2013-04-30:random_podcasts");
         model.addAttribute("feed_title", messageSource.getMessage("podcasts.random.feed_title", null, LocaleContextHolder.getLocale()));
         model.addAttribute("feed_description", messageSource.getMessage("podcasts.random.feed_description", null, LocaleContextHolder.getLocale()));
         model.addAttribute("feed_link",  configService.getValue("HOST_AND_PORT_URL"));
@@ -256,7 +256,7 @@ public class StartPageFeedsController implements MessageSourceAware {
     public String getNewEntriesAtomFeed(WebRequest request, Model model) {
     	Locale locale = LocaleContextHolder.getLocale();         
         model.addAttribute("list_of_podcasts", startPageService.getNewEntries());
-        model.addAttribute("feed_id", "tag:podcastpedia.org,2013-04-30:last_updated");
+        model.addAttribute("feed_id", "tags:podcastpedia.org,2013-04-30:last_updated");
         model.addAttribute("feed_title", messageSource.getMessage("podcasts.new_entries.feed_title", null, locale));
         model.addAttribute("feed_description", messageSource.getMessage("podcasts.new_entries.feed_description", null, locale));
         model.addAttribute("feed_link",  configService.getValue("HOST_AND_PORT_URL"));

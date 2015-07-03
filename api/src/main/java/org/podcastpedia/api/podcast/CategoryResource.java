@@ -1,4 +1,4 @@
-package org.podcastpedia.web.api.podcast;
+package org.podcastpedia.api.podcast;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import javax.ws.rs.core.Response;
 
 import org.podcastpedia.common.domain.Category;
 import org.podcastpedia.common.exception.BusinessException;
-import org.podcastpedia.web.categories.CategoryService;
-import org.podcastpedia.web.episodes.EpisodeService;
+import org.podcastpedia.core.categories.CategoryService;
+import org.podcastpedia.core.episodes.EpisodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

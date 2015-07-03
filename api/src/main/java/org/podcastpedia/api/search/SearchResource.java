@@ -1,4 +1,4 @@
-package org.podcastpedia.web.api.search;
+package org.podcastpedia.api.search;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response;
 
 import org.podcastpedia.common.exception.BusinessException;
 import org.podcastpedia.common.types.OrderByOption;
-import org.podcastpedia.web.searching.SearchData;
-import org.podcastpedia.web.searching.SearchResult;
-import org.podcastpedia.web.searching.SearchService;
+import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.searching.SearchResult;
+import org.podcastpedia.core.searching.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

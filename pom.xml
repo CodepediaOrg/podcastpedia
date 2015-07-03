@@ -5,7 +5,7 @@
     <artifactId>podcastpedia</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Podcastpedia - parent project</name>
+    <name>parent</name>
     <description>Parent project for podcastpedia.org website, and the web admin application</description>
     <url>http://www.podcastpedia.org</url>
 
@@ -57,6 +57,8 @@
     <modules>
         <module>common</module>
         <module>webapps</module>
+        <module>api</module>
+        <module>core</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -64,6 +66,11 @@
             <dependency>
                 <groupId>org.podcastpedia</groupId>
                 <artifactId>common</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.podcastpedia</groupId>
+                <artifactId>core</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
 

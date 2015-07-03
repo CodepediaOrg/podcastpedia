@@ -62,7 +62,7 @@ public class UpdateMetadataServiceImpl implements UpdateMetadataService{
 						.getTagId()));
 			} else {
 				tag = new Tag();
-				// make a trim on the tag to insert, to read after that properly
+				// make a trim on the tags to insert, to read after that properly
 				tag.setName(tagName.trim());
 				insertDao.insertTag(tag);
 				insertDao.insertPodcastTag(new PodcastTag(podcastId, tag

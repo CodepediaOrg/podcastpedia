@@ -33,7 +33,7 @@
 	<!-- ========================= Import Tiles-related configuration ========================= -->
 	<import resource="tiles-context.xml" />
 
-	<import resource="classpath:spring/pcm-common.xml" />
+	<import resource="classpath:spring/applicationContext-common.xml" />
 
 	<!-- - The controllers are autodetected POJOs labeled with the @Controller 
 		annotation. -->
