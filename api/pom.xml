@@ -18,7 +18,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jersey.version>2.14</jersey.version>
+        <jersey.version>2.19</jersey.version>
     </properties>
 
     <dependencies>
@@ -30,6 +30,7 @@
             <groupId>org.podcastpedia</groupId>
             <artifactId>core</artifactId>
         </dependency>
+
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -211,7 +212,6 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                     </archive>
-                    <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
                     <warName>api</warName>
                 </configuration>
                 <executions>
@@ -263,9 +263,50 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
+            <!-- https://tomcat.apache.org/maven-plugin-trunk/index.html -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <!-- http port -->
+                    <port>8080</port>
+                    <!-- application path always starts with /-->
+                    <path>/api</path>
+                    <!-- optional path to a context file -->
+                    <contextFile>context.xml</contextFile>
+                    <!-- optional system propoerties you want to add -->
+                    <systemProperties>
+                        <appserver.base>${project.build.directory}/appserver-base</appserver.base>
+                        <appserver.home>${project.build.directory}/appserver-home</appserver.home>
+                        <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
+                        <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                    </systemProperties>
+                    <!-- if you want to use test dependencies rather than only runtime -->
+                    <useTestClasspath>false</useTestClasspath>
+                    <!-- optional if you want to add some extra directories into the classloader -->
+                    <additionalClasspathDirs>
+                        <additionalClasspathDir></additionalClasspathDir>
+                    </additionalClasspathDirs>
+                </configuration>
+                <!-- For any extra dependencies needed when running embedded Tomcat (not WAR dependencies) add them below -->
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.connector.java.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                        <version>${java.mail.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.tomcat</groupId>
+                        <artifactId>tomcat-jdbc</artifactId>
+                        <version>${tomcat.jdbc.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
