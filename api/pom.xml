@@ -138,12 +138,6 @@
             <version>5.1.2.Final</version>
         </dependency>
 
-        <!-- reCaptcha -->
-        <dependency>
-            <groupId>net.tanesha.recaptcha4j</groupId>
-            <artifactId>recaptcha4j</artifactId>
-            <version>0.0.7</version>
-        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -161,13 +155,37 @@
             <version>2.4.4</version>
         </dependency>
 
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>
+
+        <!-- MySQL JDBC connector http://dev.mysql.com/downloads/connector/j/ -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
         <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymock</artifactId>
-            <version>3.0</version>
-            <scope>test</scope>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -194,8 +212,7 @@
                         </manifest>
                     </archive>
                     <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
-                    <warSourceExcludes>static/node_modules/,src/main/webapp/static/node_modules/</warSourceExcludes>
-                    <warName>ROOT</warName>
+                    <warName>api</warName>
                 </configuration>
                 <executions>
                     <execution>
@@ -210,6 +227,37 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <jettyConfig>${project.basedir}/src/main/resources/config/jetty9.xml</jettyConfig>
+                    <stopKey>STOP</stopKey>
+                    <stopPort>9999</stopPort>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <scanTargets>
+                        <scanTarget>${project.basedir}/src/main</scanTarget>
+                        <scanTarget>${project.basedir}/src/test</scanTarget>
+                    </scanTargets>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                    </webAppConfig>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.connector.java.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                        <version>${java.mail.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.tomcat</groupId>
+                        <artifactId>tomcat-jdbc</artifactId>
+                        <version>${tomcat.jdbc.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -224,4 +272,3 @@
 
 </project>
 
-        <!-- modify the pom -->

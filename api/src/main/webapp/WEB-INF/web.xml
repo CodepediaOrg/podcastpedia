@@ -13,8 +13,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            classpath:spring/applicationContext-api.xml
+            classpath:spring/securityContext-api.xml
             classpath:spring/applicationContext-core.xml
-            classpath:spring/security-context.xml
         </param-value>
     </context-param>
 
@@ -50,6 +51,17 @@
         <description>Database resource for podcastpedia web application </description>
         <res-ref-name>jdbc/pcmDB</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    <resource-ref>
+        <description>
+            Resource reference to a factory for javax.mail.Session
+            instances that may be used for sending electronic mail
+            messages, preconfigured to connect to the appropriate
+            SMTP server.
+        </description>
+        <res-ref-name>mail/Session</res-ref-name>
+        <res-type>javax.mail.Session</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
 </web-app>

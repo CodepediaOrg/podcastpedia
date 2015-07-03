@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.podcastpedia.core.tags.TagDao">
+	
+ 	<resultMap id="tagResultMap" type="Tag" >
+	    <id column="tag_id" property="tagId"  />
+	    <result column="name" property="name" />     
+	    <result column="number_of_tags" property="nrOfPodcasts" />	      
+	</resultMap>   
+ 	 
+	<select id="getTagsOrderedByNumberOfPodcasts" resultMap="tagResultMap" parameterType="java.util.Map">
+		SELECT
+			t.tag_id,
+			t.name,
+			count(pt.podcast_id) as number_of_tags
+		FROM
+		   tags t,
+		   podcasts_tags pt,
+		   podcasts p
+		WHERE
+			t.tag_id=pt.tag_id
+			AND 
+			p.podcast_id = pt.podcast_id
+			AND
+			p.availability = 200
+		GROUP BY t.tag_id
+		HAVING number_of_tags >= 1		
+		ORDER BY number_of_tags DESC		
+		limit  #{startPoint}, #{nrTagsPerPage}
+	</select>  
+	
+	<select id="getTagList" resultMap="tagResultMap" parameterType="String">
+		SELECT
+			t.tag_id,
+			t.name,
+		    count(pt.podcast_id) as number_of_tags
+		FROM
+		   tags t,
+		   podcasts_tags pt,
+		   podcasts p
+		WHERE 
+			t.name like #{value}
+			AND
+			t.tag_id=pt.tag_id
+			AND 
+			p.podcast_id = pt.podcast_id
+			AND
+			p.availability = 200			
+		GROUP BY t.tag_id
+		ORDER BY 
+			t.name ASC
+		LIMIT 0,21
+	</select> 	
+</mapper>

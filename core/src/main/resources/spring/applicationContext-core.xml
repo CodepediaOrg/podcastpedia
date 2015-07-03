@@ -2,8 +2,6 @@
 
 <beans  xmlns="http://www.springframework.org/schema/beans"
 	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	    xmlns:jaxws="http://cxf.apache.org/jaxws"
-	    xmlns:p="http://www.springframework.org/schema/p" 
 	    xmlns:context="http://www.springframework.org/schema/context"
 	    xmlns:tx="http://www.springframework.org/schema/tx"
 	    xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -18,9 +16,7 @@
 			
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context.xsd
-			
-			http://cxf.apache.org/jaxws 
-			http://cxf.apache.org/schemas/jaxws.xsd
+
 			
 			http://www.springframework.org/schema/tx 
 			http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -34,9 +30,8 @@
  	<!-- DAOs configuration -->
 	<import resource="dao-context.xml"/>
 
-	<import resource="classpath:spring/pcm-common.xml" />
-	
-	 
+	<import resource="classpath:spring/applicationContext-common.xml" />
+
 	<!--
 		- The controllers are autodetected POJOs labeled with the @Controller annotation.
 	-->
@@ -46,12 +41,7 @@
 	<mvc:annotation-driven/>
 	
 	<cache:annotation-driven key-generator="enhancedDefaultKeyGenerator"/>
-	<bean id ="enhancedDefaultKeyGenerator" class="org.podcastpedia.web.caching.EnhancedDefaultKeyGenerator"/>
-	<!-- Forwards requests to the "/" resource to the "welcome" view -->
-	<!-- 
-		<mvc:view-controller path="/" view-name="welcome"/>	
-		<mvc:view-controller path="/" view-name="startPage_def"/>
-	 -->
+	<bean id ="enhancedDefaultKeyGenerator" class="org.podcastpedia.core.caching.EnhancedDefaultKeyGenerator"/>
 	 
 	<!--
 		Instruct Spring to perform declarative transaction management
@@ -71,12 +61,12 @@
     </bean>    
     
    <!-- use beans from pcm-common -->
-   <bean id="emailNotificationServiceSuggestPodcast" class="org.podcastpedia.web.suggestpodcast.EmailNotificationServiceImpl">
+   <bean id="emailNotificationServiceSuggestPodcast" class="org.podcastpedia.core.suggestpodcast.EmailNotificationServiceImpl">
       <property name="mailSender" ref="mailSender"/>
       <property name="velocityEngine" ref="velocityEngine"/>
    </bean>    
 
-   <bean id="emailNotificationServiceContact" class="org.podcastpedia.web.contact.EmailNotificationServiceImpl">
+   <bean id="emailNotificationServiceContact" class="org.podcastpedia.core.contact.EmailNotificationServiceImpl">
       <property name="mailSender" ref="mailSender"/>
       <property name="velocityEngine" ref="velocityEngine"/>
    </bean>    
