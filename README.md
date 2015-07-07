@@ -7,14 +7,18 @@ Project backing [Podcastpedia.org](http://www.podcastpedia.org)
 Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) project structured in the following way:
 ```
 +---podcastpedia
+|   +---api
 |   +---common
+|   +---core
 |   +---sql
 |   +---webapps
 |       +---web-ui
 |       +---admin
 ```
 * **podcastpedia** is the parent project 
+* **api** REST api supporting core functionalities for the application(in progress)
 * **common** sub-project that contains domain objects and types used by the other subprojects (web-ui & admin)
+* **core** module that contains database access and business layer; it support currently both the _api_ and _web-ui_ modules. 
 * **sql** placeholder for database setup scripts and useful sql statements 
 * **webapps** sub-project is the parent project for web applications; defines common dependencies and plugins used by the (Spring MVC)sub projects 
   * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
