@@ -117,7 +117,13 @@ mvn tomcat7:run
 ```
 ***
 
-Well, that's it. More than happy to get a pull request...  
+## Contributing
+
+If you wish to contribute to this website, please [fork it on GitHub](https://github.com/PodcastpediaOrg/podcastpedia-web.git), push your
+change to a named branch, then send a pull request. If it is a big feature,
+you might want to start an Issue first to make sure it's something that will
+be accepted.  If it involves code, please also write tests for it.
+
 ## License
 
 [MIT](https://github.com/podcastpedia/podcastpedia-web/blob/master/LICENSE.txt) &copy; [Codingpedia Association](http://www.codingpedia.org/about-us/)
