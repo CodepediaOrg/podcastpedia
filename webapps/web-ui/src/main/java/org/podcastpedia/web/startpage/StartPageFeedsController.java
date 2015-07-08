@@ -1,13 +1,9 @@
 package org.podcastpedia.web.startpage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.types.LanguageCode;
 import org.podcastpedia.common.util.config.ConfigService;
+import org.podcastpedia.core.startpage.StartPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
@@ -16,6 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -43,7 +44,7 @@ public class StartPageFeedsController implements MessageSourceAware {
 	private static final Integer NUMBER_OF_PODCASTS_IN_CHART = 5;
 	
 	@Autowired
-	private StartPageService startPageService;// this has to be changed in the interface 
+	private StartPageService startPageService;// this has to be changed in the interface
 	
 	/**
 	 * Returns top rated list of podcasts to be generated as an atom feed.  

@@ -2,7 +2,7 @@ package org.podcastpedia.web.api;
 
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.exception.BusinessException;
-import org.podcastpedia.web.episodes.EpisodeService;
+import org.podcastpedia.core.episodes.EpisodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

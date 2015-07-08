@@ -25,11 +25,10 @@
 			http://www.springframework.org/schema/cache/spring-cache.xsd">
  
 	<!-- services configuration -->
- 	<import resource="service-context.xml"/>
- 	
+ 	<import resource="applicationContext-core-service.xml"/>
  	<!-- DAOs configuration -->
-	<import resource="dao-context.xml"/>
-
+	<import resource="applicationContext-core-dao.xml"/>
+	<import resource="applicationContext-core-dataSource.xml"/>
 	<import resource="classpath:spring/applicationContext-common.xml" />
 
 	<!--
@@ -47,7 +46,7 @@
 		Instruct Spring to perform declarative transaction management
 		automatically on annotated classes.
 	-->	
-	<tx:annotation-driven transaction-manager="transactionManager" /> 
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- *******************************
 	     ***** CACHE CONFIGURATION *****
@@ -59,8 +58,7 @@
     	<property name="configLocation" value="classpath:config/ehcache.xml"/>
     	<property name="shared" value="true"/>
     </bean>    
-    
-   <!-- use beans from pcm-common -->
+
    <bean id="emailNotificationServiceSuggestPodcast" class="org.podcastpedia.core.suggestpodcast.EmailNotificationServiceImpl">
       <property name="mailSender" ref="mailSender"/>
       <property name="velocityEngine" ref="velocityEngine"/>

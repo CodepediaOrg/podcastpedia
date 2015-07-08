@@ -1,7 +1,8 @@
 package org.podcastpedia.web.categories;
 
 import org.apache.log4j.Logger;
-import org.podcastpedia.web.searching.SearchData;
+import org.podcastpedia.core.categories.CategoryService;
+import org.podcastpedia.core.searching.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

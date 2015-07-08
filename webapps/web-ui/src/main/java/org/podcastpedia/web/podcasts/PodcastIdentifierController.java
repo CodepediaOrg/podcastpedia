@@ -1,27 +1,22 @@
 package org.podcastpedia.web.podcasts;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.exception.BusinessException;
 import org.podcastpedia.common.types.ErrorCodeType;
-import org.podcastpedia.web.searching.SearchData;
+import org.podcastpedia.core.podcasts.PodcastService;
+import org.podcastpedia.core.searching.SearchData;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Annotation-driven controller that handles requests to display podcasts in
@@ -55,8 +50,7 @@ public class PodcastIdentifierController {
 	/**
 	 * Custom handler for displaying a podcast.
 	 * 
-	 * @param podcastId
-	 * @param episode
+	 * @param podcastShortUrl
 	 * @return
 	 * @throws BusinessException
 	 */

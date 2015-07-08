@@ -1,6 +1,7 @@
 package org.podcastpedia.web.suggestpodcast;
 
-import org.podcastpedia.web.podcasts.PodcastDao;
+import org.podcastpedia.core.podcasts.PodcastDao;
+import org.podcastpedia.core.suggestpodcast.SuggestedPodcast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -26,7 +27,7 @@ public class SuggestPodcastValidator implements Validator{
 
 	public void validate(Object target, Errors errors) {	
 		
-		SuggestedPodcast suggestedPodcast = (SuggestedPodcast)target;		
+		SuggestedPodcast suggestedPodcast = (SuggestedPodcast)target;
 
 		/* validate name */
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name");	

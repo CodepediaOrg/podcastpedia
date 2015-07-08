@@ -1,5 +1,6 @@
 package org.podcastpedia.web.contact;
 
+import org.podcastpedia.core.contact.ContactForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

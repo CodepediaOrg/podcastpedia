@@ -1,9 +1,5 @@
 package org.podcastpedia.web.startpage;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.controllers.propertyeditors.MediaTypeEditor;
 import org.podcastpedia.common.domain.Category;
@@ -11,8 +7,9 @@ import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.types.LanguageCode;
 import org.podcastpedia.common.types.MediaType;
 import org.podcastpedia.common.types.OrderByOption;
-import org.podcastpedia.web.categories.CategoryService;
-import org.podcastpedia.web.searching.SearchData;
+import org.podcastpedia.core.categories.CategoryService;
+import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.startpage.StartPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -23,6 +20,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/")

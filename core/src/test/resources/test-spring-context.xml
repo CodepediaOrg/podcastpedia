@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:jaxws="http://cxf.apache.org/jaxws"
+	    xmlns:p="http://www.springframework.org/schema/p" 
+	    xmlns:tx="http://www.springframework.org/schema/tx"
+	    xmlns:context="http://www.springframework.org/schema/context"
+	    xmlns:cache="http://www.springframework.org/schema/cache"
+	    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	    xsi:schemaLocation="
+ 
+			http://www.springframework.org/schema/beans	 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			 
+			http://www.springframework.org/schema/mvc	 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			
+			http://cxf.apache.org/jaxws 
+			http://cxf.apache.org/schemas/jaxws.xsd
+			
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			
+			http://www.springframework.org/schema/cache 
+			http://www.springframework.org/schema/cache/spring-cache.xsd">
+ 
+	<!-- ========================= Spring Transaction Configuration ========================= -->
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	-->	
+	<!-- needed for transactional behaviors in the Spring-driven JUnit test 	 -->
+	<tx:annotation-driven transaction-manager="transactionManager" /> 
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean> 	
+ 
+	<!-- ========================= Spring Cache Configuration ========================= -->
+	<cache:annotation-driven cache-manager="cacheManager"  key-generator="enhancedDefaultKeyGenerator"/>
+	<bean id ="enhancedDefaultKeyGenerator" class="org.podcastpedia.core.caching.EnhancedDefaultKeyGenerator"/>	
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cache-manager-ref="ehcache"/>	
+	<!-- Ehcache library setup -->
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="classpath:config/ehcache.xml"/>
+	
+	 
+    <!-- ========================= MyBATIS configuration ========================= -->
+	<bean id="podcastDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.podcasts.PodcastDao" />
+	</bean>
+	<bean id="episodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.episodes.EpisodeDao" />
+	</bean>	
+	<bean id="categoryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.categories.CategoryDao" />
+	</bean>	
+	<bean id="searchDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.searching.SearchDao" />
+	</bean>		
+	<bean id="userInteractionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.userinteraction.UserInteractionDao" />
+	</bean>
+	<bean id="startPageDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.startpage.StartPageDao" />
+	</bean>
+	<bean id="tagDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	   <property name="mapperInterface" value="org.podcastpedia.core.tags.TagDao" />
+	</bean>	
+	<bean id="emailSubscriptionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="mapperInterface" value="org.podcastpedia.core.userinteraction.emailsubscription.EmailSubscriptionDao" />
+	</bean>			
+	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatisV3-config.xml"/>
+	 </bean>	
+		 
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+    <!-- import the dataSource definition -->
+    <import resource="data-source.xml"/>  
+    
+    <!-- ========================= Service beans configuration ========================= -->
+    <bean id="podcastService" class="org.podcastpedia.core.podcasts.PodcastServiceImpl">
+        <property name="podcastDao" ref="podcastDao"/>
+        <property name="episodeDao" ref="episodeDao"/>
+        <property name="configService" ref="configService"/>
+    </bean>
+	<bean id="searchService" class="org.podcastpedia.core.searching.SearchServiceImpl"/>
+	<bean id="episodeService" class="org.podcastpedia.core.episodes.EpisodeServiceImpl"/>
+	<bean id="configService" class="org.podcastpedia.common.util.config.ConfigServiceImpl">
+		<property name="configBean" ref="configBean"/>
+	</bean> 
+		
+    <bean id="configBean" class="org.podcastpedia.common.util.config.ConfigBeanJdbcImpl">
+        <property name="dataSource" ref="configDataSource" />
+    </bean>	
+    		
+	<!-- test utils configuration -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>       
+	 <bean id="testUtils" class="org.podcastpedia.test.util.TestUtilsImpl"/>
+</beans>

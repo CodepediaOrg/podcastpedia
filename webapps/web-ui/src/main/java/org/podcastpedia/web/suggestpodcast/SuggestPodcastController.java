@@ -1,20 +1,17 @@
 package org.podcastpedia.web.suggestpodcast;
 
-import java.util.List;
-
-import javax.servlet.ServletRequest;
-
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
-
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.Category;
 import org.podcastpedia.common.types.LanguageCode;
 import org.podcastpedia.common.types.MediaType;
 import org.podcastpedia.common.types.UpdateFrequencyType;
-import org.podcastpedia.web.categories.CategoryService;
-import org.podcastpedia.web.searching.SearchData;
-import org.podcastpedia.web.userinteraction.UserInteractionService;
+import org.podcastpedia.core.categories.CategoryService;
+import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.suggestpodcast.EmailNotificationService;
+import org.podcastpedia.core.suggestpodcast.SuggestedPodcast;
+import org.podcastpedia.core.userinteraction.UserInteractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,14 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpSessionRequiredException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import javax.servlet.ServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/how_can_i_help/add_podcast")
@@ -115,8 +109,7 @@ public class SuggestPodcastController {
 		if (reCaptchaResponse.isValid() && !result.hasErrors()) {
 
 			userInteractionService.addSuggestedPodcast(addPodcastFormData);
-			emailNotificationService
-					.sendSuggestPodcastNotification(addPodcastFormData);
+			emailNotificationService.sendSuggestPodcastNotification(addPodcastFormData);
 			sessionStatus.setComplete();
 
 			return "redirect:/how_can_i_help/add_podcast?tks=true";

@@ -1,30 +1,26 @@
 package org.podcastpedia.web.contact;
 
-import java.beans.PropertyEditorSupport;
-import java.util.List;
-
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.util.Utilities;
 import org.podcastpedia.common.types.ContactTopicType;
-import org.podcastpedia.web.searching.SearchData;
-import org.podcastpedia.web.userinteraction.UserInteractionService;
+import org.podcastpedia.core.contact.ContactForm;
+import org.podcastpedia.core.contact.ContactService;
+import org.podcastpedia.core.contact.EmailNotificationService;
+import org.podcastpedia.core.searching.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.ServletRequest;
-
+import java.beans.PropertyEditorSupport;
+import java.util.List;
 
 /**
  * Controller to route the various links present in footer. This will be static information.

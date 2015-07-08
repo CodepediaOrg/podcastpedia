@@ -1,7 +1,7 @@
 package org.podcastpedia.web.staticpages;
 
 import org.apache.log4j.Logger;
-import org.podcastpedia.web.searching.SearchData;
+import org.podcastpedia.core.searching.SearchData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;

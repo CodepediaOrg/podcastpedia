@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
+import org.podcastpedia.core.caching.CacheUpdateService;
+
 @Controller
 @RequestMapping("/rest/caching/update")
 public class CachingUpdateRestController {

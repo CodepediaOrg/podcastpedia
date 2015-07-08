@@ -1,6 +1,6 @@
 package org.podcastpedia.web.error;
 
-import org.podcastpedia.web.searching.SearchData;
+import org.podcastpedia.core.searching.SearchData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;

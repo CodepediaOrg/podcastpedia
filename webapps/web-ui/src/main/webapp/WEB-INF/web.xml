@@ -36,8 +36,8 @@
 		<!-- <param-value>/WEB-INF/applicationContext.xml</param-value>  -->
 		<!-- The above is the default -->
 		<param-value>
-			classpath:spring/application-context.xml	
-			classpath:spring/security-context.xml	
+			classpath:spring/applicationContext-web-ui.xml
+			classpath:spring/security-context.xml
 		</param-value>
 	</context-param>	
 
@@ -107,8 +107,8 @@
 		<init-param>
       		<param-name>contextConfigLocation</param-name>
       		<param-value>
-      			classpath:spring/application-context.xml	   			
-      		</param-value>
+				classpath:spring/applicationContext-web-ui.xml
+			</param-value>
     	</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>		
