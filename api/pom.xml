@@ -9,7 +9,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.podcastpedia</groupId>
     <artifactId>api</artifactId>
     <packaging>war</packaging>
 
