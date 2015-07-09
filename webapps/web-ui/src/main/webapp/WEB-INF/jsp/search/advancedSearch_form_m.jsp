@@ -96,7 +96,7 @@
 					<span id="nat_text_tip">
 						<spring:message code="search.text.natural_tip" text="Type as you would speak"/>
 					</span>
-				<p/>
+				</p>
 					
 			</div>	
 			<div id="boolean_mode_part">	
@@ -108,7 +108,7 @@
 				</div>		
 				<p>
 					<form:input path="allTheseWords" id="allTheseWords" class="form_input"/>
-				<p/>				
+				</p>
 				<div class="label_above_elements">
 					<label for="exactPhrase">
 						<strong><spring:message code="search.boolean.exact_phrase" text="exact phrase"/></strong>
@@ -117,7 +117,7 @@
 				</div>	
 				<p>
 					<form:input path="exactPhrase" id="exactPhrase" class="form_input"/>
-				<p/>							
+				</p>
 				<div class="label_above_elements">
 					<label for="anyOfTheseWords">
 						<strong><spring:message code="search.boolean.any_words" text="any of these words"/></strong>
@@ -126,7 +126,7 @@
 				</div>
 				<p>
 					<form:input path="anyOfTheseWords" id="anyOfTheseWords" class="form_input"/>
-				<p/>				
+				</p>
 				<div class="label_above_elements">
 					<label for="noneOfTheseWords">
 						<strong><spring:message code="search.boolean.none_words" text="none of these words"/></strong>
@@ -135,7 +135,7 @@
 				</div>	
 				<p>
 					<form:input path="noneOfTheseWords" id="noneOfTheseWords" class="form_input"/>
-				<p/>				
+				</p>
 			</div>											
 		</fieldset>		
 		<fieldset>
@@ -156,7 +156,7 @@
 					    <form:option value="${languageCode.code}" label='${langCodeVar}'/>
 					</c:forEach>					
 				</form:select>	
-			<p/>							
+			</p>
 			<div class="label_above_elements">
 				<label for="mediaType" class="label">
 					<spring:message code="search_form.mediaType" text="Media Type"/> 
@@ -186,7 +186,7 @@
 				<span id="category_comment">
 					<spring:message code="search.text.category_ctrl" text="Use Ctrl key to select multiple categories "/>
 				</span>											 							
-			<p/>						
+			</p>
 		</fieldset>					
 			
 		<fieldset>
@@ -202,7 +202,7 @@
 					<form:option value="20" label="20"/>
 					<form:option value="50" label="50"/>
 				</form:select>
-			<p/>				
+			</p>
 		</fieldset>		
 		<fieldset>
 			<legend>
