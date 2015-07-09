@@ -94,7 +94,7 @@ public class EpisodeController {
 		if (otherEpisodes != null) {
 			model.addAttribute("otherEpisodes", otherEpisodes);
 			model.addAttribute("otherEpisodesSize",
-					new Integer(otherEpisodes.size()));
+					otherEpisodes.size());
 			model.addAttribute("nr_divs_with_ratings", otherEpisodes.size());
 		}
 

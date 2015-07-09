@@ -69,14 +69,14 @@ public class UpdateEpisodesController {
 		  
 		  LOG.debug("------ updatePodcastById : update and its episodes from DB by podcast's id -----");
 		  String[] podcastIds = updatePodcastByIdForm.getPodcastIds().split(",");
-		  
-		  for(int i = 0; i < podcastIds.length; i++) {			  
+
+		  for (String podcastId : podcastIds) {
 			  Podcast podcast = new Podcast();
-			  podcast.setPodcastId(Integer.valueOf(podcastIds[i].trim()));
+			  podcast.setPodcastId(Integer.valueOf(podcastId.trim()));
 			  long start = System.currentTimeMillis();
-			  updateService.updatePodcastById(podcast, true, updatePodcastByIdForm.getIsFeedLoadedFromLocalFile());	
+			  updateService.updatePodcastById(podcast, true, updatePodcastByIdForm.getIsFeedLoadedFromLocalFile());
 			  long elapsedTime = System.currentTimeMillis() - start;
-			  LOG.info("It took "+ elapsedTime + " miliseconds for podcastid " + podcast.getPodcastId());
+			  LOG.info("It took " + elapsedTime + " miliseconds for podcastid " + podcast.getPodcastId());
 		  }
 		  		  
 		  restClient.invokeRefreshAllCaches();

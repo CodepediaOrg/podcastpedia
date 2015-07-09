@@ -133,14 +133,14 @@ public class InsertController {
 		Podcast podcast = readService
 				.getPodcastAttributesByFeedUrl(proposedPodcast.getPodcast()
 						.getUrl());
-		StringBuffer urlOnPodcastpedia = new StringBuffer(
+		StringBuilder urlOnPodcastpedia = new StringBuilder(
 				"http://www.podcastpedia.org");
 		if (podcast.getIdentifier() != null) {
-			urlOnPodcastpedia.append("/" + podcast.getIdentifier());
+			urlOnPodcastpedia.append("/").append(podcast.getIdentifier());
 		} else {
 			urlOnPodcastpedia.append("/podcasts/");
 			urlOnPodcastpedia.append(String.valueOf(podcast.getPodcastId()));
-			urlOnPodcastpedia.append("/" + podcast.getTitleInUrl());
+			urlOnPodcastpedia.append("/").append(podcast.getTitleInUrl());
 		}
 
 		// notify the submitter

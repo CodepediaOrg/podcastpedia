@@ -131,11 +131,11 @@ public class ReadDaoIT {
 		
 		//get all the files from the directory
 		File[] files = targetDirectory.listFiles();
-		for(int i=0; i < files.length; i++){
-			boolean isNotSitemapIndexFile = !files[i].getName().startsWith("sitemap_index"); 
-			if(isNotSitemapIndexFile){
-				SitemapIndexUrl sitemapIndexUrl = new SitemapIndexUrl("http://www.podcastpedia.org/" + files[i].getName(), new Date(files[i].lastModified()));
-				sig.addUrl(sitemapIndexUrl);									
+		for (File file : files) {
+			boolean isNotSitemapIndexFile = !file.getName().startsWith("sitemap_index");
+			if (isNotSitemapIndexFile) {
+				SitemapIndexUrl sitemapIndexUrl = new SitemapIndexUrl("http://www.podcastpedia.org/" + file.getName(), new Date(file.lastModified()));
+				sig.addUrl(sitemapIndexUrl);
 			}
 
 		}

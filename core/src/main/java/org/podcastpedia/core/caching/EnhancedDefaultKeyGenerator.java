@@ -50,7 +50,7 @@ public class EnhancedDefaultKeyGenerator implements KeyGenerator {
 		for (Object object : params) {
 			hashCode = 31 * hashCode + (object == null ? NULL_PARAM_KEY : object.hashCode());
 		}
-		return Integer.valueOf(hashCode);
+		return hashCode;
 	}
 	
     public static boolean isWrapperType(Class<?> clazz)

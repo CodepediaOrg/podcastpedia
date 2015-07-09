@@ -71,7 +71,7 @@ public class SearchData implements Serializable {
 	private Integer tagId;
 	
 	/** placeholder for the query string to be passed to the next request */
-	private StringBuffer queryString;
+	private StringBuilder queryString;
 	
 	/** number of result pages - transmitted via the url */
 	private Integer nrResultPages;
@@ -278,12 +278,12 @@ public class SearchData implements Serializable {
 	}
 
 
-	public StringBuffer getQueryString() {
+	public StringBuilder getQueryString() {
 		return queryString;
 	}
 
 
-	public void setQueryString(StringBuffer queryString) {
+	public void setQueryString(StringBuilder queryString) {
 		this.queryString = queryString;
 	}
 
@@ -416,13 +416,9 @@ public class SearchData implements Serializable {
 	}
 
 
-
-
 	public void setCategId(List<Integer> categId) {
 		this.categId = categId;
 	}
-
-
 
 
 	public Integer getFirstItemOnPage() {

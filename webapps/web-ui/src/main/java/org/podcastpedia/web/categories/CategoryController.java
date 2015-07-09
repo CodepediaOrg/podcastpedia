@@ -61,8 +61,8 @@ public class CategoryController {
 	  /**
 	   * Custom handler for displaying a podcast.
 	   * 
-	   * @param podcastId
-	   * @param episode
+	   * @param categoryId
+	   * @param model
 	   * @return
 	   */
 	  @RequestMapping(value="{categoryId}/*", method=RequestMethod.GET)
@@ -70,11 +70,11 @@ public class CategoryController {
 		  
 		  LOG.debug("------ CategoryController.getPodcastsFromCategory : redirects to search podcasts from a given category -----");
 		  
-		  StringBuffer queryString = new StringBuffer(); 
+		  StringBuilder queryString = new StringBuilder();
 
 		  queryString.append("?numberResultsPerPage=10");  
 		  queryString.append("&searchTarget=podcasts");
-		  queryString.append("&categId=" + categoryId);
+		  queryString.append("&categId=").append(categoryId);
 		  queryString.append("&searchMode=natural");
 		  queryString.append("&currentPage=1");
 		  

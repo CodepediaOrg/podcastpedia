@@ -107,9 +107,9 @@ public class UpdateMetadataController {
 		
 		//set the tags string url 
 		if(podcast.getTags() != null && podcast.getTags().size() > 0){
-			StringBuffer tagsStr = new StringBuffer();
+			StringBuilder tagsStr = new StringBuilder();
 			for(Tag tag : podcast.getTags()){
-				tagsStr.append(tag.getName() + ",");
+				tagsStr.append(tag.getName()).append(",");
 			}
 			podcast.setTagsStr(tagsStr.toString().substring(0, tagsStr.length()-1));
 		}

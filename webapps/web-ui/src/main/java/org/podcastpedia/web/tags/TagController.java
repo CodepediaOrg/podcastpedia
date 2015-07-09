@@ -85,11 +85,11 @@ public class TagController {
 
 		LOG.debug("------ CategoryController.getPodcastsFromCategory : redirects to search podcasts from a given category -----");
 
-		StringBuffer queryString = new StringBuffer();
+		StringBuilder queryString = new StringBuilder();
 
 		queryString.append("?numberResultsPerPage=10");
 		queryString.append("&searchTarget=podcasts");
-		queryString.append("&tagId=" + tagId);
+		queryString.append("&tagId=").append(tagId);
 		queryString.append("&searchMode=natural");
 		queryString.append("&currentPage=1");
 

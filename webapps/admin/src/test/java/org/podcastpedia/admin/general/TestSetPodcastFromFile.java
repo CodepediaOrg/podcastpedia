@@ -43,8 +43,8 @@ public class TestSetPodcastFromFile {
 		//set podcast's category ids
 		String[] categoryIds = categoryIdsStr.split(",");
 		List<Integer> podcastCategoryIDs = new ArrayList<Integer>();
-		for(int i=0; i < categoryIds.length; i++){
-			podcastCategoryIDs.add(Integer.valueOf(categoryIds[i]));
+		for (String categoryId : categoryIds) {
+			podcastCategoryIDs.add(Integer.valueOf(categoryId));
 		}
 		podcast.setCategoryIDs(podcastCategoryIDs);
 		//setpodcasts languageCode

@@ -226,7 +226,7 @@ public class InsertServiceImpl implements InsertService{
 					}
 					
 				} catch (Exception e) {
-					LOG.error("ERROR inserting episode " + episode.getMediaUrl() + " for podcastId[" + episode.getPodcastId() + "]" + e.getMessage());
+					LOG.error("ERROR inserting episode " + episode.getMediaUrl() + " for podcastId[" + episode.getPodcastId() + "]", e);
 					continue; //do not mark it as new episode 
 				}				
 			
@@ -254,12 +254,12 @@ public class InsertServiceImpl implements InsertService{
 
 		String[] categoryNames = categoriesStr.split(",");
 		List<Integer> podcastCategoryIDs = new ArrayList<Integer>();
-		for(int i=0; i < categoryNames.length; i++){
-			Integer categoryIdForName = categoryIdsForNames.get(categoryNames[i].trim());
-			if(categoryIdForName==null){
-				throw new Exception("Category name " + categoryNames[i].trim() + "  is wrong");
+		for (String categoryName : categoryNames) {
+			Integer categoryIdForName = categoryIdsForNames.get(categoryName.trim());
+			if (categoryIdForName == null) {
+				throw new Exception("Category name " + categoryName.trim() + "  is wrong");
 			} else {
-				podcastCategoryIDs.add(categoryIdForName);	
+				podcastCategoryIDs.add(categoryIdForName);
 			}
 		}
 

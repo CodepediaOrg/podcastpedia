@@ -32,7 +32,7 @@ public class SearchServiceImpl implements SearchService {
 	public SearchResult getResultsForSearchCriteria(SearchData searchData) throws UnsupportedEncodingException {	
 	
 		SearchResult response = new SearchResult();
-		if(searchData.getCategId()!=null && searchData.getCategId().size() == 0){
+		if(searchData.getCategId()!=null && searchData.getCategId().isEmpty()){
 			searchData.setCategId(null);
 		}
 		searchData.setFirstItemOnPage((searchData.getCurrentPage()-1) * searchData.getNumberResultsPerPage());
@@ -124,14 +124,14 @@ public class SearchServiceImpl implements SearchService {
 			//it means that I am in the boolean search mode
 			//it means we are in the boolean mode so the string has to be built 
 			
-			StringBuffer queryTextBuffer = new StringBuffer();
+			StringBuilder queryTextBuffer = new StringBuilder();
 			
 			//start with the all of these words part 
 			if(searchData.getAllTheseWords()!=null
 					&& !searchData.getAllTheseWords().trim().equals("")){
 				String[] allWords = searchData.getAllTheseWords().split(" ");
 				for(String s: allWords){
-					queryTextBuffer.append(" " + s);
+					queryTextBuffer.append(" ").append(s);
 				}
 			}
 			// none of these words
@@ -139,18 +139,18 @@ public class SearchServiceImpl implements SearchService {
 					&& !searchData.getNoneOfTheseWords().trim().equals("")){
 				String[] noneOfWords = searchData.getNoneOfTheseWords().split(" ");
 				for(String s: noneOfWords){
-					queryTextBuffer.append(" " + s);
+					queryTextBuffer.append(" ").append(s);
 				}
 			}		
 			//any of these words - is simply just added 
 			if(searchData.getAnyOfTheseWords()!=null 
 					&& !searchData.getAnyOfTheseWords().trim().equals("")){
-				queryTextBuffer.append(" " + searchData.getAnyOfTheseWords());		
+				queryTextBuffer.append(" ").append(searchData.getAnyOfTheseWords());
 			}
 			//exact phrase
 			if(searchData.getExactPhrase()!=null 
 					&& !searchData.getExactPhrase().trim().equals("")){
-				queryTextBuffer.append(" +" + searchData.getExactPhrase());		
+				queryTextBuffer.append(" +").append(searchData.getExactPhrase());
 			}	
 			
 			//set the queryText
@@ -159,7 +159,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	private boolean isDefaultSearchText(SearchData searchData) {
-		return searchData.getQueryText() == null || searchData.getQueryText() != null && Arrays.asList(textGetAllPodcastsI18N).contains(searchData.getQueryText().trim());
+		return searchData.getQueryText() == null || Arrays.asList(textGetAllPodcastsI18N).contains(searchData.getQueryText().trim());
 	}
 
 	

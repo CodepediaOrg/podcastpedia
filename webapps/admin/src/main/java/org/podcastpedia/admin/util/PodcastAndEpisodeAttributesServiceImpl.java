@@ -1,10 +1,10 @@
 package org.podcastpedia.admin.util;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
+import com.rometools.rome.feed.synd.SyndEnclosure;
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndImage;
+import com.rometools.rome.io.FeedException;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
@@ -12,13 +12,10 @@ import org.podcastpedia.common.types.MediaType;
 import org.podcastpedia.common.util.config.ConfigBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rometools.rome.feed.synd.SyndEnclosure;
-import com.rometools.rome.feed.synd.SyndEnclosureImpl;
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndEntryImpl;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.feed.synd.SyndImage;
-import com.rometools.rome.io.FeedException;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class PodcastAndEpisodeAttributesServiceImpl implements PodcastAndEpisodeAttributesService {
 
@@ -270,8 +267,8 @@ public class PodcastAndEpisodeAttributesServiceImpl implements PodcastAndEpisode
 			Podcast podcast) {
 		Date podcastPublicationDate = podcast.getPublicationDate();
 		boolean episodePubDateIsMoreRecent = episode.getPublicationDate() != null
-				&& (podcastPublicationDate == null || (podcastPublicationDate != null && podcastPublicationDate
-						.before(episode.getPublicationDate())));
+				&& (podcastPublicationDate == null || podcastPublicationDate
+						.before(episode.getPublicationDate()));
 
 		if (episodePubDateIsMoreRecent) {
 			podcast.setPublicationDate(episode.getPublicationDate());

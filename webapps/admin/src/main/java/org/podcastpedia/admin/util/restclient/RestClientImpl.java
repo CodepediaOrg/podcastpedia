@@ -1,7 +1,5 @@
 package org.podcastpedia.admin.util.restclient;
 
-import java.io.IOException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -14,13 +12,14 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.util.config.ConfigBean;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
 
 public class RestClientImpl implements RestClient {
 
@@ -85,10 +84,9 @@ public class RestClientImpl implements RestClient {
 			LOG.info(" Response " + EntityUtils.getContentCharSet(entity));
 
 		} catch (ClientProtocolException e) {
-			LOG.error(" ClientProtocolException invoking url " + url + " "
-					+ e.getMessage());
+			LOG.error(" ClientProtocolException invoking url " + url, e);
 		} catch (IOException e) {
-			LOG.error(" IOException invoking url " + url + " " + e.getMessage());
+			LOG.error(" IOException invoking url " + url + " ", e);
 		} finally {
 			httpget.releaseConnection();
 		}
