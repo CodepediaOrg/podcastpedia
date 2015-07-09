@@ -28,7 +28,6 @@
  	<import resource="applicationContext-core-service.xml"/>
  	<!-- DAOs configuration -->
 	<import resource="applicationContext-core-dao.xml"/>
-	<import resource="applicationContext-core-dataSource.xml"/>
 	<import resource="classpath:spring/applicationContext-common.xml" />
 
 	<!--

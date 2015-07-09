@@ -7,6 +7,8 @@
 			http://www.springframework.org/schema/beans	 
 			http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<import resource="applicationContext-core-dataSource.xml"/>
+
 	<!-- ========================= MyBATIS mappings configuration ========================= -->
 	<bean id="podcastDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
