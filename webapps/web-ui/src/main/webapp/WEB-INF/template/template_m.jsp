@@ -23,7 +23,7 @@
 	    <!-- TOP LEFT RIBBON: START COPYING HERE -->
 	    <div class="github-fork-ribbon-wrapper left">
 	        <div class="github-fork-ribbon">
-	            <a href="https://github.com/podcastpedia/podcastpedia-web" target="_blank">Fork me on GitHub</a>
+	            <a href="https://github.com/PodcastpediaOrg/podcastpedia" target="_blank">Fork me on GitHub</a>
 	        </div>
 	    </div>    
     	<div id="banner">			
