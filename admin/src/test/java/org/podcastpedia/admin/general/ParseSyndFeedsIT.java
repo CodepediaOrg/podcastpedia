@@ -63,9 +63,9 @@ public class ParseSyndFeedsIT {
 
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.assertTrue("Caught the right exception", true);
 			} else {
 				Assert.fail();
@@ -89,9 +89,9 @@ public class ParseSyndFeedsIT {
 			LOG.info(feed);
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof IOException
-					&& e.getMessage().contains(
-							"Server returned HTTP response code: 403 for URL")) {
+			if ((e instanceof IOException)
+                && e.getMessage().contains(
+                "Server returned HTTP response code: 403 for URL")) {
 				Assert.assertTrue("Caught the right exception", true);
 				URLConnection openConnection = new URL(url).openConnection();
 				openConnection.addRequestProperty("User-Agent",
@@ -124,9 +124,9 @@ public class ParseSyndFeedsIT {
 			SyndFeed feed = input.build(source);
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.assertTrue("Caught the right exception", true);
 			} else {
 				Assert.fail();
@@ -189,9 +189,9 @@ public class ParseSyndFeedsIT {
 			LOG.info(feed.getEncoding());
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.fail();
 			} else {
 				Assert.fail();
@@ -221,9 +221,9 @@ public class ParseSyndFeedsIT {
 			LOG.info(feed.getEncoding());
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.fail();
 			} else {
 				Assert.fail();
@@ -266,14 +266,14 @@ public class ParseSyndFeedsIT {
 			LOG.info(feed.getEncoding());
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.fail();
 			} else {
 				Assert.fail();
 			}
-		} finally {			
+		} finally {
 			fis.close();
 			output.close();
 			writer.close();
@@ -330,9 +330,9 @@ public class ParseSyndFeedsIT {
 			LOG.info(feed.getEncoding());
 		} catch (Exception e) {
 			LOG.error("Parsing feed failed", e);
-			if (e instanceof ParsingFeedException
-					&& e.getMessage().contains(
-							"Content is not allowed in prolog.")) {
+			if ((e instanceof ParsingFeedException)
+                && e.getMessage().contains(
+                "Content is not allowed in prolog.")) {
 				Assert.fail();
 			} else {
 				Assert.fail();
