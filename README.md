@@ -11,9 +11,8 @@ Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) pr
 |   +---common
 |   +---core
 |   +---sql
-|   +---webapps
-|       +---web-ui
-|       +---admin
+|   +---web-ui
+|   +---admin
 ```
 * **podcastpedia** is the parent project 
 * **api** REST api supporting core functionalities for the application(in progress)
@@ -102,18 +101,18 @@ That database setup should be ready now. A more detailed explanation about setti
 mvn clean package -DskipTests=true
 ```
 ***
-### Run project 
+### Run the website (**web-ui** module)project 
 #### Jetty [(Maven Jetty Plugin)](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
-Change to the *webapps/web-ui* folder and execute the following command on the terminal
+Execute the following command in the parent/root directory
 
 ```
-mvn jetty:run
+mvn -pl web-ui jetty:run
 ```
 #### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
-Change to the *webapps/web-ui* folder and execute the following command on the terminal
+Execute the following command in the parent/root directory
 
 ```
-mvn tomcat7:run
+mvn -pl web-ui tomcat7:run
 ```
 ***
 
