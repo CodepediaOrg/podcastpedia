@@ -279,16 +279,11 @@
 			<artifactId>twitter4j-core</artifactId>
 			<version>[4.0,)</version>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-facebook</artifactId>
-            <version>2.0.0.RELEASE</version>
-        </dependency>
-<!-- 		<dependency>
-		  <groupId>org.facebook4j</groupId>
-		  <artifactId>facebook4j-core</artifactId>
-		  <version>[2.1,)</version>
-		</dependency> -->
+      <dependency>
+          <groupId>org.springframework.social</groupId>
+          <artifactId>spring-social-facebook</artifactId>
+          <version>2.0.0.RELEASE</version>
+      </dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
