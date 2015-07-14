@@ -101,7 +101,7 @@ That database setup should be ready now. A more detailed explanation about setti
 mvn clean package -DskipTests=true
 ```
 ***
-### Run the website (**web-ui** module)project 
+### Run the website (_web-ui_ module) 
 #### Jetty [(Maven Jetty Plugin)](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
 Execute the following command in the parent/root directory
 
