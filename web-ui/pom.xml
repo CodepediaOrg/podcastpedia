@@ -308,8 +308,8 @@
 								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 							</manifest>
 						</archive>
-                        <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
-                        <warSourceExcludes>static/node_modules/,src/main/webapp/static/node_modules/</warSourceExcludes>
+            <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
+            <warSourceExcludes>static/node_modules/,src/main/webapp/static/node_modules/</warSourceExcludes>
 						<warName>ROOT</warName>
 					</configuration>
 					<executions>
@@ -325,6 +325,11 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
+                    <configuration>
+                      <webAppConfig>
+                        <contextPath>/</contextPath>
+                      </webAppConfig>
+                    </configuration>
 			    </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -333,11 +338,12 @@
           <plugin>
               <groupId>org.apache.tomcat.maven</groupId>
               <artifactId>tomcat7-maven-plugin</artifactId>
+              <configuration>
+                <path>/</path>
+              </configuration>
           </plugin>
 			</plugins>
 	</build>
 
 
 </project>
-
-<!-- modify the pom -->
