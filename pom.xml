@@ -413,7 +413,7 @@
                   </scanTargets>
                   <contextXml>${project.basedir}/src/test/resources/jetty-context.xml</contextXml>
                   <webAppConfig>
-                    <contextPath>/</contextPath>
+                    <contextPath>/${project.artifactId}</contextPath>
                   </webAppConfig>
                 </configuration>
                 <dependencies>
@@ -444,7 +444,7 @@
                   <!-- http port -->
                   <port>8080</port>
                   <!-- application path always starts with /-->
-                  <path>/</path>
+                  <path>/${project.artifactId}</path>
                   <!-- optional path to a context file -->
                   <contextFile>context.xml</contextFile>
                   <!-- optional system propoerties you want to add -->
