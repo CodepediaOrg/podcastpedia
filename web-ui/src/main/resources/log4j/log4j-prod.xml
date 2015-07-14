@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j=
+                       "http://jakarta.apache.org/log4j/"
+                     debug="false">
+
+  <appender name="errorsDailyAppender"
+            class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="Threshold" value="DEBUG" />
+    <param name="File" value="${user.home}/logs/podcastpedia/web-ui/errors.log"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
+    </layout>
+  </appender>
+
+  <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+    <param name="BufferSize" value="150"/>
+    <appender-ref ref="errorsDailyAppender"/>
+  </appender>
+
+  <logger name="org.podcastpedia"  additivity="false">
+    <level value="WARN" />
+    <appender-ref ref="ASYNC"/>
+  </logger>
+
+  <root>
+    <priority value="WARN"/>
+  </root>
+</log4j:configuration>

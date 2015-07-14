@@ -2,35 +2,29 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	
+
 	<icon>
 		<small-icon>/static/images/star.gif</small-icon>
 	</icon>
-	
-	<display-name>Podcastpedia.org - Knowledge to go </display-name>
-	
-	<description> Europe's podcast directory</description>
 
-	<!--
-		Key of the system property that should specify the root directory of this
-		web app. Applied by WebAppRootListener or Log4jConfigListener.
-		
-		Useful link - http://www.gridpulse.com/using-spring-webapprootlistener-access-webapp-root/ 
-	-->
+	<display-name>Podcastpedia.org - Knowledge to go</display-name>
+
+	<description>The open source podcast directory</description>
+
 	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>podcastpedia.root</param-value>
 	</context-param>
-	
+
 	<!--
 		Location of the Log4J config file, for initialization and refresh checks.
 		Applied by Log4jConfigListener.
-	-->	
+	-->
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:log4j/log4j.xml</param-value>
+		<param-value>classpath:log4j/log4j-${env}.xml</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!-- <param-value>/WEB-INF/applicationContext.xml</param-value>  -->
@@ -39,7 +33,7 @@
 			classpath:spring/applicationContext-web-ui.xml
 			classpath:spring/security-context.xml
 		</param-value>
-	</context-param>	
+	</context-param>
 
   <!--
 	  - Configures Log4J for this web app.
@@ -53,11 +47,11 @@
 	  - directory of this web app, for usage in log file paths.
 	  - This web app specifies "podcastmania.root" (see log4j.properties file).
 	-->
-	
+
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener> 
-	
+	</listener>
+
 	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
 	<!--
 		- Loads the root application context of this web app at startup,
@@ -71,7 +65,7 @@
 		- The root context is the parent of all servlet-specific contexts.
 		- This means that its beans are automatically available in these child contexts,
 		- both for getBean(name) calls and (external) bean references.
-	-->	
+	-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -90,7 +84,7 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!--
 		- Servlet that dispatches request to registered handlers (Controller implementations).
 		- Has its own application context, by default defined in "{servlet-name}-servlet.xml",
@@ -99,11 +93,11 @@
 		- A web app can contain any number of such servlets.
 		- Note that this web app has a shared root application context, serving as parent
 		- of all DispatcherServlet contexts.
-	-->	
+	-->
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		
+
 		<init-param>
       		<param-name>contextConfigLocation</param-name>
       		<param-value>
@@ -111,7 +105,7 @@
 			</param-value>
     	</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet>		
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -122,10 +116,10 @@
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-				
+
 	<!-- Reads request input using UTF-8 encoding
-	The character encoding type for the request can be set using the CharacterEncodingFilter. 
-	By setting this, when a form values are retrieved from the request the encoding type will be UTF-8. 
+	The character encoding type for the request can be set using the CharacterEncodingFilter.
+	By setting this, when a form values are retrieved from the request the encoding type will be UTF-8.
 	 -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
@@ -144,17 +138,17 @@
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
   		<filter-name>etagFilter</filter-name>
     	<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
-	</filter>	
-	
+	</filter>
+
     <filter-mapping>
        <filter-name>etagFilter</filter-name>
        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-    </filter-mapping>	
-    
+    </filter-mapping>
+
     <!--Hook into spring security-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -164,14 +158,14 @@
     <filter-mapping>
       <filter-name>springSecurityFilterChain</filter-name>
       <url-pattern>/rest_services/*</url-pattern>
-    </filter-mapping>	
-	
+    </filter-mapping>
+
 	<!-- set session timeout for 1 minute <url-pattern>/*.atom</url-pattern> -->
 	<session-config>
 		<session-timeout>10</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
-				
+
 	<resource-ref>
         <description>Database resource for podcastpedia web application </description>
         <res-ref-name>jdbc/pcmDB</res-ref-name>
@@ -188,11 +182,11 @@
 	  <res-ref-name>mail/Session</res-ref-name>
 	  <res-type>javax.mail.Session</res-type>
 	  <res-auth>Container</res-auth>
-	</resource-ref>    
-    
+	</resource-ref>
+
 	<error-page>
 	    <error-code>404</error-code>
 	    <location>/errors/404.html</location>
 	</error-page>
-    
+
 </web-app>
