@@ -325,11 +325,11 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-                    <configuration>
-                      <webAppConfig>
-                        <contextPath>/</contextPath>
-                      </webAppConfig>
-                    </configuration>
+            <configuration>
+              <webAppConfig>
+                <contextPath>/</contextPath>
+              </webAppConfig>
+            </configuration>
 			    </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
