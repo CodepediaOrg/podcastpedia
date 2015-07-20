@@ -119,10 +119,9 @@ public class SearchServiceImpl implements SearchService {
 			// else it means the user has given some input text for natural mode search
 		}
 
+        //in boolean search mode (see - https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html)
+        // the corresponding operators are provided by the client of the api
 		if(searchData.getSearchMode().equals(SearchModeType.BOOLEAN_MODE.getValue())){
-			// modify the condition to put queryText maybe in natural and disable it when selecting
-			//it means that I am in the boolean search mode
-			//it means we are in the boolean mode so the string has to be built
 
 			StringBuilder queryTextBuffer = new StringBuilder();
 
@@ -150,6 +149,7 @@ public class SearchServiceImpl implements SearchService {
 			//exact phrase
 			if(searchData.getExactPhrase()!=null
 					&& !searchData.getExactPhrase().trim().equals("")){
+                //the client will provided only the exact phrase between quotes, and we use the plus sign (+) to force its existence
 				queryTextBuffer.append(" +").append(searchData.getExactPhrase());
 			}
 
