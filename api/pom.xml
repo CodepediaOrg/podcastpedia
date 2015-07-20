@@ -9,7 +9,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.podcastpedia</groupId>
     <artifactId>api</artifactId>
     <packaging>war</packaging>
 
@@ -18,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jersey.version>2.14</jersey.version>
+        <jersey.version>2.19</jersey.version>
     </properties>
 
     <dependencies>
@@ -30,6 +29,7 @@
             <groupId>org.podcastpedia</groupId>
             <artifactId>core</artifactId>
         </dependency>
+
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -139,21 +139,19 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-base</artifactId>
-            <version>2.4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>2.4.4</version>
-        </dependency>
+      <!-- JSON Parser for Java - https://github.com/FasterXML/jackson -->
+      <dependency>
+        <groupId>com.fasterxml.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-base</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-json-provider</artifactId>
+      </dependency>
 
         <!-- Spring security -->
         <dependency>
@@ -204,65 +202,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                    <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
-                    <warName>api</warName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                        <inherited>true</inherited>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-                <configuration>
-                    <jettyConfig>${project.basedir}/src/main/resources/config/jetty9.xml</jettyConfig>
-                    <stopKey>STOP</stopKey>
-                    <stopPort>9999</stopPort>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
-                    <scanTargets>
-                        <scanTarget>${project.basedir}/src/main</scanTarget>
-                        <scanTarget>${project.basedir}/src/test</scanTarget>
-                    </scanTargets>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.connector.java.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                        <version>${java.mail.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jdbc</artifactId>
-                        <version>${tomcat.jdbc.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
+            <!-- https://tomcat.apache.org/maven-plugin-trunk/index.html -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>

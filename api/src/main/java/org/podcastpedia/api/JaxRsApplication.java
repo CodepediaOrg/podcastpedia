@@ -17,7 +17,7 @@ public class JaxRsApplication extends ResourceConfig {
 	 */
 	public JaxRsApplication() {
 		
-        packages("org.podcastpedia.web.api");
+        packages("org.podcastpedia.api");
 
 		// register features
 		EncodingFilter.enableFor(this, GZipEncoder.class);		

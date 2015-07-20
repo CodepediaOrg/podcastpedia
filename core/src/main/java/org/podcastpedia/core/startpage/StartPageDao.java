@@ -18,7 +18,7 @@ public interface StartPageDao {
 	  /**
 	   * Returns the newest podcasts (ORDER BY insertion_date DESC)
 	   * 
-	   * @param numberOfPodcasts (number of podcasts to be returned and language code)
+	   * @param params
 	   * @return
 	   */
 	  public List<Podcast> getLastUpdatedPodcastsWithLanguage(Map<String, Object> params);	

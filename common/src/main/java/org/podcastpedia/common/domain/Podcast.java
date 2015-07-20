@@ -441,9 +441,7 @@ public class Podcast implements Serializable {
 			reader = new XmlReader(theURL);
 			podcastFeed = new SyndFeedInput().build(reader);
 			
-		} catch(IOException e){
-			
-		} catch (FeedException fe){
+		} catch(IOException | FeedException e){
 			
 		}
 

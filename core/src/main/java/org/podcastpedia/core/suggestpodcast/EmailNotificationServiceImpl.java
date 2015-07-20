@@ -15,12 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailNotificationServiceImpl implements EmailNotificationService {
-	
+
 	@Autowired
-	private ConfigService configService;	
+	private ConfigService configService;
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
-    
+
+    @Override
 	public void sendSuggestPodcastNotification(final SuggestedPodcast suggestedPodcast) {
 	      MimeMessagePreparator preparator = new MimeMessagePreparator() {
 		        @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -31,30 +32,22 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 		             message.setFrom(new InternetAddress(suggestedPodcast.getEmail()) );
 		             message.setSubject("New suggested podcast");
 		             message.setSentDate(new Date());
-		             Map model = new HashMap();	             
-		             model.put("newPodcast", suggestedPodcast);		             
+		             Map model = new HashMap();
+		             model.put("newPodcast", suggestedPodcast);
 		             String text = VelocityEngineUtils.mergeTemplateIntoString(
 		                velocityEngine, "velocity/suggestPodcastNotificationMessage.vm", "UTF-8", model);
 		             message.setText(text, true);
 		          }
 		       };
-		       mailSender.send(preparator);			
-	}
-	
-	public JavaMailSender getMailSender() {
-		return mailSender;
+		       mailSender.send(preparator);
 	}
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
 	}
 
-	public VelocityEngine getVelocityEngine() {
-		return velocityEngine;
-	}
-
 	public void setVelocityEngine(VelocityEngine velocityEngine) {
 		this.velocityEngine = velocityEngine;
 	}
-	
+
 }

@@ -31,7 +31,7 @@ public class UserInteractionServiceImpl implements UserInteractionService {
 	 */
 	private void buildMetadataLine(SuggestedPodcast addPodcastFormData) {
 
-		StringBuffer metadataLine = new StringBuffer();
+		StringBuilder metadataLine = new StringBuilder();
 		metadataLine.append(addPodcastFormData.getFeedUrl());
 		metadataLine.append("; ");
 

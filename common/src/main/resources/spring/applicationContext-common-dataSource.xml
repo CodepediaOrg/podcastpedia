@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  	<!-- ========================= DATASOURCE DEFINITION via JNDI ========================= -->
+	<bean id="configDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
+		<property name="jndiName" value="java:comp/env/jdbc/pcmDB" />
+		<property name="resourceRef" value="true" />
+	</bean>
+
+	<bean id="smtpSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/mail/Session"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- Views mapped in views.properties (PDF, XLS classes, and others) --> 
+    <bean id="contentNegotiatingResolver"
+              class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order"
+                  value="#{T(org.springframework.core.Ordered).HIGHEST_PRECEDENCE}" />
+         <property name="favorPathExtension" value="true"/>
+        <property name="contentNegotiationManager">
+            <bean class="org.springframework.web.accept.ContentNegotiationManager">
+                <constructor-arg>
+                    <bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+                        <constructor-arg>
+                            <map>
+			                  <entry key="html" value="text/html"/>
+			                  <entry key="pdf" value="application/pdf"/>
+			                  <entry key="xsl" value="application/vnd.ms-excel"/>
+			                  <entry key="xml" value="application/xml"/>
+			                  <entry key="json" value="application/json"/>
+			                  <entry key="atom" value="application/xml"/>
+                            </map>
+                        </constructor-arg>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>         
+     </bean>
+
+	<!--
+	Note: 
+		Spring 3.0 requires Tiles 2.1.2 or above, with explicit support for Tiles 2.2. 
+		Tiles 2.1's EL support will be activated by default when running on JSP 2.1 or above 
+		and when the Tiles EL module is present in the classpath. 
+	
+	See: 
+		JIRA report for TilesViewResolver 2: https://jira.springsource.org/browse/SPR-5689
+		Apache Tiles 2: http://tiles.apache.org/
+	-->
+	
+	<!-- Convenience subclass of UrlBasedViewResolver that supports TilesView (i.e. Tiles definitions) and custom subclasses of it. -->
+	<!-- Don't forget to set the order if you declared other ViewResolvers 
+    -->    
+   <bean id="tilesViewResolver"
+     class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="order" value="#{contentNegotiatingResolver.order+1}" />
+    </bean>
+
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	  <property name="basename" value="views"/>
+	  <property name="order" value="#{tilesViewResolver.order+1}" />
+	</bean>
+            
+	<!-- Helper class to configure Tiles 2.x for the Spring Framework -->
+	<!-- See http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/tiles2/TilesConfigurer.html -->
+	<!-- The actual tiles templates are in the tiles-definitions.xml  -->
+	
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">	
+		<property name="definitions">		
+			<list>
+				<value>/WEB-INF/tile-defs/templates.xml</value>
+				<value>/WEB-INF/tile-defs/definitions.xml</value>
+			</list>		
+		</property>	
+	</bean>
+	
+</beans>

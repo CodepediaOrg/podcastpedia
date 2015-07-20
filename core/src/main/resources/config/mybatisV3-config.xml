@@ -16,7 +16,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
+
 -->
 
 <configuration>
@@ -26,11 +26,10 @@
 		<typeAlias type="org.podcastpedia.common.domain.PodcastCategory" alias="PodcastCategory"/>
 		<typeAlias type="org.podcastpedia.core.searching.SearchData" alias="SearchData"/>
 		<typeAlias type="org.podcastpedia.common.domain.Episode" alias="Episode"/>
-		<typeAlias type="org.podcastpedia.common.domain.Subscription" alias="Subscription"/>				
+		<typeAlias type="org.podcastpedia.common.domain.Subscription" alias="Subscription"/>
 		<typeAlias type="org.podcastpedia.common.domain.Rating" alias="Rating"/>
-		<typeAlias type="org.podcastpedia.common.domain.Tag" alias="Tag"/>	
+		<typeAlias type="org.podcastpedia.common.domain.Tag" alias="Tag"/>
 		<typeAlias type="org.podcastpedia.common.domain.PodcastTag" alias="PodcastTag"/>
-		<typeAlias type="org.podcastpedia.common.domain.Comment" alias="Comment"/>
 		<typeAlias type="org.podcastpedia.core.suggestpodcast.SuggestedPodcast" alias="SuggestedPodcast"/>
 		<typeAlias type="org.podcastpedia.core.contact.ContactForm" alias="ContactForm"/>
 		<typeAlias type="org.podcastpedia.core.userinteraction.emailsubscription.EmailSubscriber" alias="EmailSubscriber"/>
@@ -38,9 +37,9 @@
     <typeHandlers>
     	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.MediaTypeHandler" javaType="org.podcastpedia.common.types.MediaType"/>
     	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.UpdateFrequencyTypeHandler" javaType="org.podcastpedia.common.types.UpdateFrequencyType"/>
-    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.LanguageCodeHandler" javaType="org.podcastpedia.common.types.LanguageCode"/>    	
+    	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.LanguageCodeHandler" javaType="org.podcastpedia.common.types.LanguageCode"/>
     	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.OrderByOptionHandler" javaType="org.podcastpedia.common.types.OrderByOption"/>
-    </typeHandlers>		
+    </typeHandlers>
     <mappers>
         <mapper resource="maps/PodcastMapper.xml" />
         <mapper resource="maps/EpisodeMapper.xml" />
@@ -49,6 +48,6 @@
         <mapper resource="maps/UserInteractionMapper.xml" />
         <mapper resource="maps/StartPageMapper.xml" />
         <mapper resource="maps/TagMapper.xml" />
-        <mapper resource="maps/EmailSubscriptionMapper.xml" />                         
+        <mapper resource="maps/EmailSubscriptionMapper.xml" />
     </mappers>
 </configuration>

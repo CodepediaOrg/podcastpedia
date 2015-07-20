@@ -41,6 +41,7 @@
         <ehcache.version>2.9.0</ehcache.version>
         <tomcat.jdbc.version>7.0.57</tomcat.jdbc.version>
         <java.mail.version>1.4.7</java.mail.version>
+        <jackson-jaxrs-version>2.4.4</jackson-jaxrs-version>
         <mysql.connector.java.version>5.1.35</mysql.connector.java.version>
         <maven.war.plugin.version>2.6</maven.war.plugin.version>
         <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
@@ -55,8 +56,9 @@
     </licenses>
 
     <modules>
+        <module>admin</module>
         <module>common</module>
-        <module>webapps</module>
+        <module>web-ui</module>
         <module>api</module>
         <module>core</module>
     </modules>
@@ -138,6 +140,23 @@
                 <artifactId>log4j</artifactId>
                 <version>1.2.16</version>
             </dependency>
+
+          <!-- JSON Parser for Java - https://github.com/FasterXML/jackson -->
+          <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-base</artifactId>
+            <version>${jackson-jaxrs-version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-jaxrs-version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-jaxrs-version}</version>
+          </dependency>
 
             <!-- Spring security -->
             <dependency>
@@ -355,8 +374,120 @@
                         </execution>
                     </executions>
                 </plugin>
+              <!-- Plugin to generate war file and manifest -->
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.war.plugin.version}</version>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                      <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                    </manifest>
+                  </archive>
+                </configuration>
+                <executions>
+                  <execution>
+                    <phase>package</phase>
+                    <goals>
+                      <goal>manifest</goal>
+                    </goals>
+                    <inherited>true</inherited>
+                  </execution>
+                </executions>
+              </plugin>
+              <!-- http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html -->
+              <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                  <jettyConfig>${project.basedir}/src/main/resources/config/jetty9.xml</jettyConfig>
+                  <stopKey>STOP</stopKey>
+                  <stopPort>9999</stopPort>
+                  <scanIntervalSeconds>5</scanIntervalSeconds>
+                  <scanTargets>
+                    <scanTarget>${project.basedir}/src/main</scanTarget>
+                    <scanTarget>${project.basedir}/src/test</scanTarget>
+                  </scanTargets>
+                  <contextXml>${project.basedir}/src/test/resources/jetty-context.xml</contextXml>
+                  <webAppConfig>
+                    <contextPath>/${project.artifactId}</contextPath>
+                  </webAppConfig>
+                </configuration>
+                <dependencies>
+                  <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.connector.java.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                    <version>${java.mail.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.jdbc.version}</version>
+                  </dependency>
+                </dependencies>
+              </plugin>
+
+              <!-- https://tomcat.apache.org/maven-plugin-trunk/index.html -->
+              <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                  <!-- http port -->
+                  <port>8080</port>
+                  <!-- application path always starts with /-->
+                  <path>/${project.artifactId}</path>
+                  <!-- optional path to a context file -->
+                  <contextFile>context.xml</contextFile>
+                  <!-- optional system propoerties you want to add -->
+                  <systemProperties>
+                    <appserver.base>${project.build.directory}/appserver-base</appserver.base>
+                    <appserver.home>${project.build.directory}/appserver-home</appserver.home>
+                    <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
+                    <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                  </systemProperties>
+                  <!-- if you want to use test dependencies rather than only runtime -->
+                  <useTestClasspath>false</useTestClasspath>
+                  <!-- optional if you want to add some extra directories into the classloader -->
+                  <additionalClasspathDirs>
+                    <additionalClasspathDir></additionalClasspathDir>
+                  </additionalClasspathDirs>
+                </configuration>
+                <!-- For any extra dependencies needed when running embedded Tomcat (not WAR dependencies) add them below -->
+                <dependencies>
+                  <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.connector.java.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                    <version>${java.mail.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.jdbc.version}</version>
+                  </dependency>
+                </dependencies>
+              </plugin>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.1</version>
+              </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
 
 </project>
