@@ -40,7 +40,7 @@ public class SearchServiceImpl implements SearchService {
 		LOG.debug("Received request in service to invoke dao to make a search in podcasts " +
 				" for text : " + searchData.getQueryText());
 
-		this.buildSQLQuerySearchText(searchData);
+		buildSQLQuerySearchText(searchData);
 
 		response.setNumberOfItemsPerPage(searchData.getNumberResultsPerPage());
 		response.setCurrentPage(searchData.getCurrentPage());
