@@ -21,9 +21,9 @@ import java.util.List;
 /**
  * Annotation-driven controller that handles requests to display podcasts in
  * different forms.
- * 
+ *
  * @author Ama
- * 
+ *
  */
 @Controller
 public class PodcastIdentifierController {
@@ -49,7 +49,7 @@ public class PodcastIdentifierController {
 
 	/**
 	 * Custom handler for displaying a podcast.
-	 * 
+	 *
 	 * @param podcastShortUrl
 	 * @return
 	 * @throws BusinessException
@@ -63,7 +63,7 @@ public class PodcastIdentifierController {
 		LOG.debug("------ getPodcastDetails : Received request to show details for podcast id "
 				+ podcastShortUrl + " ------");
 
-		Podcast podcast = podcastService.getPodcastForIdentifier(podcastShortUrl);
+		Podcast podcast = podcastService.getPodcastByIdentifier(podcastShortUrl);
 
 		// add the last episodes to be displayed under the podcast metadata
 		List<Episode> lastEpisodes = null;
