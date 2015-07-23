@@ -24,10 +24,10 @@ public class PodcastResource {
 
 	@Autowired
 	private PodcastService podcastService;
-	
+
 	@Autowired
 	private EpisodeService episodeService;
-	
+
 	@GET
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -37,26 +37,26 @@ public class PodcastResource {
 				.entity(podcast)
 				.build();
 	}
-	
+
 	@GET
 	@Path("names/{name}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getPodcastByName(@PathParam("name") String name) throws BusinessException {
-		Podcast podcast = podcastService.getPodcastForIdentifier(name);
+		Podcast podcast = podcastService.getPodcastByIdentifier(name);
 		return Response.status(200)
 				.entity(podcast)
 				.build();
 	}
-	
+
 	@GET
 	@Path("{podcastId}/episodes")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Episode> getLatestEpisodes(@PathParam("podcastId") Integer podcastId, @QueryParam("offset") Integer offset, @QueryParam("count") Integer count) throws BusinessException {
 		List<Episode> podcastEpisodes = episodeService.getEpisodesForPodcast(podcastId, offset, count);
-		
+
 		return podcastEpisodes;
-	}	
-	
+	}
+
 	@GET
 	@Path("{podcastId}/episodes/{episodeId}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -65,5 +65,5 @@ public class PodcastResource {
 		return Response.status(200)
 				.entity(episode)
 				.build();
-	}	
+	}
 }
