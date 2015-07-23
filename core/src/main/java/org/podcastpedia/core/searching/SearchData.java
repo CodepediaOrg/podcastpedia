@@ -8,79 +8,79 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Encapsulates search criteria. 
- * Currently strongly tied to MySQL natural and boolean search. 
+ * Encapsulates search criteria.
+ * Currently strongly tied to MySQL natural and boolean search.
  *
  */
 public class SearchData implements Serializable {
-	
+
 	private static final long serialVersionUID = 4682314801277970962L;
 
 	/** id of the search to be identified in the database */
 	private long searchId;
-	
+
 	/** holds query text in natural mode search - what the user typically inputs in the search bar*/
-	private String queryText; 
-	
+	private String queryText;
+
 	/** query text in natural mode */
 	private String queryTextInNaturalMode;
-	
+
 	/** any of these words */
 	private String anyOfTheseWords;
-	
+
 	/** all of these words **/
 	private String allTheseWords;
-	
+
 	/** exact pharse **/
 	private String exactPhrase;
-	
+
 	/** none of these words */
-	private String noneOfTheseWords; 
-	
-	/** Language code the podcasts should be in */ 
+	private String noneOfTheseWords;
+
+	/** Language code the podcasts should be in */
 	private LanguageCode languageCode;
-	
-	/** search mode type - at the moment either natural or boolean */ 
+
+	/** search mode type - at the moment either natural or boolean */
 	private String searchMode;
-	
+
 	/** number of results per page */
 	private Integer numberResultsPerPage;
-	private Integer currentPage; 
+	private Integer currentPage;
 	private Integer firstItemOnPage; //=(currentPage - 1)*numberResultsPerPage
-	private boolean isOrderByPopularity; 
-	
+	private boolean isOrderByPopularity;
+
 	/** where to look for the given search criteria - at the moment podcast and episodes is availabel */
 	private String searchTarget;
-	
+
 	/** List of selected categories id to be looked for */
 	private List<Integer> categId;
-	
+
 	/** look for videos or audio files, or both (identified by "all") */
 	private MediaType mediaType;
-	
+
 	/** contains the target where to search the terms/words in **/
-	private String termsSearchTarget; 
-	
+	private String termsSearchTarget;
+
 	/** order by criteria **/
-	private OrderByOption orderBy; 
-	
+	private OrderByOption orderBy;
+
 	/**flag to mark that the model attribute is for feed generation */
 	private boolean isForFeed;
-	
+
 	/** id of the tags that is being looked for */
 	private Integer tagId;
-	
+
 	/** placeholder for the query string to be passed to the next request */
 	private StringBuilder queryString;
-	
+
 	/** number of result pages - transmitted via the url */
 	private Integer nrResultPages;
-	
+
 	/** number of results found for the search criteria - transmitted also via the url */
-	private Integer nrOfResults; 
-	
+	private Integer nrOfResults;
+
 	public static class Builder {
-		
+
 		String queryText;
 		String searchTarget;
 		MediaType mediaType;
@@ -94,85 +94,84 @@ public class SearchData implements Serializable {
 		String exactPhrase;
 		String noneOfTheseWords;
 		Integer tagId;
-		
+        LanguageCode languageCode;
+
 		public SearchData build(){
 			return new SearchData(this);
 		}
-		
+
 		public Builder queryText(String val){
 			queryText = val;
 			return this;
-		}		
+		}
 
 		public Builder tagId(Integer val){
 			tagId = val;
 			return this;
 		}
-		
+
 		public Builder exactPhrase(String val){
 			exactPhrase = val;
 			return this;
 		}
-		
+
 		public Builder noneOfTheseWords(String val){
 			noneOfTheseWords = val;
 			return this;
-		}		
-		
+		}
+
 		public Builder anyOfTheseWords(String val){
 			anyOfTheseWords = val;
 			return this;
 		}
-		
+
 		public Builder allTheseWords(String val){
 			allTheseWords = val;
 			return this;
 		}
-		
+
 		public Builder categId(List<Integer> val){
-			categId = val;
-			if(isAllNulls(val)) categId=null;
+			if(categId!=null && val.isEmpty()) categId=null;
+            else categId = val;
 			return this;
 		}
-		
-		private boolean isAllNulls(Iterable<?> array) {
-		    for (Object element : array)
-		        if (element != null) return false;
-		    return true;
-		}
-		
+
 		public Builder searchTarget(String val){
 			searchTarget = val;
 			return this;
 		}
-		
+
 		public Builder mediaType(MediaType val){
 			mediaType = val;
 			return this;
 		}
-		
+
 		public Builder orderBy(OrderByOption val){
 			orderBy = val;
 			return this;
 		}
-		
+
+        public Builder languageCode(LanguageCode val){
+            languageCode = val;
+            return this;
+        }
 		public Builder searchMode(String val){
 			searchMode = val;
 			return this;
 		}
-		
+
 		public Builder numberResultsPerPage(Integer val){
 			numberResultsPerPage = val;
 			return this;
 		}
-		
+
 		public Builder currentPage(Integer val){
 			currentPage = val;
 			return this;
-		}	
-						
+		}
+
 	}
-	
+
 	public Integer getNrResultPages() {
 		return nrResultPages;
 	}
@@ -194,11 +193,11 @@ public class SearchData implements Serializable {
 
 
 	/**
-	 * default constructor 
+	 * default constructor
 	 */
 	public SearchData(){};
-	
-		
+
+
 	public SearchData(Builder builder) {
 		queryText = builder.queryText;
 		searchTarget = builder.searchTarget;
@@ -213,6 +212,7 @@ public class SearchData implements Serializable {
 		allTheseWords = builder.allTheseWords;
 		noneOfTheseWords = builder.noneOfTheseWords;
 		exactPhrase = builder.exactPhrase;
+        languageCode = builder.languageCode;
 	}
 
 
@@ -410,7 +410,7 @@ public class SearchData implements Serializable {
 		this.searchTarget = searchTarget;
 	}
 
-	
+
 	public List<Integer> getCategId() {
 		return categId;
 	}
@@ -471,5 +471,7 @@ public class SearchData implements Serializable {
 	public String getSearchMode() {
 		return searchMode;
 	}
+
+
 
 }
