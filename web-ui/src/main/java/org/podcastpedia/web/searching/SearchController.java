@@ -29,12 +29,12 @@ import java.util.List;
 
 /**
  * Annotation-driven controller that handles searching for podcasts.
- * 
+ *
  * "advancedSearchData" is an object passed along the session to navigate from
  * search bar to advanced search results and from one page result to the other.
- * 
+ *
  * @author Ama
- * 
+ *
  */
 @Controller
 @RequestMapping("/search")
@@ -51,7 +51,7 @@ public class SearchController {
 	/**
 	 * If the users decides to write "http://localhost:8080/search/" into the
 	 * browser she should get redirected to the advanced search formular
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -64,7 +64,7 @@ public class SearchController {
 
 		binder.registerCustomEditor(MediaType.class, new MediaTypeEditor(
 				MediaType.class));
-		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));/* Converts empty strings into null when a form is submitted */		
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));/* Converts empty strings into null when a form is submitted */
 	}
 
 	@RequestMapping(value = "/advanced_search", method = RequestMethod.GET)
@@ -127,55 +127,29 @@ public class SearchController {
 
 		if (advancedSearchData.getSearchTarget() == null)
 			advancedSearchData.setSearchTarget("episodes");
-		SearchResult results = searchService
+		SearchResult searchResult = searchService
 				.getResultsForSearchCriteria(advancedSearchData);
 
 		String redirectUrl = null;
 		String tilesDef = null;
-		ModelAndView mv = null;
+		ModelAndView mv;
 
 		// no results found
-		if (results.getNumberOfItemsFound() < 1) {
+		if (searchResult.getResults().isEmpty()) {
 			bindingResult.rejectValue("queryText", "notFound", "not found");
 			redirectUrl = "/search/advanced_search?noResultsFound=true";
-		} else if (results.getNumberOfItemsFound() > 1) {
-			// more than one result - prepare for pagination
+		} else if (searchResult.getResults().size() > 1) {
 			String query = httpRequest.getQueryString();
 			query = query.substring(0, query.lastIndexOf("&currentPage="));
-			if (advancedSearchData.getNrOfResults() == null) {
-				query += "&nrOfResults=" + results.getNumberOfItemsFound()
-						+ "&nrResultPages=" + results.getNumberOfPages();
-			}
+
 			model.addAttribute("queryString", query.replaceAll("&", "&amp;"));
-			model.addAttribute("numberOfResults",
-					results.getNumberOfItemsFound());
-			model.addAttribute("numberOfPages", results.getNumberOfPages());
-			model.addAttribute("advancedSearchResult", results);
-			if (advancedSearchData.getSearchTarget().equals("podcasts")) {
-				model.addAttribute("nr_divs_with_ratings", results
-						.getPodcasts().size());
+			model.addAttribute("advancedSearchResult", searchResult);
 
-				tilesDef = "m_advancedSearchResults_podcasts_def";
-			} else {
-				model.addAttribute("nr_divs_with_ratings", results
-						.getEpisodes().size());
+            tilesDef = "search_results_def";
 
-				tilesDef = "m_advancedSearchResults_episodes_def";
-			}
 		} else {
-			// exactly one result found (either podcast or episode)
-			if (advancedSearchData.getSearchTarget().equals("podcasts")) {
-				redirectUrl = "/podcasts/"
-						+ results.getPodcasts().get(0).getPodcastId() + "/"
-						+ results.getPodcasts().get(0).getTitleInUrl();
-			} else {
-				redirectUrl = "/podcasts/"
-						+ results.getEpisodes().get(0).getPodcastId() + "/"
-						+ results.getEpisodes().get(0).getPodcast().getTitleInUrl()
-						+ "/episodes/"
-						+ results.getEpisodes().get(0).getEpisodeId() + "/"
-						+ results.getEpisodes().get(0).getTitleInUrl();
-			}
+			// exactly one result found (either podcast or episode), redirect to it
+            redirectUrl = searchResult.getResults().get(0).getRelativeLink();
 		}
 
 		if (tilesDef != null) {

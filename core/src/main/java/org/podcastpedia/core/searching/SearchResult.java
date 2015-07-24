@@ -28,7 +28,6 @@ public class SearchResult implements Serializable{
 	private Integer numberOfItemsFound;
 	private Integer numberOfItemsPerPage;
 	private Integer currentPage;
-	private Integer numberOfPages;
 
 	/** placeholder for relative path query string to be used in subsequent calls in pagination */
 	private String queryString;
@@ -48,12 +47,7 @@ public class SearchResult implements Serializable{
 	public void setBooleanQueryText(String booleanQueryText) {
 		this.booleanQueryText = booleanQueryText;
 	}
-	public int getNumberOfPages() {
-		return numberOfPages;
-	}
-	public void setNumberOfPages(Integer numberOfPages) {
-		this.numberOfPages = numberOfPages;
-	}
+
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -78,12 +72,13 @@ public class SearchResult implements Serializable{
 	public void setPodcasts(List<Podcast> podcasts) {
 		this.podcasts = podcasts;
 	}
-	public int getNumberOfItemsFound() {
-		return numberOfItemsFound;
-	}
 	public void setNumberOfItemsFound(Integer numberOfItemsFound) {
 		this.numberOfItemsFound = numberOfItemsFound;
 	}
+
+    public Integer getNumberOfItemsFound() {
+        return numberOfItemsFound;
+    }
 
     public List<Result> getResults() {
         return results;

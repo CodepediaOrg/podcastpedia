@@ -1,189 +1,196 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-        
-<tiles-definitions>  
+
+<tiles-definitions>
 	<definition name="m_startPage_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia, knowledge to go" />
-    	<put-attribute name="page_description" value="Educate yourself with selected podcasts from various domains such as science, technology, education, medicine, people, environment, spirituality and much more..."/>       			  
+    	<put-attribute name="page_description" value="Educate yourself with selected podcasts from various domains such as science, technology, education, medicine, people, environment, spirituality and much more..."/>
 		<put-attribute name="content" value="/WEB-INF/jsp/start/start_page_m.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, knowledge to go"/>
  	    <put-attribute name="og_desc" value="Educate yourself with selected podcasts from various domains such as science, technology, education, medicine, people, environment, spirituality and much more..."/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>  		 	        	    
-	</definition>	
-    
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+	</definition>
+
     <definition name="m_podcastDetails" extends="defaultTemplate_m">
     	<put-attribute name="title" expression="${podcast.title}"/>
  	    <put-attribute name="page_description" expression="${podcast.description}"/>
-    	<put-attribute name="body-id" value="podcast-details"/>  
+    	<put-attribute name="body-id" value="podcast-details"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/podcast/podcastDetails.jsp"/>
- 		<put-attribute name="jquery_ui_css" value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.min.css"/>    	
+ 		<put-attribute name="jquery_ui_css" value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.min.css"/>
     	<put-attribute name="og_title" expression="${podcast.title}"/>
  	    <put-attribute name="og_desc" expression="${podcast.description}"/>
- 	    <put-attribute name="og_image" expression="${podcast.urlOfImageToDisplay}"/>     	        	
-    </definition>    
-    
+ 	    <put-attribute name="og_image" expression="${podcast.urlOfImageToDisplay}"/>
+    </definition>
+
     <!-- user interaction - suggest a podcast -->
     <definition name="add_podcast_form_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
     	<put-attribute name="page_description" value="Contains a form for podcast recommendation with metadata"/>
-    	<put-attribute name="body-id" value="add-podcast"/> 
-    	<put-attribute name="content" value="/WEB-INF/jsp/suggest_podcast/add_a_podcast_form.jsp"/> 	          	
-    </definition>  
+    	<put-attribute name="body-id" value="add-podcast"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/suggest_podcast/add_a_podcast_form.jsp"/>
+    </definition>
 
-    <!-- Contact page -->   
+    <!-- Contact page -->
     <definition name="contact_form_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
-		<put-attribute name="page_description" value="contact form"/>    	
-    	<put-attribute name="body-id" value="contact" /> 
-    	<put-attribute name="content" value="/WEB-INF/jsp/footer_pages/contact_form.jsp"/> 	          	
-    </definition>   
+		<put-attribute name="page_description" value="contact form"/>
+    	<put-attribute name="body-id" value="contact" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/footer_pages/contact_form.jsp"/>
+    </definition>
 
-    <!-- Our mission -->   
+    <!-- Our mission -->
     <definition name="mission_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, mission"/>
-		<put-attribute name="page_description" value="Podcastpedia.org - make the world a better educated place"/>     	
-    	<put-attribute name="body-id" value="mission"/> 
+		<put-attribute name="page_description" value="Podcastpedia.org - make the world a better educated place"/>
+    	<put-attribute name="body-id" value="mission"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/footer_pages/mission.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, mission"/>
  	    <put-attribute name="og_desc" value="Podcastpedia.org - make the world a better educated place"/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>  	  	       	       
-    </definition>   
-    
-    <!-- disclaimer -->   
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+    </definition>
+
+    <!-- disclaimer -->
     <definition name="disclaimer_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, disclaime"/>
-		<put-attribute name="page_description" value="Podcastpedia.org - disclaimer"/>     	
-    	<put-attribute name="body-id" value="disclaimer"/> 
+		<put-attribute name="page_description" value="Podcastpedia.org - disclaimer"/>
+    	<put-attribute name="body-id" value="disclaimer"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/footer_pages/disclaimer.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, disclaimer"/>
  	    <put-attribute name="og_desc" value="Podcastpedia.org - make the world a better educated place"/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>  	 	       	        	
-    </definition> 
-    
-    <!-- Privacy Policy  -->   
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+    </definition>
+
+    <!-- Privacy Policy  -->
     <definition name="privacy_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, privacy policy"/>
-		<put-attribute name="page_description" value="Podcastpedia.org - privacy policy"/>     	
-    	<put-attribute name="body-id" value="privacy"/> 
+		<put-attribute name="page_description" value="Podcastpedia.org - privacy policy"/>
+    	<put-attribute name="body-id" value="privacy"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/footer_pages/privacy.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, privacy policy"/>
  	    <put-attribute name="og_desc" value="Podcastpedia.org - privacy policy"/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>   	       	    	    	
-    </definition>         
-               
-    <!-- Category related pages -->    
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+    </definition>
+
+    <!-- Category related pages -->
     <definition name="m_allCategories_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
- 		<put-attribute name="page_description" value="Science, technology, education, internet, computer, medicine, arts etc. -  Page displays all categories ordered by number of podcasts"/>     	 
+ 		<put-attribute name="page_description" value="Science, technology, education, internet, computer, medicine, arts etc. -  Page displays all categories ordered by number of podcasts"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/categories/podcast_categories.jsp"/>
     	<put-attribute name="body-id" value="categories" />
     	<put-attribute name="og_title" value="Podcastpedia, categories"/>
  	    <put-attribute name="og_desc" value="Science, technology, education, internet, computer, medicine, arts etc. -  Page displays all categories ordered by number of podcasts"/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>     	 	       	    
-    </definition>      
-  
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+    </definition>
+
     <definition name="m_allTags_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
- 		<put-attribute name="page_description" value="Page displays keywords ordered by number of podcasts. A quick search function with autcomplete capability is also available."/>    	
+ 		<put-attribute name="page_description" value="Page displays keywords ordered by number of podcasts. A quick search function with autcomplete capability is also available."/>
  		<put-attribute name="jquery_ui_css" value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-		<put-attribute name="body-id" value="tags" /> 		
+		<put-attribute name="body-id" value="tags" />
     	<put-attribute name="content" value="/WEB-INF/jsp/tags/tags.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia"/>
  	    <put-attribute name="og_desc" value="Page displays keywords ordered by number of podcasts. A quick search function with autcomplete capability is also available."/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>     	       	     	
-    </definition>       
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+    </definition>
     <!-- error pages
-    <put-attribute name="navigation_bar" value="/WEB-INF/jsp/navigation_bar/start_navigation_bar.jsp" />  
+    <put-attribute name="navigation_bar" value="/WEB-INF/jsp/navigation_bar/start_navigation_bar.jsp" />
     -->
     <definition name="uncaughtException" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Error page"/>
-		<put-attribute name="page_description" value="Exception page"/>     	
-    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" /> 
-    	<put-attribute name="content" value="/WEB-INF/jsp/error/defaultErrorPage.jsp"/> 	          	
+		<put-attribute name="page_description" value="Exception page"/>
+    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/error/defaultErrorPage.jsp"/>
     </definition>
     <definition name="resourceNotFound" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, resource not found"/>
-    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />    	
-		<put-attribute name="page_description" value="Exception page - resource was not found on Podcastpedia"/>    	
-    	<put-attribute name="content" value="/WEB-INF/jsp/error/404_requested_resource_not_found.jsp"/> 	          	
-    </definition>    
+    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />
+		<put-attribute name="page_description" value="Exception page - resource was not found on Podcastpedia"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/error/404_requested_resource_not_found.jsp"/>
+    </definition>
     <definition name="sessionExpired" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, session expired"/>
-    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />    	
-		<put-attribute name="page_description" value="Exception page - session has expired"/>    	
-    	<put-attribute name="content" value="/WEB-INF/jsp/error/session_expired.jsp"/> 	          	
-    </definition>        
+    	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />
+		<put-attribute name="page_description" value="Exception page - session has expired"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/error/session_expired.jsp"/>
+    </definition>
     <definition name="error_podcast_not_found_in_DB" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, podcast not found"/>
-		<put-attribute name="page_description" value="Error page - podcast not found"/>    	
+		<put-attribute name="page_description" value="Error page - podcast not found"/>
     	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />
-    	<put-attribute name="content" value="/WEB-INF/jsp/error/1001_podcast_not_found.jsp"/> 	          	
-    </definition>     
+    	<put-attribute name="content" value="/WEB-INF/jsp/error/1001_podcast_not_found.jsp"/>
+    </definition>
     <definition name="error_ep_found_in_archive" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia, episode not found"/>
     	<put-attribute name="header" value="/WEB-INF/jsp/error/empty.jsp" />
-		<put-attribute name="page_description" value="Episode not available anymore"/>    	
-    	<put-attribute name="content" value="/WEB-INF/jsp/error/1002_episode_not_available.jsp"/> 	          	
-    </definition>      
-    
-    <!-- episodes pages --> 
+		<put-attribute name="page_description" value="Episode not available anymore"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/error/1002_episode_not_available.jsp"/>
+    </definition>
+
+    <!-- episodes pages -->
     <definition name="m_allEpisodesForPodcastDefinition" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
- 		<put-attribute name="page_description" value="Page displays archive of episodes for the podcast"/>  
- 		<put-attribute name="body-id" value="episode-archive" /> 	  	 
-    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_archive_m.jsp"/> 	           	
-    </definition>      
- 
+ 		<put-attribute name="page_description" value="Page displays archive of episodes for the podcast"/>
+ 		<put-attribute name="body-id" value="episode-archive" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_archive_m.jsp"/>
+    </definition>
+
     <definition name="m_episodeDetails_def" extends="defaultTemplate_m">
     	<put-attribute name="title" expression="${episode.title}"/>
     	<put-attribute name="page_description" expression="${episode.description}"/>
-    	<put-attribute name="body-id" value="episode-details" /> 
+    	<put-attribute name="body-id" value="episode-details" />
     	<put-attribute name="og_title" expression="${episode.title}"/>
     	<put-attribute name="og_desc" expression="${episode.description}"/>
-    	<put-attribute name="og_image" expression="${episode.podcast.urlOfImageToDisplay}"/>    	 
-    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_details_m.jsp"/> 	           	
-    </definition>     
-      
+    	<put-attribute name="og_image" expression="${episode.podcast.urlOfImageToDisplay}"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_details_m.jsp"/>
+    </definition>
+
     <!-- podcasting -->
    	<definition name="about_podcasting_tiles_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia - About podcasting" />
 		<put-attribute name="page_description" value="Shows how podcasting works"/>
-		<put-attribute name="body-id" value="podcasting" />		
-		<put-attribute name="content" value="/WEB-INF/jsp/podcasting/about_podcasting.jsp"/> 	      		
-	</definition>  
-	
+		<put-attribute name="body-id" value="podcasting" />
+		<put-attribute name="content" value="/WEB-INF/jsp/podcasting/about_podcasting.jsp"/>
+	</definition>
+
 	<!-- how can I help -->
 	<definition name="howcanihelp_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia, my contribution" />
- 		<put-attribute name="page_description" value="Share podcasts, thoughts, signal errors, get in contact, follow us on Facebook and Twitter - thank you!!!"/>		
+ 		<put-attribute name="page_description" value="Share podcasts, thoughts, signal errors, get in contact, follow us on Facebook and Twitter - thank you!!!"/>
 		<put-attribute name="body-id" value="support" />
 		<put-attribute name="content" value="/WEB-INF/jsp/my_help/howcanihelp.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, my contribution"/>
  	    <put-attribute name="og_desc" value="Share podcasts, thoughts, signal errors, get in contact, follow us on Facebook and Twitter - thank you!!!"/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>      	       	    		
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
 	</definition>
-		
+
 	<!-- search pages -->
     <definition name="m_advancedSearchForm" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
-    	<put-attribute name="page_description" value="advanced search form"/> 	
-		<put-attribute name="body-id" value="advanced-search" />	 
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearch_form_m.jsp"/> 	          	
+    	<put-attribute name="page_description" value="advanced search form"/>
+		<put-attribute name="body-id" value="advanced-search" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearch_form_m.jsp"/>
     </definition>
-   
+
     <definition name="m_advancedSearchResults_podcasts_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
     	<put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     	<put-attribute name="header" value="/WEB-INF/template/header_page_with_params_m.jsp" />
-    	<put-attribute name="body-id" value="results-podcasts" />	 
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_podcasts_m.jsp"/> 	           	
-    </definition>      
+    	<put-attribute name="body-id" value="results-podcasts" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_podcasts_m.jsp"/>
+    </definition>
     <definition name="m_advancedSearchResults_episodes_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
-    	<put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>    	
+    	<put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     	<put-attribute name="header" value="/WEB-INF/template/header_page_with_params_m.jsp" />
-		<put-attribute name="body-id" value="results-episodes" /> 
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_episodes_m.jsp"/> 	           	
-    </definition>      	 
-</tiles-definitions> 
+		  <put-attribute name="body-id" value="results-episodes" />
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_episodes_m.jsp"/>
+    </definition>
+  <definition name="search_results_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="header" value="/WEB-INF/template/header_page_with_params_m.jsp" />
+    <put-attribute name="body-id" value="results-episodes" />
+    <put-attribute name="content" value="/WEB-INF/jsp/search/search_results.jsp"/>
+  </definition>
+</tiles-definitions>

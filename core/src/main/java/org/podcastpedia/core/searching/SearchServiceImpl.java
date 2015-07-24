@@ -49,12 +49,9 @@ public class SearchServiceImpl implements SearchService {
 		if( isTargetPodcasts(searchData) ){
             List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
             response.setResults(mapPodcastsToResults(podcasts));
-            enrichResponseWithPodcasts(searchData, response);
 		} else {
             List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
             response.setResults(mapEpisodesToResults(episodes));
-            //if not podcasts it must be episodes then, and episodes is also the default search target
-			enrichResponseWithEpisodes(searchData, response);
 		}
 
 		return response;
@@ -64,15 +61,17 @@ public class SearchServiceImpl implements SearchService {
         List<Result> results = new ArrayList<>();
         for(Podcast podcast : podcasts){
             Result result = new Result();
+            result.setPodcastId(podcast.getPodcastId());
+            result.setIsEpisode(false);
             result.setTitle(podcast.getTitle());
             result.setPublicationDate(podcast.getPublicationDate());
             result.setMediaType(podcast.getMediaType());
             result.setDescription(podcast.getDescription());
             result.setMediaUrl(podcast.getLastEpisodeMediaUrl());
             if(podcast.getIdentifier()!=null){
-                result.setLink("http://www.podcastpedia.org/" + podcast.getIdentifier());
+                result.setRelativeLink("/" + podcast.getIdentifier());
             } else {
-                result.setLink("http://www.podcastpedia.org/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl());
+                result.setRelativeLink("/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl());
             }
 
             results.add(result);
@@ -85,13 +84,16 @@ public class SearchServiceImpl implements SearchService {
         List<Result> results = new ArrayList<>();
         for(Episode episode : episodes){
             Result result = new Result();
+            result.setPodcastId(episode.getPodcastId());
+            result.setEpisodeId(episode.getEpisodeId());
+            result.setIsEpisode(true);
             result.setTitle(episode.getTitle());
             result.setPublicationDate(episode.getPublicationDate());
             result.setMediaType(episode.getMediaType());
-            StringBuilder episodeLink = new StringBuilder("http://www.podcastpedia.org/");
-            episodeLink.append("/podcasts").append(episode.getPodcastId()).append("/").append(episode.getPodcast().getTitleInUrl());
-            episodeLink.append("/episodes/").append(episode.getEpisodeId()).append("/").append(episode.getTitleInUrl());
-            result.setLink(episodeLink.toString());
+            StringBuilder episodeRelativeLink = new StringBuilder();
+            episodeRelativeLink.append("/podcasts/").append(episode.getPodcastId()).append("/").append(episode.getPodcast().getTitleInUrl());
+            episodeRelativeLink.append("/episodes/").append(episode.getEpisodeId()).append("/").append(episode.getTitleInUrl());
+            result.setRelativeLink(episodeRelativeLink.toString());
             result.setDescription(episode.getDescription());
             result.setMediaUrl(episode.getMediaUrl());
 
@@ -104,48 +106,6 @@ public class SearchServiceImpl implements SearchService {
 
     private boolean isTargetPodcasts(SearchData searchData) {
 		return searchData.getSearchTarget() !=null && searchData.getSearchTarget().equals("podcasts");
-	}
-
-	private void enrichResponseWithEpisodes(SearchData searchData,
-			SearchResult response) {
-		//first get the number of results for search criteria - this is used for pagination
-		if(searchData.getNrOfResults() == null){
-			int numberOfEpisodesFound = searchDao.getNumberOfEpisodesForSearchCriteria(searchData);
-			response.setNumberOfItemsFound(numberOfEpisodesFound);
-
-			int mod = numberOfEpisodesFound % searchData.getNumberResultsPerPage();
-			int dividedBy = numberOfEpisodesFound / searchData.getNumberResultsPerPage();
-			int numberOfPages = mod > 0 ? dividedBy +1 : dividedBy;
-			// Casting to an int implicitly drops any decimal part. No need to call Math.floor().
-			response.setNumberOfPages(numberOfPages);
-		} else {
-			response.setNumberOfPages(searchData.getNrResultPages());
-			response.setNumberOfItemsFound(searchData.getNrResultPages());
-		}
-
-		List<Episode> episodes = null;
-		episodes = searchDao.getEpisodesForSearchCriteria(searchData);
-		response.setEpisodes(episodes);
-
-	}
-
-	private void enrichResponseWithPodcasts(SearchData searchData, SearchResult response) {
-		if(searchData.getNrOfResults()  == null){
-			int numberOfPodcastsFound = searchDao.getNumberOfPodcastsForSearchCriteria(searchData);
-			response.setNumberOfItemsFound(numberOfPodcastsFound);
-			// Casting to an int implicitly drops any decimal part. No need to call Math.floor().
-			int mod = numberOfPodcastsFound%searchData.getNumberResultsPerPage();
-			int dividedBy = numberOfPodcastsFound/searchData.getNumberResultsPerPage();
-			int numberOfPages = mod > 0 ? dividedBy +1 : dividedBy;
-			response.setNumberOfPages(numberOfPages);
-		} else {
-			response.setNumberOfPages(searchData.getNrResultPages());
-			response.setNumberOfItemsFound(searchData.getNrOfResults());
-		}
-
-		List<Podcast> podcasts = null;
-		podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
-		response.setPodcasts(podcasts);
 	}
 
 	private void buildSQLQuerySearchText(SearchData searchData){

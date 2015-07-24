@@ -15,89 +15,90 @@ $(function (){
 			headers: {"Accept":"application/json"},
 			type: 'GET',
 			url: '/api/search-results?' + queryString+ '&currentPage=' + currentPage,
-			success: function(result){
-				var episodes = result.episodes;
-				if(episodes.length == 0){
+			success: function(searchResult){
+				var results = searchResult.results;
+				if(results.length == 0){
 					moreResultsBtn.attr("disabled","disabled");
+          moreResultsBtn.remove();
 				} else {
 					currentPageDataId.val(currentPage);//update offset hidden field value
-					$.each(episodes, function(i, episode){
-						var episodeDiv = buildEpisodeDiv(episode, i, currentPage);
-						$resultsList.append(episodeDiv).fadeIn(800);
+					$.each(results, function(i, result){
+						var resultDiv = buildResultDiv(result, i, currentPage);
+						$resultsList.append(resultDiv).fadeIn(800);
 					});
 
 					bindDynamicPlaying();
 					bindDynamicSocialSharing();
 					bindDynamicSharringCurrentEpisode();
-					console.log("success", episodes);
+					console.log("success", results);
 				}
 			}
 		});
 
 	});
 
-	function buildEpisodeDiv(episode, i, currentPage){
+	function buildResultDiv(result, i, currentPage){
 		var offset=currentPage*10;
-		var episodesDiv=""
+		var resultDiv=""
 			+ "<div class='bg_color shadowy item_wrapper'>"
 			+ "<div class='title-and-pub-date'>";
-			if(episode.mediaType == 'Audio'){
-				episodesDiv += "<div class='icon-audio-episode'></div>";
+			if(result.mediaType == 'Audio'){
+				resultDiv += "<div class='icon-audio-episode'></div>";
 			} else {
-				episodesDiv += "<div class='icon-video-episode'></div>";
+				resultDiv += "<div class='icon-video-episode'></div>";
 			}
-			var episodeUrl='http://www.podcastpedia.org/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
-			episodesDiv += '<a href='+ episodeUrl +' class="item_title">' + episode.title + '</a>';
+			var resultUrl='http://www.podcastpedia.org' + result.relativeLink;
+			resultDiv += '<a href='+ resultUrl +' class="item_title">' + result.title + '</a>';
 
-			episodesDiv +='<div class="pub_date">';
-        var epPubDate = new Date(episode.publicationDate);
-        episodesDiv += epPubDate.getFullYear() + "-" + epPubDate.getMonth() + "-" + epPubDate.getDate();
-        if(episode.isNew == 1){
-          episodesDiv +='<span class="ep_is_new">&nbsp;new</span>';
+			resultDiv +='<div class="pub_date">';
+        var resultPubDate = new Date(result.publicationDate);
+        resultDiv += resultPubDate.getFullYear() + "-" + resultPubDate.getMonth() + "-" + resultPubDate.getDate();
+        if(result.isNew){
+          resultDiv +='<span class="ep_is_new">&nbsp;new</span>';
         }
-			episodesDiv +='</div>';
+			resultDiv +='</div>';
 
-			episodesDiv += '<div class="clear"></div>';
-			episodesDiv +='</div>';
-			episodesDiv +='<hr>';
-			episodesDiv +='<div class="ep_desc">';
-			episodesDiv += '<a href='+ episodeUrl +' class="item_desc">';
-			if(episode.description != null) episodesDiv += episode.description.substring(0,280);
-			episodesDiv +='</a>';
-			episodesDiv +='</div>';
+			resultDiv += '<div class="clear"></div>';
+			resultDiv +='</div>';
+			resultDiv +='<hr>';
+			resultDiv +='<div class="ep_desc">';
+			resultDiv += '<a href='+ resultUrl +' class="item_desc">';
+			if(result.description != null) resultDiv += result.description.substring(0,280);
+			resultDiv +='</a>';
+			resultDiv +='</div>';
 
-			episodesDiv +='<div class="ep_desc_bigger">';
-			episodesDiv +='<a href='+ episodeUrl +' class="item_desc">';
-			if(episode.description != null) episodesDiv += episode.description.substring(0,600);
-			episodesDiv +='</a>';
-			episodesDiv +='</div>';
+			resultDiv +='<div class="ep_desc_bigger">';
+			resultDiv +='<a href='+ resultUrl +' class="item_desc">';
+			if(result.description != null) resultDiv += result.description.substring(0,600);
+			resultDiv +='</a>';
+			resultDiv +='</div>';
 
-			episodesDiv +='<div class="clear"></div>';
+			resultDiv +='<div class="clear"></div>';
 
-			episodesDiv +='<div class="not_shown">';
-			episodesDiv +='<div id=mediaspace'+parseInt(offset+i) +'>Flashplayer not supported</div>';
+			resultDiv +='<div class="not_shown">';
+			resultDiv +='<div id=mediaspace'+parseInt(offset+i) +'>Flashplayer not supported</div>';
 
 
 			//change with requireJs sometime soon
-			episodesDiv +="<script type='text/javascript'>";
-			if(episode.mediaType == 'Audio'){
-				episodesDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:5', 'file': '" + episode.mediaUrl+ "'});";
+			resultDiv +="<script type='text/javascript'>";
+			if(result.mediaType == 'Audio'){
+				resultDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:5', 'file': '" + result.mediaUrl + "'});";
 			} else {
-				episodesDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:9', 'file': '" + episode.mediaUrl+ "'});";
+				resultDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:9', 'file': '" + result.mediaUrl + "'});";
 			}
-			episodesDiv +="</script>";
-			episodesDiv +='</div>';
+			resultDiv +="</script>";
+			resultDiv +='</div>';
 
-			episodesDiv +='<div class="social_and_download">';
-			episodesDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
-			episodesDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
-			episodesDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" target="_blank">';
-			episodesDiv+= 'download&nbsp;';
-			episodesDiv +='</a>';
-			episodesDiv +='<span class="item_url">' + episodeUrl + '</span>';
-			episodesDiv +='</div>';
+			resultDiv +='<div class="social_and_download">';
+			resultDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
+			resultDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
+			resultDiv+= '<a class="icon-download-ep btn-share" href="'+ result.mediaUrl +'" target="_blank">';
+			resultDiv+= 'download&nbsp;';
+			resultDiv +='</a>';
+			resultDiv +='<span class="item_url">' + resultUrl + '</span>';
+			resultDiv +='</div>';
 
-			return episodesDiv;
+			return resultDiv;
 	}
 
 
