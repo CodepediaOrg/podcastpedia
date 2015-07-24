@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,16 +47,62 @@ public class SearchServiceImpl implements SearchService {
 		response.setCurrentPage(searchData.getCurrentPage());
 
 		if( isTargetPodcasts(searchData) ){
-			enrichResponseWithPodcasts(searchData, response);
+            List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
+            response.setResults(mapPodcastsToResults(podcasts));
+            enrichResponseWithPodcasts(searchData, response);
 		} else {
-			//if not podcasts it must be episodes then, and episodes is also the default search target
+            List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
+            response.setResults(mapEpisodesToResults(episodes));
+            //if not podcasts it must be episodes then, and episodes is also the default search target
 			enrichResponseWithEpisodes(searchData, response);
 		}
 
 		return response;
 	}
 
-	private boolean isTargetPodcasts(SearchData searchData) {
+    private List<Result> mapPodcastsToResults(List<Podcast> podcasts) {
+        List<Result> results = new ArrayList<>();
+        for(Podcast podcast : podcasts){
+            Result result = new Result();
+            result.setTitle(podcast.getTitle());
+            result.setPublicationDate(podcast.getPublicationDate());
+            result.setMediaType(podcast.getMediaType());
+            result.setDescription(podcast.getDescription());
+            result.setMediaUrl(podcast.getLastEpisodeMediaUrl());
+            if(podcast.getIdentifier()!=null){
+                result.setLink("http://www.podcastpedia.org/" + podcast.getIdentifier());
+            } else {
+                result.setLink("http://www.podcastpedia.org/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl());
+            }
+
+            results.add(result);
+        }
+
+        return results;
+    }
+
+    private List<Result> mapEpisodesToResults(List<Episode> episodes) {
+        List<Result> results = new ArrayList<>();
+        for(Episode episode : episodes){
+            Result result = new Result();
+            result.setTitle(episode.getTitle());
+            result.setPublicationDate(episode.getPublicationDate());
+            result.setMediaType(episode.getMediaType());
+            StringBuilder episodeLink = new StringBuilder("http://www.podcastpedia.org/");
+            episodeLink.append("/podcasts").append(episode.getPodcastId()).append("/").append(episode.getPodcast().getTitleInUrl());
+            episodeLink.append("/episodes/").append(episode.getEpisodeId()).append("/").append(episode.getTitleInUrl());
+            result.setLink(episodeLink.toString());
+            result.setDescription(episode.getDescription());
+            result.setMediaUrl(episode.getMediaUrl());
+
+            results.add(result);
+        }
+
+        return results;
+    }
+
+
+    private boolean isTargetPodcasts(SearchData searchData) {
 		return searchData.getSearchTarget() !=null && searchData.getSearchTarget().equals("podcasts");
 	}
 
