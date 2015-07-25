@@ -71,7 +71,7 @@ public class SearchServiceImpl implements SearchService {
             if(podcast.getIdentifier()!=null){
                 result.setRelativeLink("/" + podcast.getIdentifier());
             } else {
-                result.setRelativeLink("/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl());
+                result.setRelativeLink("/podcasts/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl());
             }
 
             results.add(result);
