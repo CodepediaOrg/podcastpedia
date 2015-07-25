@@ -37,7 +37,7 @@ public class StartPageController {
 
 	@Autowired
 	private StartPageService startPageService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -96,14 +96,8 @@ public class StartPageController {
 		if (preferredLanguagesList.contains(language)) {
 			model.put("lastUpdatedPodcasts", startPageService
 					.getLastUpdatedPodcasts(LanguageCode.get(language)));
-//			model.put("topRatedPodcasts", startPageService
-//					.getTopRatedPodcastsWithLanguage(
-//							LanguageCode.get(language),
-//							NUMBER_OF_PODCASTS_IN_CHART));
 		} else {
 			model.put("lastUpdatedPodcasts", startPageService.getLastUpdatedPodcasts());
-//			model.put("topRatedPodcasts", startPageService
-//					.getTopRatedPodcasts(NUMBER_OF_PODCASTS_IN_CHART));
 		}
 
 	}
@@ -117,5 +111,5 @@ public class StartPageController {
 	}
 
 	private static String[] preferredLanguages = { "en", "fr", "de" };
-	
+
 }
