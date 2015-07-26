@@ -68,10 +68,10 @@ public class SearchResultsFeedsController implements MessageSourceAware {
 
         model.addAttribute("list_of_results", results);
         model.addAttribute("feed_title", messageSource.getMessage(
-            "episodes.search.feed_title", null,
+            "search_results.feed_title", null,
             LocaleContextHolder.getLocale()));
         model.addAttribute("feed_description", messageSource.getMessage(
-            "episodes.search.feed_description", null,
+            "search_results.feed_description", null,
             LocaleContextHolder.getLocale()));
         // set link to search results for data - get it through getPath
         model.addAttribute("feed_link",
@@ -108,10 +108,10 @@ public class SearchResultsFeedsController implements MessageSourceAware {
         model.addAttribute("feed_id",
             "tags:podcastpedia.org,2013-04-30:found-episodes");
         model.addAttribute("feed_title", messageSource.getMessage(
-            "episodes.search.feed_title", null,
+            "search_results.feed_title", null,
             LocaleContextHolder.getLocale()));
         model.addAttribute("feed_description", messageSource.getMessage(
-            "episodes.search.feed_description", null,
+            "search_results.feed_description", null,
             LocaleContextHolder.getLocale()));
         // set link to search results for data - get it through getPath
         model.addAttribute("feed_link",
@@ -121,161 +121,5 @@ public class SearchResultsFeedsController implements MessageSourceAware {
 
         return "searchResultsPageAtomFeedView";
     }
-
-    //TODO - to be deleted under here ****************************
-
-	/**
-	 * Returns list of podcasts for the search criteria to be generated as a rss
-	 * feed. Request comes from results page for podcasts.
-	 *
-	 * @param searchInput
-	 * @param model
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping("podcasts.rss")
-	public String getPodcastsFromSearchRssFeed(
-			@ModelAttribute("advancedSearchData") SearchData searchInput,
-			Model model) throws UnsupportedEncodingException {
-
-		searchInput.setForFeed(true);
-		List<Podcast> foundPodcasts = new ArrayList<Podcast>();
-
-		SearchResult podcastsForSearchCriteria = searchService
-				.getResultsForSearchCriteria(searchInput);
-		foundPodcasts = podcastsForSearchCriteria.getPodcasts();
-
-		model.addAttribute("list_of_podcasts", foundPodcasts);
-		model.addAttribute("feed_title", messageSource.getMessage(
-				"podcasts.search.feed_title", null,
-				LocaleContextHolder.getLocale()));
-		model.addAttribute("feed_description", messageSource.getMessage(
-				"podcasts.search.feed_description", null,
-				LocaleContextHolder.getLocale()));
-		// set link to search results for data - get it through getPath
-		model.addAttribute("feed_link",
-				configService.getValue("HOST_AND_PORT_URL"));
-		model.addAttribute("HOST_AND_PORT_URL",
-				configService.getValue("HOST_AND_PORT_URL"));
-
-		return "foundPodcastsPageRssFeedView";
-	}
-
-	/**
-	 * Returns list of podcasts for the search criteria to be generated as a
-	 * atom feed. Request comes from results page for podcasts.
-	 *
-	 * @param searchInput
-	 * @param model
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping("podcasts.atom")
-	public String getPodcastsFromSearchAtomFeed(
-			@ModelAttribute("advancedSearchData") SearchData searchInput,
-			Model model) throws UnsupportedEncodingException {
-
-		searchInput.setForFeed(true);
-		List<Podcast> foundPodcasts = new ArrayList<Podcast>();
-
-		SearchResult podcastsForSearchCriteria = searchService
-				.getResultsForSearchCriteria(searchInput);
-		foundPodcasts = podcastsForSearchCriteria.getPodcasts();
-
-		model.addAttribute("list_of_podcasts", foundPodcasts);
-		model.addAttribute("feed_id",
-				"tags:podcastpedia.org,2013-04-30:found-podcasts");
-		model.addAttribute("feed_title", messageSource.getMessage(
-				"podcasts.search.feed_title", null,
-				LocaleContextHolder.getLocale()));
-		model.addAttribute("feed_description", messageSource.getMessage(
-				"podcasts.search.feed_description", null,
-				LocaleContextHolder.getLocale()));
-		// set link to search results for data - get it through getPath
-		model.addAttribute("feed_link",
-				configService.getValue("HOST_AND_PORT_URL"));
-		model.addAttribute("HOST_AND_PORT_URL",
-				configService.getValue("HOST_AND_PORT_URL"));
-
-		return "foundPodcastsPageAtomFeedView";
-	}
-
-	/**
-	 * Returns list of episodes for the search criteria to be generated as a rss
-	 * feed. Request comes from results page from searching episodes.
-	 *
-	 * @param searchInput
-	 * @param model
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping("episodes.rss")
-	public String getEpisodesFromSearchRssFeed(
-			@ModelAttribute("advancedSearchData") SearchData searchInput,
-			Model model) throws UnsupportedEncodingException {
-
-		searchInput.setForFeed(true);
-		List<Episode> foundEpisodes = new ArrayList<Episode>();
-
-		SearchResult episodesFromSearchCriteria = searchService
-				.getResultsForSearchCriteria(searchInput);
-
-		foundEpisodes = episodesFromSearchCriteria.getEpisodes();
-
-		model.addAttribute("list_of_episodes", foundEpisodes);
-		model.addAttribute("feed_title", messageSource.getMessage(
-				"episodes.search.feed_title", null,
-				LocaleContextHolder.getLocale()));
-		model.addAttribute("feed_description", messageSource.getMessage(
-				"episodes.search.feed_description", null,
-				LocaleContextHolder.getLocale()));
-		// set link to search results for data - get it through getPath
-		model.addAttribute("feed_link",
-				configService.getValue("HOST_AND_PORT_URL"));
-		model.addAttribute("HOST_AND_PORT_URL",
-				configService.getValue("HOST_AND_PORT_URL"));
-
-		return "foundEpisodesPageRssFeedView";
-	}
-
-	/**
-	 * Returns list of episodes for the search criteria to be generated as a
-	 * atom feed. Request comes from results page for episodes.
-	 *
-	 * @param searchInput
-	 * @param model
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping("episodes.atom")
-	public String getEpisodesFromSearchAtomFeed(
-			@ModelAttribute("advancedSearchData") SearchData searchInput,
-			Model model) throws UnsupportedEncodingException {
-
-		searchInput.setForFeed(true);
-
-		List<Episode> foundEpisodes = new ArrayList<Episode>();
-
-		SearchResult episodesFromSearchCriteria = searchService
-				.getResultsForSearchCriteria(searchInput);
-		foundEpisodes = episodesFromSearchCriteria.getEpisodes();
-
-		model.addAttribute("list_of_episodes", foundEpisodes);
-		model.addAttribute("feed_id",
-				"tags:podcastpedia.org,2013-04-30:found-episodes");
-		model.addAttribute("feed_title", messageSource.getMessage(
-				"episodes.search.feed_title", null,
-				LocaleContextHolder.getLocale()));
-		model.addAttribute("feed_description", messageSource.getMessage(
-				"episodes.search.feed_description", null,
-				LocaleContextHolder.getLocale()));
-		// set link to search results for data - get it through getPath
-		model.addAttribute("feed_link",
-				configService.getValue("HOST_AND_PORT_URL"));
-		model.addAttribute("HOST_AND_PORT_URL",
-				configService.getValue("HOST_AND_PORT_URL"));
-
-		return "foundEpisodesPageAtomFeedView";
-	}
 
 }
