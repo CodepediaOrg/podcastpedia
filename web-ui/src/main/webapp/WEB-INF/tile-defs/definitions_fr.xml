@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-        
-<tiles-definitions>  
-	<!-- general -->	
+
+<tiles-definitions>
+	<!-- general -->
 	<definition name="m_startPage_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia" />
-    	<put-attribute name="page_description" value="Renseignez-vous - podcasts sélectionnés couvrent différents sujets comme la science, la technologie, l'éducation, la médecine, les gens, l'environnement et bien plus encore ..."/>          			  
-		<put-attribute name="content" value="/WEB-INF/jsp/start/start_page_m.jsp"/>
+    	<put-attribute name="page_description" value="Renseignez-vous - podcasts sélectionnés couvrent différents sujets comme la science, la technologie, l'éducation, la médecine, les gens, l'environnement et bien plus encore ..."/>
+		<put-attribute name="content" value="/WEB-INF/jsp/start/start_page.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia"/>
  	    <put-attribute name="og_desc" value="Renseignez-vous - podcasts sélectionnés couvrent différents sujets comme la science, la technologie, l'éducation, la médecine, les gens, l'environnement et bien plus encore ..."/>
- 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>   
-	</definition>	
-               
+ 	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
+	</definition>
+
     <!-- podcasting -->
 	<definition name="about_podcasting_tiles_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia - Sur le podcasting" />
-		<put-attribute name="page_description" value="about podcasting"/> 		
-		<put-attribute name="body-id" value="podcasting" />	
-		<put-attribute name="content" value="/WEB-INF/jsp/podcasting/about_podcasting_fr.jsp"/> 		
+		<put-attribute name="page_description" value="about podcasting"/>
+		<put-attribute name="body-id" value="podcasting" />
+		<put-attribute name="content" value="/WEB-INF/jsp/podcasting/about_podcasting_fr.jsp"/>
 	</definition>
-</tiles-definitions> 
+</tiles-definitions>

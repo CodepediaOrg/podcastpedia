@@ -6,7 +6,7 @@
 	<definition name="m_startPage_def" extends="defaultTemplate_m">
 		<put-attribute name="title" value="Podcastpedia, knowledge to go" />
     	<put-attribute name="page_description" value="Educate yourself with selected podcasts from various domains such as science, technology, education, medicine, people, environment, spirituality and much more..."/>
-		<put-attribute name="content" value="/WEB-INF/jsp/start/start_page_m.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/start/start_page.jsp"/>
     	<put-attribute name="og_title" value="Podcastpedia, knowledge to go"/>
  	    <put-attribute name="og_desc" value="Educate yourself with selected podcasts from various domains such as science, technology, education, medicine, people, environment, spirituality and much more..."/>
  	    <put-attribute name="og_image" value="http://www.podcastpedia.org/static/images/fb_share.png"/>
@@ -132,7 +132,7 @@
     	<put-attribute name="title" value="Podcastpedia"/>
  		<put-attribute name="page_description" value="Page displays archive of episodes for the podcast"/>
  		<put-attribute name="body-id" value="episode-archive" />
-    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_archive_m.jsp"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_archive.jsp"/>
     </definition>
 
     <definition name="m_episodeDetails_def" extends="defaultTemplate_m">
@@ -142,7 +142,7 @@
     	<put-attribute name="og_title" expression="${episode.title}"/>
     	<put-attribute name="og_desc" expression="${episode.description}"/>
     	<put-attribute name="og_image" expression="${episode.podcast.urlOfImageToDisplay}"/>
-    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_details_m.jsp"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/episode/episode_details.jsp"/>
     </definition>
 
     <!-- podcasting -->
@@ -169,7 +169,7 @@
     	<put-attribute name="title" value="Podcastpedia"/>
     	<put-attribute name="page_description" value="advanced search form"/>
 		<put-attribute name="body-id" value="advanced-search" />
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearch_form_m.jsp"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/advanced_search_form.jsp"/>
     </definition>
 
     <definition name="m_advancedSearchResults_podcasts_def" extends="defaultTemplate_m">
@@ -177,14 +177,14 @@
     	<put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     	<put-attribute name="header" value="/WEB-INF/template/header_page_with_params_m.jsp" />
     	<put-attribute name="body-id" value="results-podcasts" />
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_podcasts_m.jsp"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/archive/advancedSearchResults_podcasts_m.jsp"/>
     </definition>
     <definition name="m_advancedSearchResults_episodes_def" extends="defaultTemplate_m">
     	<put-attribute name="title" value="Podcastpedia"/>
     	<put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     	<put-attribute name="header" value="/WEB-INF/template/header_page_with_params_m.jsp" />
 		  <put-attribute name="body-id" value="results-episodes" />
-    	<put-attribute name="content" value="/WEB-INF/jsp/search/advancedSearchResults_episodes_m.jsp"/>
+    	<put-attribute name="content" value="/WEB-INF/jsp/search/archive/advancedSearchResults_episodes_m.jsp"/>
     </definition>
   <definition name="search_results_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia"/>
