@@ -27,7 +27,7 @@ public class SearchSpringResource {
 
     @RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody SearchResult    getSearches(
-						@RequestParam(value = "searchTarget", required = true) String searchTarget,
+						@RequestParam(value = "searchTarget", required = false) String searchTarget,
 						@RequestParam(value = "mediaType", required = false) org.podcastpedia.common.types.MediaType mediaType,
 						@RequestParam(value = "orderBy", required = false) OrderByOption orderBy,
 						@RequestParam(value = "searchMode", required = false) String searchMode,

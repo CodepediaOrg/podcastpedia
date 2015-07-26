@@ -16,6 +16,7 @@ $(function (){
 			success: function(episodes){
 				if(episodes.length == 0){
 					moreEpisodesBtn.attr("disabled","disabled");
+          moreEpisodesBtn.remove();
 				} else {
 					var newoffset = offset + 5;
 					offsetDataId.val(newoffset);//update offset hidden field value
