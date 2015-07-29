@@ -63,11 +63,14 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
 4. Setup MySQL configuration file
   1. For Windows place the configuration file where the MySQL server is installed - the [my.ini](_prepare_database_for_development/my.ini) file from above is an example used on a Windows 7 machine
   2. For linux you need to use .cnf files. You can see in this blog post -[Optimizing MySQL server settings](http://www.codingpedia.org/ama/optimizing-mysql-server-settings/) - how the MySQL database is configured in production for [Podcastpedia.org](http://www.podcastpedia.org)
+
 **Note**
+
 1. You will be using the admin usert setup at installation, to prepare the development database
-2. MySql is installed by default on port 3306, and this is used throughout the Maven plugin configurations files
+2. MySql is installed by default on port 3306; should you use another port number please adjust that throughout the Maven plugin configuration files
+
 #### Prepare development database with the sql-maven-plugin
-Change the username/password for your **root** user, configured at installation in the prepare-db maven profile:
+Change the username/password in the [pom.xml](sql/pom.xml) corresponding to your **root** user, configured at installation time:
 ```
 <configuration>
   <driver>com.mysql.jdbc.Driver</driver>
@@ -76,33 +79,16 @@ Change the username/password for your **root** user, configured at installation 
   <password>root</password><!-- user your installation admin user's password-->
 </configuration>
 ```
-Use the MySql **root** user, configured at installation
+First step is to prepare the "podcast" user and the podcast_db with the following maven command
 ```
-shell> mysql --host=localhost --user=root --password=YOUR_ROOT_PASSWORD
+mvn install -Pprepare-db
 ```
-####Execute db creation script
-execute the [__prepare_database_for_import.sql__](sql/_prepare_database_for_development/prepare_database_for_import.sql) in the mysql shell command line by issuing the following command
-`mysql> source "PATH_TO_FILE/prepare_database_for_import.sql"`
-
-Example:
-
-`mysql> source /home/ama/dev/repo/podcastpedia/sql/_prepare_db/prepare_db_and_user.sql`
-
-#### Import database from file
-Once the *pcmDB* and *pcm* user are set up, import the ["podcastpedia-2014-07-17-dev-db.sql"](sql/_prepare_database_for_development/podcastpedia-2014-07-17-dev-db.sql) file into the **pcmdb** database by executing the following command in the terminal:
+and the second step is to import the data into the database
 ```
-mysql --user=pcm --password=pcm_pw pcmdb < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
-```
-Example (windows):
-```
-mysql --user=pcm --password=pcm_pw pcmdb < "C:\projects\podcastpedia\sql\_prepare_db\podcastpedia-2014-06-17-dev-db.sql"
-```
-or (linux)
-```
-mysql --user=pcm --password=pcm_pw pcmdb < /home/ama/dev/repo/podcastpedia/sql/_prepare_db/podcastpedia-2014-07-17-dev-db.sql
+mvn install -Pimport-db
 ```
 
-That database setup should be ready now. A more detailed explanation about setting up the database is to find in the [sql README.md](sql/README.md)
+That database setup should be ready now. You can choose to setup the database via the MySql console - more details is to find in the [sql README.md](sql/README.md)
 ***
 
 ### Build project
