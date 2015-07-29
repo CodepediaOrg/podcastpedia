@@ -22,8 +22,9 @@ Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) pr
 * **sql** - contains database setup scripts and useful sql statements
 * **admin** - administration web application used to insert/update/remove podcasts from the directory; implemnted with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
 
-Setup Guide (~15min of which 13 min MySql installation)
+Setup Guide 
 ================
+_(~15min of which 13 min MySql installation)_
 ## Install and run the Podcastpedia.org website on your local machine
 
 ### Prerequisites
