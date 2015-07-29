@@ -7,23 +7,22 @@ Project backing [Podcastpedia.org](http://www.podcastpedia.org)
 Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) project structured in the following way:
 ```
 +---podcastpedia
-|   +---api
 |   +---common
 |   +---core
-|   +---sql
 |   +---web-ui
+|   +---api
+|   +---sql
 |   +---admin
 ```
-* **podcastpedia** is the parent project
-* **api** REST api supporting core functionalities for the application(in progress)
-* **common** sub-project that contains domain objects and types used by the other subprojects (web-ui & admin)
-* **core** module that contains database access and business layer; it support currently both the _api_ and _web-ui_ modules.
-* **sql** placeholder for database setup scripts and useful sql statements
-* **webapps** sub-project is the parent project for web applications; defines common dependencies and plugins used by the (Spring MVC)sub projects
-  * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
-  * **admin** - administration web application used to insert/update/remove podcasts from the directory; both web applications are implemented with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
+* **podcastpedia** - is the parent project
+* **common** - contains domain objects and types used by the other modules (core, web-ui, api & admin)
+* **core** - code for database access and business layer; it support currently both the _api_ and _web-ui_ modules. 
+* **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
+* **api** - REST api supporting core functionalities for the application(in progress)
+* **sql** - contains database setup scripts and useful sql statements
+* **admin** - administration web application used to insert/update/remove podcasts from the directory; implemnted with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
 
-Setup Guide (~15min)
+Setup Guide (~15min of which 13 min MySql installation)
 ================
 ## Install and run the Podcastpedia.org website on your local machine
 
