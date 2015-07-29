@@ -61,6 +61,7 @@
         <module>web-ui</module>
         <module>api</module>
         <module>core</module>
+        <module>sql</module>
     </modules>
     <dependencyManagement>
         <dependencies>

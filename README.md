@@ -59,13 +59,23 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
 2. [Install the MySQL Server](http://dev.mysql.com/doc/refman/5.6/en/installing.html)
   1. [Installing MySQL on Microsoft Windows](http://dev.mysql.com/doc/refman/5.6/en/windows-installation.html)
   2. [Installing MySQL on Linux](http://dev.mysql.com/doc/refman/5.6/en/linux-installation.html)
-  * The development database for Podcastpedia runs on port **3307**, so install the database on that port, or change the port in [_jett9.xml_](../../web-ui/src/main/resources/config/jetty9.xml) or [_context.xml_](https://github.com/podcastpedia/podcastpedia-web/blob/master/src/main/webapp/META-INF/context.xml) file, depending whether you are using Jetty or Tomcat for testing the application
 3. __Optional__ - install [MySQL Workbench](http://www.mysql.com/products/workbench/) for easy DB development and administration
 4. Setup MySQL configuration file
   1. For Windows place the configuration file where the MySQL server is installed - the [my.ini](_prepare_database_for_development/my.ini) file from above is an example used on a Windows 7 machine
   2. For linux you need to use .cnf files. You can see in this blog post -[Optimizing MySQL server settings](http://www.codingpedia.org/ama/optimizing-mysql-server-settings/) - how the MySQL database is configured in production for [Podcastpedia.org](http://www.podcastpedia.org)
-
-#### Connect to the MySql console
+**Note**
+1. You will be using the admin usert setup at installation, to prepare the development database
+2. MySql is installed by default on port 3306, and this is used throughout the Maven plugin configurations files
+#### Prepare development database with the sql-maven-plugin
+Change the username/password for your **root** user, configured at installation in the prepare-db maven profile:
+```
+<configuration>
+  <driver>com.mysql.jdbc.Driver</driver>
+  <url>jdbc:mysql://localhost:3306</url>
+  <username>root</username><!-- use your installation admin user-->
+  <password>root</password><!-- user your installation admin user's password-->
+</configuration>
+```
 Use the MySql **root** user, configured at installation
 ```
 shell> mysql --host=localhost --user=root --password=YOUR_ROOT_PASSWORD
@@ -83,12 +93,11 @@ Once the *pcmDB* and *pcm* user are set up, import the ["podcastpedia-2014-07-17
 ```
 mysql --user=pcm --password=pcm_pw pcmdb < "PATH_TO_FILE\podcastpedia-2014-06-17-dev-db.sql"
 ```
-Example:
-
+Example (windows):
 ```
-mysql -u pcm -ppcm_pw pcmdb < "C:\projects\podcastpedia\sql\_prepare_db\podcastpedia-2014-06-17-dev-db.sql"
+mysql --user=pcm --password=pcm_pw pcmdb < "C:\projects\podcastpedia\sql\_prepare_db\podcastpedia-2014-06-17-dev-db.sql"
 ```
-or
+or (linux)
 ```
 mysql --user=pcm --password=pcm_pw pcmdb < /home/ama/dev/repo/podcastpedia/sql/_prepare_db/podcastpedia-2014-07-17-dev-db.sql
 ```

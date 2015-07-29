@@ -1,8 +1,8 @@
 -- delete the pcmDB database if existent
-DROP DATABASE IF EXISTS pcmDB;
+DROP DATABASE IF EXISTS pcmdb;
 
 -- create the pcmDB database
-CREATE DATABASE pcmDB; 
+CREATE DATABASE pcmdb;
 
 -- drop 'pcm' user
 DROP USER 'pcm'@'localhost';

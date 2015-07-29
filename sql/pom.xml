@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>org.podcastpedia</groupId>
+    <artifactId>podcastpedia</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>sql</artifactId>
+  <packaging>jar</packaging>
+  <name>Contains scripts for db creation, update, etc.</name>
+
+  <profiles>
+    <profile>
+      <id>prepare-db</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sql-maven-plugin</artifactId>
+            <version>1.5</version>
+
+            <dependencies>
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.32</version>
+              </dependency>
+            </dependencies>
+
+            <!-- common configuration shared by all executions -->
+            <configuration>
+              <driver>com.mysql.jdbc.Driver</driver>
+              <url>jdbc:mysql://localhost:3306</url>
+              <username>root</username>
+              <password>root</password>
+            </configuration>
+
+            <executions>
+              <execution>
+                <id>prepare-mysql</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <configuration>
+                  <autocommit>true</autocommit>
+                  <srcFiles>
+                    <srcFile>src/main/resources/db-setup/db_prepare.sql</srcFile>
+                  </srcFiles>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>import-db</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sql-maven-plugin</artifactId>
+            <version>1.5</version>
+
+            <dependencies>
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.32</version>
+              </dependency>
+            </dependencies>
+
+            <!-- common configuration shared by all executions -->
+            <configuration>
+              <driver>com.mysql.jdbc.Driver</driver>
+              <url>jdbc:mysql://localhost:3306?podcast_db</url>
+              <username>podcast</username>
+              <password>podcast</password>
+            </configuration>
+
+            <executions>
+              <execution>
+                <id>db-import</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <configuration>
+                  <autocommit>true</autocommit>
+                  <srcFiles>
+                    <srcFile>src/main/resources/db-setup/db_import.sql</srcFile>
+                  </srcFiles>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

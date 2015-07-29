@@ -1,114 +1,34 @@
 <Context>
-    <!-- maxActive: Maximum number of database connections in pool. Make sure you
-         configure your mysqld max_connections large enough to handle
-         all of your db connections. Set to -1 for no limit.
-         -->
-
-    <!-- maxIdle: Maximum number of idle database connections to retain in pool.
-         Set to -1 for no limit.  See also the DBCP documentation on this
-         and the minEvictableIdleTimeMillis configuration parameter.
-         maxIdle: (int) The maximum number of connections that should be kept in the pool at all times.
-         Default value is maxActive:100 Idle connections are checked periodically (if enabled)
-         and connections that been idle for longer than minEvictableIdleTimeMillis will be released. (also see testWhileIdle)       
-
-         -->
-       
-    <!-- minEvictableIdleTimeMillis : (int) The minimum amount of time an object may sit idle in the pool before it is eligible for eviction.
-
-         The default value is 60000 (60 seconds).
-        -->
-        
-    <!-- maxWait: (int) The maximum number of milliseconds that the pool will wait (when there are no available connections)
-
-         for a connection to be returned before throwing an exception. Default value is 30000 (30 seconds).
-         In this example 8 seconds. An Exception is thrown if  this timeout is exceeded.  Set to -1 to wait indefinitely.
-
-         -->
-
-    <!-- initialSize: (int)The initial number of connections that are created when the pool is started. Default value is 10
-
-     -->
-    
-    <!-- username and password: MySQL username and password for database connections  -->
-
-    <!-- driverClassName: Class name for the old mm.mysql JDBC driver is
-         org.gjt.mm.mysql.Driver - we recommend using Connector/J though.
-         Class name for the official MySQL Connector/J driver is com.mysql.jdbc.Driver.
-         -->
-                
-        <!--
-                timeBetweenEvictionRunsMillis - (long) The number of milliseconds to sleep between runs of the idle connection validation/cleaner thread.
-
-                This value should not be set under 1 second. It dictates how often we check for idle, abandoned connections, and how often we validate idle connections.
-
-                The default value is 5000 (5 seconds).          
-        -->
-  
-        <!--
-                removeAbandoned - (boolean) Flag to remove abandoned connections if they exceed the removeAbandonedTimout.
-
-                If set to true a connection is considered abandoned and eligible for removal if it has been in use longer than the removeAbandonedTimeout.
-
-                Setting this to true can recover db connections from applications that fail to close a connection.
-                See also logAbandoned The default value is false.
-        -->
-       
-        <!--
-                removeAbandonedTimeout - (long) Timeout in seconds before an abandoned(in use) connection can be removed.
-
-                The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.       
-				Bring it down in PROD - now it is set to 180 for debug/testing purposes 
-        -->
-       
-        <!--
-                username -(String) The connection username to be passed to our JDBC driver to establish a connection.
-                Note, at this point, DataSource.getConnection(username,password) is not using the credentials passed into the method.  
-
-        -->
-       
-        <!--
-                password - (String) The connection password to be passed to our JDBC driver to establish a connection.
-                Note, at this point, DataSource.getConnection(username,password) is not using the credentials passed into the method.  
-
-        -->
-
-        <!--
-                driverClassName - (String) The fully qualified Java class name of the JDBC driver to be used.
-                The driver has to be accessible from the same classloader as tomcat-jdbc.jar   
-        -->
-       
-    <!-- url: The JDBC connection url for connecting to your MySQL database.
-         -->
   <Resource
-            name="jdbc/pcmDB"
-            auth="Container"
-            type="javax.sql.DataSource"
-            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-            initialSize="5"
-            maxActive="55"
-            maxIdle="21"
-            minIdle="13"
-            timeBetweenEvictionRunsMillis="34000"
-            minEvictableIdleTimeMillis="55000"
-            validationQuery="SELECT 1"
-            validationInterval="34"
-            testOnBorrow="true"
-            removeAbandoned="true"
-            removeAbandonedTimeout="233"
-            username="pcm"
-            password="pcm_pw"
-            driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306/pcmdb?allowMultiQueries=true"
-   /> 
+    name="jdbc/pcmDB"
+    auth="Container"
+    type="javax.sql.DataSource"
+    factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+    initialSize="5"
+    maxActive="55"
+    maxIdle="21"
+    minIdle="13"
+    timeBetweenEvictionRunsMillis="34000"
+    minEvictableIdleTimeMillis="55000"
+    validationQuery="SELECT 1"
+    validationInterval="34"
+    testOnBorrow="true"
+    removeAbandoned="true"
+    removeAbandonedTimeout="233"
+    username="podcast"
+    password="podcast"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true"
+   />
 
 	<Resource name="mail/Session" auth="Container"
-	            type="javax.mail.Session"
-		        username="test-dev@podcastpedia.org"
-		        password="test-dev"	            
-	            mail.smtp.host="mail.podcastpedia.org"
-	            mail.smtp.port="25"
-	            mail.smtp.user="test-dev@podcastpedia.org"
-	            mail.transport.protocol="smtp" 
-	            mail.smtp.auth="true"
-	/> 
+    type="javax.mail.Session"
+    username="test-dev@podcastpedia.org"
+    password="test-dev"
+    mail.smtp.host="mail.podcastpedia.org"
+    mail.smtp.port="25"
+    mail.smtp.user="test-dev@podcastpedia.org"
+    mail.transport.protocol="smtp"
+    mail.smtp.auth="true"
+  />
 </Context>

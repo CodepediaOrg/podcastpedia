@@ -9,3 +9,6 @@
 
 #Exclude target folders
 **/target/
+
+#web-ui module
+web-ui/src/main/webapp/static/node_modules
