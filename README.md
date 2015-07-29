@@ -1,7 +1,7 @@
 podcastpedia
 ================
 
-Project backing [Podcastpedia.org](http://www.podcastpedia.org)
+[Podcastpedia.org](http://www.podcastpedia.org) - the open source podcast directory
 
 ## Project structure
 Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) project structured in the following way:
