@@ -39,7 +39,7 @@ _(~15min of which 13 min MySql installation)_
 * Maven 3.*
   * [Download Apache Maven](http://maven.apache.org/download.cgi)
     * [Maven installation instructions](https://maven.apache.org/download.cgi#Installation) - basically extracting the archives and settings some environment variables
-* Tomcat 7+ to be able to run the application on the Tomcat server
+* (optional) Tomcat 7+ to be able to run the application on a standalone Tomcat server
   *  [Tomcat 7 Downloads](http://tomcat.apache.org/download-70.cgi)
   *  [Tomcat 7 Documentation](http://tomcat.apache.org/tomcat-7.0-doc/index.html)
 * (optional) IDE ( preferred Eclipse 4.3+ or IntelliJ)
@@ -66,7 +66,7 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
 
 **Note**
 
-1. You will be using the admin usert setup at installation, to prepare the development database
+1. You will be using the admin user setup at installation, to prepare the development database
 2. MySql is installed by default on port 3306; should you use another port number please adjust that throughout the Maven plugin configuration files
 
 #### Prepare development database with the sql-maven-plugin
