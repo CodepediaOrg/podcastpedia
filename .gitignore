@@ -12,3 +12,6 @@
 
 #web-ui module
 web-ui/src/main/webapp/static/node_modules
+web-ui/src/main/webapp/META-INF/context.xml.personal.dev.gmail
+web-ui/src/main/webapp/META-INF/context.xml.prod
+web-ui/src/main/webapp/META-INF/context.xml.tunnel.prod
