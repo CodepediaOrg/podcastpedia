@@ -19,13 +19,13 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>sql-maven-plugin</artifactId>
-            <version>1.5</version>
+            <version>${sql-maven-plugin.version}</version>
 
             <dependencies>
               <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.32</version>
+                <version>${mysql-connector-java.version}</version>
               </dependency>
             </dependencies>
 
@@ -64,13 +64,13 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>sql-maven-plugin</artifactId>
-            <version>1.5</version>
+            <version>${sql-maven-plugin.version}</version>
 
             <dependencies>
               <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.32</version>
+                <version>${mysql-connector-java.version}</version>
               </dependency>
             </dependencies>
 
@@ -102,4 +102,7 @@
       </build>
     </profile>
   </profiles>
+  <properties>
+    <sql-maven-plugin.version>1.5</sql-maven-plugin.version>
+  </properties>
 </project>

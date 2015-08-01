@@ -11,7 +11,6 @@
 
     <artifactId>api</artifactId>
     <packaging>war</packaging>
-
     <name>api</name>
     <url>http://www.podcastpedia.org</url>
 
@@ -66,47 +65,47 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
         </dependency>
 
         <!-- Jersey-Spring http://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-spring3/2.4.1 -->
         <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
-            <version>${jersey.version}</version>
+          <groupId>org.glassfish.jersey.ext</groupId>
+          <artifactId>jersey-spring3</artifactId>
+          <version>${jersey.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey.version}</version>
+          <groupId>org.glassfish.jersey.media</groupId>
+          <artifactId>jersey-media-json-jackson</artifactId>
+          <version>${jersey.version}</version>
         </dependency>
 
         <!-- AOP dependency -->
         <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>2.2</version>
+          <groupId>cglib</groupId>
+          <artifactId>cglib</artifactId>
+          <version>2.2</version>
         </dependency>
 
         <!-- javax validation -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+          <version>1.1.0.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator-annotation-processor</artifactId>
-            <version>5.1.2.Final</version>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator-annotation-processor</artifactId>
+          <version>5.1.2.Final</version>
         </dependency>
 
 
@@ -126,20 +125,20 @@
 
         <!-- Spring security -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-taglibs</artifactId>
         </dependency>
 
         <!-- MySQL JDBC connector http://dev.mysql.com/downloads/connector/j/ -->
