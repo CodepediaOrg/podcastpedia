@@ -1,4 +1,5 @@
 <Context>
+
   <Resource
             name="jdbc/pcmDB"
             auth="Container"
@@ -12,20 +13,20 @@
             validationInterval="30"
             testOnBorrow="true"
             removeAbandoned="true"
-            removeAbandonedTimeout="60"
+            removeAbandonedTimeout="600"
             username="podcast"
             password="podcast"
             driverClassName="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true"
    />
-    <Resource name="mail/Session" auth="Container"
-              type="javax.mail.Session"
-              username="test-dev@podcastpedia.org"
-              password="test-dev"
-              mail.smtp.host="mail.podcastpedia.org"
-              mail.smtp.port="25"
-              mail.smtp.user="test-dev@podcastpedia.org"
-              mail.transport.protocol="smtp"
-              mail.smtp.auth="true"
-            />
+	<Resource name="mail/Session" auth="Container"
+	            type="javax.mail.Session"
+		        username="test-dev@podcastpedia.org"
+		        password="test-dev"
+	            mail.smtp.host="mail.podcastpedia.org"
+	            mail.smtp.port="25"
+	            mail.smtp.user="test-dev@podcastpedia.org"
+	            mail.transport.protocol="smtp"
+	            mail.smtp.auth="true"
+	/>
 </Context>
