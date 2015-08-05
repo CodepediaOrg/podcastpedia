@@ -1,0 +1,36 @@
+<Context>
+  <Environment name="env" value="dev"
+               type="java.lang.String" override="false"/>
+  <Resource
+    name="jdbc/pcmDB"
+    auth="Container"
+    type="javax.sql.DataSource"
+    factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+    initialSize="5"
+    maxActive="55"
+    maxIdle="21"
+    minIdle="13"
+    timeBetweenEvictionRunsMillis="34000"
+    minEvictableIdleTimeMillis="55000"
+    validationQuery="SELECT 1"
+    validationInterval="34"
+    testOnBorrow="true"
+    removeAbandoned="true"
+    removeAbandonedTimeout="233"
+    username="podcast"
+    password="podcast"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://localhost:3307/podcast_db?allowMultiQueries=true"
+    />
+
+  <Resource name="mail/Session" auth="Container"
+            type="javax.mail.Session"
+            username="test-dev@podcastpedia.org"
+            password="test-dev"
+            mail.smtp.host="mail.podcastpedia.org"
+            mail.smtp.port="25"
+            mail.smtp.user="test-dev@podcastpedia.org"
+            mail.transport.protocol="smtp"
+            mail.smtp.auth="true"
+    />
+</Context>
