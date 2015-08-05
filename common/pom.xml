@@ -4,41 +4,38 @@
 	<parent>
 		<groupId>org.podcastpedia</groupId>
 		<artifactId>podcastpedia</artifactId>
-		<relativePath>../pom.xml</relativePath>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-    <artifactId>common</artifactId>
-    <packaging>jar</packaging>
+  <artifactId>common</artifactId>
+  <packaging>jar</packaging>
 
-    <dependencies>
-        <!--Spring-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
+  <dependencies>
+    <!--Spring-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+    </dependency>
 
-        <!-- Project rome rss, atom http://rometools.github.io/rome/ -->
-        <dependency>
-            <groupId>com.rometools</groupId>
-            <artifactId>rome</artifactId>
-        </dependency>
+    <!-- Project rome rss, atom http://rometools.github.io/rome/ -->
+    <dependency>
+        <groupId>com.rometools</groupId>
+        <artifactId>rome</artifactId>
+    </dependency>
 
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+    </dependency>
 
-        <!-- Ehcache http://ehcache.org/ -->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-
-    </dependencies>
-
+    <!-- Ehcache http://ehcache.org/ -->
+    <dependency>
+        <groupId>net.sf.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+    </dependency>
+  </dependencies>
 </project>
