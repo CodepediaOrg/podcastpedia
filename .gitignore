@@ -1,4 +1,3 @@
-
 #Eclipse related
 .settings
 .project
@@ -6,6 +5,7 @@
 #Intellij related
 **/*.iml
 .idea
+
 
 #Exclude target folders
 **/target/
