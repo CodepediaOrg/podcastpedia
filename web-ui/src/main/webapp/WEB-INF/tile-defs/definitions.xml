@@ -193,4 +193,23 @@
     <put-attribute name="body-id" value="results-episodes" />
     <put-attribute name="content" value="/WEB-INF/jsp/search/search_results.jsp"/>
   </definition>
+
+  <definition name="podcast_subscriptions_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="podcast-subscriptions" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/podcast_subscriptions.jsp"/>
+  </definition>
+  <definition name="latest_episodes_for_podcast_subscriptions_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="latest-episodes-podcast-subscriptions" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/latest_episodes_for_podcast_subscriptions.jsp"/>
+  </definition>
+  <definition name="login_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia.org, login"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="latest-episodes-podcast-subscriptions" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/login.jsp"/>
+  </definition>
 </tiles-definitions>

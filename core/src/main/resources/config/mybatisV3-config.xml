@@ -41,13 +41,14 @@
     	<typeHandler handler="org.podcastpedia.common.mybatis.typehandlers.OrderByOptionHandler" javaType="org.podcastpedia.common.types.OrderByOption"/>
     </typeHandlers>
     <mappers>
-        <mapper resource="maps/PodcastMapper.xml" />
-        <mapper resource="maps/EpisodeMapper.xml" />
-        <mapper resource="maps/CategoryMapper.xml" />
-        <mapper resource="maps/SearchMapper.xml" />
-        <mapper resource="maps/UserInteractionMapper.xml" />
-        <mapper resource="maps/StartPageMapper.xml" />
-        <mapper resource="maps/TagMapper.xml" />
-        <mapper resource="maps/EmailSubscriptionMapper.xml" />
+      <mapper resource="maps/PodcastMapper.xml" />
+      <mapper resource="maps/EpisodeMapper.xml" />
+      <mapper resource="maps/CategoryMapper.xml" />
+      <mapper resource="maps/SearchMapper.xml" />
+      <mapper resource="maps/UserInteractionMapper.xml" />
+      <mapper resource="maps/StartPageMapper.xml" />
+      <mapper resource="maps/TagMapper.xml" />
+      <mapper resource="maps/EmailSubscriptionMapper.xml" />
+      <mapper resource="maps/UserMapper.xml" />
     </mappers>
 </configuration>

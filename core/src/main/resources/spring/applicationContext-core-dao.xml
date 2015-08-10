@@ -3,54 +3,58 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	    xsi:schemaLocation="
- 
-			http://www.springframework.org/schema/beans	 
+
+			http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<import resource="applicationContext-core-dataSource.xml"/>
 
 	<!-- ========================= MyBATIS mappings configuration ========================= -->
 	<bean id="podcastDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.podcasts.PodcastDao" />
 	</bean>
 	<bean id="episodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.episodes.EpisodeDao" />
-	</bean>		
+	</bean>
 	<bean id="categoryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.categories.CategoryDao" />
-	</bean>		
+	</bean>
 	<bean id="searchDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.searching.SearchDao" />
-	</bean>		
+	</bean>
 	<bean id="userInteractionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.userinteraction.UserInteractionDao" />
-	</bean>		
+	</bean>
 	<bean id="startPageDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.startpage.StartPageDao" />
-	</bean>		
+	</bean>
 	<bean id="tagDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.tags.TagDao" />
-	</bean>		
+	</bean>
 	<bean id="emailSubscriptionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>	
+	   <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	   <property name="mapperInterface" value="org.podcastpedia.core.userinteraction.emailsubscription.EmailSubscriptionDao" />
-	</bean>			
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	</bean>
+  <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    <property name="mapperInterface" value="org.podcastpedia.core.user.UserDao" />
+  </bean>
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:config/mybatisV3-config.xml"/>
-	</bean>	
-	
+	</bean>
+
 	<!-- needed for transactional support when adding a new podcast (multiple inserts in podcasts and podcats_categories tables) -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
-    </bean>    	
-		
+    </bean>
+
 </beans>

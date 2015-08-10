@@ -17,7 +17,7 @@
 			http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- ========================= Import Tiles-related configuration ========================= -->
-	<import resource="tiles-context.xml" />
+	<import resource="applicationContext-web-ui-tiles.xml" />
 
 	<import resource="classpath:spring/applicationContext-core.xml" />
   <import resource="classpath:spring/applicationContext-common.xml"/>
