@@ -49,7 +49,7 @@
 
     <resource-ref>
         <description>Database resource for podcastpedia web application </description>
-        <res-ref-name>jdbc/pcmDB</res-ref-name>
+        <res-ref-name>jdbc/podcast_db</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
