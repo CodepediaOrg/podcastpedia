@@ -6,7 +6,7 @@
 
   	<!-- ========================= DATASOURCE DEFINITION via JNDI ========================= -->
 	<bean id="configDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
-		<property name="jndiName" value="java:comp/env/jdbc/pcmDB" />
+		<property name="jndiName" value="java:comp/env/jdbc/podcast_db" />
 		<property name="resourceRef" value="true" />
 	</bean>
 
