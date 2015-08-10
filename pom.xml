@@ -32,7 +32,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>4.1.7.RELEASE</spring.version>
     <tiles.version>3.0.4</tiles.version>
-    <spring.security.version>3.2.5.RELEASE</spring.security.version>
+    <spring-security.version>4.0.2.RELEASE</spring-security.version>
     <mybatis-spring.version>1.2.3</mybatis-spring.version>
     <mybatis.version>3.3.0</mybatis.version>
     <junit.version>4.11</junit.version>
@@ -41,7 +41,7 @@
     <ehcache.version>2.9.0</ehcache.version>
     <tomcat.jdbc.version>7.0.57</tomcat.jdbc.version>
     <java.mail.version>1.4.7</java.mail.version>
-    <jackson-jaxrs-version>2.4.4</jackson-jaxrs-version>
+    <jackson-jaxrs.version>2.4.4</jackson-jaxrs.version>
     <maven.war.plugin.version>2.6</maven.war.plugin.version>
     <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
     <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
@@ -146,39 +146,39 @@
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-base</artifactId>
-        <version>${jackson-jaxrs-version}</version>
+        <version>${jackson-jaxrs.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
-        <version>${jackson-jaxrs-version}</version>
+        <version>${jackson-jaxrs.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>${jackson-jaxrs-version}</version>
+        <version>${jackson-jaxrs.version}</version>
       </dependency>
 
       <!-- Spring security -->
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-core</artifactId>
-          <version>${spring.security.version}</version>
+          <version>${spring-security.version}</version>
       </dependency>
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-web</artifactId>
-          <version>${spring.security.version}</version>
+          <version>${spring-security.version}</version>
       </dependency>
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-config</artifactId>
-          <version>${spring.security.version}</version>
+          <version>${spring-security.version}</version>
       </dependency>
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-taglibs</artifactId>
-          <version>${spring.security.version}</version>
+          <version>${spring-security.version}</version>
       </dependency>
 
       <!-- Spring boot http://projects.spring.io/spring-boot/ -->
