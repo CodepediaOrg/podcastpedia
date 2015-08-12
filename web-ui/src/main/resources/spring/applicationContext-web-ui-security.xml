@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-    xmlns:beans="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:security="http://www.springframework.org/schema/security"
-    xsi:schemaLocation="
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
     	http://www.springframework.org/schema/beans
     	http://www.springframework.org/schema/beans/spring-beans.xsd
 
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<!-- Stateless RESTful services use BASIC authentication -->
-  <security:http create-session="stateless" pattern="/rest_services/**">
-      <security:intercept-url pattern="/**" access="ROLE_REST"/>
-      <security:http-basic />
-  </security:http>
+	<!-- Stateless RESTful services use BASIC authentication   -->
+  <http create-session="stateless" pattern="/rest_services/**">
+      <intercept-url pattern="/**" access="ROLE_REST"/>
+      <http-basic />
+  </http>
 
-  <http  use-expressions="false"  pattern="/users/**/*" authentication-manager-ref="jdbcAuthenticationManager">
+
+  <http  use-expressions="false" authentication-manager-ref="jdbcAuthenticationManager">
+    <!-- enable csrf protection -->
+    <csrf/>
     <!-- configure the login form -->
     <form-login
       login-page="/login/custom_login"
@@ -24,11 +26,9 @@
       password-parameter="password" />
     <!-- configure the logout function -->
     <logout logout-success-url="/custom_login?logout" />
-    <!-- enable csrf protection -->
-    <csrf/>
-
-    <!-- <intercept-url pattern="/login/custom_login" access="permitAll"/> -->
-    <intercept-url pattern="/**" access="ROLE_USER"/>
+    <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
+    <intercept-url pattern="/users/**/*" access="ROLE_USER"/>
+    <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
   </http>
 
   <!-- Select users and user_roles from database -->
@@ -42,12 +42,12 @@
     </authentication-provider>
   </authentication-manager>
 
-  <security:authentication-manager>
-      <security:authentication-provider>
-          <security:user-service>
-              <security:user name="rest_user" password="123rest" authorities="ROLE_REST"/>
-          </security:user-service>
-      </security:authentication-provider>
-  </security:authentication-manager>
+  <authentication-manager>
+      <authentication-provider>
+          <user-service>
+              <user name="rest_user" password="123rest" authorities="ROLE_REST"/>
+          </user-service>
+      </authentication-provider>
+  </authentication-manager>
 
 </beans:beans>

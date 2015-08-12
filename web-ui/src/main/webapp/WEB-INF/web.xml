@@ -27,81 +27,46 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<!-- <param-value>/WEB-INF/applicationContext.xml</param-value>  -->
-		<!-- The above is the default -->
 		<param-value>
-      classpath:spring/applicationContext-web-ui.xml
+      classpath:spring/applicationContext-common.xml
+      classpath:spring/applicationContext-core.xml
       classpath:spring/applicationContext-web-ui-security.xml
     </param-value>
 	</context-param>
-
-  <!--
-	  - Configures Log4J for this web app.
-	  - As this context specifies a context-param "log4jConfigLocation", its file path
-	  - is used to load the Log4J configuration, including periodic refresh checks.
-	  -
-	  - Would fall back to default Log4J initialization (non-refreshing) if no special
-	  - context-params are given.
-	  -
-	  - Exports a "web app root key", i.e. a system property that specifies the root
-	  - directory of this web app, for usage in log file paths.
-	  - This web app specifies "podcastmania.root" (see log4j.properties file).
-	-->
 
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 
-	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
-	<!--
-		- Loads the root application context of this web app at startup,
-		- by default from "/WEB-INF/applicationContext.xml".
-		- Note that you need to fall back to Spring's ContextLoaderServlet for
-		- J2EE servers that do not follow the Servlet 2.4 initialization order.
-		-
-		- Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
-		- to access it anywhere in the web application, outside of the framework.
-		-
-		- The root context is the parent of all servlet-specific contexts.
-		- This means that its beans are automatically available in these child contexts,
-		- both for getBean(name) calls and (external) bean references.
-	-->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
 
-	<!--
-	 - Map static resources to the default servlet
-	 - examples:
-	 -     http://localhost:8080/static/images/pets.png
-	 -     http://localhost:8080/static/styles/petclinic.css
-	-->
+  <!-- default servlet which serves static resources as well as serves the directory listings if they are enabled -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
 
-	<!--
-		- Servlet that dispatches request to registered handlers (Controller implementations).
-		- A web app can contain any number of such servlets.
-		- Note that this web app has a shared root application context, serving as parent
-		- of all DispatcherServlet contexts.
-	-->
+  <!-- Spring MVC -->
 	<servlet>
 		<servlet-name>podcastpedia</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>
+        classpath:spring/applicationContext-web-ui.xml
+      </param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>podcastpedia</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
 
 	<!-- Reads request input using UTF-8 encoding
 	The character encoding type for the request can be set using the CharacterEncodingFilter.
@@ -119,33 +84,31 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<filter>
-  		<filter-name>etagFilter</filter-name>
-    	<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+    <filter-name>etagFilter</filter-name>
+    <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
 	</filter>
+  <filter-mapping>
+    <filter-name>etagFilter</filter-name>
+    <servlet-name>podcastpedia</servlet-name>
+  </filter-mapping>
 
-    <filter-mapping>
-       <filter-name>etagFilter</filter-name>
-       <servlet-name>podcastpedia</servlet-name>
-    </filter-mapping>
-
-    <!--Hook into spring security-->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-
-    <filter-mapping>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/users/*</url-pattern>
-      <url-pattern>/rest_services/*</url-pattern>
-    </filter-mapping>
+  <!--Hook into spring security-->
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
 
 	<!-- set session timeout for 1 minute <url-pattern>/*.atom</url-pattern> -->
 	<session-config>

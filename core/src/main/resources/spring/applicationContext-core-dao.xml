@@ -52,9 +52,9 @@
 	</bean>
 
 	<!-- needed for transactional support when adding a new podcast (multiple inserts in podcasts and podcats_categories tables) -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+  <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource" ref="dataSource"/>
+  </bean>
 
 </beans>
