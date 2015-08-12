@@ -18,6 +18,7 @@
 
 	<!-- ========================= Import Tiles-related configuration ========================= -->
 	<import resource="applicationContext-web-ui-tiles.xml" />
+  <import resource="applicationContext-web-ui-security.xml" />
 
 	<import resource="classpath:spring/applicationContext-core.xml" />
   <import resource="classpath:spring/applicationContext-common.xml"/>

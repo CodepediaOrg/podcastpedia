@@ -9,9 +9,14 @@
 
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd">
-  <http pattern="/static/**" security="none" />
-  <http pattern="/login/custom_login" security="none"/>
-  <http  auto-config="false" pattern="/users/**/*" authentication-manager-ref="jdbcAuthenticationManager">
+
+	<!-- Stateless RESTful services use BASIC authentication -->
+  <security:http create-session="stateless" pattern="/rest_services/**">
+      <security:intercept-url pattern="/**" access="ROLE_REST"/>
+      <security:http-basic />
+  </security:http>
+
+  <http  use-expressions="false"  pattern="/users/**/*" authentication-manager-ref="jdbcAuthenticationManager">
     <!-- configure the login form -->
     <form-login
       login-page="/login/custom_login"
@@ -22,15 +27,9 @@
     <!-- enable csrf protection -->
     <csrf/>
 
-    <intercept-url pattern="/login/custom_login" access="permitAll"/>
-    <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
+    <!-- <intercept-url pattern="/login/custom_login" access="permitAll"/> -->
+    <intercept-url pattern="/**" access="ROLE_USER"/>
   </http>
-
-	<!-- Stateless RESTful services use BASIC authentication -->
-  <security:http create-session="stateless" pattern="/rest_services/**">
-      <security:intercept-url pattern="/**" access="ROLE_REST"/>
-      <security:http-basic />
-  </security:http>
 
   <!-- Select users and user_roles from database -->
   <authentication-manager  id="jdbcAuthenticationManager">

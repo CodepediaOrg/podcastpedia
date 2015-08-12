@@ -69,10 +69,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!-- This was added to make cxf and spring mvc play well together. Same goes for jsf and spring mvc -->
-	<listener>
-	        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
 
 	<!--
 	 - Map static resources to the default servlet
@@ -87,27 +83,17 @@
 
 	<!--
 		- Servlet that dispatches request to registered handlers (Controller implementations).
-		- Has its own application context, by default defined in "{servlet-name}-servlet.xml",
-		- i.e. "petclinic-servlet.xml".
-		-
 		- A web app can contain any number of such servlets.
 		- Note that this web app has a shared root application context, serving as parent
 		- of all DispatcherServlet contexts.
 	-->
 	<servlet>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>podcastpedia</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-
-		<init-param>
-      		<param-name>contextConfigLocation</param-name>
-      		<param-value>
-				classpath:spring/applicationContext-web-ui.xml
-			</param-value>
-    	</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-name>podcastpedia</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
@@ -146,7 +132,7 @@
 
     <filter-mapping>
        <filter-name>etagFilter</filter-name>
-       <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+       <servlet-name>podcastpedia</servlet-name>
     </filter-mapping>
 
     <!--Hook into spring security-->
@@ -167,12 +153,12 @@
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
-	<resource-ref>
-        <description>Database resource for podcastpedia web application </description>
-        <res-ref-name>jdbc/podcast_db</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-    </resource-ref>
+  <resource-ref>
+    <description>Database resource for podcastpedia web application </description>
+    <res-ref-name>jdbc/podcast_db</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
 	<resource-ref>
 	  <description>
 	    Resource reference to a factory for javax.mail.Session
@@ -186,8 +172,8 @@
 	</resource-ref>
 
 	<error-page>
-	    <error-code>404</error-code>
-	    <location>/errors/404.html</location>
+    <error-code>404</error-code>
+    <location>/errors/404.html</location>
 	</error-page>
 
 </web-app>
