@@ -10,11 +10,10 @@
       http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<!-- Stateless RESTful services use BASIC authentication   -->
-  <http create-session="stateless" pattern="/rest_services/**">
+  <http use-expressions="false" create-session="stateless" pattern="/rest/**">
       <intercept-url pattern="/**" access="ROLE_REST"/>
       <http-basic />
   </http>
-
 
   <http  use-expressions="false" authentication-manager-ref="jdbcAuthenticationManager">
     <!-- enable csrf protection -->
@@ -31,6 +30,13 @@
     <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
   </http>
 
+  <!-- HTTP basic authentication in Spring Security - it works with basic authentication
+  <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
+    <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')" />
+    <http-basic />
+  </http>
+  -->
+
   <!-- Select users and user_roles from database -->
   <authentication-manager  id="jdbcAuthenticationManager">
     <authentication-provider>
@@ -43,11 +49,20 @@
   </authentication-manager>
 
   <authentication-manager>
-      <authentication-provider>
-          <user-service>
-              <user name="rest_user" password="123rest" authorities="ROLE_REST"/>
-          </user-service>
-      </authentication-provider>
+    <authentication-provider>
+      <user-service>
+        <user name="rest_user" password="123rest" authorities="ROLE_REST"/>
+      </user-service>
+    </authentication-provider>
   </authentication-manager>
+
+  <authentication-manager id="inMemoryAuthenticationManager">
+    <authentication-provider>
+      <user-service>
+        <user name="ama" password="ama" authorities="hasRole('ROLE_USER')"/>
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+
 
 </beans:beans>

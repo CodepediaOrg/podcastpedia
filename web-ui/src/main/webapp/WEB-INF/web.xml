@@ -28,9 +28,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-      classpath:spring/applicationContext-common.xml
-      classpath:spring/applicationContext-core.xml
       classpath:spring/applicationContext-web-ui-security.xml
+      classpath:spring/applicationContext-core.xml
     </param-value>
 	</context-param>
 

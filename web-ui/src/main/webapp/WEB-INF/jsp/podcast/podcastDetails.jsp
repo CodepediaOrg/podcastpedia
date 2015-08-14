@@ -6,6 +6,7 @@
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
@@ -83,6 +84,9 @@
 		</div>
 		<div class="clear"></div>
 	</div>
+  <sec:authorize access="hasRole('ROLE_USER')">
+    <span>Vote up or down</span>
+  </sec:authorize>
 </div>
 
 <!-- recent episodes of the podcast -->

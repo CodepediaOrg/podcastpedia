@@ -38,7 +38,7 @@
 	  WHERE
 		  u.username = #{value}
 		AND
-		  s.username = #{value}
+		  s.email = #{value}
 		AND
 		  s.podcast_id= p.podcast_id
 		AND
@@ -92,7 +92,7 @@
     WHERE
       u.username = #{value}
     AND
-      s.username = #{value}
+      s.email = #{value}
     AND
       s.podcast_id= p.podcast_id
     AND
