@@ -105,8 +105,6 @@
   <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
 
 	<!-- set session timeout for 1 minute <url-pattern>/*.atom</url-pattern> -->

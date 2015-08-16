@@ -15,22 +15,22 @@
       <http-basic />
   </http>
 
-  <http  use-expressions="false" authentication-manager-ref="jdbcAuthenticationManager">
+  <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
     <!-- enable csrf protection -->
     <csrf/>
     <!-- configure the login form -->
     <form-login
       login-page="/login/custom_login"
+      login-processing-url="/j_spring_security_check"
       username-parameter="username"
       password-parameter="password" />
     <!-- configure the logout function -->
     <logout logout-success-url="/custom_login?logout" />
-    <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
-    <intercept-url pattern="/users/**/*" access="ROLE_USER"/>
-    <intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
+    <intercept-url pattern="/static/**" access="permitAll" />
+    <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
   </http>
 
-  <!-- HTTP basic authentication in Spring Security - it works with basic authentication
+  <!-- HTTP basic authentication configuration in Spring Security
   <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')" />
     <http-basic />
@@ -63,6 +63,5 @@
       </user-service>
     </authentication-provider>
   </authentication-manager>
-
 
 </beans:beans>
