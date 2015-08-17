@@ -24,8 +24,13 @@
       login-processing-url="/j_spring_security_check"
       username-parameter="username"
       password-parameter="password" />
-    <!-- configure the logout function -->
-    <logout logout-success-url="/custom_login?logout" />
+
+    <!-- configure the logout function - will go to home page -->
+    <logout
+      logout-url="/j_spring_security_logout"
+      logout-success-url="/"
+      delete-cookies="JSESSIONID" />
+
     <intercept-url pattern="/static/**" access="permitAll" />
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
   </http>
