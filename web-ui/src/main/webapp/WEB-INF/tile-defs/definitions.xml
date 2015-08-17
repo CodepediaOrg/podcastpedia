@@ -209,7 +209,7 @@
   <definition name="login_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia.org, login"/>
     <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
-    <put-attribute name="body-id" value="latest-episodes-podcast-subscriptions" />
+    <put-attribute name="body-id" value="login" />
     <put-attribute name="content" value="/WEB-INF/jsp/user/login.jsp"/>
   </definition>
 </tiles-definitions>

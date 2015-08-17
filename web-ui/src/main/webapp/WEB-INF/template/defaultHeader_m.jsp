@@ -30,7 +30,11 @@
       <!-- display My Podcasts if is authenticated -->
       <sec:authorize access="isAuthenticated()">
         <span><a href="<c:url value='/users/subscriptions'/>">My podcasts</a></span>
-        <span><a href="<c:url value='/j_spring_security_logout'/>">Logout</a></span>
+        <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
+        <form action="${logoutUrl}" method="post">
+          <input type="submit" value="Log out" />
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
       </sec:authorize>
     </div>
 	</div>

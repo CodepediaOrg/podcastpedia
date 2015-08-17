@@ -25,14 +25,14 @@
       username-parameter="username"
       password-parameter="password" />
 
-    <!-- configure the logout function - will go to home page -->
+    <!-- configure the logout function - will go to home page
+    logout-url="/j_spring_security_logout" -->
     <logout
-      logout-url="/j_spring_security_logout"
       logout-success-url="/"
       delete-cookies="JSESSIONID" />
 
-    <intercept-url pattern="/static/**" access="permitAll" />
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
+    <intercept-url pattern="/**" access="permitAll"/>
   </http>
 
   <!-- HTTP basic authentication configuration in Spring Security
