@@ -1,6 +1,6 @@
 <Context>
   <Resource
-    name="jdbc/pcmDB"
+    name="jdbc/podcast_db"
     auth="Container"
     type="javax.sql.DataSource"
     factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
