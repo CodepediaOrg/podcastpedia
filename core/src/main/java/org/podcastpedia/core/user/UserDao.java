@@ -2,6 +2,7 @@ package org.podcastpedia.core.user;
 
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
+import org.podcastpedia.common.domain.User;
 
 import java.util.List;
 
@@ -23,4 +24,12 @@ public interface UserDao {
 	 * @return
 	 */
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username);
+
+    /**
+     * Adds user to the database, but the status is not yet enabled.
+     *
+     * @param user
+     */
+    public void addUser(User user);
+
 }

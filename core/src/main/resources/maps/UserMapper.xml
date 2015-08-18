@@ -3,7 +3,16 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.podcastpedia.core.user.UserDao">
-	<resultMap id="podcastsFound" type="Podcast" >
+
+  <resultMap id="userResultMap" type="User" >
+    <id column="username" property="username"  />
+    <result column="display_name" property="displayName" />
+    <result column="password" property="password" />
+    <result column="registration_date" property="registrationDate"/>
+    <result column="enabled" property="enabled"/>
+  </resultMap>
+
+  <resultMap id="podcastsFound" type="Podcast" >
 	    <id column="podcast_id" property="podcastId"  />
 	    <result column="category_id" property="categoryId" />
 	    <result column="url" property="url" />

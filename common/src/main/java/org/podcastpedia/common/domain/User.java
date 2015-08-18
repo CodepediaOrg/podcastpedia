@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = -1351647841998878425L;
 
 	/** in podcastpedia username is the email address for simplicity */
 	private String username;
-	
+
 	private String password;
-	
-	/** the name of the user */
-	private String name;
-	
+
+	/** the display name of the user - e.g. "J. Doe", introduced by use at registration*/
+	private String displayName;
+
 	/** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
 
@@ -42,12 +42,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
+    public String getDisplayName() {
+        return this.displayName;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	} 		
-
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

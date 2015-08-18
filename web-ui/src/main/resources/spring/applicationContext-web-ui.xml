@@ -77,6 +77,7 @@
 	<!-- validators -->
 	<bean id="suggestPodcastValidator" class="org.podcastpedia.web.suggestpodcast.SuggestPodcastValidator"/>
 	<bean id="contactFormValidator" class="org.podcastpedia.web.contact.ContactFormValidator"/>
+  <bean id="userRegistrationFormValidator" class="org.podcastpedia.web.user.UserRegistrationFormValidator"/>
 
 	<bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
 		<property name="privateKey" value="6LcW3OASAAAAAKVX2duVsSy2uMMHL105-jPDrHMD"/>
