@@ -12,6 +12,26 @@
     <result column="enabled" property="enabled"/>
   </resultMap>
 
+  <insert id="addUser" parameterType="User" >
+    INSERT into ui_suggested_podcasts
+    (
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date,
+      name
+    )
+    VALUES
+    (
+      #{username},
+      #{password},
+      #{displayName},
+      #{enabled},
+      #{registrationDate}
+    )
+  </insert>
+
   <resultMap id="podcastsFound" type="Podcast" >
 	    <id column="podcast_id" property="podcastId"  />
 	    <result column="category_id" property="categoryId" />

@@ -10,23 +10,17 @@
 
 <%@ include file="/WEB-INF/jsp/common/recaptcha_options.jsp" %>
 
-<c:if test="${thank_you_message != null }">
-  <div id="thank_you_message" class="common_radius bg_color shadowy common_mar_pad">
-    <spring:message code="contact.thank_you" text="Thank you for your message. We will get back to you as soon as possible."/>
-  </div>
-</c:if>
 
-<div id="contact_form_wrapper" class="bg_color border_radius shadowy common_mar_pad">
+<div id="user_registration_form_wrapper" class="bg_color border_radius shadowy common_mar_pad">
   <h2 class="title_before_form">Registration </h2>
   <hr class="before_form_header_line"/>
 
-  <c:url value="/contact.html" var="addComment_url"/>
   <form:form name="contact_form" class="vertical_style_form"
-             method="POST" modelAttribute="user" action="${addComment_url}">
+             method="POST" modelAttribute="user" action="<c:url value='/users/registration'/>">
 
     <div id="label_above_elements">
-      <label for="name" class="label">
-        <spring:message code="registration.display-name" text="Display name - optional"/>
+      <label for="displayName" class="label">
+        <spring:message code="registration.label.display-name" text="Display name - optional"/>
       </label>
     </div>
     <p>
@@ -34,40 +28,16 @@
     </p>
 
     <div id="label_above_elements">
-      <label for="email" class="label">
+      <label for="username" class="label">
         <spring:message code="registration.label.email" text="Email - required, verified but never shown"/>
       </label>
     </div>
     <p>
-      <form:input path="email" id="email" class="form_input"/>
-      <form:errors path="email" cssClass="error_form_validation"/>
+      <form:input path="username" id="username" class="form_input"/>
+      <form:errors path="username" cssClass="error_form_validation"/>
     </p>
 
-    <div id="label_above_elements">
-      <label for="topic" class="label">
-        <spring:message code="contact.topic" text="Topic"/>
-      </label>
-    </div>
-    <p>
-      <form:select path="topic" multiple="false" id="topic" class="form_input">
-        <c:forEach items="${topics}" var="topic">
-          <form:option value="${topic}">
-            <spring:message code="${topic}"/>
-          </form:option>
-        </c:forEach>
-      </form:select>
-    </p>
-
-    <div id="label_above_elements">
-      <label for="message" class="label">
-        <spring:message code="contact.your_message" text="Your message"/>
-      </label>
-      <form:errors path="message" cssClass="error_form_validation"/>
-    </div>
-    <p id="contact_form_text_message">
-      <form:textarea path="message" rows="5" cols="30" class="form_input url_in"/>
-    </p>
-
+    <!-- TODO - maybe add here preferred language   -->
     <p class="captcha_help_p">
       <spring:message code="add_podcast.spam" text="Help us prevent spam!"/>
       <br/>
@@ -86,8 +56,10 @@
       %>
     </div>
 
-    <spring:message var="send_mess_btn" code="contact.send_message" text="Post comment"/>
-    <input type="submit" value="${send_mess_btn}"  id="send_message" class="submit_form_button"/>
+    <spring:message var="submit_registration_btn" code="registration.btn.submit-registration" text="Submit registration"/>
+    <input type="submit" value="${submit_registration_btn}"  id="send_message" class="submit_form_button"/>
     <div class="clear"></div>
   </form:form>
+
+  By registering, you agree to the privacy policy(http://stackexchange.com/legal/privacy-policy) and terms of service(http://stackexchange.com/legal/terms-of-service).
 </div>

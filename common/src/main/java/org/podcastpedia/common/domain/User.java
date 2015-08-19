@@ -1,6 +1,7 @@
 package org.podcastpedia.common.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class User implements Serializable {
@@ -15,8 +16,15 @@ public class User implements Serializable {
 	/** the display name of the user - e.g. "J. Doe", introduced by use at registration*/
 	private String displayName;
 
+    /** the date the user submit her registration*/
+    private Date registrationDate;
+
+    /** flag telling if the user is enabled(=1) or not(=0)*/
+    private int enabled;
+
 	/** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
+
 
 	public List<Integer> getSubscriptions() {
 		return subscriptions;
@@ -48,5 +56,21 @@ public class User implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 }
