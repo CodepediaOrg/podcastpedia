@@ -24,7 +24,7 @@
     <input type='password' name='password'  class="form_input"/>
     <input name="submit" type="submit" value="submit" />
     <hr class="before_form_header_line"/>
-    Not registered yet - click <a href="<c:url value='/users/registration'/>">here</a> to register.
+    Not registered yet - click <a href="<c:url value="/users/registration"/> ">here</a> to register.
     <!--
     <table>
       <tr>

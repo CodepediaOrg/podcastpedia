@@ -25,4 +25,11 @@ public interface UserService {
      * @param user
      */
     public void submitUserForRegistration(User user);
+
+    /**
+     * Verifies if the given @param username is already registered(present in the database)
+     * @param username
+     * @return
+     */
+    public boolean isExistingUser(String username);
 }

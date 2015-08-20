@@ -4,23 +4,22 @@
 
 <mapper namespace="org.podcastpedia.core.user.UserDao">
 
-  <resultMap id="userResultMap" type="User" >
-    <id column="username" property="username"  />
-    <result column="display_name" property="displayName" />
-    <result column="password" property="password" />
-    <result column="registration_date" property="registrationDate"/>
+  <resultMap id="userResultMap" type="User">
+    <id column="username" property="username"/>
+    <result column="password" property="password"/>
     <result column="enabled" property="enabled"/>
+    <result column="display_name" property="displayName"/>
+    <result column="registration_date" property="registrationDate"/>
   </resultMap>
 
   <insert id="addUser" parameterType="User" >
-    INSERT into ui_suggested_podcasts
+    INSERT into users
     (
       username,
       password,
       display_name,
       enabled,
-      registration_date,
-      name
+      registration_date
     )
     VALUES
     (
@@ -32,21 +31,34 @@
     )
   </insert>
 
+  <select id="selectUserByUsername" resultMap="userResultMap" parameterType="String">
+    SELECT
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date
+    FROM
+      users
+    WHERE
+      username = #{value}
+  </select>
+
   <resultMap id="podcastsFound" type="Podcast" >
-	    <id column="podcast_id" property="podcastId"  />
-	    <result column="category_id" property="categoryId" />
-	    <result column="url" property="url" />
-	    <result column="identifier" property="identifier" />
-	    <result column="podcast_rating" property="rating" />
-	    <result column="podcast_number_ratings" property="numberRatings" />
-	    <result column="number_visitors" property="numberOfVisitors" />
-	    <result column="DESCRIPTION" property="description" />
-	    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
-	    <result column="TITLE" property="title" />
-	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
-	    <result column="title_in_url" property="titleInUrl" />
-	    <result column="publication_date" property="publicationDate"/>
-	    <result column="media_type" property="mediaType"/>
+    <id column="podcast_id" property="podcastId"  />
+    <result column="category_id" property="categoryId" />
+    <result column="url" property="url" />
+    <result column="identifier" property="identifier" />
+    <result column="podcast_rating" property="rating" />
+    <result column="podcast_number_ratings" property="numberRatings" />
+    <result column="number_visitors" property="numberOfVisitors" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
+    <result column="TITLE" property="title" />
+    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
+    <result column="title_in_url" property="titleInUrl" />
+    <result column="publication_date" property="publicationDate"/>
+    <result column="media_type" property="mediaType"/>
 	</resultMap>
 
   <select id="getSubscriptions" resultMap="podcastsFound" parameterType="String">

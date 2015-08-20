@@ -1,6 +1,8 @@
 package org.podcastpedia.web.user;
 
 import org.podcastpedia.common.domain.User;
+import org.podcastpedia.core.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -13,6 +15,9 @@ import org.springframework.validation.Validator;
  */
 public class UserRegistrationFormValidator implements Validator{
 
+    @Autowired
+    UserService userService;
+
 	public boolean supports(Class<?> clazz) {
 		return User.class.isAssignableFrom(clazz);
 	}
@@ -20,11 +25,20 @@ public class UserRegistrationFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		User user = (User)target;
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "invalid.required.email");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "message", "invalid.required.message");
+        if(userService.isExistingUser(user.getUsername())){
+            errors.rejectValue("username", "invalid.email.registered");
+        }
+
 		if(!isValidEmail(user.getUsername())){
-			errors.rejectValue("email", "invalid.required.email");
+			errors.rejectValue("username", "invalid.required.email");
 		}
+
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "invalid.required.password");
+
+        if(!user.getPassword().equals(user.getMatchingPassword())){
+            errors.rejectValue("matchingPassword", "password.missmatch");
+        }
 
 	}
 

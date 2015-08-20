@@ -1,6 +1,7 @@
 package org.podcastpedia.web.user;
 
 import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.User;
 import org.podcastpedia.core.contact.EmailNotificationService;
@@ -76,35 +77,50 @@ public class RegistrationController {
         LOG.debug("------ processContactForm : form is being validated and processed -----");
         userRegistrationFormValidator.validate(user, result);
 
-        userService.submitUserForRegistration(user);
-
-        return "user_registration_sent_email_def";
-
         /** TODO introduce recaptcha...
 
         String remoteAddress = servletRequest.getRemoteAddr();
         ReCaptchaResponse reCaptchaResponse = this.reCaptcha.checkAnswer(
             remoteAddress, challangeField, responseField);
-
-        if(!result.hasErrors() && reCaptchaResponse.isValid()){
-            contactService.sendContactMessage(contactForm);
-            emailNotificationService.sendContactNotification(contactForm);
+         */
+        model.addAttribute("user", user);
+        if(!result.hasErrors()){
+        //if(!result.hasErrors() && reCaptchaResponse.isValid()){
+            userService.submitUserForRegistration(user);
+            /*TODO send email confirmation message */
+            //contactService.sendContactMessage(contactForm);
+            //emailNotificationService.sendContactNotification(contactForm);
             sessionStatus.setComplete();
-
-            return "user_registration_sent_email_def";
+            String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
+            return "redirect:/users/registration/confirm-email" + queryString;
+            //return "user_registration_sent_email_def";
         } else {
-            List<String> topics = Utilities.getDisplayValues(ContactTopicType.class);
-            model.addAttribute("topics", topics);
-            model.addAttribute("contactForm", contactForm);
+            /*
             if (!reCaptchaResponse.isValid()) {
                 result.rejectValue("invalidRecaptcha", "invalid.captcha");
                 model.addAttribute("invalidRecaptcha", true);
             }
-
+            */
             return "user_registration_def";
         }
-         */
 
+
+    }
+
+    @RequestMapping(value = "confirm-email", method=RequestMethod.GET)
+    public String requestEmailConfirmationPage(
+        @RequestParam(value="email", required=false) String email,
+        @RequestParam(value="displayName", required=false) String displayName,
+
+        @ModelAttribute("user") User user,
+        Model model){
+
+        LOG.debug("------ display page asking the user to confirm the email -----");
+
+        model.addAttribute("email", email);
+        model.addAttribute("displayName", displayName);
+
+        return "user_registration_sent_email_def";
     }
 
 }

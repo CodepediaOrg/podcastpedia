@@ -13,6 +13,9 @@ public class User implements Serializable {
 
 	private String password;
 
+    /** used by the registration process as matching password field */
+    private String matchingPassword;
+
 	/** the display name of the user - e.g. "J. Doe", introduced by use at registration*/
 	private String displayName;
 
@@ -24,7 +27,6 @@ public class User implements Serializable {
 
 	/** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
-
 
 	public List<Integer> getSubscriptions() {
 		return subscriptions;
@@ -72,5 +74,13 @@ public class User implements Serializable {
 
     public void setEnabled(int enabled) {
         this.enabled = enabled;
+    }
+
+    public String getMatchingPassword() {
+        return this.matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 }

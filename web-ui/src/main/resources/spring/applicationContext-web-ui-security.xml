@@ -32,6 +32,7 @@
       delete-cookies="JSESSIONID" />
 
     <intercept-url pattern="/users/registration" access="permitAll"/>
+    <intercept-url pattern="/users/registration/confirm-email" access="permitAll"/>
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
     <intercept-url pattern="/**" access="permitAll"/>
   </http>

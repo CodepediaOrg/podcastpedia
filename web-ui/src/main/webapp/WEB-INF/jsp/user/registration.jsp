@@ -15,8 +15,9 @@
   <h2 class="title_before_form">Registration </h2>
   <hr class="before_form_header_line"/>
 
+  <c:url value="/users/registration" var="submitRegistrationUrl" />
   <form:form name="contact_form" class="vertical_style_form"
-             method="POST" modelAttribute="user" action="<c:url value='/users/registration'/>">
+             method="POST" modelAttribute="user" action="${submitRegistrationUrl}" >
 
     <div id="label_above_elements">
       <label for="displayName" class="label">
@@ -27,6 +28,7 @@
       <form:input path="displayName" id="displayName" class="form_input"/>
     </p>
 
+    <!--username field-->
     <div id="label_above_elements">
       <label for="username" class="label">
         <spring:message code="registration.label.email" text="Email - required, verified but never shown"/>
@@ -35,6 +37,28 @@
     <p>
       <form:input path="username" id="username" class="form_input"/>
       <form:errors path="username" cssClass="error_form_validation"/>
+    </p>
+
+    <!-- password field -->
+    <div id="label_above_elements">
+      <label for="password" class="label">
+        <spring:message code="registration.label.password" text="Password"/>
+      </label>
+    </div>
+    <p>
+      <form:password path="password" id="password" class="form_input"/>
+      <form:errors path="password" cssClass="error_form_validation"/>
+    </p>
+
+    <!-- confirm password field -->
+    <div id="label_above_elements">
+      <label for="matchingPassword" class="label">
+        <spring:message code="registration.label.matching-password" text="Confirm password"/>
+      </label>
+    </div>
+    <p>
+      <form:password path="matchingPassword" id="matchingPassword" class="form_input"/>
+      <form:errors path="matchingPassword" cssClass="error_form_validation"/>
     </p>
 
     <!-- TODO - maybe add here preferred language   -->
