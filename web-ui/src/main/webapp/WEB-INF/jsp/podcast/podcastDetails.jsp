@@ -44,11 +44,15 @@
 			<b><spring:message code="pod_details.subscribe_via" text="Subscribe"/></b> &nbsp;<a id="subscribeItAnchor" class="icon-email-subscribe" title="email"></a>
 		</p>
     <p>
-      <form action="<c:url value="/users/subscriptions"/>" method="POST">
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#" class="btn-share" id="ask-for-login">Subscribe</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#" class="btn-share" id="subscribe-to-podcast">Subscribe</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
-        <input type="submit" value="Subscribe" />
-      </form>
+      </sec:authorize>
     </p>
 	</c:if>
 	<div id="categs">
@@ -91,9 +95,6 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-  <sec:authorize access="hasRole('ROLE_USER')">
-    <span>Vote up or down</span>
-  </sec:authorize>
 </div>
 
 <!-- recent episodes of the podcast -->
@@ -197,6 +198,10 @@
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
 
 <!-- jquery dialogs -->
+<div id="ask-for-login-form" title="Log in to subscribe">
+  <p>Please sign in to subscribe</p>
+</div>
+
 <div id="subscribe-form" title="Podcast subscription">
 	<form class="vertical_style_form">
 		<div id="label_above_elements">
@@ -210,6 +215,7 @@
 		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
 	</form>
 </div>
+
 <!-- 			  -->
 <div id="dialog-subscribed" title="Subscription successful">
 	<p>

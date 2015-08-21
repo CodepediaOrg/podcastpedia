@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,14 +63,14 @@ public class UserController {
     }
 
     @RequestMapping(method= RequestMethod.POST)
-    public String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
+    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         userService.subscribeToPodcast(userDetails.getUsername(), podcastId);
 
-        return "latest_episodes_for_podcast_subscriptions_def";
+        return "OK";
     }
 
 }

@@ -49,7 +49,7 @@
     <authentication-provider>
       <jdbc-user-service data-source-ref="dataSource"
                          users-by-username-query=
-                           "select username, password, enabled from users where username=?"
+                           "select username, password, enabled from users where username=? and enabled=1"
                          authorities-by-username-query=
                            "select username, authority from authorities where username=?" />
     </authentication-provider>
