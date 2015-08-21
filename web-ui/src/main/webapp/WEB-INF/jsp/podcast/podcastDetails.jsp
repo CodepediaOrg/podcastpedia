@@ -43,6 +43,13 @@
 		<p>
 			<b><spring:message code="pod_details.subscribe_via" text="Subscribe"/></b> &nbsp;<a id="subscribeItAnchor" class="icon-email-subscribe" title="email"></a>
 		</p>
+    <p>
+      <form action="<c:url value="/users/subscriptions"/>" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
+        <input type="submit" value="Subscribe" />
+      </form>
+    </p>
 	</c:if>
 	<div id="categs">
 		<b><spring:message code="header.menu.categories" text="Categories"/> </b>

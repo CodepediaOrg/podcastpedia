@@ -32,4 +32,11 @@ public interface UserService {
      * @return
      */
     public boolean isExistingUser(String username);
+
+    /**
+     * Subscribes the user identified by the @param username to the podcast identified by the @param podcastId
+     * @param username
+     * @param podcastId
+     */
+    public void subscribeToPodcast(String username, int podcastId);
 }

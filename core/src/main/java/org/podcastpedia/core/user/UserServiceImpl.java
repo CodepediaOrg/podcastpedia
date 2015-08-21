@@ -6,7 +6,9 @@ import org.podcastpedia.common.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
@@ -40,6 +42,15 @@ public class UserServiceImpl implements UserService {
         User user = userDao.selectUserByUsername(username);
 
         return user != null;
+    }
+
+    @Override
+    public void subscribeToPodcast(String username, int podcastId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("email", username);
+        params.put("podcastId", podcastId);
+
+        userDao.subscribeToPodcast(params);
     }
 
     public void setUserDao(UserDao userDao) {

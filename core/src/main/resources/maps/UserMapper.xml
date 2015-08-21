@@ -31,6 +31,22 @@
     )
   </insert>
 
+  <insert id="subscribeToPodcast" parameterType="java.util.Map" >
+    INSERT into subscriptions
+    (
+      email,
+      podcast_id,
+      subscription_date
+    )
+    VALUES
+    (
+      #{email},
+      #{podcastId},
+      CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY UPDATE
+    subscription_date=values(subscription_date)
+  </insert>
+
   <select id="selectUserByUsername" resultMap="userResultMap" parameterType="String">
     SELECT
       username,

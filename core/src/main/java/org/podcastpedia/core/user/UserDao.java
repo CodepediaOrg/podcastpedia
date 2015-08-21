@@ -5,6 +5,7 @@ import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
@@ -34,4 +35,10 @@ public interface UserDao {
 
     /** returns an user given its username */
     public User selectUserByUsername(String username);
+
+    /**
+     * Adds username and podcastId to the subscriptions table
+     * @param params
+     */
+    void subscribeToPodcast(Map<String, Object> params);
 }
