@@ -39,4 +39,14 @@ public interface UserService {
      * @param podcastId
      */
     public void subscribeToPodcast(String username, int podcastId);
+
+    /** An user has the possibility to vote up(+1) or down(-1) for a podcast once registered.
+     * If she voted before for the podcast, the newest vote will override the old value, and
+     * the votedOn date will be updated */
+    void votePodcast(String username, int podcastId, int vote);
+
+    /** An user has the possibility to vote up(+1) or down(-1) for an episode once registered.
+     * If she voted before for the episode, the newest vote will override the old value, and
+     * the votedOn date will be updated */
+    void voteEpisode(String username, int podcastId, int episodeId, int voteValue);
 }

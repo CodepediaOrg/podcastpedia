@@ -1,8 +1,6 @@
 package org.podcastpedia.core.user;
 
-import org.podcastpedia.common.domain.Episode;
-import org.podcastpedia.common.domain.Podcast;
-import org.podcastpedia.common.domain.User;
+import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -51,6 +49,27 @@ public class UserServiceImpl implements UserService {
         params.put("podcastId", podcastId);
 
         userDao.subscribeToPodcast(params);
+    }
+
+    @Override
+    public void votePodcast(String username, int podcastId, int vote) {
+        PodcastVote podcastVote = new PodcastVote();
+        podcastVote.setUsername(username);
+        podcastVote.setPodcastId(podcastId);
+        podcastVote.setVote(vote);
+
+        userDao.addPodcastVote(podcastVote);
+    }
+
+    @Override
+    public void voteEpisode(String username, int podcastId, int episodeId, int vote) {
+        EpisodeVote episodeVote = new EpisodeVote();
+        episodeVote.setUsername(username);
+        episodeVote.setPodcastId(podcastId);
+        episodeVote.setEpisodeId(episodeId);
+        episodeVote.setVote(vote);
+
+        userDao.addEpisodeVote(episodeVote);
     }
 
     public void setUserDao(UserDao userDao) {

@@ -60,6 +60,62 @@
       username = #{value}
   </select>
 
+  <!-- user votes section -->
+  <resultMap id="podcastVoteResultMap" type="PodcastVote">
+    <result column="username" property="username"/>
+    <result column="vote" property="vote"/>
+    <result column="podcast_id" property="podcastId"/>
+    <result column="created_on" property="createdOn"/>
+  </resultMap>
+  <insert id="votePodcast" parameterType="PodcastVote" >
+    INSERT into podcasts_votes
+    (
+      username,
+      vote,
+      podcast_id,
+      voted_on
+    )
+    VALUES
+    (
+      #{username},
+      #{vote},
+      #{podcastId},
+      CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY
+    UPDATE
+      voted_on=values(voted_on),
+      vote=values(vote);
+  </insert>
+
+  <resultMap id="episodeVoteResultMap" type="EpisodeVote">
+    <result column="username" property="username"/>
+    <result column="vote" property="vote"/>
+    <result column="podcast_id" property="podcastId"/>
+    <result column="episode_id" property="episodeId"/>
+    <result column="created_on" property="createdOn"/>
+  </resultMap>
+  <insert id="voteEpisode" parameterType="EpisodeVote" >
+    INSERT into podcasts_votes
+    (
+      username,
+      vote,
+      podcast_id,
+      episode_id,
+      voted_on
+    )
+    VALUES
+    (
+      #{username},
+      #{vote},
+      #{podcastId},
+      #{episodeId},
+    CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY
+    UPDATE
+    voted_on=values(voted_on),
+    vote=values(vote);
+  </insert>
+
   <resultMap id="podcastsFound" type="Podcast" >
     <id column="podcast_id" property="podcastId"  />
     <result column="category_id" property="categoryId" />

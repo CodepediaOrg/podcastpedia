@@ -1,8 +1,6 @@
 package org.podcastpedia.core.user;
 
-import org.podcastpedia.common.domain.Episode;
-import org.podcastpedia.common.domain.Podcast;
-import org.podcastpedia.common.domain.User;
+import org.podcastpedia.common.domain.*;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +39,10 @@ public interface UserDao {
      * @param params
      */
     void subscribeToPodcast(Map<String, Object> params);
+
+    /** Inserts a new entry in the podcats_votes table */
+    void addPodcastVote(PodcastVote vote);
+
+    /** Inserts a new entry in the episodes_votes table */
+    void addEpisodeVote(EpisodeVote episodeVote);
 }
