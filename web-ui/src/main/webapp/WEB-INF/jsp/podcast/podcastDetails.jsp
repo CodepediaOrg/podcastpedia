@@ -46,7 +46,7 @@
     <p>
       <!-- if not authenticated will be asked to log in -->
       <sec:authorize access="isAnonymous()">
-        <a href="#" class="btn-share" id="ask-for-login">Subscribe</a>
+        <a href="#" class="btn-share ask-for-login" id="subscribe-ask-for-login">Subscribe</a>
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
@@ -91,7 +91,26 @@
 				</c:otherwise>
 			</c:choose>
 			<a href="#-1" class="icon-share-episode btn-share">Share</a>
-			<span class="item_url">${podcast_link}</span>
+
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="btn-share ask-for-login" id="vote-up-ask-for-login">Vote up</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="btn-share" id="vote-up-podcast">Vote up</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="btn-share ask-for-login" id="vote-down-ask-for-login">Vote down</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="btn-share" id="vote-down-podcast">Vote down</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+      <span class="item_url">${podcast_link}</span>
 		</div>
 		<div class="clear"></div>
 	</div>

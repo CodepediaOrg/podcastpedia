@@ -288,22 +288,8 @@ $(function (){
   });
 
   //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
-  $("#ask-for-login").click(function(){
+  $(".ask-for-login").click(function(){
     $("#ask-for-login-form" ).dialog("open");
-  });
-
-  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
-  $("#subscribe-to-podcast").click(function(){
-    $.post("/users/subscriptions",
-      {
-        podcastId:  $("input#sub_podcastId").val(),
-        _csrf: $( "input[name='_csrf']" ).val()
-      },
-
-      function(data){
-        //we have received valid response
-        $("#subscribe-to-podcast").text("Subscribed")
-      });
   });
 
   $("#ask-for-login-form" ).dialog({
@@ -323,6 +309,47 @@ $(function (){
     close: function() {
 
     }
+  });
+
+  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
+  $("#subscribe-to-podcast").click(function(){
+    $.post("/users/subscriptions",
+      {
+        podcastId:  $("input#sub_podcastId").val(),
+        _csrf: $( "input[name='_csrf']" ).val()
+      },
+
+      function(data){
+        //we have received valid response
+        $("#subscribe-to-podcast").text("Subscribed")
+      });
+  });
+
+  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
+  $("#vote-up-podcast").click(function(){
+    $.post("/users/votes/podcasts/vote-up",
+      {
+        podcastId:  $("input#sub_podcastId").val(),
+        _csrf: $( "input[name='_csrf']" ).val()
+      },
+
+      function(data){
+        //we have received valid response
+        $("#vote-up-podcast").text("Voted up")
+      });
+  });
+
+  $("#vote-down-podcast").click(function(){
+    $.post("/users/votes/podcasts/vote-down",
+      {
+        podcastId:  $("input#sub_podcastId").val(),
+        _csrf: $( "input[name='_csrf']" ).val()
+      },
+
+      function(data){
+        //we have received valid response
+        $("#vote-down-podcast").text("Voted down")
+      });
   });
 
   function postEmailSubscription(){

@@ -67,7 +67,7 @@
     <result column="podcast_id" property="podcastId"/>
     <result column="created_on" property="createdOn"/>
   </resultMap>
-  <insert id="votePodcast" parameterType="PodcastVote" >
+  <insert id="addPodcastVote" parameterType="PodcastVote" >
     INSERT into podcasts_votes
     (
       username,
@@ -94,7 +94,7 @@
     <result column="episode_id" property="episodeId"/>
     <result column="created_on" property="createdOn"/>
   </resultMap>
-  <insert id="voteEpisode" parameterType="EpisodeVote" >
+  <insert id="addEpisodeVote" parameterType="EpisodeVote" >
     INSERT into podcasts_votes
     (
       username,
