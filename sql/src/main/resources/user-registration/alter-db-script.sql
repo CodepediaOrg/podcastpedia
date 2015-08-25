@@ -4,6 +4,10 @@ ALTER TABLE podcast_db.users CHANGE name display_name VARCHAR(45);
 -- add registration date column
 ALTER TABLE podcast_db.users ADD registration_date DATETIME NULL;
 
+-- add registration token column
+ALTER TABLE `podcast_db`.`users` ADD COLUMN `registration_token` VARCHAR(45) NULL  AFTER `registration_date` ;
+
+
 --creates votes table
 CREATE TABLE podcast_db.votes
 (
@@ -31,3 +35,5 @@ CREATE  TABLE `podcast_db`.`episodes_votes` (
   `vote` TINYINT NOT NULL ,
   `voted_on` DATETIME NOT NULL ,
   PRIMARY KEY (`username`, `podcast_id`,`episode_id`) );
+
+--

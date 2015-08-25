@@ -45,4 +45,7 @@ public interface UserDao {
 
     /** Inserts a new entry in the episodes_votes table */
     void addEpisodeVote(EpisodeVote episodeVote);
+
+    /** sets the enabled flag to 1*/
+    void enableUser(User user);
 }

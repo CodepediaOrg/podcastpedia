@@ -72,6 +72,15 @@ public class UserServiceImpl implements UserService {
         userDao.addEpisodeVote(episodeVote);
     }
 
+    @Override
+    public void enableUser(String username, String registrationToken) {
+        User user = new User();
+        user.setUsername(username);
+        user.setRegistrationToken(registrationToken);
+
+        userDao.enableUser(user);
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }

@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h3>Hi ${user.displayName}</h3>
+        <p>
+            Thank you for registering with Podcastpedia.
+            Click this <a href="http://localhost:8008/users/registration/confirm?user=${user.registrationToken}&token=${user.registrationToken}">link</a> to finish the signup process.
+        </p>
+    </body>
+</html>

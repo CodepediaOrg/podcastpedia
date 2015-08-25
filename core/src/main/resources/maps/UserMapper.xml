@@ -10,6 +10,7 @@
     <result column="enabled" property="enabled"/>
     <result column="display_name" property="displayName"/>
     <result column="registration_date" property="registrationDate"/>
+    <result column="registration_token" property="registrationToken"/>
   </resultMap>
 
   <insert id="addUser" parameterType="User" >
@@ -19,7 +20,8 @@
       password,
       display_name,
       enabled,
-      registration_date
+      registration_date,
+      registration_token
     )
     VALUES
     (
@@ -27,9 +29,17 @@
       #{password},
       #{displayName},
       #{enabled},
-      #{registrationDate}
+      #{registrationDate},
+      #{registrationToken}
     )
   </insert>
+
+  <update id="enableUser" parameterType="User">
+    UPDATE users SET
+      enabled = #{enabled}
+    WHERE username = #{username}
+    AND registration_token = #{registrationToken}
+  </update>
 
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >
     INSERT into subscriptions

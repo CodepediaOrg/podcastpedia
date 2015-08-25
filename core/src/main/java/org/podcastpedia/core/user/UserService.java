@@ -49,4 +49,6 @@ public interface UserService {
      * If she voted before for the episode, the newest vote will override the old value, and
      * the votedOn date will be updated */
     void voteEpisode(String username, int podcastId, int episodeId, int voteValue);
+
+    void enableUser(String username, String registrationToken);
 }

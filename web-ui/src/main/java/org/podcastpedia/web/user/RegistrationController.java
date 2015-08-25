@@ -4,8 +4,8 @@ import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.User;
-import org.podcastpedia.core.contact.EmailNotificationService;
 import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.user.EmailNotificationService;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.ServletRequest;
+import java.util.UUID;
 
 
 @Controller
@@ -86,10 +87,11 @@ public class RegistrationController {
         model.addAttribute("user", user);
         if(!result.hasErrors()){
         //if(!result.hasErrors() && reCaptchaResponse.isValid()){
+
+            user.setRegistrationToken(UUID.randomUUID().toString());
             userService.submitUserForRegistration(user);
-            /*TODO send email confirmation message */
-            //contactService.sendContactMessage(contactForm);
-            //emailNotificationService.sendContactNotification(contactForm);
+            emailNotificationService.sendRegistrationEmailConfirmation(user);
+            emailNotificationService.sendUserRegistrationNotification(user);
             sessionStatus.setComplete();
             String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
             return "redirect:/users/registration/confirm-email" + queryString;
@@ -123,4 +125,13 @@ public class RegistrationController {
         return "user_registration_sent_email_def";
     }
 
+    @RequestMapping(value = "confirmed", method=RequestMethod.GET)
+    public void emailConfirmated(
+        @RequestParam(value="user", required=true) String username,
+        @RequestParam(value="token", required=true) String registrationToken
+        ){
+
+        LOG.debug("------ received confirmation email -----");
+        userService.enableUser(username, registrationToken);
+    }
 }

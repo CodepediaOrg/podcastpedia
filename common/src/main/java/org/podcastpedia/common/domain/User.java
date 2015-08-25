@@ -25,6 +25,9 @@ public class User implements Serializable {
     /** flag telling if the user is enabled(=1) or not(=0)*/
     private int enabled;
 
+    /** registration token - UUID to be confirmed by the user when she clicks the link from email */
+    private String registrationToken;
+
 	/** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
 
@@ -82,5 +85,13 @@ public class User implements Serializable {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
+    }
+
+    public String getRegistrationToken() {
+        return registrationToken;
+    }
+
+    public void setRegistrationToken(String registrationToken) {
+        this.registrationToken = registrationToken;
     }
 }
