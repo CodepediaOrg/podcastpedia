@@ -218,16 +218,16 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
-      	c.category_id,
-      	c.name as category_name,
+      c.category_id,
+      c.name as category_name,
      	c.description as category_descrption,
-      	t.tag_id,
-        t.name as tag_name
+      t.tag_id,
+      t.name as tag_name
    	FROM podcasts p
-   	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
-   	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
-       LEFT OUTER JOIN categories c ON pc.category_id= c.category_id
-       LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id
+      LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
+      LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
+      LEFT OUTER JOIN categories c ON pc.category_id= c.category_id
+      LEFT OUTER JOIN tags t ON pt.tag_id = t.tag_id
     WHERE
       p.availability = 200
       AND
