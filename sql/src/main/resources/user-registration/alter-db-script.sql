@@ -36,4 +36,5 @@ CREATE  TABLE `podcast_db`.`episodes_votes` (
   `voted_on` DATETIME NOT NULL ,
   PRIMARY KEY (`username`, `podcast_id`,`episode_id`) );
 
---
+-- make the "password" column longer to hold hashed passwords
+ALTER TABLE `podcast_db`.`users` CHANGE COLUMN `password` `password` VARCHAR(100) CHARACTER SET 'latin1' NOT NULL  ;

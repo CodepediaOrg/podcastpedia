@@ -2,6 +2,7 @@ package org.podcastpedia.core.user;
 
 import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
         if(user.getDisplayName()==null){
             user.setDisplayName(user.getUsername());
         }
+        user.setPassword(encryptPassword(user.getPassword()));
         userDao.addUser(user);
     }
 
@@ -84,6 +86,13 @@ public class UserServiceImpl implements UserService {
 
         userDao.addUserRole(user);
         userDao.enableUser(user);
+    }
+
+    private String encryptPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+
+        return hashedPassword;
     }
 
     public void setUserDao(UserDao userDao) {
