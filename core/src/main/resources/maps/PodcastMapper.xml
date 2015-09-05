@@ -40,28 +40,30 @@
 
 	<!--    result maps     -->
 	<resultMap id="podcastResultMap" type="Podcast" >
-	    <id column="podcast_id" property="podcastId"  />
-	    <result column="url" property="url" />
-	    <result column="identifier" property="identifier" />
-	    <result column="number_visitors" property="numberOfVisitors" />
-	    <result column="language_code" property="languageCode" />
-	    <result column="podcast_description" property="description" />
-	    <result column="podcast_title" property="title" />
-	    <result column="podcast_image_url" property="urlOfImageToDisplay" />
-	    <result column="podcast_link" property="link" />
-	    <result column="copyright" property="copyright" />
-	    <result column="podcast_media_type" property="mediaType" />
-	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
-	    <result column="podcast_title_in_url" property="titleInUrl" />
-	    <result column="etag_header_field" property="etagHeaderField" />
-	    <result column="last_modified_header_field" property="lastModifiedHeaderField" />
-	    <result column="last_modified_header_field_str" property="lastModifiedHeaderFieldStr" />
-	    <result column="publication_date" property="publicationDate"/>
-	    <result column="number_episodes" property="numberOfEpisodes"/>
-	    <result column="social_fb_page" property="fbPage"/>
-	    <result column="social_twitter_page" property="twitterPage"/>
-	    <result column="social_gplus_page" property="gplusPage"/>
-	    <result column="update_frequency" property="updateFrequency"/>
+    <id column="podcast_id" property="podcastId"  />
+    <result column="url" property="url" />
+    <result column="identifier" property="identifier" />
+    <result column="number_visitors" property="numberOfVisitors" />
+    <result column="language_code" property="languageCode" />
+    <result column="podcast_description" property="description" />
+    <result column="podcast_title" property="title" />
+    <result column="podcast_image_url" property="urlOfImageToDisplay" />
+    <result column="podcast_link" property="link" />
+    <result column="copyright" property="copyright" />
+    <result column="podcast_media_type" property="mediaType" />
+    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
+    <result column="podcast_title_in_url" property="titleInUrl" />
+    <result column="etag_header_field" property="etagHeaderField" />
+    <result column="last_modified_header_field" property="lastModifiedHeaderField" />
+    <result column="last_modified_header_field_str" property="lastModifiedHeaderFieldStr" />
+    <result column="publication_date" property="publicationDate"/>
+    <result column="number_episodes" property="numberOfEpisodes"/>
+    <result column="social_fb_page" property="fbPage"/>
+    <result column="social_twitter_page" property="twitterPage"/>
+    <result column="social_gplus_page" property="gplusPage"/>
+    <result column="update_frequency" property="updateFrequency"/>
+    <result column="up_votes" property="upVotes"/>
+    <result column="down_votes" property="downVotes"/>
 		<collection property="categories" ofType="Category">
 			<id property="categoryId" column="category_id"/>
 			<result property="name" column="category_name"/>
@@ -164,20 +166,20 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
-      	c.category_id,
-      	c.name as category_name,
+      c.category_id,
+      c.name as category_name,
      	c.description as category_descrption,
-        e.description as episode_description,
-        e.link as episode_link,
-        e.media_url as episode_media_url,
-        e.media_type as episode_media_type,
-      	e.title as episode_title,
-      	e.episode_id,
-      	e.publication_date as episode_pub_date,
-      	e.title_in_url as episode_title_in_url,
-      	e.is_new,
-      	t.tag_id,
-        t.name as tag_name
+      e.description as episode_description,
+      e.link as episode_link,
+      e.media_url as episode_media_url,
+      e.media_type as episode_media_type,
+      e.title as episode_title,
+      e.episode_id,
+      e.publication_date as episode_pub_date,
+      e.title_in_url as episode_title_in_url,
+      e.is_new,
+      t.tag_id,
+      t.name as tag_name
    	FROM podcasts p
    	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
    	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id
@@ -218,6 +220,10 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
+		  (select count(vote)  from podcasts_votes
+				 where podcast_id = #{value} and vote=1) as up_votes,
+      (select count(vote)  from podcasts_votes
+				 where podcast_id = #{value} and vote=-1) as down_votes,
       c.category_id,
       c.name as category_name,
      	c.description as category_descrption,
@@ -257,11 +263,15 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
-      	c.category_id,
-      	c.name as category_name,
+		  (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=1) as up_votes,
+      (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=-1) as down_votes,
+      c.category_id,
+      c.name as category_name,
      	c.description as category_descrption,
-      	t.tag_id,
-        t.name as tag_name
+      t.tag_id,
+      t.name as tag_name
    	FROM podcasts p
    	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
    	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id

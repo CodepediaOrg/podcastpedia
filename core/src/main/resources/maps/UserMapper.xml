@@ -144,7 +144,6 @@
     <result column="category_id" property="categoryId" />
     <result column="url" property="url" />
     <result column="identifier" property="identifier" />
-    <result column="podcast_rating" property="rating" />
     <result column="podcast_number_ratings" property="numberRatings" />
     <result column="number_visitors" property="numberOfVisitors" />
     <result column="DESCRIPTION" property="description" />

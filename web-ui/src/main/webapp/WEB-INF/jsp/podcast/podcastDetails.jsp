@@ -94,20 +94,20 @@
 
       <!-- if not authenticated will be asked to log in -->
       <sec:authorize access="isAnonymous()">
-        <a href="#-3" class="btn-share ask-for-login" id="vote-up-ask-for-login">Vote up</a>
+        <a href="#-3" class="btn-share ask-for-login" id="vote-up-ask-for-login">Vote up - ${podcast.upVotes}</a>
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
-        <a href="#-3" class="btn-share" id="vote-up-podcast">Vote up</a>
+        <a href="#-3" class="btn-share" id="vote-up-podcast">Vote up - ${podcast.upVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </sec:authorize>
       <!-- if not authenticated will be asked to log in -->
       <sec:authorize access="isAnonymous()">
-        <a href="#-3" class="btn-share ask-for-login" id="vote-down-ask-for-login">Vote down</a>
+        <a href="#-3" class="btn-share ask-for-login" id="vote-down-ask-for-login">Vote down - ${podcast.downVotes}</a>
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
-        <a href="#-3" class="btn-share" id="vote-down-podcast">Vote down</a>
+        <a href="#-3" class="btn-share" id="vote-down-podcast">Vote down - ${podcast.downVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </sec:authorize>
       <span class="item_url">${podcast_link}</span>

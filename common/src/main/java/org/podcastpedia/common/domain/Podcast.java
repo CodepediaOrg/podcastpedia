@@ -24,8 +24,8 @@ import com.rometools.rome.io.XmlReader;
 
 
 /**
- * Simple JavaBean domain object representing a podcast. 
- * 
+ * Simple JavaBean domain object representing a podcast.
+ *
  * @author amasia
  *
  */
@@ -34,137 +34,143 @@ import com.rometools.rome.io.XmlReader;
 public class Podcast implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/** id of the podcast - primary key in db */
-	protected Integer podcastId;	
-	
+	protected Integer podcastId;
+
 	/** e.g. http://www.podcastpedia.org/<strong>quarks</strong> */
 	protected String identifier;
 
 	/** stores the date when new episodes were added to the podcast  */
 	protected Date lastUpdate;
-	
+
 	/** the rating of this podcast it goes from 1 to 10. 7 means 3 stars and a half.*/
-	protected Float rating; 
-	
+	protected Float rating;
+
 	/** rounded valued needed for displayin star rating */
 	private Integer ratingInt;
-	
+
 	/** number of ratings for the podcast */
 	protected Integer numberRatings;
-	
-	/** feed url of the podcast - based on this with rome will get further details */ 
+
+	/** feed url of the podcast - based on this with rome will get further details */
 	protected String url;
-	
-	/** date when the podcast is inserted in the database */ 
+
+	/** date when the podcast is inserted in the database */
 	protected Date insertionDate;
-	
+
 	/** language of the podcast */
 	protected String podcastLanguage;
-	
+
 	protected Integer numberOfVisitors;
-	
-	/** placeholder for the tags that are given as input when adding a new podcas */ 
+
+	/** placeholder for the tags that are given as input when adding a new podcas */
 	protected String tagsStr;
-	
+
 	/** feed of the podcast obtained with the Rome framework */
-	@XmlTransient 
-	protected SyndFeed podcastFeed; 
-	
-	/** media type of the podcast (either audio, video or videoHD) */ 
-	protected MediaType mediaType; 
-	
-	/** the link to the current episode to be displayed in the jwplayer */ 
+	@XmlTransient
+	protected SyndFeed podcastFeed;
+
+	/** media type of the podcast (either audio, video or videoHD) */
+	protected MediaType mediaType;
+
+	/** the link to the current episode to be displayed in the jwplayer */
 	protected String episodeLinkToDisplay;
-	
+
 	/** index of episode in the entries to display */
 	protected int episodeIndexToDisplay;
-	
+
 	/** description of the podcast */
 	protected String description;
-		
+
 	/** title of the podcast */
 	protected String title;
-	
-	/** link of the image that represents the podcast 
-	 * - all these three last fields are for performance purposes 
+
+	/** link of the image that represents the podcast
+	 * - all these three last fields are for performance purposes
 	 */
 	protected String urlOfImageToDisplay;
-	
-	/** the categories the podcast belongs to*/ 
-	protected List<Category> categories; 
-	
+
+    /** number of likes */
+    protected Integer upVotes;
+
+    /** number of dislikes */
+    protected Integer downVotes;
+
+	/** the categories the podcast belongs to*/
+	protected List<Category> categories;
+
 	/** list of category IDs the podcasts belongs to
 	 * used when inserting a podcast to map category IDs from list.
 	 * TBD - need to implement a mapper to set the IDs directly in the "categories" element
 	 * @return
 	 */
 	protected List<Integer> categoryIDs;
-		
-	/** number of episodes for the podcast - added the field to make it clearer when 
+
+	/** number of episodes for the podcast - added the field to make it clearer when
 	 * needing it without getting it over entries.size(). And maybe when using the database data for podcasts
 	 * can be automatically updated overnight */
 	protected int numberOfEpisodes;
-	
+
 	/** list of episodes for the podcast - these are retrieved from the database */
 	protected List<Episode> episodes;
-	
+
 	/** list of tags for the podcast */
 	protected List<Tag> tags;
-	
-	/** copyright of the podcast */ 
-	protected String copyright; 
-		
+
+	/** copyright of the podcast */
+	protected String copyright;
+
 	/** podcast publication date -  contains the date of the last published episode */
-	@XmlJavaTypeAdapter(DateAdapter.class)	
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	protected Date publicationDate;
-	
+
 	/** link of the podcast */
-	protected String link; 
-	
+	protected String link;
+
 	/** short description - it is basically the first 320 of the description if it is longer than that */
-	protected String shortDescription; 
-	
+	protected String shortDescription;
+
 	/** media url of the last episode */
 	protected String lastEpisodeMediaUrl;
-	
+
 	/** stores the "etag" value in the HTTP header for the podcast feed */
 	protected String etagHeaderField;
-	
+
 	/** stores the "last modified" in the HTTP header for the podcast feed */
 	protected Date lastModifiedHeaderField;
-	
+
 	/** same as above just this time is stored as string TODO - in the end one of these has to disappear*/
 	protected String lastModifiedHeaderFieldStr;
 
 	/** last episode of the Podcast - used just for generated feeds */
-	protected Episode lastEpisode;	
-	
+	protected Episode lastEpisode;
+
 	/** holds the title to be displayed in the url "quarks & co" becomes "quarks-co"*/
 	protected String titleInUrl;
-	
-	/** holds the the httpStatus for the podcasts's url  - see org.apache.http.HttpStatus for the codes semnification  and extra exception 
+
+	/** holds the the httpStatus for the podcasts's url  - see org.apache.http.HttpStatus for the codes semnification  and extra exception
 	 * codes and modification */
 	private Integer availability;
-	
+
 	/** stores in the database the language code - for example Romanian will be stored as "ro" */
 	private LanguageCode languageCode;
-	
+
 	/**	holds popularity of the podcast - current popularity is ordered by the rating, could include fb likes or number of subscriptions */
 	private Float popularity;
-	
+
 	/** author of the podcast */
-	private String author; 
-	
+	private String author;
+
 	/** Facebook fan page */
 	private String fbPage;
-	
+
 	/** twitter fan page */
 	private String twitterPage;
-	
+
 	/** Gplus fan page */
 	private String gplusPage;
-			
+
 	public String getIdentifier() {
 		return identifier;
 	}
@@ -239,7 +245,7 @@ public class Podcast implements Serializable {
 
 	/** update frequency */
 	protected UpdateFrequencyType updateFrequency;
-	
+
 	public UpdateFrequencyType getUpdateFrequency() {
 		return updateFrequency;
 	}
@@ -391,7 +397,7 @@ public class Podcast implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getUrlOfImageToDisplay() {
 		return urlOfImageToDisplay;
 	}
@@ -428,25 +434,25 @@ public class Podcast implements Serializable {
 	 * This is an empty constructor
 	 */
 	public Podcast(){}
-	
+
 	/**
-	 * Creates the podcastFeed from the url provided 
+	 * Creates the podcastFeed from the url provided
 	 * @param url
 	 */
 	public Podcast(String url) {
 		try{
 			URL theURL = new URL(url);
 			XmlReader reader = null;
-			
+
 			reader = new XmlReader(theURL);
 			podcastFeed = new SyndFeedInput().build(reader);
-			
+
 		} catch(IOException | FeedException e){
-			
+
 		}
 
 	}
-	
+
 	//annotation used so that the podcastFeed field is not considered, as it's an interface and cannot by parsed by JAXB
 	public SyndFeed getPodcastFeed() {
 		return podcastFeed;
@@ -459,19 +465,19 @@ public class Podcast implements Serializable {
 	public Date getInsertionDate() {
 		return insertionDate;
 	}
-	
+
 	public void setInsertionDate(Date insertion_date) {
 		this.insertionDate = insertion_date;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
-	
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public int hashCode() {
 		return super.hashCode();
 	}
@@ -492,7 +498,7 @@ public class Podcast implements Serializable {
 		this.lastUpdate = last_update;
 	}
 
-	
+
 	public Integer getPodcastId() {
 		return podcastId;
 	}
@@ -524,5 +530,20 @@ public class Podcast implements Serializable {
 	public void setNumberOfVisitors(Integer numberOfVisitors) {
 		this.numberOfVisitors = numberOfVisitors;
 	}
-	
+
+    public Integer getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(Integer upVotes) {
+        this.upVotes = upVotes;
+    }
+
+    public Integer getDownVotes() {
+        return downVotes;
+    }
+
+    public void setDownVotes(Integer downVotes) {
+        this.downVotes = downVotes;
+    }
 }
