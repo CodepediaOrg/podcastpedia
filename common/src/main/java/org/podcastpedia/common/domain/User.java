@@ -13,6 +13,9 @@ public class User implements Serializable {
 
 	private String password;
 
+    /** role of the user in spring security */
+    private String role;
+
     /** used by the registration process as matching password field */
     private String matchingPassword;
 
@@ -93,5 +96,13 @@ public class User implements Serializable {
 
     public void setRegistrationToken(String registrationToken) {
         this.registrationToken = registrationToken;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

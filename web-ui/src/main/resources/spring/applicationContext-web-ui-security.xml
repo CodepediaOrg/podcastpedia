@@ -33,16 +33,10 @@
 
     <intercept-url pattern="/users/registration" access="permitAll"/>
     <intercept-url pattern="/users/registration/confirm-email" access="permitAll"/>
+    <intercept-url pattern="/users/registration/confirmed" access="permitAll"/>
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
     <intercept-url pattern="/**" access="permitAll"/>
   </http>
-
-  <!-- HTTP basic authentication configuration in Spring Security
-  <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
-    <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')" />
-    <http-basic />
-  </http>
-  -->
 
   <!-- Select users and user_roles from database -->
   <authentication-manager  id="jdbcAuthenticationManager">

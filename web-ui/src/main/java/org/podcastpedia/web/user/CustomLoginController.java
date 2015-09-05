@@ -35,7 +35,8 @@ public class CustomLoginController {
     @RequestMapping(value = "custom_login", method = RequestMethod.GET)
     public String login(
             @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
+            @RequestParam(value = "logout", required = false) String logout,
+            @RequestParam(value = "confirmed-email", required = false) boolean isConfirmedEmail) {
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
@@ -44,6 +45,10 @@ public class CustomLoginController {
 
         if (logout != null) {
             model.addObject("msg", "You've been logged out successfully.");
+        }
+
+        if (isConfirmedEmail) {
+            model.addObject("isConfirmedEmail", isConfirmedEmail);
         }
 
         return "login_def";

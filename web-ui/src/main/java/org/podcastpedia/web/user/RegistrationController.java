@@ -126,12 +126,14 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "confirmed", method=RequestMethod.GET)
-    public void emailConfirmated(
+    public String emailConfirmated(
         @RequestParam(value="user", required=true) String username,
         @RequestParam(value="token", required=true) String registrationToken
         ){
 
         LOG.debug("------ received confirmation email -----");
         userService.enableUser(username, registrationToken);
+
+        return "redirect:/login/custom_login?isConfirmedEmail=true";
     }
 }

@@ -48,4 +48,7 @@ public interface UserDao {
 
     /** sets the enabled flag to 1*/
     void enableUser(User user);
+
+    /** adds the ROLE_USER to the table authorities for the @param user */
+    void addUserRole(User user);
 }

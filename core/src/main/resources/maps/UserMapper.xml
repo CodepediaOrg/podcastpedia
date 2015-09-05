@@ -34,12 +34,25 @@
     )
   </insert>
 
+  <insert id="addUserRole" parameterType="User">
+    INSERT into authorities
+    (
+      username,
+      authority
+    )
+    VALUES
+    (
+      #{username},
+      #{role}
+    )
+  </insert>
   <update id="enableUser" parameterType="User">
     UPDATE users SET
       enabled = #{enabled}
     WHERE username = #{username}
     AND registration_token = #{registrationToken}
   </update>
+
 
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >
     INSERT into subscriptions

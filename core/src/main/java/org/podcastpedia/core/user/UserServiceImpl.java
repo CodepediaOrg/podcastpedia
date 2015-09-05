@@ -11,6 +11,8 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     public static final int USER_NOT_YET_ENABLED = 0;
+    public static final int USER_ENABLED = 1;
+    public static final String ROLE_USER = "ROLE_USER";
     @Autowired
 	UserDao userDao;
 
@@ -76,8 +78,11 @@ public class UserServiceImpl implements UserService {
     public void enableUser(String username, String registrationToken) {
         User user = new User();
         user.setUsername(username);
+        user.setRole(ROLE_USER);
+        user.setEnabled(USER_ENABLED);
         user.setRegistrationToken(registrationToken);
 
+        userDao.addUserRole(user);
         userDao.enableUser(user);
     }
 
