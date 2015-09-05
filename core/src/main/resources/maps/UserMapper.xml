@@ -3,21 +3,157 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.podcastpedia.core.user.UserDao">
-	<resultMap id="podcastsFound" type="Podcast" >
-	    <id column="podcast_id" property="podcastId"  />
-	    <result column="category_id" property="categoryId" />
-	    <result column="url" property="url" />
-	    <result column="identifier" property="identifier" />
-	    <result column="podcast_rating" property="rating" />
-	    <result column="podcast_number_ratings" property="numberRatings" />
-	    <result column="number_visitors" property="numberOfVisitors" />
-	    <result column="DESCRIPTION" property="description" />
-	    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
-	    <result column="TITLE" property="title" />
-	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
-	    <result column="title_in_url" property="titleInUrl" />
-	    <result column="publication_date" property="publicationDate"/>
-	    <result column="media_type" property="mediaType"/>
+
+  <resultMap id="userResultMap" type="User">
+    <id column="username" property="username"/>
+    <result column="password" property="password"/>
+    <result column="enabled" property="enabled"/>
+    <result column="display_name" property="displayName"/>
+    <result column="registration_date" property="registrationDate"/>
+    <result column="registration_token" property="registrationToken"/>
+  </resultMap>
+
+  <insert id="addUser" parameterType="User" >
+    INSERT into users
+    (
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date,
+      registration_token
+    )
+    VALUES
+    (
+      #{username},
+      #{password},
+      #{displayName},
+      #{enabled},
+      #{registrationDate},
+      #{registrationToken}
+    )
+  </insert>
+
+  <insert id="addUserRole" parameterType="User">
+    INSERT into authorities
+    (
+      username,
+      authority
+    )
+    VALUES
+    (
+      #{username},
+      #{role}
+    )
+  </insert>
+  <update id="enableUser" parameterType="User">
+    UPDATE users SET
+      enabled = #{enabled}
+    WHERE username = #{username}
+    AND registration_token = #{registrationToken}
+  </update>
+
+
+  <insert id="subscribeToPodcast" parameterType="java.util.Map" >
+    INSERT into subscriptions
+    (
+      email,
+      podcast_id,
+      subscription_date
+    )
+    VALUES
+    (
+      #{email},
+      #{podcastId},
+      CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY UPDATE
+    subscription_date=values(subscription_date)
+  </insert>
+
+  <select id="selectUserByUsername" resultMap="userResultMap" parameterType="String">
+    SELECT
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date
+    FROM
+      users
+    WHERE
+      username = #{value}
+  </select>
+
+  <!-- user votes section -->
+  <resultMap id="podcastVoteResultMap" type="PodcastVote">
+    <result column="username" property="username"/>
+    <result column="vote" property="vote"/>
+    <result column="podcast_id" property="podcastId"/>
+    <result column="created_on" property="createdOn"/>
+  </resultMap>
+  <insert id="addPodcastVote" parameterType="PodcastVote" >
+    INSERT into podcasts_votes
+    (
+      username,
+      vote,
+      podcast_id,
+      voted_on
+    )
+    VALUES
+    (
+      #{username},
+      #{vote},
+      #{podcastId},
+      CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY
+    UPDATE
+      voted_on=values(voted_on),
+      vote=values(vote);
+  </insert>
+
+  <resultMap id="episodeVoteResultMap" type="EpisodeVote">
+    <result column="username" property="username"/>
+    <result column="vote" property="vote"/>
+    <result column="podcast_id" property="podcastId"/>
+    <result column="episode_id" property="episodeId"/>
+    <result column="created_on" property="createdOn"/>
+  </resultMap>
+  <insert id="addEpisodeVote" parameterType="EpisodeVote" >
+    INSERT into podcasts_votes
+    (
+      username,
+      vote,
+      podcast_id,
+      episode_id,
+      voted_on
+    )
+    VALUES
+    (
+      #{username},
+      #{vote},
+      #{podcastId},
+      #{episodeId},
+    CURRENT_TIMESTAMP
+    ) ON DUPLICATE KEY
+    UPDATE
+    voted_on=values(voted_on),
+    vote=values(vote);
+  </insert>
+
+  <resultMap id="podcastsFound" type="Podcast" >
+    <id column="podcast_id" property="podcastId"  />
+    <result column="category_id" property="categoryId" />
+    <result column="url" property="url" />
+    <result column="identifier" property="identifier" />
+    <result column="podcast_rating" property="rating" />
+    <result column="podcast_number_ratings" property="numberRatings" />
+    <result column="number_visitors" property="numberOfVisitors" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
+    <result column="TITLE" property="title" />
+    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
+    <result column="title_in_url" property="titleInUrl" />
+    <result column="publication_date" property="publicationDate"/>
+    <result column="media_type" property="mediaType"/>
 	</resultMap>
 
   <select id="getSubscriptions" resultMap="podcastsFound" parameterType="String">

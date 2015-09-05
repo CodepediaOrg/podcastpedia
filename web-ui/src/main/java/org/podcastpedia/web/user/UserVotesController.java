@@ -16,10 +16,12 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("users/subscriptions")
-public class UserController {
+@RequestMapping("users/votes")
+public class UserVotesController {
 
-	protected static Logger LOG = Logger.getLogger(UserController.class);
+    public static final int VOTE_UP = 1;
+    public static final int VOTE_DOWN = -1;
+    protected static Logger LOG = Logger.getLogger(UserVotesController.class);
 
 	@Autowired
     UserService userService;
@@ -37,40 +39,25 @@ public class UserController {
 		model.put("advancedSearchData", dataForSearchBar);
 	}
 
-    @RequestMapping(method= RequestMethod.GET)
-    public String getPodcastSubscriptions(ModelMap model) {
-
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LOG.debug("got request from " + userDetails.getUsername() + " and password " + userDetails.getPassword());
-
-        List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
-        model.addAttribute("subscriptions", subscriptions);
-
-        return "podcast_subscriptions_def";
-    }
-
-    @RequestMapping(value="latest-episodes", method= RequestMethod.GET)
-    public String getLatestEpisodesFromPodcastSubscriptions(ModelMap model) {
+    @RequestMapping(value="podcasts/vote-up", method= RequestMethod.POST)
+    public @ResponseBody String voteUpPodcast(@RequestParam("podcastId") Integer podcastId) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<Episode> latestEpisodes = userService.getLatestEpisodesFromSubscriptions(userDetails.getUsername());
-        model.addAttribute("latestEpisodes", latestEpisodes);
-
-        return "latest_episodes_for_podcast_subscriptions_def";
-    }
-
-    @RequestMapping(method= RequestMethod.POST)
-    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
-
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        userService.subscribeToPodcast(userDetails.getUsername(), podcastId);
+        userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_UP);
 
         return "OK";
     }
 
+    @RequestMapping(value="podcasts/vote-down", method= RequestMethod.POST)
+    public @ResponseBody String voteDownPodcast(@RequestParam("podcastId") Integer podcastId) {
+
+        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_DOWN);
+
+        return "OK";
+    }
 }

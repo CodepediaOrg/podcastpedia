@@ -43,6 +43,17 @@
 		<p>
 			<b><spring:message code="pod_details.subscribe_via" text="Subscribe"/></b> &nbsp;<a id="subscribeItAnchor" class="icon-email-subscribe" title="email"></a>
 		</p>
+    <p>
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#" class="btn-share ask-for-login" id="subscribe-ask-for-login">Subscribe</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#" class="btn-share" id="subscribe-to-podcast">Subscribe</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+    </p>
 	</c:if>
 	<div id="categs">
 		<b><spring:message code="header.menu.categories" text="Categories"/> </b>
@@ -80,13 +91,29 @@
 				</c:otherwise>
 			</c:choose>
 			<a href="#-1" class="icon-share-episode btn-share">Share</a>
-			<span class="item_url">${podcast_link}</span>
+
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="btn-share ask-for-login" id="vote-up-ask-for-login">Vote up</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="btn-share" id="vote-up-podcast">Vote up</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="btn-share ask-for-login" id="vote-down-ask-for-login">Vote down</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="btn-share" id="vote-down-podcast">Vote down</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+      <span class="item_url">${podcast_link}</span>
 		</div>
 		<div class="clear"></div>
 	</div>
-  <sec:authorize access="hasRole('ROLE_USER')">
-    <span>Vote up or down</span>
-  </sec:authorize>
 </div>
 
 <!-- recent episodes of the podcast -->
@@ -190,6 +217,10 @@
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
 
 <!-- jquery dialogs -->
+<div id="ask-for-login-form" title="Log in to subscribe">
+  <p>Please sign in to subscribe</p>
+</div>
+
 <div id="subscribe-form" title="Podcast subscription">
 	<form class="vertical_style_form">
 		<div id="label_above_elements">
@@ -203,6 +234,7 @@
 		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
 	</form>
 </div>
+
 <!-- 			  -->
 <div id="dialog-subscribed" title="Subscription successful">
 	<p>

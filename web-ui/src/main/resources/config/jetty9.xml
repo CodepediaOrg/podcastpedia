@@ -4,7 +4,7 @@
 		<Arg>jdbc/podcast_db</Arg>
 		<Arg>
 			<New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
-				<Set name="Url">jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true
+				<Set name="Url">jdbc:mysql://localhost:3307/podcast_db?allowMultiQueries=true
 				</Set>
 				<Set name="User">podcast</Set>
 				<Set name="Password">podcast</Set>
@@ -12,7 +12,7 @@
 		</Arg>
 	</New>
 	<New id="mailSessionId" class="org.eclipse.jetty.plus.jndi.Resource">
-		<Arg>mail/Session</Arg>
+		<Arg>mail/Session</Arg>f
 		<Arg>
 			<New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
 				<Set name="user">test-dev@podcastpedia.org</Set>

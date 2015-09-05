@@ -29,6 +29,9 @@
 		<typeAlias type="org.podcastpedia.common.domain.Subscription" alias="Subscription"/>
 		<typeAlias type="org.podcastpedia.common.domain.Rating" alias="Rating"/>
 		<typeAlias type="org.podcastpedia.common.domain.Tag" alias="Tag"/>
+    <typeAlias type="org.podcastpedia.common.domain.User" alias="User"/>
+    <typeAlias type="org.podcastpedia.common.domain.EpisodeVote" alias="EpisodeVote"/>
+    <typeAlias type="org.podcastpedia.common.domain.PodcastVote" alias="PodcastVote"/>
 		<typeAlias type="org.podcastpedia.common.domain.PodcastTag" alias="PodcastTag"/>
 		<typeAlias type="org.podcastpedia.core.suggestpodcast.SuggestedPodcast" alias="SuggestedPodcast"/>
 		<typeAlias type="org.podcastpedia.core.contact.ContactForm" alias="ContactForm"/>

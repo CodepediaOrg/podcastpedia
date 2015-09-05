@@ -1,9 +1,9 @@
 package org.podcastpedia.core.user;
 
-import org.podcastpedia.common.domain.Episode;
-import org.podcastpedia.common.domain.Podcast;
+import org.podcastpedia.common.domain.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
@@ -23,4 +23,32 @@ public interface UserDao {
 	 * @return
 	 */
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username);
+
+    /**
+     * Adds user to the database, but the status is not yet enabled.
+     *
+     * @param user
+     */
+    public void addUser(User user);
+
+    /** returns an user given its username */
+    public User selectUserByUsername(String username);
+
+    /**
+     * Adds username and podcastId to the subscriptions table
+     * @param params
+     */
+    void subscribeToPodcast(Map<String, Object> params);
+
+    /** Inserts a new entry in the podcats_votes table */
+    void addPodcastVote(PodcastVote vote);
+
+    /** Inserts a new entry in the episodes_votes table */
+    void addEpisodeVote(EpisodeVote episodeVote);
+
+    /** sets the enabled flag to 1*/
+    void enableUser(User user);
+
+    /** adds the ROLE_USER to the table authorities for the @param user */
+    void addUserRole(User user);
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.podcastpedia.core.searching.SearchDao">
@@ -7,7 +7,7 @@
   <cache />
 
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
--->	
+-->
 	 <!-- ******* Search in podcasts *******-->
 	<resultMap id="podcastsFound" type="Podcast" >
 	    <id column="podcast_id" property="podcastId"  />
@@ -15,20 +15,20 @@
 	    <result column="url" property="url" />
 	    <result column="identifier" property="identifier" />
 	    <result column="podcast_number_ratings" property="numberRatings" />
-	    <result column="number_visitors" property="numberOfVisitors" />	     
-	    <result column="DESCRIPTION" property="description" />	   
-	    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />	   
-	    <result column="TITLE" property="title" />	      	
+	    <result column="number_visitors" property="numberOfVisitors" />
+	    <result column="DESCRIPTION" property="description" />
+	    <result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
+	    <result column="TITLE" property="title" />
 	    <result column="last_episode_url" property="lastEpisodeMediaUrl" />
 	    <result column="title_in_url" property="titleInUrl" />
 	    <result column="publication_date" property="publicationDate"/>
 	    <result column="media_type" property="mediaType"/>
-	</resultMap>   
+	</resultMap>
 
   <select id="getPodcastsForSearchCriteria" resultMap="podcastsFound" parameterType="SearchData" useCache="true">
-    SELECT  
-    	p.PODCAST_ID, 
-    	p.URL, 
+    SELECT
+    	p.PODCAST_ID,
+    	p.URL,
     	p.identifier,
     	p.NUMBER_VISITORS,
     	p.DESCRIPTION,
@@ -38,12 +38,12 @@
     	p.title_in_url,
     	p.publication_date,
     	p.media_type
-    FROM 
+    FROM
     	podcasts p
-	<if test="categId != null">    	
+	  <if test="categId != null">
     	,podcasts_categories pc
     </if>
-    <if test="tagId != null">    	
+    <if test="tagId != null">
     	,podcasts_tags pt
     </if>
     <where>
@@ -52,108 +52,108 @@
 		<if test="queryText!=null">
 			<choose>
 				<when test="searchMode == 'boolean'">
-					AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText} IN BOOLEAN MODE)	
+					AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText} IN BOOLEAN MODE)
 				</when>
 				<otherwise>
 					AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText})
 				</otherwise>
-			</choose>				
+			</choose>
 		</if>
 		<if test="languageCode != null">
 			AND p.LANGUAGE_CODE = #{languageCode}
 		</if>
 		<if test="mediaType != null">
 			AND p.media_type = #{mediaType}
-		</if>	
+		</if>
 		<if test="categId != null">
 			AND p.podcast_id = pc.podcast_id
-			AND pc.category_id IN 
+			AND pc.category_id IN
 			<foreach item="item" collection="categId" open="(" separator="," close=")">
 				#{item}
-			</foreach>			
+			</foreach>
 		</if>
-	    <if test="tagId != null">    	
+	    <if test="tagId != null">
 	    	AND p.podcast_id = pt.podcast_id
 	    	AND pt.tag_id = #{tagId}
 	    </if>
 	</where>
-		<if test="orderBy != null"> 
-			ORDER BY 
+		<if test="orderBy != null">
+			ORDER BY
 			<choose>
 				<when test="orderBy.code == 'NEW_ENTRIES'">
-					p.insertion_date DESC	
+					p.insertion_date DESC
 				</when>
 				<when test="orderBy.code == 'PUBLICATION_DATE'">
-					p.publication_date DESC	
+					p.publication_date DESC
                 </when>
 				<when test="orderBy.code == 'least_rated'">
-					p.rating ASC	
-				</when>	
+					p.rating ASC
+				</when>
 				<otherwise>
-					p.publication_date desc		
-				</otherwise>									
+					p.publication_date desc
+				</otherwise>
 			</choose>
-		</if>	
+		</if>
 
 		<if test="firstItemOnPage!=null">
 			limit #{firstItemOnPage}, #{numberResultsPerPage}
-		</if>  		
+		</if>
   </select>
-  
+
   <select id="getNumberOfPodcastsForSearchCriteria" resultType="Integer" parameterType="SearchData" useCache="true">
-    SELECT  
+    SELECT
 		count(*)
-    FROM 
-    	podcasts p 
-		<if test="categId != null">    	
+    FROM
+    	podcasts p
+		<if test="categId != null">
 	    	,podcasts_categories pc
 	    </if>
-	    <if test="tagId != null">    	
+	    <if test="tagId != null">
 	    	,podcasts_tags pt
-	    </if>	    
+	    </if>
 	    <where>
 	    	p.availability=200
 		    <!-- if no search text all podcasts will be selected -->
 			<if test="queryText!=null">
 				<choose>
 					<when test="searchMode == 'boolean'">
-						AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText} IN BOOLEAN MODE)	
+						AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText} IN BOOLEAN MODE)
 					</when>
 					<otherwise>
 						AND MATCH (p.title, p.description, p.url) AGAINST (#{queryText})
 					</otherwise>
-				</choose>				
+				</choose>
 			</if>
 			<if test="languageCode != null">
 				AND p.LANGUAGE_CODE = #{languageCode}
 			</if>
 			<if test="mediaType != null">
 				AND p.media_type = #{mediaType}
-			</if>			
+			</if>
 			<if test="categId != null">
 				AND p.podcast_id = pc.podcast_id
-				AND pc.category_id IN 
+				AND pc.category_id IN
 				<foreach item="item" collection="categId" open="(" separator="," close=")">
 					#{item}
-				</foreach>			
+				</foreach>
 			</if>
-		    <if test="tagId != null">    	
+		    <if test="tagId != null">
 		    	AND p.podcast_id = pt.podcast_id
 		    	AND pt.tag_id = #{tagId}
-		    </if>			
+		    </if>
 		</where>
-  	</select>  
-  
-  
+  	</select>
+
+
   <!-- ******* Search in episodes *******-->
   <select id="getNumberOfEpisodesForSearchCriteria" resultType="Integer" parameterType="SearchData" useCache="true">
-    SELECT 
+    SELECT
 		count(*)
-    FROM 
+    FROM
     	episodes e,
     	podcasts p
-	<if test="categId != null">    	
-    	, podcasts_categories pc 
+	<if test="categId != null">
+    	, podcasts_categories pc
     </if>
 	    <where>
 	    	e.podcast_id = p.podcast_id
@@ -165,54 +165,54 @@
 			<if test="queryText!=null">
 				<choose>
 					<when test="searchMode == 'boolean'">
-						AND MATCH (e.title, e.description) AGAINST (#{queryText} IN BOOLEAN MODE)	
+						AND MATCH (e.title, e.description) AGAINST (#{queryText} IN BOOLEAN MODE)
 					</when>
 					<otherwise>
 						AND MATCH (e.title, e.description) AGAINST (#{queryText})
 					</otherwise>
-				</choose>				
+				</choose>
 			</if>
 			<if test="mediaType != null">
 				AND e.media_type = #{mediaType}
-			</if>			
+			</if>
 			<if test="languageCode!=null">
 				AND p.LANGUAGE_CODE = #{languageCode}
 			</if>
 			<if test="categId != null">
 				AND p.podcast_id = pc.podcast_id
-				AND pc.category_id IN 
+				AND pc.category_id IN
 				<foreach item="item" collection="categId" open="(" separator="," close=")">
 					#{item}
-				</foreach>			
+				</foreach>
 			</if>
 			ORDER BY e.publication_date DESC
 		</where>
-		
-  	</select> 
-  	
+
+  	</select>
+
  	<resultMap id="episodesFound" type="Episode" >
 	    <id column="podcast_id" property="podcastId"  />
 	    <id column="episode_id" property="episodeId" />
 	    <result column="title" property="title" />
-		<result column="description" property="description" />	    
-	    <result column="podcast_title" property="podcast.title" />	   
+		<result column="description" property="description" />
+	    <result column="podcast_title" property="podcast.title" />
 	    <result column="link" property="link" />
-	    <result column="podcast_image_url" property="podcast.urlOfImageToDisplay" />	
+	    <result column="podcast_image_url" property="podcast.urlOfImageToDisplay" />
 	    <result column="media_url" property="mediaUrl" />
-	    <result column="episode_pub_date" property="publicationDate" /> 	
-	    <result column="episode_title_in_url" property="titleInUrl" />    
-	    <result column="podcast_title_in_url" property="podcast.titleInUrl" />   
+	    <result column="episode_pub_date" property="publicationDate" />
+	    <result column="episode_title_in_url" property="titleInUrl" />
+	    <result column="podcast_title_in_url" property="podcast.titleInUrl" />
 	    <result column="episode_rating" property="rating" />
-	    <result column="episode_number_ratings" property="numberRatings" /> 	
-   	    <result column="media_type" property="mediaType"/>   
-   	    <result column="is_new" property="isNew"/>  	
-   	    <result column="length" property="length"/>   
-   	    <result column="enclosure_type" property="enclosureType"/>    	        
+	    <result column="episode_number_ratings" property="numberRatings" />
+   	    <result column="media_type" property="mediaType"/>
+   	    <result column="is_new" property="isNew"/>
+   	    <result column="length" property="length"/>
+   	    <result column="enclosure_type" property="enclosureType"/>
 	</resultMap>
-	 
-  <!-- following query is a little bit slow for most popular(now top_rated), think about making splitting it in two in the future --> 	
+
+  <!-- following query is a little bit slow for most popular(now top_rated), think about making splitting it in two in the future -->
   <select id="getEpisodesForSearchCriteria" resultMap="episodesFound" parameterType="SearchData" useCache="true">
-    SELECT 
+    SELECT
 	  e.podcast_id,
 	  e.episode_id,
 	  e.title as title,
@@ -229,65 +229,65 @@
 	  e.enclosure_type,
 	  p.title as podcast_title,
 	  p.podcast_image_url,
-	  p.title_in_url as podcast_title_in_url		
-    FROM 
+	  p.title_in_url as podcast_title_in_url
+    FROM
     	episodes e,
     	podcasts p
-	<if test="categId != null">    	
-    	, podcasts_categories pc 
+	<if test="categId != null">
+    	, podcasts_categories pc
     </if>
 	    <where>
 	    	e.podcast_id = p.podcast_id
 	    	AND
-      		e.availability=200	
+      		e.availability=200
       		AND
-      		p.availability=200    	
+      		p.availability=200
 		    <!-- if no search text all podcasts will be selected -->
 			<if test="queryText!=null">
 				<choose>
 					<when test="searchMode == 'boolean'">
-						AND MATCH (e.title, e.description) AGAINST (#{queryText} IN BOOLEAN MODE)	
+						AND MATCH (e.title, e.description) AGAINST (#{queryText} IN BOOLEAN MODE)
 					</when>
 					<otherwise>
 						AND MATCH (e.title, e.description) AGAINST (#{queryText})
 					</otherwise>
-				</choose>				
+				</choose>
 			</if>
 			<if test="mediaType != null">
 				AND e.media_type = #{mediaType}
-			</if>				
+			</if>
 			<if test="languageCode!=null">
 				AND p.LANGUAGE_CODE = #{languageCode}
 			</if>
 			<if test="categId != null">
 				AND p.podcast_id = pc.podcast_id
-				AND pc.category_id IN 
+				AND pc.category_id IN
 				<foreach item="item" collection="categId" open="(" separator="," close=")">
 					#{item}
-				</foreach>			
+				</foreach>
 			</if>
-			<if test="orderBy != null"> 
-				ORDER BY 
+			<if test="orderBy != null">
+				ORDER BY
 				<choose>
 					<when test="orderBy.code == 'NEW_ENTRIES'">
-						e.publication_date desc	
+						e.publication_date desc
 					</when>
 					<when test="orderBy.code == 'PUBLICATION_DATE'">
-						e.publication_date desc	
+						e.publication_date desc
                     </when>
 					<when test="orderBy.code == 'least_rated'">
-						e.rating asc	
-					</when>	
+						e.rating asc
+					</when>
 					<otherwise>
-						e.publication_date desc	
-					</otherwise>					
+						e.publication_date desc
+					</otherwise>
 				</choose>
 			</if>
 		</where>
-	
+
 		<if test="firstItemOnPage!=null">
 			limit #{firstItemOnPage}, #{numberResultsPerPage}
-		</if> 	
-			
-  	</select>   	    
+		</if>
+
+  	</select>
 </mapper>

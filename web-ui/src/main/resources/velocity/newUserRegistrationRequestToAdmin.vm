@@ -1,0 +1,8 @@
+<html>
+    <body>
+        <h3>Hi Podcastpedia admin team, you have one new user registration request</h3>
+        <p>
+            email - ${user.username}
+        </p>
+    </body>
+</html>
