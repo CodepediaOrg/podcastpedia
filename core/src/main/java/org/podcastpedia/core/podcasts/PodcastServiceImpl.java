@@ -32,7 +32,7 @@ public class PodcastServiceImpl implements PodcastService {
    /** ==============================  implementation methods start from here on ==============================
  * @throws BusinessException */
    @Override
-   @Cacheable(value="podcasts")
+   @Cacheable(value="podcasts", key = "#podcastId")
    public Podcast getPodcastById(final int podcastId) throws BusinessException{
 
 	   LOG.debug("executing getPodcastById");
@@ -70,7 +70,6 @@ public class PodcastServiceImpl implements PodcastService {
 
    /** ==============================  implementation methods start from here on ==============================
     * * @throws BusinessException */
-   @Cacheable(value="podcasts")
    @Override
    public Podcast getPodcastByIdentifier(String name) throws BusinessException{
 
@@ -116,7 +115,14 @@ public class PodcastServiceImpl implements PodcastService {
 //	   }
    }
 
-   //we can't use podcast id as key in podcasts, as it is used by getPodcastDetails
+    @Override
+    @Cacheable(value="podcasts", key = "#identifier")
+    public int getPodcastIdForIdentifier(String identifier) {
+        Integer response = podcastDao.getPodcastIdForIdentifier(identifier);
+        return response;
+    }
+
+    //we can't use podcast id as key in podcasts, as it is used by getPodcastDetails
    @Cacheable(value="podcasts", key="T(java.lang.String).valueOf(#podcastId).concat('-').concat(#root.method.name)")
    public Integer getNumberEpisodesForPodcast(Integer podcastId){
 	   return podcastDao.getNumberEpisodesForPodcast(podcastId);

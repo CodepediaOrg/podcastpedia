@@ -2,6 +2,8 @@ package org.podcastpedia.core.user;
 
 import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
@@ -56,7 +58,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void votePodcast(String username, int podcastId, int vote) {
+    @CacheEvict(value="podcasts", key="#podcastId")
+    public void votePodcast(final String username, final int podcastId, final int vote) {
         PodcastVote podcastVote = new PodcastVote();
         podcastVote.setUsername(username);
         podcastVote.setPodcastId(podcastId);
@@ -66,6 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value = "podcasts", key = "T(java.lang.String).valueOf(#podcastId).concat('-').concat(#episodeId)")
     public void voteEpisode(String username, int podcastId, int episodeId, int vote) {
         EpisodeVote episodeVote = new EpisodeVote();
         episodeVote.setUsername(username);

@@ -42,5 +42,6 @@ public interface PodcastService {
 
 	public Podcast getPodcastByIdentifier(String identifier)  throws BusinessException;
 
+    int getPodcastIdForIdentifier(String identifier);
 }
 

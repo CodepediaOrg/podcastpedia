@@ -50,20 +50,23 @@ public class PodcastIdentifierController {
 	/**
 	 * Custom handler for displaying a podcast.
 	 *
-	 * @param podcastShortUrl
+	 * @param identifier
 	 * @return
 	 * @throws BusinessException
 	 */
 	@RequestMapping(value = "{podcastShortUrl}", method = RequestMethod.GET)
 	public String getPodcastDetails(
-			@PathVariable("podcastShortUrl") String podcastShortUrl,
+			@PathVariable("podcastShortUrl") String identifier,
 			ModelMap model, HttpServletRequest httpRequest)
 			throws BusinessException {
 
 		LOG.debug("------ getPodcastDetails : Received request to show details for podcast id "
-				+ podcastShortUrl + " ------");
+				+ identifier + " ------");
 
-		Podcast podcast = podcastService.getPodcastByIdentifier(podcastShortUrl);
+
+        int podcastId;
+        podcastId = podcastService.getPodcastIdForIdentifier(identifier);
+        Podcast  podcast = podcastService.getPodcastById(podcastId);
 
 		// add the last episodes to be displayed under the podcast metadata
 		List<Episode> lastEpisodes = null;
