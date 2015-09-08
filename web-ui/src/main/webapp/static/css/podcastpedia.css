@@ -119,8 +119,8 @@ div.not_shown, .item_url, .item_url_ep {
 /* icon fonts */
 @font-face {
   font-family: 'podcastpedia';
-  src: url('fonts/podcastpedia.eot?ezbxqx');
-  src: url('fonts/podcastpedia.eot?#iefixezbxqx') format('embedded-opentype'), url('fonts/podcastpedia.woff?ezbxqx') format('woff'), url('fonts/podcastpedia.ttf?ezbxqx') format('truetype'), url('fonts/podcastpedia.svg?ezbxqx#podcastpedia') format('svg');
+  src: url("fonts/podcastpedia.eot?ezbxqx");
+  src: url("fonts/podcastpedia.eot?#iefixezbxqx") format("embedded-opentype"), url("fonts/podcastpedia.woff?ezbxqx") format("woff"), url("fonts/podcastpedia.ttf?ezbxqx") format("truetype"), url("fonts/podcastpedia.svg?ezbxqx#podcastpedia") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -373,7 +373,8 @@ ul.pureCssMenu ul li {
   margin-left: 0; }
 
 /*  GROUPING  */
-.group:before, .group:after {
+.group:before,
+.group:after {
   content: "";
   display: table; }
 
@@ -442,11 +443,18 @@ ul.pureCssMenu ul li {
     position: relative; }
     #nav ul ul li a {
       border-radius: 0px; }
+
 #nav ul li:hover > ul {
   display: block; }
 
 /* sets background-color when selected page is active */
-#homepage #nav-homepage a, #tags #nav-tags a, #categories #nav-categories a, #support #nav-support a, #add-podcast #nav-add-podcast a, #contact #nav-contact a, #podcasting #nav-podcasting a {
+#homepage #nav-homepage a,
+#tags #nav-tags a,
+#categories #nav-categories a,
+#support #nav-support a,
+#add-podcast #nav-add-podcast a,
+#contact #nav-contact a,
+#podcasting #nav-podcasting a {
   background-color: #185B8B; }
 
 /** set size of icon fonts that appear after menu entries */
@@ -630,6 +638,7 @@ ul.pureCssMenu ul li {
     margin: 0 auto;
     margin-top: -5px;
     text-align: center; } }
+
 #search_bar p {
   margin-top: -5px;
   font-size: 1.2em;
@@ -653,6 +662,7 @@ ul.pureCssMenu ul li {
     display: inline-block;
     box-shadow: 3px 3px 4px #28313A;
     margin: 8px 2px 2px; }
+
 .pagination a {
   text-decoration: none;
   color: #4f6a87;
@@ -912,7 +922,6 @@ img.recommend_social {
 
 .btn-share {
   background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #217dbb);
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
   border-radius: 5px;
   text-decoration: none;
@@ -923,7 +932,6 @@ img.recommend_social {
   margin-right: 5px; }
   .btn-share:hover {
     background: #369EE4;
-    background-image: -webkit-linear-gradient(top, #369EE4, #2997e2);
     background-image: linear-gradient(to bottom, #369EE4, #2997e2);
     text-decoration: none;
     color: #053855; }
@@ -933,7 +941,6 @@ img.recommend_social {
 /* btn share for website and feed TODO - bring all together with sass */
 .btn-metadata2 {
   background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #217dbb);
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
   border-radius: 8px;
   color: #ffffff;
@@ -943,7 +950,6 @@ img.recommend_social {
   text-decoration: none; }
   .btn-metadata2:hover {
     background: #37A4ED;
-    background-image: -webkit-linear-gradient(top, #37A4ED, #299eec);
     background-image: linear-gradient(to bottom, #37A4ED, #299eec);
     text-decoration: none;
     color: #053855; }
@@ -951,7 +957,6 @@ img.recommend_social {
 .btn-metadata1 {
   border-radius: 8px;
   background: #d15c2e;
-  background-image: -webkit-linear-gradient(top, #d15c2e, #a74a25);
   background-image: linear-gradient(to bottom, #d15c2e, #a74a25);
   font-family: 'podcastpedia';
   color: #ffffff;
@@ -961,7 +966,6 @@ img.recommend_social {
   margin-right: 5px; }
   .btn-metadata1:hover {
     background: #e67a53;
-    background-image: -webkit-linear-gradient(top, #e67a53, #e47046);
     background-image: linear-gradient(to bottom, #e67a53, #e47046);
     text-decoration: none;
     color: #053855; }
@@ -982,7 +986,6 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   /* Set the base colour */
   background-color: #a00;
   /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
-  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.15));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.15));
   /* Add a drop shadow */
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
@@ -1061,18 +1064,21 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg); }
+
 .github-fork-ribbon-wrapper.left .github-fork-ribbon {
   top: 42px;
   left: -43px;
   -webkit-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg); }
+
 .github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
   top: 80px;
   left: -43px;
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg); }
+
 .github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
   top: 80px;
   right: -43px;
@@ -1353,6 +1359,7 @@ a.producer-social {
   height: 21px;
   text-shadow: 2px 2px 4px #8A8A8B;
   padding: 5px 0 10px 10px; }
+
 .chart ul {
   text-align: left;
   font-size: 12px;
@@ -1377,12 +1384,14 @@ a.producer-social {
       border-style: solid;
       border-width: 1px;
       padding: 3px; }
+
 .chart a {
   display: block;
   color: #4f6a87;
   font-size: 12px;
   font-weight: bold;
   text-decoration: none; }
+
 .chart img {
   float: left;
   margin-right: 10px;
