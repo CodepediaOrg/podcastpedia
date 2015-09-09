@@ -92,26 +92,29 @@
 			</c:choose>
 			<a href="#-1" class="icon-share-episode btn-share">Share</a>
 
-      <!-- if not authenticated will be asked to log in -->
-      <sec:authorize access="isAnonymous()">
-        <a href="#-3" class="btn-share ask-for-login" id="vote-up-ask-for-login">Vote up - ${podcast.upVotes}</a>
-      </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
-      <sec:authorize access="isAuthenticated()">
-        <a href="#-3" class="btn-share" id="vote-up-podcast">Vote up - ${podcast.upVotes}</a>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      </sec:authorize>
-      <!-- if not authenticated will be asked to log in -->
-      <sec:authorize access="isAnonymous()">
-        <a href="#-3" class="btn-share ask-for-login" id="vote-down-ask-for-login">Vote down - ${podcast.downVotes}</a>
-      </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
-      <sec:authorize access="isAuthenticated()">
-        <a href="#-3" class="btn-share" id="vote-down-podcast">Vote down - ${podcast.downVotes}</a>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      </sec:authorize>
       <span class="item_url">${podcast_link}</span>
 		</div>
+    <div id="pod-details-voting">
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="icon-thumbs-down ask-for-login" id="vote-down-ask-for-login">${podcast.downVotes}</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="icon-thumbs-down" id="vote-down-podcast">${podcast.downVotes}</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+
+      <!-- if not authenticated will be asked to log in -->
+      <sec:authorize access="isAnonymous()">
+        <a href="#-3" class="icon-thumbs-up ask-for-login" id="vote-up-ask-for-login">${podcast.upVotes}</a>
+      </sec:authorize>
+      <!-- if authenticated can subscribe automatically -->
+      <sec:authorize access="isAuthenticated()">
+        <a href="#-3" class="icon-thumbs-up" id="vote-up-podcast">${podcast.upVotes}</a>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      </sec:authorize>
+    </div>
 		<div class="clear"></div>
 	</div>
 </div>

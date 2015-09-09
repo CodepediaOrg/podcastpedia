@@ -113,6 +113,10 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
+		  (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=1) as up_votes,
+      (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=-1) as down_votes,
       c.category_id,
       c.name as category_name,
      	c.description as category_descrption,
@@ -166,6 +170,10 @@
     	p.social_twitter_page,
     	p.social_gplus_page,
     	p.update_frequency,
+		  (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=1) as up_votes,
+      (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=-1) as down_votes,
       c.category_id,
       c.name as category_name,
      	c.description as category_descrption,
@@ -302,20 +310,24 @@
     	p.last_modified_header_field_str,
     	p.publication_date,
     	p.update_frequency,
-      	c.category_id,
-      	c.name as category_name,
+		  (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=1) as up_votes,
+      (select count(vote)  from podcasts_votes
+				 where podcast_id = p.podcast_id and vote=-1) as down_votes,
+      c.category_id,
+      c.name as category_name,
      	c.description as category_descrption,
-        e.description as episode_description,
-        e.link as episode_link,
-        e.media_url as episode_media_url,
-        e.media_type as episode_media_type,
-      	e.title as episode_title,
-      	e.episode_id,
-      	e.publication_date as episode_pub_date,
-      	e.title_in_url as episode_title_in_url,
-      	e.is_new,
-      	t.tag_id,
-        t.name as tag_name
+      e.description as episode_description,
+      e.link as episode_link,
+      e.media_url as episode_media_url,
+      e.media_type as episode_media_type,
+      e.title as episode_title,
+      e.episode_id,
+      e.publication_date as episode_pub_date,
+      e.title_in_url as episode_title_in_url,
+      e.is_new,
+      t.tag_id,
+      t.name as tag_name
    	FROM podcasts p
    	   LEFT OUTER JOIN podcasts_categories pc ON p.podcast_id = pc.podcast_id
    	   LEFT OUTER JOIN podcasts_tags pt ON p.podcast_id = pt.podcast_id

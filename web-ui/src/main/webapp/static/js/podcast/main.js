@@ -335,7 +335,9 @@ $(function (){
 
       function(data){
         //we have received valid response
-        $("#vote-up-podcast").text("Voted up")
+        var upVotes = $("#vote-up-podcast").text();
+        $("#vote-up-podcast").text(parseInt(upVotes) + 1);
+        $("#vote-up-podcast").css({ 'pointer-events': 'none' });
       });
   });
 
@@ -348,7 +350,9 @@ $(function (){
 
       function(data){
         //we have received valid response
-        $("#vote-down-podcast").text("Voted down")
+        var downVotes = $("#vote-down-podcast").text();
+        $("#vote-down-podcast").text(parseInt(downVotes) + 1);
+        $("#vote-down-podcast").css({ 'pointer-events': 'none' });
       });
   });
 

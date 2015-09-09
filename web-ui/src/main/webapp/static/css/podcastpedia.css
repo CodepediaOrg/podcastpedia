@@ -170,6 +170,12 @@ div.not_shown, .item_url, .item_url_ep {
 .icon-feed3:before {
   content: "\e643"; }
 
+.icon-thumbs-up:before {
+  content: "\e651"; }
+
+.icon-thumbs-down:before {
+  content: "\e652"; }
+
 .icon-title-and-pub-date:before {
   content: "\e64b"; }
 
@@ -1148,6 +1154,18 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
 
 #pod_like {
   margin-top: 5px; }
+
+#pod-details-voting {
+  float: right;
+  padding-bottom: 5px; }
+  #pod-details-voting a {
+    font-size: 1.8em;
+    text-decoration: none;
+    float: right;
+    margin-left: 5px; }
+    @media screen and (max-width: 819px) {
+      #pod-details-voting a {
+        font-size: 1.6em; } }
 
 #podcast_copyright {
   background-color: #F8E0E6;

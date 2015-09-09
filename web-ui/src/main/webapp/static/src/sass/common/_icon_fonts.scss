@@ -40,7 +40,7 @@
 .icon-feed-atom:after {
 	content: "\e644";
 	color: #297CCF;
-	padding-left:2px;	
+	padding-left:2px;
 }
 .icon-feed-rss:after {
 	content: "\e644";
@@ -61,8 +61,15 @@
 	content: "\e643";
 }
 
+.icon-thumbs-up:before {
+  content: "\e651";
+}
+.icon-thumbs-down:before {
+  content: "\e652";
+}
+
 .icon-title-and-pub-date:before {
-	content: "\e64b";	
+	content: "\e64b";
 }
 .icon-share-episode:after, .icon-share-podcast:after{
 	content: "\e638";
