@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 @RequestMapping("/login")
@@ -33,10 +35,13 @@ public class CustomLoginController {
 
     //Spring Security see this :
     @RequestMapping(value = "custom_login", method = RequestMethod.GET)
-    public String login(
+    public String login(HttpServletRequest request,
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout,
             @RequestParam(value = "confirmed-email", required = false) boolean isConfirmedEmail) {
+
+        String referrer = request.getHeader("Referer");
+        request.getSession().setAttribute("url_prior_login", referrer);
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
