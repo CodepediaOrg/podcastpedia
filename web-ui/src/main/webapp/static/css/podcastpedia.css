@@ -449,6 +449,8 @@ ul.pureCssMenu ul li {
     position: relative; }
     #nav ul ul li a {
       border-radius: 0px; }
+  #nav ul ul li:last-child > a {
+    border-radius: 0 0 5px 5px; }
 
 #nav ul li:hover > ul {
   display: block; }
@@ -497,9 +499,6 @@ ul.pureCssMenu ul li {
 
 #nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp {
   display: none; }
-
-#nav #nav-podcasting-resp > a {
-  border-radius: 0 0 5px 5px; }
 
 /** media queries to hide and show menu items, based on the display width */
 @media screen and (min-width: 1040px) {

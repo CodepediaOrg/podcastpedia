@@ -21,14 +21,14 @@
       content: ""; clear: both; display: block;
     }
   }
-  li a {     
+  li a {
     display: block;
     margin-right: 2px;
     color: #fff;
     text-align: center;
     text-decoration: none;
     font-size: 13px;
-    height: 28px;      
+    height: 28px;
     text-shadow: 4px 4px 3px #2C2D2E;
     padding: 5px;
     background-color: #343435;
@@ -51,6 +51,10 @@
         border-radius: 0px;
       }
     }
+    li:last-child > a {
+      border-radius: 0 0 $border-radius-base $border-radius-base;
+    }
+
   }
   li:hover > ul {
     display: block;
@@ -65,16 +69,16 @@
 #add-podcast #nav-add-podcast a,
 #contact #nav-contact a,
 #podcasting #nav-podcasting a{
-  background-color:#185B8B;	
+  background-color:#185B8B;
 }
 
 /** set size of icon fonts that appear after menu entries */
 #nav li a:after {
 	font-family:"podcastpedia";
 	padding-left:3px;
-	font-size:0.9em;		
+	font-size:0.9em;
 }
-// incon font for menu icon should be bigger 
+// incon font for menu icon should be bigger
 #nav #nav-responsive > a:after{
 	content: "\e663";
     font-size: 1.3em;
@@ -107,10 +111,6 @@
   display: none;
 }
 
-#nav #nav-podcasting-resp > a{
-  border-radius: 0 0 $border-radius-base $border-radius-base;
-}
-
 /** media queries to hide and show menu items, based on the display width */
 @media screen and (min-width: 1040px) {
   #nav-responsive {
@@ -128,7 +128,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  #nav-support-resp { 
+  #nav-support-resp {
     display: block;
   }
   #nav-support {
@@ -137,7 +137,7 @@
 }
 
 @media screen and (max-width: 750px) {
-  #nav-add-podcast-resp { 
+  #nav-add-podcast-resp {
     display: block;
   }
   #nav-add-podcast {
@@ -146,7 +146,7 @@
 }
 
 @media screen and (max-width: 610px) {
-  #nav-categories-resp { 
+  #nav-categories-resp {
     display: block;
   }
   #nav-categories {
@@ -155,7 +155,7 @@
 }
 
 @media screen and (max-width: 465px) {
-  #nav-tags-resp { 
+  #nav-tags-resp {
     display: block;
   }
   #nav-tags {
