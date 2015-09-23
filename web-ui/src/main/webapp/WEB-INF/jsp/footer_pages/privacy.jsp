@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="privacy_content" class="bg_color common_radius common_mar_pad">
 <h1> Privacy Policy for Podcastpedia</h1>
@@ -10,12 +10,12 @@
 <p><b>External Sites.</b></p>
 <p>Podcastpedia.org is not responsible for the content of external internet sites. You are advised to read the privacy policy of external sites before disclosing any personal information.</p>
 
-<p> If you require any more information or have any questions about our privacy policy, please feel free to contact us by email at <a href="mailto:contact@podcastpedia.org">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#112;&#111;&#100;&#99;&#97;&#115;&#116;&#112;&#101;&#100;&#105;&#97;&#46;&#111;&#114;&#103;</a>.</p>
+<p> If you require any more information or have any questions about our privacy policy, please feel free to contact us by email at <b>contact [AT] podcastpedia DOT org</b></p>
 <p>At www.podcastpedia.org we consider the privacy of our visitors to be extremely important. This privacy policy document describes in detail the types of personal information is collected and recorded by www.podcastpedia.org and how we use it. </p><p> <b>Log Files</b><br> Like many other Web sites, www.podcastpedia.org makes use of log files. These files merely logs visitors to the site - usually a standard procedure for hosting companies and a part of hosting services's analytics. The information inside the log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and possibly the number of clicks. This information is used to analyze trends, administer the site, track user's movement around the site, and gather demographic information. IP addresses, and other such information are not linked to any information that is personally identifiable. </p>
 
 <p><b>Cookies </b></p>
-<p>A "cookie" is a small data text file that is placed in your browser and allows Codingpedia.org to recognize you each time you visit this site(customisation etc). Cookies themselves do not contain any personal information, and Codingpedia.org does not use cookies to collect personal information. Cookies may also be used by 3rd party content providers such as newsfeeds.</p>
- 
+<p>A "cookie" is a small data text file that is placed in your browser and allows Codingpedia.org to recognize you each time you visit this site(customisation etc). Cookies themselves do not contain any personal information, and Codingpedia.org does not use cookies to collect personal information. They are only used to improve your experience while visiting our website. Cookies may also be used by 3rd party content providers such as newsfeeds.</p>
+
 <p> If you wish to disable cookies, you may do so through your individual browser options. More detailed information about cookie management with specific web browsers can be found at the browsers' respective websites. <a href="http://www.privacypolicyonline.com/what-are-cookies">What Are Cookies?</a></p>
 
 <p><strong>Children's Information</strong><br />We believe it is important to provide added protection for children online. We encourage parents and guardians to spend time online with their children to observe, participate in and/or monitor and guide their online activity.
