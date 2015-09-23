@@ -12,16 +12,17 @@
 
 
 <div id="user_registration_form_wrapper" class="bg_color border_radius shadowy common_mar_pad">
-  <h2 class="title_before_form">Registration </h2>
+
+  <h2 class="title_before_form"><spring:message code="user.registration.header" text="Registration"/></h2>
   <hr class="before_form_header_line"/>
 
   <c:url value="/users/registration" var="submitRegistrationUrl" />
-  <form:form name="contact_form" class="vertical_style_form"
+  <form:form name="registration_form" class="vertical_style_form"
              method="POST" modelAttribute="user" action="${submitRegistrationUrl}" >
 
     <div id="label_above_elements">
       <label for="displayName" class="label">
-        <spring:message code="registration.label.display-name" text="Display name - optional"/>
+        <spring:message code="user.registration.display_name" text="Display name - optional"/>
       </label>
     </div>
     <p>
@@ -31,7 +32,7 @@
     <!--username field-->
     <div id="label_above_elements">
       <label for="username" class="label">
-        <spring:message code="registration.label.email" text="Email - required, verified but never shown"/>
+        <spring:message code="user.registration.label.email" text="Email - required, verified but never shown"/>
       </label>
     </div>
     <p>
@@ -42,7 +43,7 @@
     <!-- password field -->
     <div id="label_above_elements">
       <label for="password" class="label">
-        <spring:message code="registration.label.password" text="Password"/>
+        <spring:message code="user.registration.label.password" text="Password"/>
       </label>
     </div>
     <p>
@@ -53,7 +54,7 @@
     <!-- confirm password field -->
     <div id="label_above_elements">
       <label for="matchingPassword" class="label">
-        <spring:message code="registration.label.matching-password" text="Confirm password"/>
+        <spring:message code="user.registration.password_confirmation" text="Confirm password"/>
       </label>
     </div>
     <p>
@@ -80,10 +81,10 @@
       %>
     </div>
 
-    <spring:message var="submit_registration_btn" code="registration.btn.submit-registration" text="Submit registration"/>
+    <spring:message var="submit_registration_btn" code="user.registration.btn.submit-registration" text="Submit registration"/>
     <input type="submit" value="${submit_registration_btn}"  id="send_message" class="submit_form_button"/>
     <div class="clear"></div>
   </form:form>
-
-  By registering, you agree to the privacy policy(http://stackexchange.com/legal/privacy-policy) and terms of service(http://stackexchange.com/legal/terms-of-service).
+  <br><br><br>
+  <spring:message code="user.registration.agreement_privacy_policy" text="Confirm agreement to privacy policy"/>
 </div>
