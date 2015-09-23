@@ -40,13 +40,10 @@
 		</c:if>
 	</p>
 	<c:if test="${podcast.updateFrequency == 'DAILY' || podcast.updateFrequency == 'WEEKLY' || podcast.updateFrequency == 'MONTHLY'}">
-		<p>
-			<b><spring:message code="pod_details.subscribe_via" text="Subscribe"/></b> &nbsp;<a id="subscribeItAnchor" class="icon-email-subscribe" title="email"></a>
-		</p>
     <p>
       <!-- if not authenticated will be asked to log in -->
       <sec:authorize access="isAnonymous()">
-        <a href="#" class="btn-share ask-for-login" id="subscribe-ask-for-login">Subscribe</a>
+        <a href="#" class="btn-share ask-for-login" id="subscribe-ask-for-login" style="background-color: orangered"><spring:message code="user.subscribe" text="Subscribe"/></a>
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
@@ -188,8 +185,8 @@
 				</c:choose>
 			</div>
 			<div class="social_and_download">
-				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play </a>
-				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share </a>
+				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
+				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
 				<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" target="_blank">
 					<spring:message code="global.dwnld.s" text="Download last episode"/>
 				</a>
@@ -220,8 +217,8 @@
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
 
 <!-- jquery dialogs -->
-<div id="ask-for-login-form" title="Log in to subscribe">
-  <p>Please sign in to subscribe</p>
+<div id="ask-for-login-form" title="Log in">
+  <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
 </div>
 
 <div id="subscribe-form" title="Podcast subscription">
