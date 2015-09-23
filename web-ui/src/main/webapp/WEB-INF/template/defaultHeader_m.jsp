@@ -24,39 +24,14 @@
 		</ul>
 	</div>
 </div>
-<div id="login-button">
-  <!-- display login button if not authenticated-->
-  <sec:authorize access="isAnonymous()">
-    <span><a href="<c:url value='/login/custom_login'/>" class="btn-share" style="background-color: #ff9a1c">Log in</a></span>
-  </sec:authorize>
-  <!-- display My Podcasts if is authenticated -->
-  <sec:authorize access="isAuthenticated()">
-    <ul class="pureCssMenu pureCssMenum">
-      <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>My podcastpedia</span></a>
-        <ul class="pureCssMenum">
-          <li class="pureCssMenui"><a class="pureCssMenui" href="<c:url value='/users/subscriptions'/>">Subscriptions</a></li>
-          <li class="pureCssMenui"><a class="pureCssMenui" href="<c:url value='/users/subscriptions/latest-episodes'/>">Last episodes</a></li>
-          <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span><spring:message code="your.language"/></span></a>
-            <ul class="pureCssMenum">
-              <li class="pureCssMenui"><a class="pureCssMenui" href="${pageUrl}&amp;lang=ro">Română</a></li>
-              <li class="pureCssMenui"><a class="pureCssMenui" href="${pageUrl}&amp;lang=en">English</a></li>
-              <li class="pureCssMenui"><a class="pureCssMenui" href="${pageUrl}&amp;lang=de">Deutsch</a></li>
-              <li class="pureCssMenui"><a class="pureCssMenui" href="${pageUrl}&amp;lang=fr">Français</a></li>
-              <li class="pureCssMenui"><a class="pureCssMenui" href="${pageUrl}&amp;lang=pl">Polski</a></li>
-            </ul>
-          </li>
-          <li class="pureCssMenui">
-            <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
-            <form action="${logoutUrl}" method="post">
-              <input type="submit" value="Log out" />
-              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </sec:authorize>
-</div>
+
+<!-- display login button if not authenticated-->
+<sec:authorize access="isAnonymous()">
+  <div id="login-button">
+      <a href="<c:url value='/login/custom_login'/>"><spring:message code="user.login"/></a>
+  </div>
+</sec:authorize>
+
 <div class="clear"></div>
 <%@ include file="header_common_part_m.jsp" %>
 
