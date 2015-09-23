@@ -7,7 +7,7 @@
 
 @mixin btn-background($color, $darken-percentage) {
   background: $color;
-  background-image: linear-gradient(to bottom, $color, darken($color, $darken-percentage));   
+  background-image: linear-gradient(to bottom, $color, darken($color, $darken-percentage));
 }
 
 .btn-share {
@@ -47,7 +47,7 @@
 
 .btn-metadata1 {
   border-radius: 8px;
-  @include btn-background(#d15c2e, 10%);  
+  @include btn-background(#d15c2e, 10%);
   font-family: 'podcastpedia';
   color: #ffffff;
   font-size: 1.2em;
@@ -64,4 +64,23 @@
 
 a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
 	color: #EFF5FB;
+}
+
+#login-button {
+  float: right;
+  margin-top: 6px;
+  a {
+    background-color: orangered;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: Arial;
+    color: rgb(255, 255, 255);
+    font-size: 1.1em;
+    padding: 5px 10px;
+    margin-right: 5px;
+    &:hover {
+      @include btn-background($podcastpedia-dark-blue, 10%);
+      text-decoration: none;
+    }
+  }
 }

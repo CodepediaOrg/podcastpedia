@@ -6,8 +6,8 @@ $border-radius-large:       7px !default;
 $border-radius-small:       3px !default;
 
 //** the min/max width of the content that appears in center for all web pages...
-$page-min-width: 300px !default; 
-$page-max-width: 1060px !default; 
+$page-min-width: 300px !default;
+$page-max-width: 1060px !default;
 
 
 //**colors
@@ -15,6 +15,7 @@ $background-grey: #DADADE;
 $background-grey-lighter: lighten($background-grey, 10%);
 $red: #FF0000;
 $red-darker: darken($red, 20%);
+$podcastpedia-dark-blue: #185B8B;
 
 /* links visited */
 $link-visited-color: #053855;

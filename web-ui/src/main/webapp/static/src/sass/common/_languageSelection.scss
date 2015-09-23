@@ -80,8 +80,8 @@ ul.pureCssMenu li:hover{
 	position:relative;
 }
 ul.pureCssMenu li:hover>a{
-	background-color:#185B8B;
-	border-color:#185B8B;
+	background-color:$podcastpedia-dark-blue;
+	border-color:$podcastpedia-dark-blue;
 	border-style:solid;
 	font:normal 12px Trebuchet MS, Tahoma;
 	color: #FFFFFF;
@@ -89,8 +89,8 @@ ul.pureCssMenu li:hover>a{
 }
 ul.pureCssMenu li a:hover{
 	position:relative;
-	background-color:#185B8B;
-	border-color:#185B8B;
+	background-color:$podcastpedia-dark-blue;
+	border-color:$podcastpedia-dark-blue;
 	border-style:solid;
 	font:normal 12px Trebuchet MS, Tahoma;
 	color: #FFFFFF;
@@ -106,26 +106,26 @@ ul.pureCssMenu span{
 	background-repeat: no-repeat;
    padding-right:2px;}
 ul.pureCssMenu span:after {
-	font-family: 'podcastpedia';	
+	font-family: 'podcastpedia';
 	content: "\e658";
 	margin-left: 5px;
-	
-}   
+
+}
 ul.pureCssMenu li:hover>a>span:after {
-	font-family: 'podcastpedia';	
+	font-family: 'podcastpedia';
 	content: "\e658";
-	margin-left: 5px;	
-}   
+	margin-left: 5px;
+}
 ul.pureCssMenu a:hover span:after {
-	font-family: 'podcastpedia';	
+	font-family: 'podcastpedia';
 	content: "\e658";
-	margin-left: 5px;	
-}   
+	margin-left: 5px;
+}
 ul.pureCssMenu ul span,ul.pureCssMenu a:hover table span:after {
-	font-family: 'podcastpedia';	
+	font-family: 'podcastpedia';
 	content: "\e658";
-	margin-left: 5px;	
-}  
+	margin-left: 5px;
+}
 ul.pureCssMenu ul li {
   border-top: 1px solid #6b727c;
 }

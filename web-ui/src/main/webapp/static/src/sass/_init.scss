@@ -41,7 +41,7 @@ body {
 	color:#5A5A5A;
 	font-family:Arial, sans-serif;
 	margin:0;
-	padding:5px;  
+	padding:5px;
 }
 
 h1,h2,h3 {
@@ -74,7 +74,7 @@ a:hover,a:active {
 }
 
 a:visited {
-	color:#053855;  
+	color:#053855;
 }
 
 img {
@@ -94,14 +94,14 @@ img.right {
 /** should be moved to own file maybe _common.scss*/
 #page {
 	background:#FFF;
-	background-color:#185B8B;
-	border-bottom:5px #185B8B solid;
-	border-left:5px #185B8B solid;
-	border-right:5px #185B8B solid;
+	background-color:$podcastpedia-dark-blue;
+	border-bottom:5px $podcastpedia-dark-blue solid;
+	border-left:5px $podcastpedia-dark-blue solid;
+	border-right:5px $podcastpedia-dark-blue solid;
 	padding-top:5px;
 	margin:0 auto;
 	min-width: $page-min-width;
-	max-width: $page-max-width - 10;  
+	max-width: $page-max-width - 10;
 }
 
 .bg_color {

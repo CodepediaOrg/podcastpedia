@@ -21,22 +21,32 @@
       content: ""; clear: both; display: block;
     }
   }
-  li a {
-    display: block;
-    margin-right: 2px;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    font-size: 13px;
-    height: 28px;
-    text-shadow: 4px 4px 3px #2C2D2E;
-    padding: 5px;
-    background-color: #343435;
-    border-radius: $border-radius-base $border-radius-base 0 0;
-    &:hover {
-      background-color: #185B8B;
+  li {
+    a, form {
+      display: block;
+      margin-right: 2px;
       color: #fff;
-    }
+      text-align: center;
+      text-decoration: none;
+      font-size: 13px;
+      height: 28px;
+      text-shadow: 4px 4px 3px #2C2D2E;
+      padding: 5px;
+      background-color: #343435;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+      &:hover {
+        background-color: $podcastpedia-dark-blue;
+        color: #fff;
+      }
+
+      > input {
+        background: none!important;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+      }
+  }
+
   }
 }
 
@@ -51,7 +61,7 @@
         border-radius: 0px;
       }
     }
-    li:last-child > a {
+    li:last-child > a, #logout-form {
       border-radius: 0 0 $border-radius-base $border-radius-base;
     }
 
@@ -60,6 +70,10 @@
     display: block;
   }
 }
+/*
+#nav #logout-form > input{
+  border-radius: 0 0 $border-radius-base $border-radius-base;
+} */
 
 /* sets background-color when selected page is active */
 #homepage #nav-homepage a,
@@ -69,7 +83,7 @@
 #add-podcast #nav-add-podcast a,
 #contact #nav-contact a,
 #podcasting #nav-podcasting a{
-  background-color:#185B8B;
+  background-color:$podcastpedia-dark-blue;
 }
 
 /** set size of icon fonts that appear after menu entries */
@@ -110,6 +124,7 @@
 #nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp {
   display: none;
 }
+
 
 /** media queries to hide and show menu items, based on the display width */
 @media screen and (min-width: 1040px) {

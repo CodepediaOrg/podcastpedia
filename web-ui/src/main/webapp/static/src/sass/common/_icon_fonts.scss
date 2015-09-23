@@ -72,11 +72,11 @@
 	content: "\e64b";
 }
 .icon-share-episode:after, .icon-share-podcast:after{
-	content: "\e638";
-	font-weight: bold;
+  content: " \e638";
+  font-weight: bold;
 }
 .icon-download-ep:after{
-	content: "\e617";
+	content: " \e617";
 	font-weight: bold;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .icon-play-episode:after {
-  content: "\e64b";
+  content: " \e64b";
 }
 
 .icon-video-pod, .icon-audio-video {
