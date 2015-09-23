@@ -6,16 +6,25 @@
 	<ul>
     <sec:authorize access="isAuthenticated()">
       <li id="nav-mypodcastpedia">
-        <a href="#">My podcastpedia</a>
+        <a href="#"><spring:message code="user.mypodcastpedia" text="My Podcastpedia"/></a>
         <ul>
           <li id="nav-my-subscriptions">
-            <a href="<c:url value="/users/subscriptions"/>"><spring:message code="user_area.subscriptions"/></a>
+            <a href="<c:url value="/users/subscriptions"/>"><spring:message code="user.subscriptions"/></a>
           </li>
           <li id="nav-my-latest-episodes">
-            <a href="<c:url value="/users/subscriptions/latest-episodes"/>">Last episodes</a>
+            <a href="<c:url value="/users/subscriptions/latest-episodes"/>"><spring:message code="user.last_episodes"/></a>
           </li>
+          <!-- TO DO
           <li id="my-searches">
-            <a href="<c:url value="/how_can_i_help/add_podcast"/>">My searches</a>
+            <a href="/users/searches/>">My searches</a>
+          </li>
+          -->
+          <li>
+            <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
+            <form id="logout-form" action="${logoutUrl}" method="post">
+              <input type="submit" value="<spring:message code="user.logout"/>" />
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
           </li>
         </ul>
       </li>
