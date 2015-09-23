@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h3>Bonjour ${user.displayName}</h3>
+        <p>
+            Merci de votre inscription avec Podcastpedia.
+            Cliquez sur <a href="http://podcastpedia.org/users/registration/confirmed?user=${user.username}&token=${user.registrationToken}">ce lien</a> pour terminer le processus d'inscription.
+        </p>
+    </body>
+</html>
