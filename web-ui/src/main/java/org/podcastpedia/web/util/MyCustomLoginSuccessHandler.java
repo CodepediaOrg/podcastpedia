@@ -20,6 +20,7 @@ public class MyCustomLoginSuccessHandler extends SavedRequestAwareAuthentication
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(60*60);//set the session timeout to 60 minutes
         if (session != null) {
             String redirectUrl = (String) session.getAttribute("url_prior_login");
             if (redirectUrl != null) {
