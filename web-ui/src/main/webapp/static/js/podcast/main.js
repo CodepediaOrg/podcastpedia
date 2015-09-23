@@ -300,7 +300,7 @@ $(function (){
     buttons: {
       "Log in": function() {
         $( this ).dialog("close");
-        window.location.href = "http://localhost:8008/login/custom_login";
+        window.location.href = "http://podcastpedia.org/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -321,7 +321,8 @@ $(function (){
 
       function(data){
         //we have received valid response
-        $("#subscribe-to-podcast").text("Subscribed")
+        $("#subscribe-to-podcast").css({ 'background-color': '#185B8B' });
+        $("#subscribe-to-podcast").css({ 'pointer-events': 'none' });
       });
   });
 
