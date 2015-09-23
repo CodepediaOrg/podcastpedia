@@ -107,9 +107,9 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-	<!-- set session timeout for 1 minute <url-pattern>/*.atom</url-pattern> -->
+	<!-- set session timeout for 60 minutes <url-pattern>/*.atom</url-pattern> -->
 	<session-config>
-		<session-timeout>10</session-timeout>
+		<session-timeout>60</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
