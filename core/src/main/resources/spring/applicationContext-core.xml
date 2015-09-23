@@ -68,7 +68,7 @@
       <property name="velocityEngine" ref="velocityEngine"/>
    </bean>
 
-  <bean id="emailNotificationUserRegistration" class="org.podcastpedia.core.user.EmailNotificationServiceImpl">
+  <bean id="emailNotificationUserRegistration" class="org.podcastpedia.core.user.UserEmailNotificationServiceImpl">
     <property name="mailSender" ref="mailSender"/>
     <property name="velocityEngine" ref="velocityEngine"/>
   </bean>

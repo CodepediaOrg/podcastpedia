@@ -4,18 +4,18 @@ import org.apache.velocity.app.VelocityEngine;
 import org.podcastpedia.common.domain.User;
 import org.podcastpedia.common.util.config.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class EmailNotificationServiceImpl implements EmailNotificationService {
+public class UserEmailNotificationServiceImpl implements UserEmailNotificationService {
+
+    private static String[] supportedLanguages = {"en", "fr", "de" };
 
 	@Autowired
 	private ConfigService configService;
@@ -35,8 +35,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 	             Map model = new HashMap();
 	             model.put("user", user);
 
-	             String text = VelocityEngineUtils.mergeTemplateIntoString(
-	                velocityEngine, "velocity/newUserRegistrationRequestToAdmin.vm", "UTF-8", model);
+	             String text = buildEmailText(model, velocityEngine);
 	             message.setText(text, true);
 	          }
 	       };
@@ -56,12 +55,24 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
                 Map model = new HashMap();
                 model.put("user", user);
 
-                String text = VelocityEngineUtils.mergeTemplateIntoString(
-                    velocityEngine, "velocity/newUserRegistrationEmailConfirmation.vm", "UTF-8", model);
+                String text = buildEmailText(model, velocityEngine);
                 message.setText(text, true);
             }
         };
         this.mailSender.send(preparator);
+    }
+
+    private String buildEmailText(Map model, VelocityEngine velocityEngine) {
+        String templateLocation;
+
+        Locale locale = LocaleContextHolder.getLocale();
+        if(Arrays.asList(supportedLanguages).contains(locale.getLanguage())){
+            templateLocation = "velocity/newUserRegistrationEmailConfirmation_" + locale.getLanguage() + ".vm";
+        } else {
+            templateLocation = "velocity/newUserRegistrationEmailConfirmation.vm";
+        }
+        return VelocityEngineUtils.mergeTemplateIntoString(
+            velocityEngine, templateLocation, "UTF-8", model);
     }
 
     public JavaMailSender getMailSender() {
