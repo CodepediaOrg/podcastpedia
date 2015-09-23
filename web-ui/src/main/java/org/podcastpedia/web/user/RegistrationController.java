@@ -5,17 +5,16 @@ import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.log4j.Logger;
 import org.podcastpedia.common.domain.User;
 import org.podcastpedia.core.searching.SearchData;
-import org.podcastpedia.core.user.EmailNotificationService;
+import org.podcastpedia.core.user.UserEmailNotificationService;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.HttpSessionRequiredException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.ServletRequest;
@@ -35,7 +34,7 @@ public class RegistrationController {
     private UserRegistrationFormValidator userRegistrationFormValidator;
 
     @Autowired
-    private EmailNotificationService emailNotificationService;
+    private UserEmailNotificationService emailNotificationService;
 
     @Autowired
     private ReCaptchaImpl reCaptcha;
@@ -78,15 +77,15 @@ public class RegistrationController {
         LOG.debug("------ processContactForm : form is being validated and processed -----");
         userRegistrationFormValidator.validate(user, result);
 
-        /** TODO introduce recaptcha...
+        /** TODO introduce recaptcha...          */
 
         String remoteAddress = servletRequest.getRemoteAddr();
-        ReCaptchaResponse reCaptchaResponse = this.reCaptcha.checkAnswer(
+        ReCaptchaResponse  reCaptchaResponse = this.reCaptcha.checkAnswer(
             remoteAddress, challangeField, responseField);
-         */
+
         model.addAttribute("user", user);
-        if(!result.hasErrors()){
-        //if(!result.hasErrors() && reCaptchaResponse.isValid()){
+        //if(!result.hasErrors()){
+        if(!result.hasErrors() && reCaptchaResponse.isValid()){
 
             user.setRegistrationToken(UUID.randomUUID().toString());
             userService.submitUserForRegistration(user);
@@ -97,15 +96,13 @@ public class RegistrationController {
             return "redirect:/users/registration/confirm-email" + queryString;
             //return "user_registration_sent_email_def";
         } else {
-            /*
             if (!reCaptchaResponse.isValid()) {
                 result.rejectValue("invalidRecaptcha", "invalid.captcha");
                 model.addAttribute("invalidRecaptcha", true);
             }
-            */
+
             return "user_registration_def";
         }
-
 
     }
 
@@ -135,5 +132,11 @@ public class RegistrationController {
         userService.enableUser(username, registrationToken);
 
         return "redirect:/login/custom_login?isConfirmedEmail=true";
+    }
+
+    @ExceptionHandler(HttpSessionRequiredException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public String handleSessionExpired() {
+        return "login_def";
     }
 }
