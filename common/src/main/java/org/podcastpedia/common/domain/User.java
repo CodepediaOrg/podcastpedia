@@ -31,7 +31,10 @@ public class User implements Serializable {
     /** registration token - UUID to be confirmed by the user when she clicks the link from email */
     private String registrationToken;
 
-	/** list with podcast ids that the user is subscribing to */
+    /** place holder for error on invalid captcha */
+    private String invalidRecaptcha;
+
+    /** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
 
 	public List<Integer> getSubscriptions() {
@@ -104,5 +107,13 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getInvalidRecaptcha() {
+        return invalidRecaptcha;
+    }
+
+    public void setInvalidRecaptcha(String invalidRecaptcha) {
+        this.invalidRecaptcha = invalidRecaptcha;
     }
 }
