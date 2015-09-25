@@ -92,7 +92,7 @@ $(function (){
 			resultDiv +='<div class="social_and_download">';
 			resultDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
 			resultDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
-			resultDiv+= '<a class="icon-download-ep btn-share" href="'+ result.mediaUrl +'" target="_blank">';
+			resultDiv+= '<a class="icon-download-ep btn-share" href="'+ result.mediaUrl +'" download>';
 			resultDiv+= 'download&nbsp;';
 			resultDiv +='</a>';
 			resultDiv +='<span class="item_url">' + resultUrl + '</span>';

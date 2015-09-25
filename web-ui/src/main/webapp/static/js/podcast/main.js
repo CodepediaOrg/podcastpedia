@@ -89,7 +89,7 @@ $(function (){
 			episodeDiv +='<div class="social_and_download">';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
-			episodeDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" target="_blank">';
+			episodeDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" download>';
 			episodeDiv+= 'download&nbsp;';
 			episodeDiv +='</a>';
 			episodeDiv +='<span class="item_url">' + episodeUrl + '</span>';

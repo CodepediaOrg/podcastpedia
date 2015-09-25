@@ -57,7 +57,7 @@
 
 	<div id="social_and_download_curr_ep">
 		<a href="#-1" class="icon-share-episode btn-share">Share </a>
-		<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" target="_blank">
+		<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
 			<spring:message code="global.dwnld.s" text="Download episode"/>
 		</a>
 		<span class="item_url_ep">http://www.podcastpedia.org/podcasts/${episode.podcastId}/${podcast_title_in_url}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
@@ -166,7 +166,7 @@
 			<div class="social_and_download">
 				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
 				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
-				<a class="icon-download-ep btn-share" href="${episodeIterator.mediaUrl}" target="_blank"><spring:message code="global.dwnld.s" text="Download last episode"/></a>
+				<a class="icon-download-ep btn-share" href="${episodeIterator.mediaUrl}" download><spring:message code="global.dwnld.s" text="Download last episode"/></a>
 				<span class="item_url">http://www.podcastpedia.org/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}/episodes/${episodeIterator.episodeId}/${episodeIterator.titleInUrl}</span>
 			</div>
 		</div>

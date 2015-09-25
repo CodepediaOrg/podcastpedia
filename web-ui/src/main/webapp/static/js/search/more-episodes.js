@@ -91,7 +91,7 @@ $(function (){
 			episodesDiv +='<div class="social_and_download">';
 			episodesDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
 			episodesDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
-			episodesDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" target="_blank">';
+			episodesDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" download>';
 			episodesDiv+= 'download&nbsp;';
 			episodesDiv +='</a>';
 			episodesDiv +='<span class="item_url">' + episodeUrl + '</span>';
