@@ -471,8 +471,14 @@ ul.pureCssMenu ul li {
 #support #nav-support a,
 #add-podcast #nav-add-podcast a,
 #contact #nav-contact a,
-#podcasting #nav-podcasting a {
+#podcasting #nav-podcasting a,
+#podcast-subscriptions #nav-mypodcastpedia > a,
+#latest-episodes-podcast-subscriptions #nav-mypodcastpedia > a,
+#homepage #nav-mypodcastpedia > a {
   background-color: #185B8B; }
+
+#nav-mypodcastpedia a {
+  background-color: darkorange; }
 
 /** set size of icon fonts that appear after menu entries */
 #nav li a:after {
@@ -485,7 +491,7 @@ ul.pureCssMenu ul li {
   font-size: 1.3em; }
 
 /** to make a responsive menu duplicate list elements from the menu*/
-#nav-homepage a:after {
+#nav-homepage a:after, #nav-homepage-my-podcastpedia a:after {
   content: "\e600"; }
 
 #nav-tags a:after, #nav-tags-resp a:after {

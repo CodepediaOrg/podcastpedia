@@ -19,6 +19,10 @@
             <a href="/users/searches/>">My searches</a>
           </li>
           -->
+          <li id="nav-homepage-my-podcastpedia">
+            <c:url value="/" var="urlHome" />
+            <a href="${urlHome}">Home</a>
+          </li>
           <li>
             <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
             <form id="logout-form" action="${logoutUrl}" method="post">
