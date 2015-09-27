@@ -38,7 +38,7 @@ public class CustomLoginController {
     public String login(HttpServletRequest request,
             @RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout,
-            @RequestParam(value = "confirmed-email", required = false) boolean isConfirmedEmail) {
+            @RequestParam(value = "confirmed", required = false) boolean isConfirmedEmail) {
 
         String referrer = request.getHeader("Referer");
         request.getSession().setAttribute("url_prior_login", referrer);
