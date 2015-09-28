@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+  <properties>
+    <keytool-maven-plugin.version>1.5</keytool-maven-plugin.version>
+  </properties>
 
-	<parent>
+  <parent>
 		<groupId>org.podcastpedia</groupId>
 		<artifactId>podcastpedia</artifactId>
 		<relativePath>../pom.xml</relativePath>
@@ -255,9 +258,9 @@
 
     <!-- reCaptcha -->
     <dependency>
-      <groupId>net.tanesha.recaptcha4j</groupId>
+      <groupId>com.google.code.maven-play-plugin.net.tanesha.recaptcha4j</groupId>
       <artifactId>recaptcha4j</artifactId>
-      <version>0.0.7</version>
+      <version>0.0.8</version>
     </dependency>
 
   </dependencies>
@@ -316,9 +319,28 @@
             <groupId>org.apache.tomcat.maven</groupId>
             <artifactId>tomcat7-maven-plugin</artifactId>
             <configuration>
+              <!-- https port -->
+              <httpsPort>8443</httpsPort>
+              <keystoreFile>${basedir}/src/main/resources/certificates/keystore.jks</keystoreFile>
+              <keystorePass>tomcat7</keystorePass>
               <path>/</path>
             </configuration>
         </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>keytool-maven-plugin</artifactId>
+        <version>${keytool-maven-plugin.version}</version>
+        <configuration>
+          <keystore>${basedir}/src/main/resources/certificates/keystore.jks</keystore>
+          <dname>cn=localhost</dname>
+          <!--Both `keypass` and `storepass` must be at least 6 characters long. -->
+          <keypass>tomcat7</keypass>
+          <storepass>tomcat7</storepass>
+          <alias>tomcat7</alias>
+          <keyalg>RSA</keyalg>
+          <validity>99999</validity>
+        </configuration>
+      </plugin>
 			</plugins>
 	</build>
 
