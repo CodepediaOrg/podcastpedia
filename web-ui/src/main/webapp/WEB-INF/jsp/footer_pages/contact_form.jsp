@@ -86,7 +86,7 @@
               <span class="error_form_validation"><spring:message code="invalid.captcha" text="Invalid captcha please try again"/></span>
           </c:if>
           <%
-              ReCaptcha c = ReCaptchaFactory.newReCaptcha("6LcW3OASAAAAAKEJTHMmp_bo5kny4lZXeDtgcMqC",
+              ReCaptcha c = ReCaptchaFactory.newSecureReCaptcha("6LcW3OASAAAAAKEJTHMmp_bo5kny4lZXeDtgcMqC",
                       "6LcW3OASAAAAAKVX2duVsSy2uMMHL105-jPDrHMD", false);
               out.print(c.createRecaptchaHtml(null, null));
           %>
