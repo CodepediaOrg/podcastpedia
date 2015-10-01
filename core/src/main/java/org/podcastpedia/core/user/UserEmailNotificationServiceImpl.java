@@ -31,6 +31,7 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
 	             message.setTo(configService.getValue("EMAIL_TO_CONTACT_MESSAGE"));
 	             message.setBcc("adrianmatei@gmail.com");
 	             message.setSubject("New user registration request");
+                 message.setFrom("no-reply@podcastpedia.org");
 	             message.setSentDate(new Date());
 	             Map model = new HashMap();
 	             model.put("user", user);
@@ -50,8 +51,9 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setTo(user.getUsername());
                 message.setBcc("adrianmatei@gmail.com");
-                message.setSubject("Please confirm");
+                message.setSubject("Podcastpedia.org - confirm registration");
                 message.setSentDate(new Date());
+                message.setFrom("no-reply@podcastpedia.org");
                 Map model = new HashMap();
                 model.put("user", user);
 
