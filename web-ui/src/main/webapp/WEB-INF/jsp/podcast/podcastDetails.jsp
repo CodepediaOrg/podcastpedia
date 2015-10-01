@@ -134,8 +134,8 @@
 						<div class="icon-video-episode"></div>
 					</c:otherwise>
 				</c:choose>
-				<c:url var="episodeURL" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
-				<a href="${episodeURL}" class="item_title">${episode.title}</a>
+        <c:url var="episodeURL" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
+        <a href="${episodeURL}" class="item_title">${episode.title}</a>
 				<div class="pub_date">
 					<fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}" />
 					<c:choose>
@@ -211,8 +211,8 @@
 </p>
 
 <!-- javascript libraries required -->
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
 
@@ -255,6 +255,6 @@
 			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 		})();
 	</script>
-	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	<noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>

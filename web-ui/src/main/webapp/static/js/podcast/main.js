@@ -153,7 +153,7 @@ $(function (){
         + " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
-        + " <a href='https://twitter.com/share' class='twitter-share-button' data-url='" + epUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
+        + " <a href='//twitter.com/share' class='twitter-share-button' data-url='" + epUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
         + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + epUrl + "'></div>"
@@ -207,7 +207,7 @@ $(function (){
 	    if (typeof (twttr) != 'undefined'){
 	        twttr.widgets.load();
 	    } else {
-	        $.getScript('http://platform.twitter.com/widgets.js');
+	        $.getScript('//platform.twitter.com/widgets.js');
 	    }
 	}
 
@@ -216,7 +216,7 @@ $(function (){
 	    if (typeof (FB) != 'undefined') {
 	        FB.init({ status: true, cookie: true, xfbml: true });
 	    } else {
-	        $.getScript("http://connect.facebook.net/en_US/all.js#xfbml=1", function () {
+	        $.getScript("//connect.facebook.net/en_US/all.js#xfbml=1", function () {
 	            FB.init({ status: true, cookie: true, xfbml: true });
 	        });
 	    }
@@ -231,7 +231,7 @@ $(function (){
 		            gapi.plusone.render($(this).get(0));
 		        });
 		    } else {
-		        $.getScript('https://apis.google.com/js/plusone.js');
+		        $.getScript('//apis.google.com/js/plusone.js');
 		    }
 		}
 	}
@@ -300,7 +300,7 @@ $(function (){
     buttons: {
       "Log in": function() {
         $( this ).dialog("close");
-        window.location.href = "http://podcastpedia.org/login/custom_login";
+        window.location.href = "//podcastpedia.org/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );

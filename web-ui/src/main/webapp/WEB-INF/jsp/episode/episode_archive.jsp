@@ -107,7 +107,7 @@
 <div class="clear"></div>
 
 <!-- javascript libraries required -->
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <!-- include loading dynamic player page -->
 <%@ include file="/WEB-INF/jsp/common/load_player_dynamically.jsp" %>
 <!-- dynamic social share -->

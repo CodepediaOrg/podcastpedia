@@ -87,5 +87,5 @@
 </div>
 
 <!-- javascript libraries required -->
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="<c:url value="/static/js/search/load_new_results.js" />"></script>

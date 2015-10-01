@@ -6,8 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -26,7 +26,7 @@ $(document).ready(function() {
                         // following property gets entered in the textbox
                         value: item.name,
                         // following property is added for our own use
-                        tag_url: "http://" + window.location.host + "/tags/" + item.tagId + "/" + item.name
+                        tag_url: "https://" + window.location.host + "/tags/" + item.tagId + "/" + item.name
                     }
 
                 }));
