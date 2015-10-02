@@ -58,6 +58,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void unsubscribeFromPodcast(String username, int podcastId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("email", username);
+        params.put("podcastId", podcastId);
+
+        userDao.unsubscribeFromPodcast(params);
+    }
+
+    @Override
     @CacheEvict(value="podcasts", key="#podcastId")
     public void votePodcast(final String username, final int podcastId, final int vote) {
         PodcastVote podcastVote = new PodcastVote();

@@ -40,6 +40,14 @@ public interface UserService {
      */
     public void subscribeToPodcast(String username, int podcastId);
 
+    /**
+     * Unsubscribes the user identified by the @param username from the podcast identified by the @param podcastId
+     *
+     * @param username
+     * @param podcastId
+     */
+    public void unsubscribeFromPodcast(String username, int podcastId);
+
     /** An user has the possibility to vote up(+1) or down(-1) for a podcast once registered.
      * If she voted before for the podcast, the newest vote will override the old value, and
      * the votedOn date will be updated */

@@ -40,6 +40,12 @@ public interface UserDao {
      */
     void subscribeToPodcast(Map<String, Object> params);
 
+    /**
+     * Removes data entry from subscriptions table identified by username and podcastId
+     * @param params
+     */
+    void unsubscribeFromPodcast(Map<String, Object> params);
+
     /** Inserts a new entry in the podcats_votes table */
     void addPodcastVote(PodcastVote vote);
 
@@ -51,4 +57,5 @@ public interface UserDao {
 
     /** adds the ROLE_USER to the table authorities for the @param user */
     void addUserRole(User user);
+
 }
