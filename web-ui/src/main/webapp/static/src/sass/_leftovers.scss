@@ -8,28 +8,28 @@ padding:13px;
   margin:5px;
   padding:0;
   margin-bottom:45px;
-  @include above-mq(720px){ 
+  @include above-mq(720px){
     display: none;
-  }   
+  }
 }
 
 .ep_desc_bigger,.pod_desc_bigger {
   margin:5px;
   padding:0;
   margin-bottom:45px;
-  @include until-mq(720px){ 
+  @include until-mq(720px){
     display: none;
-  }   
+  }
 }
 
-.social_and_download,#social_and_download_curr_ep {
- margin-top:10px; 
+.social_and_download,.social_and_download_podcast,#social_and_download_curr_ep {
+ margin-top:10px;
  position:absolute;
  bottom: 0;
  padding-bottom: 10px;
 }
 #social_and_download_curr_ep{
-margin-left:5px;	
+margin-left:5px;
 }
 
 #archive_all_episodes {
@@ -74,5 +74,5 @@ float:left;
 width:120px;
 height:120px;
 margin-right:20px;
- 
+
 }

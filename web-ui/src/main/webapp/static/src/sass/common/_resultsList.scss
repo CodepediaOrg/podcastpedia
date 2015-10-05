@@ -7,7 +7,7 @@
     margin-top: 20px;
     color: #F5F7FA;
   }
-  .item_wrapper {
+  .item_wrapper, .podcast_wrapper {
     list-style-type: none;
     text-align: justify;
     min-height: 130px;
@@ -42,16 +42,16 @@
     a:hover {
       color:#333;
       font-size:1.2em;
-      font-weight: bold;      
+      font-weight: bold;
     }
-    @include until-mq($break-point-normal){ 
+    @include until-mq($break-point-normal){
       font-size:1.4em;
     }
-    @include until-mq($break-point-small){ 
+    @include until-mq($break-point-small){
       font-size: 1.2em;
       margin-bottom:0px;
-      padding-top:0px;      
-    }    
+      padding-top:0px;
+    }
   }
 }
 .item_desc {

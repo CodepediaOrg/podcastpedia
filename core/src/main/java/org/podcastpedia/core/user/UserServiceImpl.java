@@ -21,7 +21,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Podcast> getSubscriptions(String username) {
-		return userDao.getSubscriptions(username);
+
+        List<Podcast> subscriptions = userDao.getSubscriptions(username);
+        //return only the last 3 episodes, ordered by publication date
+        for(Podcast subscription: subscriptions){
+            if(!subscription.getEpisodes().isEmpty() && subscription.getEpisodes().size() > 3){
+                subscription.setEpisodes(subscription.getEpisodes().subList(0,3));
+            }
+        }
+
+        return subscriptions;
 	}
 
 	@Override

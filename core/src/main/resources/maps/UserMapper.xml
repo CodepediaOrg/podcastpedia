@@ -159,6 +159,19 @@
     <result column="title_in_url" property="titleInUrl" />
     <result column="publication_date" property="publicationDate"/>
     <result column="media_type" property="mediaType"/>
+    <collection property="episodes" ofType="Episode">
+      <result property="description" column="episode_description"/>
+      <result property="podcastId" column="podcast_id"/>
+      <result property="link" column="episode_link"/>
+      <result property="mediaUrl" column="episode_media_url"/>
+      <result property="mediaType" column="episode_media_type"/>
+      <result property="title" column="episode_title"/>
+      <result property="episodeId" column="episode_id"/>
+      <result column="episode_pub_date" property="publicationDate" />
+      <result column="episode_title_in_url" property="titleInUrl" />
+      <result column="is_new" property="isNew"/>
+      <association property="podcastId" column="podcast_id" javaType="Podcast"/>
+    </collection>
 	</resultMap>
 
   <select id="getSubscriptions" resultMap="podcastsFound" parameterType="String">
@@ -173,9 +186,18 @@
     	p.last_episode_url,
     	p.title_in_url,
     	p.publication_date,
-    	p.media_type
+    	p.media_type,
+      e.description as episode_description,
+      e.link as episode_link,
+      e.media_url as episode_media_url,
+      e.media_type as episode_media_type,
+      e.title as episode_title,
+      e.episode_id,
+      e.publication_date as episode_pub_date,
+      e.title_in_url as episode_title_in_url,
+      e.is_new
     FROM
-    	podcasts p, subscriptions s, users u
+    	podcasts p, subscriptions s, users u, episodes e
 	  WHERE
 		  u.username = #{value}
 		AND
@@ -183,9 +205,13 @@
 		AND
 		  s.podcast_id= p.podcast_id
 		AND
+		  p.podcast_id = e.podcast_id
+		AND
     	p.availability=200
+    AND
+      e.availability = 200
     ORDER BY
-    	p.publication_date DESC
+    	p.publication_date DESC, e.publication_date DESC
   </select>
 
  	<resultMap id="episodesFound" type="Episode" >

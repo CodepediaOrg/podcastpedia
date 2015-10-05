@@ -113,7 +113,7 @@ html {
 .border_radius, .common_radius {
   border-radius: 5px; }
 
-div.not_shown, .item_url, .item_url_ep {
+div.not_shown, .item_url, .item_url_ep, .podcast_url {
   display: none; }
 
 /* icon fonts */
@@ -740,7 +740,7 @@ ul.pureCssMenu ul li {
     font-size: 1.3em;
     margin-top: 20px;
     color: #F5F7FA; }
-  .results_list .item_wrapper {
+  .results_list .item_wrapper, .results_list .podcast_wrapper {
     list-style-type: none;
     text-align: justify;
     min-height: 130px;
@@ -754,7 +754,7 @@ ul.pureCssMenu ul li {
     border-width: 1px;
     padding: 8px 8px 3px 8px;
     min-height: 130px; }
-    .results_list .item_wrapper:hover {
+    .results_list .item_wrapper:hover, .results_list .podcast_wrapper:hover {
       list-style-type: none;
       text-align: justify;
       min-height: 130px;
@@ -1564,7 +1564,7 @@ a.producer-social {
     .ep_desc_bigger, .pod_desc_bigger {
       display: none; } }
 
-.social_and_download, #social_and_download_curr_ep {
+.social_and_download, .social_and_download_podcast, #social_and_download_curr_ep {
   margin-top: 10px;
   position: absolute;
   bottom: 0;
