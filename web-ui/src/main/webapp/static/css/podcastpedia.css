@@ -301,7 +301,7 @@ ul.pureCssMenu li.sep span {
   width: 3px;
   height: 100%;
   display: inline-block;
-  background-color: #cccccc #111111 #111111 #cccccc;
+  background-color: #cccccc;
   background-image: none; }
 
 ul.pureCssMenu ul li.sep span {
@@ -1542,6 +1542,15 @@ a.producer-social {
   @media screen and (max-width: 559px) {
     #pcp_pic_contribute {
       display: none; } }
+
+.last_episodes {
+  margin-bottom: 40px;
+  background-color: #2e93db;
+  border-radius: inherit;
+  padding: 8px; }
+  .last_episodes h2 {
+    font-size: 1.4em;
+    color: white; }
 
 /***** LEFT OVERS */
 #about_podcasting_content {

@@ -64,7 +64,7 @@
         <a href="#${2*loop.index+1}" class="icon-last-episodes btn-share"><spring:message code="user.last_episodes"/></a>
 			</div>
       <div class="clear"></div>
-      <div class="last_episodes not_shown" style="margin-bottom: 40px;background-color: #2980b9;border-radius: inherit;padding: 8px">
+      <div class="last_episodes not_shown">
         <h2><spring:message code="user.last_episodes"/></h2>
         <c:forEach items="${podcast.episodes}" var="episode" varStatus="loopEpisodes">
           <div class="bg_color shadowy item_wrapper">

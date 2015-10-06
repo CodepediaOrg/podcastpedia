@@ -7,7 +7,7 @@
 //initializing css
 @import "_init";
 
-//elements 
+//elements
 @import "common/_icon_fonts";
 @import "common/_languageSelection";
 @import "common/_responsiveGrid";
@@ -30,6 +30,7 @@
 @import "pages/_homePage";
 @import "pages/_advancedSearchForm";
 @import "pages/_mySupport";
+@import "pages/_mySubscriptions";
 
 // what's left from the original css that I could not place in a someplace reasonable
 @import "_leftovers";

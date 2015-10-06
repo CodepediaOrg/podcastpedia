@@ -84,8 +84,7 @@ $(function (){
       var currentDiv=$(this).closest("div.podcast_wrapper");
       var podcastUrl= currentDiv.find("span.podcast_url").text();
 
-      //currentDiv.find("div.pod_desc").css("margin-bottom","55px");
-      //currentDiv.find("div.pod_desc_bigger").css("margin-bottom","55px");
+      currentDiv.find("div.last_episodes").css("margin-bottom","70px");
 
       //the share button is being replaced with social media buttons
       $(e.target).remove();

@@ -11,9 +11,6 @@
           <li id="nav-my-subscriptions">
             <a href="<c:url value="/users/subscriptions"/>"><spring:message code="user.subscriptions"/></a>
           </li>
-          <li id="nav-my-latest-episodes">
-            <a href="<c:url value="/users/subscriptions/latest-episodes"/>"><spring:message code="user.last_episodes"/></a>
-          </li>
           <!-- TO DO
           <li id="my-searches">
             <a href="/users/searches/>">My searches</a>
