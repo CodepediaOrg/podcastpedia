@@ -17,6 +17,9 @@
         action="${pageContext.request.contextPath}/j_spring_security_check" method='POST'>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
+    <c:if test="${not empty error}">
+      <div class="error"><spring:message code="user.login.incorrect_credentials" text="Email and password are not valid"/></div>
+    </c:if>
     <div class="label_above_elements">
       <label for="username" class="label">
         <spring:message code="user.login.label.email" text="Email"/>

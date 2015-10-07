@@ -22,6 +22,7 @@
     <form-login
       login-page="/login/custom_login"
       login-processing-url="/j_spring_security_check"
+      authentication-failure-url="/login/custom_login?error"
       authentication-success-handler-ref="myAuthenticationSuccessHandler"
       username-parameter="username"
       password-parameter="password" />
