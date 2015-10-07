@@ -25,12 +25,14 @@
 
   <Resource name="mail/Session" auth="Container"
             type="javax.mail.Session"
-            username="test-dev@podcastpedia.org"
-            password="test-dev"
+            username="no-reply@podcastpedia.org"
+            password="}LaZ}c(d*(ay"
             mail.smtp.host="mail.podcastpedia.org"
-            mail.smtp.port="25"
-            mail.smtp.user="test-dev@podcastpedia.org"
+            mail.smtp.port="465"
+            mail.smtp.user="no-reply@podcastpedia.org"
             mail.transport.protocol="smtp"
             mail.smtp.auth="true"
+            mail.smtp.ssl.enable="true"
+            mail.smtp.starttls.enable="true"
     />
 </Context>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<New id="podcast_db" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>jdbc/podcast_db</Arg>
+		<Arg>
+			<New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+				<Set name="Url">jdbc:mysql://localhost:3307/podcast_db?allowMultiQueries=true
+				</Set>
+				<Set name="User">podcast</Set>
+				<Set name="Password">podcast</Set>
+			</New>
+		</Arg>
+	</New>
+  <New id="mailSessionId" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>mail/Session</Arg>
+    <Arg>
+      <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
+        <Set name="user">contact@podcastpedia.org</Set>
+        <Set name="password">Tnpsbms1983$</Set>
+        <Set name="properties">
+          <New class="java.util.Properties">
+            <Put name="mail.imap.host">server83.podcastpedia.org</Put>
+            <Put name="mail.debug">true</Put>
+            <Put name="mail.transport.protocol">smtp</Put>
+            <Put name="mail.smtp.port">993</Put>
+            <Put name="mail.smtp.auth">true</Put>
+            <Put name="mail.imap.ssl.enable">true</Put>
+            <Put name="mail.smtp.starttls.enable">true</Put>
+            <Put name="mail.protocol.ssl.trust">ip-188-121-50-241.ip.secureserver.net</Put>
+          </New>
+        </Set>
+      </New>
+    </Arg>
+  </New>
+</Configure>
