@@ -19,3 +19,8 @@ web-ui/src/main/webapp/META-INF/context-prod-tunnel.xml
 #Exclude generated files
 **/MANIFEST.MF
 
+
+web-ui/src/main/resources/config/jetty9-ssl.xml
+
+web-ui/src/main/resources/config/jetty9-imap-ssl.xml
+web-ui/src/main/resources/config/jetty9-remote.xml
