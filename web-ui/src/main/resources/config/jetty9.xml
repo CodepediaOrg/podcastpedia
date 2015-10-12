@@ -4,7 +4,7 @@
     <Arg>jdbc/podcast_db</Arg>
     <Arg>
       <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
-        <Set name="Url">jdbc:mysql://localhost:3307/podcast_db?allowMultiQueries=true
+        <Set name="Url">jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true
         </Set>
         <Set name="User">podcast</Set>
         <Set name="Password">podcast</Set>
@@ -19,7 +19,7 @@
         <Set name="password">}LaZ}c(d*(ay</Set>
         <Set name="properties">
           <New class="java.util.Properties">
-            <Put name="mail.host">podcastpedia.org</Put>
+            <Put name="mail.host">server83.podcastpedia.org</Put>
             <Put name="mail.debug">true</Put>
             <Put name="mail.transport.protocol">smtp</Put>
             <Put name="mail.smtp.port">465</Put>

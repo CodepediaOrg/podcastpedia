@@ -1,6 +1,4 @@
 <Context>
-  <Environment name="env" value="dev"
-               type="java.lang.String" override="false"/>
   <Resource
     name="jdbc/podcast_db"
     auth="Container"
@@ -20,17 +18,22 @@
     username="podcast"
     password="podcast"
     driverClassName="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3307/podcast_db?allowMultiQueries=true"
+    url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true"
     />
 
-  <Resource name="mail/Session" auth="Container"
-            type="javax.mail.Session"
-            username="test-dev@podcastpedia.org"
-            password="test-dev"
-            mail.smtp.host="mail.podcastpedia.org"
-            mail.smtp.port="25"
-            mail.smtp.user="test-dev@podcastpedia.org"
-            mail.transport.protocol="smtp"
-            mail.smtp.auth="true"
+
+  <Resource
+    name="mail/Session"
+    auth="Container"
+    type="javax.mail.Session"
+    mail.smtp.user="test-dev@podcastpedia.org"
+    password="test-dev"
+    mail.smtp.host="server83.podcastpedia.org"
+    mail.smtp.port="465"
+    mail.smtp.auth="true"
+    mail.smtp.ssl.enable="true"
+    mail.smtp.starttls.enable="true"
+    mail.smtp.debug="true"
     />
+
 </Context>
