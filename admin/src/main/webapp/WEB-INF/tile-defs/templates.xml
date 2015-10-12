@@ -19,7 +19,7 @@
 			value="/WEB-INF/jsp/insert/add_podcasts_from_file.jsp" />
 	</definition>
 
-	<!-- Administrator's definitions, I should also change the template for 
+	<!-- Administrator's definitions, I should also change the template for
 		this one -->
 	<definition name="admin_podcastAdded" extends="defaultTemplate">
 		<put-attribute name="title" value="Podcast added!" />
@@ -44,7 +44,7 @@
 	</definition>
 
 	<!-- ******* homepage ******* -->
-	<definition name="homePage_def" extends="defaultTemplate">
+	<definition name="adminHomePage_def" extends="defaultTemplate">
 		<put-attribute name="title" value="Admin home page" />
 		<put-attribute name="content" value="/WEB-INF/jsp/homepage/admin_homepage.jsp" />
 	</definition>
@@ -107,5 +107,5 @@
 		<put-attribute name="title" value="Create sitemaps" />
 		<put-attribute name="content" value="/WEB-INF/jsp/sitemaps/sitemaps.jsp" />
 	</definition>
-</tiles-definitions> 
+</tiles-definitions>
 

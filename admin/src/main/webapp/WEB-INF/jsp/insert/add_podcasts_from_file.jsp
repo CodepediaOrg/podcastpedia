@@ -11,9 +11,10 @@
 	<h1>Add podcasts from file</h1>
 	<!-- Adds podcasts from file -->
 	<!--  -->
-	<c:url value="/admin/insert/upload_file" var="addPodcastsFromFile_url" />
+	<c:url value="/admin/insert/upload_file?${_csrf.parameterName}=${_csrf.token}" var="addPodcastsFromFile_url" />
 	<form:form modelAttribute="uploadItem" method="post"
 		enctype="multipart/form-data" action="${addPodcastsFromFile_url}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<p>
 			<input name="fileData" type="file"
 				placeholder="Select file from file system" />

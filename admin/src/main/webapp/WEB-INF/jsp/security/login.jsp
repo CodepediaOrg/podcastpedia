@@ -7,10 +7,12 @@
 
 <div class="container">
 	<div id="login-error">${error}</div>
-	<form class="form-signin" role="form" action="<c:url value="/j_spring_security_check"/>" method="post">
+  <c:url var="loginUrl" value="/login"/>
+	<form class="form-signin" role="form" action="${loginUrl}" method="POST">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<h2 class="form-signin-heading">Please sign in</h2>
-        <input id="j_username"	class="form-control" name="j_username" type="text" placeholder="Username" required autofocus/>
-		<input id="j_password"	class="form-control" name="j_password" type="password" placeholder="Password" required/>
+      <input id="username"  name="username"	class="form-control" type="text" placeholder="Username" required autofocus/>
+		  <input id="password" name="password"	class="form-control" type="password" placeholder="Password" required/>
 
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	</form>

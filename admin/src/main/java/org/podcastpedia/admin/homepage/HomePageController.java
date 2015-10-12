@@ -13,7 +13,7 @@ public class HomePageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String adminHomePage(Model model) {
 
-		return "homePage_def"; // for the time being this is the home
+		return "adminHomePage_def"; // for the time being this is the home
 											// page, it shouldn't be like that
 	}
 

@@ -6,23 +6,23 @@
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
- 
-	http://www.springframework.org/schema/beans	 
+
+	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	 
-	http://www.springframework.org/schema/mvc	 
+
+	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-	
+
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	
-	http://cxf.apache.org/jaxws 
+
+	http://cxf.apache.org/jaxws
 	http://cxf.apache.org/schemas/jaxws.xsd
-	
-	http://www.springframework.org/schema/tx 
+
+	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd
-	
-	http://www.springframework.org/schema/task 
+
+	http://www.springframework.org/schema/task
 	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
@@ -35,14 +35,14 @@
 
 	<import resource="classpath:spring/applicationContext-common.xml" />
 
-	<!-- - The controllers are autodetected POJOs labeled with the @Controller 
+	<!-- - The controllers are autodetected POJOs labeled with the @Controller
 		annotation. -->
 	<context:component-scan base-package="org.podcastpedia.*" />
 
 	<!-- Configures the @Controller programming model -->
 	<mvc:annotation-driven />
 
-	<!-- Instruct Spring to perform declarative transaction management automatically 
+	<!-- Instruct Spring to perform declarative transaction management automatically
 		on annotated classes. -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
@@ -54,7 +54,7 @@
 	</bean>
 
 	<!-- Forwards requests to the "/" resource to the "welcome" view -->
-	<mvc:view-controller path="/" view-name="adminHomePageDefinition" />
+	<mvc:view-controller path="/" view-name="adminHomePage_def" />
 
 	<!-- pcm-services.xml -->
 	<bean id="insertService" class="org.podcastpedia.admin.insert.InsertServiceImpl" />
@@ -71,7 +71,7 @@
 		<property name="mailSender" ref="mailSender" />
 		<property name="velocityEngine" ref="velocityEngine" />
 	</bean>
-	<bean id="syndFeedService" class="org.podcastpedia.admin.util.SyndFeedServiceImpl" />	
+	<bean id="syndFeedService" class="org.podcastpedia.admin.util.SyndFeedServiceImpl" />
 	<bean id="podcastAndEpisodeAttributesService" class="org.podcastpedia.admin.util.PodcastAndEpisodeAttributesServiceImpl" />
 
 	<!-- ========================= MyBATIS configuration ========================= -->
@@ -100,7 +100,7 @@
 		<property name="configLocation" value="classpath:config/mybatisV3-config.xml" />
 	</bean>
 
-	<!-- needed for transactional support when adding a new podcast (multiple 
+	<!-- needed for transactional support when adding a new podcast (multiple
 		inserts in podcasts and podcats_categories tables) -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -118,10 +118,10 @@
 		<!-- one of the properties available; the maximum file size in bytes -->
 		<property name="maxUploadSize" value="100000" />
 	</bean>
-	<!-- Exception handling configuration I WANT to see the full error trace 
-		as admin ... <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
-		<property name="exceptionMappings"> <props> <prop key="java.lang.Exception">friendlyError</prop> 
+	<!-- Exception handling configuration I WANT to see the full error trace
+		as admin ... <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings"> <props> <prop key="java.lang.Exception">friendlyError</prop>
 		</props> </property> </bean> -->
-		
-			
+
+
 </beans>

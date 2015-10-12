@@ -24,3 +24,7 @@ web-ui/src/main/resources/config/jetty9-ssl.xml
 
 web-ui/src/main/resources/config/jetty9-imap-ssl.xml
 web-ui/src/main/resources/config/jetty9-remote.xml
+
+admin/src/main/webapp/META-INF/context-tunnel-ssl.xml
+
+admin/src/main/resources/config/jetty9-tunnel.xml

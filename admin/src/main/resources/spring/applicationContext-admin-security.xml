@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security.xsd">
+
+  <http pattern="/static/**" security="none" />
+  <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
+    <!-- enable csrf protection -->
+    <csrf/>
+
+    <!-- Login configuration         login-processing-url="/j_spring_security_check" -->
+    <form-login
+      login-page="/users/login"
+      login-processing-url="/login"
+      authentication-failure-url="/users/login?error=true"
+    />
+
+    <logout
+      invalidate-session="true"
+      logout-success-url="/admin"
+      delete-cookies="JSESSIONID" />
+
+    <!-- Uncomment to limit the number of sessions a user can have
+    <session-management invalid-session-url="/users/session_expired">
+        <concurrency-control max-sessions="2" error-if-maximum-exceeded="true" />
+    </session-management>
+    -->
+
+    <!-- Order is important. The most specific ones should be at the top, they will be the first ones evaluated. -->
+    <intercept-url pattern="/users/login" access="permitAll" />
+    <intercept-url pattern="/admin/**/*" access="hasRole('ROLE_ADMIN')" />
+    <intercept-url pattern="/**" access="permitAll" />
+  </http>
+
+  <!-- Select users and user_roles from database -->
+  <authentication-manager  id="jdbcAuthenticationManager">
+    <authentication-provider>
+      <jdbc-user-service data-source-ref="dataSource"
+                         users-by-username-query=
+                           "select username, password, enabled from users where username=? and enabled=1"
+                         authorities-by-username-query=
+                           "select username, authority from authorities where username=?" />
+      <password-encoder ref="passwordEncoder"/>
+    </authentication-provider>
+  </authentication-manager>
+  <!-- This is used to hash the password of the user. -->
+  <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    <beans:constructor-arg index="0" value="10"/>
+  </beans:bean>
+
+  <authentication-manager id="inMemoryAuthenticationManager">
+    <authentication-provider>
+      <user-service>
+        <user name="admin" password="admin" authorities="hasRole('ROLE_ADMIN')"/>
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+    	<!--
+		<authentication-provider>
+		    <password-encoder hash="sha"/>
+		    <user-service>
+		      <user name="admin" password="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+		            authorities="ROLE_USER, ROLE_ADMIN" />
+		    </user-service>
+		</authentication-provider>
+		<authentication-provider>
+		    <password-encoder hash="sha"/>
+		    <user-service>
+		      <user name="jimi" password="d7e6351eaa13189a5a3641bab846c8e8c69ba39f"
+		            authorities="ROLE_USER, ROLE_ADMIN" />
+		      <user name="bob" password="4e7421b1b8765d8f9406d87e7cc6aa784c4ab97f"
+		            authorities="ROLE_USER" />
+		    </user-service>
+		</authentication-provider>
+		 -->
+	    <!--
+	    Usernames/Passwords are
+	        rod/koala
+	        dianne/emu
+	        scott/wombat
+	        peter/opal
+	     -->
+	     <!--
+        <authentication-provider>
+            <password-encoder hash="md5"/>
+            <user-service>
+                <user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="ROLE_ADMIN" />
+                <user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a" authorities="ROLE_USER" />
+                <user name="peter" password="22b5c9accc6e1ba628cedc63a72d57f8" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+        -->
+
+</beans:beans>
