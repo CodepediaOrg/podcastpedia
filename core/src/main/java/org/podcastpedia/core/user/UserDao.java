@@ -58,4 +58,11 @@ public interface UserDao {
     /** adds the ROLE_USER to the table authorities for the @param user */
     void addUserRole(User user);
 
+    /**
+     * Generates a new registration-token to be used in password reactivation and sets the user
+     * temporarily on disabled until she gets reactivated and changes her password
+     *
+     * @param user
+     */
+    void updateUserForPasswordReset(User user);
 }

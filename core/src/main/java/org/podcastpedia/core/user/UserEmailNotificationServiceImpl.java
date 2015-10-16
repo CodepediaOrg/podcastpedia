@@ -23,7 +23,7 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
     private VelocityEngine velocityEngine;
 
     @Override
-	public void sendUserRegistrationNotification(final User user) {
+	public void sendUserRegistrationNotificationToAdmin(final User user) {
 	      MimeMessagePreparator preparator = new MimeMessagePreparator() {
 	        @SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -36,7 +36,7 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
 	             Map model = new HashMap();
 	             model.put("user", user);
 
-	             String text = buildEmailText(model, velocityEngine);
+	             String text = buildEmailText(model, velocityEngine,  "newUserRegistrationEmailConfirmation");
 	             message.setText(text, true);
 	          }
 	       };
@@ -57,21 +57,42 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
                 Map model = new HashMap();
                 model.put("user", user);
 
-                String text = buildEmailText(model, velocityEngine);
+                String text = buildEmailText(model, velocityEngine, "newUserRegistrationEmailConfirmation");
                 message.setText(text, true);
             }
         };
         this.mailSender.send(preparator);
     }
 
-    private String buildEmailText(Map model, VelocityEngine velocityEngine) {
+    @Override
+    public void sendPasswortResetEmailConfirmation(final User user) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(user.getUsername());
+                message.setBcc("adrianmatei@gmail.com");
+                message.setSubject("Podcastpedia.org - reset your password");
+                message.setSentDate(new Date());
+                message.setFrom("no-reply@podcastpedia.org");
+                Map model = new HashMap();
+                model.put("user", user);
+
+                String text = buildEmailText(model, velocityEngine, "passwordResetEmailConfirmation");
+                message.setText(text, true);
+            }
+        };
+        this.mailSender.send(preparator);
+    }
+
+    private String buildEmailText(Map model, VelocityEngine velocityEngine, String templateName) {
         String templateLocation;
 
         Locale locale = LocaleContextHolder.getLocale();
         if(Arrays.asList(supportedLanguages).contains(locale.getLanguage())){
-            templateLocation = "velocity/newUserRegistrationEmailConfirmation_" + locale.getLanguage() + ".vm";
+            templateLocation = "velocity/" + templateName + "_" + locale.getLanguage() + ".vm";
         } else {
-            templateLocation = "velocity/newUserRegistrationEmailConfirmation.vm";
+            templateLocation = "velocity/"+ templateName + ".vm";
         }
         return VelocityEngineUtils.mergeTemplateIntoString(
             velocityEngine, templateLocation, "UTF-8", model);

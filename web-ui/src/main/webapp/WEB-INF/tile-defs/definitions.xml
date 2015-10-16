@@ -227,4 +227,11 @@
     <put-attribute name="content" value="/WEB-INF/jsp/user/registration-email-sent.jsp"/>
   </definition>
 
+  <definition name="password_forgotten_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia.org"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="password-forgotten" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten.jsp"/>
+  </definition>
+
 </tiles-definitions>

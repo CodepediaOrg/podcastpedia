@@ -15,7 +15,7 @@
 		<a href="https://twitter.com/podcastpedia" target="_blank" class="icon-twitter"></a>
 		<a href="https://www.facebook.com/Podcastpedia" target="_blank" class="icon-facebook"></a>
 		<a href="https://google.com/+PodcastpediaOrg" target="_blank" class="icon-google-plus"></a>
-		<a href="http://www.podcastpedia.org/feeds/most_popular.rss" target="_blank" class="icon-feed3"></a>
+		<a href="https://www.podcastpedia.org/feeds/most_popular.rss" target="_blank" class="icon-feed3"></a>
 	</div>
 
 	<div id="flags">

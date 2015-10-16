@@ -64,7 +64,7 @@
 
 		<div class="label_above_elements">
 			<label for="identifier" class="label">
-				<spring:message code="label.identifier" text="Identifier - e.g. http://www.podcastpedia.org/AwesomePodcast"/>
+				<spring:message code="label.identifier" text="Identifier - e.g. https://www.podcastpedia.org/AwesomePodcast"/>
 			</label>
 		</div>
 		<div class="error">

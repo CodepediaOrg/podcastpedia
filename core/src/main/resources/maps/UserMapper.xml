@@ -53,6 +53,23 @@
     AND registration_token = #{registrationToken}
   </update>
 
+  <!-- ******* Reset User Password ********* -->
+  <update id="updateUserForPasswordReset" parameterType="User">
+    UPDATE users SET
+      enabled = #{enabled},
+      registration_token = #{registrationToken}
+    WHERE username = #{username}
+  </update>
+  <update id="resetUserPassword" parameterType="User">
+    UPDATE users SET
+      enabled = #{enabled},
+      password = #{password}
+    WHERE
+      username = #{username}
+    AND
+      registration_token = #{registrationToken}
+  </update>
+
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >
     INSERT into subscriptions
     (

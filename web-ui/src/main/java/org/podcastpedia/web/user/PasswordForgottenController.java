@@ -18,20 +18,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.ServletRequest;
-import java.util.UUID;
 
 
 @Controller
-@RequestMapping("users/registration")
-public class RegistrationController {
+@RequestMapping("users/password-reset")
+public class PasswordForgottenController {
 
-	protected static Logger LOG = Logger.getLogger(RegistrationController.class);
+	protected static Logger LOG = Logger.getLogger(PasswordForgottenController.class);
 
 	@Autowired
     UserService userService;
 
     @Autowired
-    private UserRegistrationFormValidator userRegistrationFormValidator;
+    private PasswordForgottenFormValidator passwordForgottenFormValidator;
 
     @Autowired
     private UserEmailNotificationService emailNotificationService;
@@ -53,19 +52,17 @@ public class RegistrationController {
 	}
 
     @RequestMapping(method=RequestMethod.GET)
-    public String prepareUserRegistrationForm(
+    public String preparePasswordForgottenForm(
         @ModelAttribute("user") User user,
         Model model){
-        LOG.debug("------ prepareUserRegistrationForm : Received request to show user registration form -----");
 
-        user = new User();
-        model.addAttribute("user", user);
+        LOG.debug("------ preparePasswordResetForm -----");
 
-        return "user_registration_def";
+        return "password_forgotten_def";
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public String prepareUserRegistrationRequest(
+    public String preparePasswordForgottenRequest(
         @ModelAttribute("user") User user,
         BindingResult result,
         Model model,
@@ -75,9 +72,7 @@ public class RegistrationController {
     ){
 
         LOG.debug("------ processContactForm : form is being validated and processed -----");
-        userRegistrationFormValidator.validate(user, result);
-
-        /** TODO introduce recaptcha...          */
+        passwordForgottenFormValidator.validate(user, result);
 
         String remoteAddress = servletRequest.getRemoteAddr();
         ReCaptchaResponse  reCaptchaResponse = this.reCaptcha.checkAnswer(
@@ -86,9 +81,7 @@ public class RegistrationController {
         model.addAttribute("user", user);
         //if(!result.hasErrors()){
         if(!result.hasErrors() && reCaptchaResponse.isValid()){
-
-            user.setRegistrationToken(UUID.randomUUID().toString());
-            userService.submitUserForRegistration(user);
+            userService.updateUserForPasswordReset(user);
             emailNotificationService.sendRegistrationEmailConfirmation(user);
             emailNotificationService.sendUserRegistrationNotificationToAdmin(user);
             sessionStatus.setComplete();
@@ -101,7 +94,7 @@ public class RegistrationController {
                 model.addAttribute("invalidRecaptcha", true);
             }
 
-            return "user_registration_def";
+            return "password_forgotten_def";
         }
 
     }
@@ -122,17 +115,6 @@ public class RegistrationController {
         return "user_registration_sent_email_def";
     }
 
-    @RequestMapping(value = "confirmed", method=RequestMethod.GET)
-    public String emailConfirmated(
-        @RequestParam(value="user", required=true) String username,
-        @RequestParam(value="token", required=true) String registrationToken
-        ){
-
-        LOG.debug("------ received confirmation email -----");
-        userService.enableUser(username, registrationToken);
-
-        return "redirect:/login/custom_login?isConfirmedEmail=true";
-    }
 
     @ExceptionHandler(HttpSessionRequiredException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)

@@ -5,7 +5,9 @@ import org.podcastpedia.core.contact.ContactForm;
 
 public interface UserEmailNotificationService {
 
-	public void sendUserRegistrationNotification(User user);
+	public void sendUserRegistrationNotificationToAdmin(User user);
 
     void sendRegistrationEmailConfirmation(User user);
+
+    void sendPasswortResetEmailConfirmation(User user);
 }

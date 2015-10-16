@@ -54,10 +54,10 @@
 				<a href="#${2*loop.index}" class="icon-share-podcast btn-share">Share</a>
 				<c:choose>
 					<c:when test="${podcast.identifier == null}">
-						<c:set var="podcast_link" value="http://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+						<c:set var="podcast_link" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
 					</c:when>
 					<c:otherwise>
-						<c:set var="podcast_link" value="http://www.podcastpedia.org/${podcast.identifier}"/>
+						<c:set var="podcast_link" value="https://www.podcastpedia.org/${podcast.identifier}"/>
 					</c:otherwise>
 				</c:choose>
 				<span class="podcast_url">${podcast_link}</span>
@@ -133,7 +133,7 @@
               <a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
                 <spring:message code="global.dwnld.s" text="Download last episode"/>
               </a>
-              <span class="item_url">http://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
+              <span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
             </div>
           </div>
         </c:forEach>

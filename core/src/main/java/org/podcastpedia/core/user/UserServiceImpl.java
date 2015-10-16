@@ -6,16 +6,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserServiceImpl implements UserService {
 
     public static final int USER_NOT_YET_ENABLED = 0;
     public static final int USER_ENABLED = 1;
     public static final String ROLE_USER = "ROLE_USER";
+
     @Autowired
 	UserDao userDao;
 
@@ -48,6 +46,16 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(encryptPassword(user.getPassword()));
         userDao.addUser(user);
+    }
+
+    @Override
+    public void updateUserForPasswordReset(User user) {
+        //generate a new registration token
+        user.setRegistrationToken(UUID.randomUUID().toString());
+        //set the user on inactive, to be activated via email confirmation
+        user.setEnabled(USER_NOT_YET_ENABLED);
+
+        userDao.updateUserForPasswordReset(user);
     }
 
     @Override
