@@ -8,6 +8,12 @@
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
 
+<c:if test="${empty subscriptions}">
+  <div class="bg_color shadowy common_mar_pad common_radius">
+    <spring:message code="user.no_subscriptions.welcome"/>
+  </div>
+</c:if>
+
 <div class="results_list">
 	<c:forEach items="${subscriptions}" var="podcast" varStatus="loop">
 		<div class="bg_color shadowy podcast_wrapper">
