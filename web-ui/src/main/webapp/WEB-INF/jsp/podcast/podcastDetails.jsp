@@ -217,7 +217,7 @@
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
 
 <!-- jquery dialogs -->
-<div id="ask-for-login-form" title="Log in">
+<div id="ask-for-login-form" title="Sign in">
   <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
 </div>
 
