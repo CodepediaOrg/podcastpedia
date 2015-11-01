@@ -23,6 +23,7 @@
       login-page="/login/custom_login"
       login-processing-url="/j_spring_security_check"
       authentication-failure-url="/login/custom_login?error"
+      default-target-url="/users/subscriptions"
       authentication-success-handler-ref="myAuthenticationSuccessHandler"
       username-parameter="username"
       password-parameter="password" />
@@ -36,13 +37,16 @@
     <intercept-url pattern="/users/registration" access="permitAll"/>
     <intercept-url pattern="/users/registration/confirm-email" access="permitAll"/>
     <intercept-url pattern="/users/registration/confirmed" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/cofirm-email" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
     <intercept-url pattern="/**" access="permitAll"/>
   </http>
 
   <beans:bean id="myAuthenticationSuccessHandler"
               class="org.podcastpedia.web.util.MyCustomLoginSuccessHandler" >
-    <beans:constructor-arg name="defaultTargetUrl" value="/users/subscriptions/latest-episodes"/>
+    <beans:constructor-arg name="defaultTargetUrl" value="/users/subscriptions"/>
   </beans:bean>
 
   <!-- Select users and user_roles from database -->
