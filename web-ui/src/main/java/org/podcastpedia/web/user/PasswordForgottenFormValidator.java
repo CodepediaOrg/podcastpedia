@@ -1,6 +1,7 @@
 package org.podcastpedia.web.user;
 
 import org.podcastpedia.common.domain.User;
+import org.podcastpedia.core.user.UserDao;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -16,6 +17,9 @@ import org.springframework.validation.Validator;
 public class PasswordForgottenFormValidator implements Validator{
 
     @Autowired
+    UserDao userDao;
+
+    @Autowired
     UserService userService;
 
 	public boolean supports(Class<?> clazz) {
@@ -25,26 +29,18 @@ public class PasswordForgottenFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		User user = (User)target;
 
-        if(!userService.isExistingUser(user.getUsername())){
-            errors.rejectValue("username", "invalid.email.not_registered");
+        User userDetails = userDao.getUserByUsername(user.getUsername());
+        if (userDetails == null){
+			errors.rejectValue("username", "invalid.email.not_registered");
+		} else {
+            user.setDisplayName(userDetails.getDisplayName());
         }
-
-		if(!isValidEmail(user.getUsername())){
-			errors.rejectValue("username", "invalid.required.email");
-		}
-
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "invalid.required.password");
 
-        if(!user.getPassword().equals(user.getMatchingPassword())){
+        if (!user.getPassword().equals(user.getMatchingPassword())) {
             errors.rejectValue("matchingPassword", "password.missmatch");
         }
-
-	}
-
-	private boolean isValidEmail(String email) {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 }

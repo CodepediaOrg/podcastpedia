@@ -72,7 +72,7 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setTo(user.getUsername());
                 message.setBcc("adrianmatei@gmail.com");
-                message.setSubject("Podcastpedia.org - reset your password");
+                message.setSubject("Podcastpedia.org - confirm password change");
                 message.setSentDate(new Date());
                 message.setFrom("no-reply@podcastpedia.org");
                 Map model = new HashMap();

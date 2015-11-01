@@ -66,5 +66,13 @@ public interface UserService {
      * the votedOn date will be updated */
     void voteEpisode(String username, int podcastId, int episodeId, int voteValue);
 
-    void enableUser(String username, String registrationToken);
+    void enableUserAfterRegistration(String username, String registrationToken);
+
+    /**
+     * The user will be re-enabled after the password forgotten/reset email is confirmed.
+     *
+     * @param username of the user
+     * @param registrationToken that is generated when password is reset
+     */
+    public void enableUserAfterPasswordForgotten(String username, String registrationToken);
 }

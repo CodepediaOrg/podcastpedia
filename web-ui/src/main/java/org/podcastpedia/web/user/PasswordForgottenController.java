@@ -21,7 +21,7 @@ import javax.servlet.ServletRequest;
 
 
 @Controller
-@RequestMapping("users/password-reset")
+@RequestMapping("users/password-forgotten")
 public class PasswordForgottenController {
 
 	protected static Logger LOG = Logger.getLogger(PasswordForgottenController.class);
@@ -33,7 +33,7 @@ public class PasswordForgottenController {
     private PasswordForgottenFormValidator passwordForgottenFormValidator;
 
     @Autowired
-    private UserEmailNotificationService emailNotificationService;
+    private UserEmailNotificationService userEmailNotificationService;
 
     @Autowired
     private ReCaptchaImpl reCaptcha;
@@ -82,11 +82,11 @@ public class PasswordForgottenController {
         //if(!result.hasErrors()){
         if(!result.hasErrors() && reCaptchaResponse.isValid()){
             userService.updateUserForPasswordReset(user);
-            emailNotificationService.sendRegistrationEmailConfirmation(user);
-            emailNotificationService.sendUserRegistrationNotificationToAdmin(user);
+            userEmailNotificationService.sendPasswortResetEmailConfirmation(user);
+
             sessionStatus.setComplete();
             String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
-            return "redirect:/users/registration/confirm-email" + queryString;
+            return "redirect:/users/password-reset/confirm-email" + queryString;
             //return "user_registration_sent_email_def";
         } else {
             if (!reCaptchaResponse.isValid()) {
@@ -112,9 +112,20 @@ public class PasswordForgottenController {
         model.addAttribute("email", email);
         model.addAttribute("displayName", displayName);
 
-        return "user_registration_sent_email_def";
+        return "password_forgotten_sent_email_def";
     }
 
+    @RequestMapping(value = "confirmed", method=RequestMethod.GET)
+    public String emailConfirmated(
+        @RequestParam(value="user", required=true) String username,
+        @RequestParam(value="token", required=true) String registrationToken
+    ){
+
+        LOG.debug("------ received confirmation email -----");
+        userService.enableUserAfterPasswordForgotten(username, registrationToken);
+
+        return "redirect:/login/custom_login?isConfirmedEmailPasswordReset=true";
+    }
 
     @ExceptionHandler(HttpSessionRequiredException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)

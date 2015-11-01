@@ -34,7 +34,7 @@ public class RegistrationController {
     private UserRegistrationFormValidator userRegistrationFormValidator;
 
     @Autowired
-    private UserEmailNotificationService emailNotificationService;
+    private UserEmailNotificationService userEmailNotificationService;
 
     @Autowired
     private ReCaptchaImpl reCaptcha;
@@ -66,7 +66,7 @@ public class RegistrationController {
 
     @RequestMapping(method=RequestMethod.POST)
     public String prepareUserRegistrationRequest(
-        @ModelAttribute("user") User user,
+        @ModelAttribute("userRegistration") User user,
         BindingResult result,
         Model model,
         @RequestParam("recaptcha_challenge_field") String challangeField,
@@ -76,8 +76,6 @@ public class RegistrationController {
 
         LOG.debug("------ processContactForm : form is being validated and processed -----");
         userRegistrationFormValidator.validate(user, result);
-
-        /** TODO introduce recaptcha...          */
 
         String remoteAddress = servletRequest.getRemoteAddr();
         ReCaptchaResponse  reCaptchaResponse = this.reCaptcha.checkAnswer(
@@ -89,8 +87,8 @@ public class RegistrationController {
 
             user.setRegistrationToken(UUID.randomUUID().toString());
             userService.submitUserForRegistration(user);
-            emailNotificationService.sendRegistrationEmailConfirmation(user);
-            emailNotificationService.sendUserRegistrationNotificationToAdmin(user);
+            userEmailNotificationService.sendRegistrationEmailConfirmation(user);
+            userEmailNotificationService.sendUserRegistrationNotificationToAdmin(user);
             sessionStatus.setComplete();
             String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
             return "redirect:/users/registration/confirm-email" + queryString;
@@ -101,7 +99,7 @@ public class RegistrationController {
                 model.addAttribute("invalidRecaptcha", true);
             }
 
-            return "user_registration_def";
+            return "login_def";
         }
 
     }
@@ -129,7 +127,7 @@ public class RegistrationController {
         ){
 
         LOG.debug("------ received confirmation email -----");
-        userService.enableUser(username, registrationToken);
+        userService.enableUserAfterRegistration(username, registrationToken);
 
         return "redirect:/login/custom_login?isConfirmedEmail=true";
     }

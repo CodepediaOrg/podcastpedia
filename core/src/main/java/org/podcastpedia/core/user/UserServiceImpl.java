@@ -3,7 +3,6 @@ package org.podcastpedia.core.user;
 import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
@@ -54,13 +53,14 @@ public class UserServiceImpl implements UserService {
         user.setRegistrationToken(UUID.randomUUID().toString());
         //set the user on inactive, to be activated via email confirmation
         user.setEnabled(USER_NOT_YET_ENABLED);
+        user.setPassword(encryptPassword(user.getPassword()));
 
         userDao.updateUserForPasswordReset(user);
     }
 
     @Override
     public boolean isExistingUser(String username) {
-        User user = userDao.selectUserByUsername(username);
+        User user = userDao.getUserByUsername(username);
 
         return user != null;
     }
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void enableUser(String username, String registrationToken) {
+    public void enableUserAfterRegistration(String username, String registrationToken) {
         User user = new User();
         user.setUsername(username);
         user.setRole(ROLE_USER);
@@ -115,6 +115,16 @@ public class UserServiceImpl implements UserService {
         user.setRegistrationToken(registrationToken);
 
         userDao.addUserRole(user);
+        userDao.enableUser(user);
+    }
+
+    @Override
+    public void enableUserAfterPasswordForgotten(String username, String registrationToken) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEnabled(USER_ENABLED);
+        user.setRegistrationToken(registrationToken);
+
         userDao.enableUser(user);
     }
 

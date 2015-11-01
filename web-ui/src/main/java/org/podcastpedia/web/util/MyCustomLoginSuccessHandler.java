@@ -23,7 +23,9 @@ public class MyCustomLoginSuccessHandler extends SavedRequestAwareAuthentication
         session.setMaxInactiveInterval(60*60);//set the session timeout to 60 minutes
         if (session != null) {
             String redirectUrl = (String) session.getAttribute("url_prior_login");
-            if (redirectUrl != null) {
+            if (redirectUrl != null && !redirectUrl.contains("users/password-reset")
+                && !redirectUrl.contains("users/registration")
+                && !redirectUrl.contains("login/custom_login")) {
                 // we do not forget to clean this attribute from session
                 session.removeAttribute("url_prior_login");
                 // then we redirect

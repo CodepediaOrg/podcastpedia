@@ -32,7 +32,7 @@ public interface UserDao {
     public void addUser(User user);
 
     /** returns an user given its username */
-    public User selectUserByUsername(String username);
+    public User getUserByUsername(String username);
 
     /**
      * Adds username and podcastId to the subscriptions table

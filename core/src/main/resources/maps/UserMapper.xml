@@ -56,6 +56,7 @@
   <!-- ******* Reset User Password ********* -->
   <update id="updateUserForPasswordReset" parameterType="User">
     UPDATE users SET
+      password = #{password},
       enabled = #{enabled},
       registration_token = #{registrationToken}
     WHERE username = #{username}
@@ -93,7 +94,7 @@
       podcast_id=#{podcastId}
   </delete>
 
-  <select id="selectUserByUsername" resultMap="userResultMap" parameterType="String">
+  <select id="getUserByUsername" resultMap="userResultMap" parameterType="String">
     SELECT
       username,
       password,

@@ -3,7 +3,7 @@
         <h3>Dear ${user.displayName}</h3>
         <p>
             Thank you for registering with Podcastpedia.
-            Click this <a href="http://podcastpedia.org/users/registration/confirmed?user=${user.username}&token=${user.registrationToken}">link</a> to finish the signup process.
+            Click this <a href="https://podcastpedia.org/users/registration/confirmed?user=${user.username}&token=${user.registrationToken}">link</a> to finish the signup process.
         </p>
     </body>
 </html>
