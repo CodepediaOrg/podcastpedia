@@ -63,7 +63,7 @@ public class InsertController {
 	public String prepareUploadFileForm(
 			@ModelAttribute("uploadItem") UploadFileForm uploadItem,
 			ModelMap model) {
-		
+
 		model.addAttribute("uploadItem", new UploadFileForm());
 		return "insert_podcasts_from_file_def";
 
@@ -134,7 +134,7 @@ public class InsertController {
 				.getPodcastAttributesByFeedUrl(proposedPodcast.getPodcast()
 						.getUrl());
 		StringBuilder urlOnPodcastpedia = new StringBuilder(
-				"http://www.podcastpedia.org");
+				"https://www.podcastpedia.org");
 		if (podcast.getIdentifier() != null) {
 			urlOnPodcastpedia.append("/").append(podcast.getIdentifier());
 		} else {
