@@ -81,7 +81,7 @@
       %>
     </div>
 
-    <spring:message var="submit_registration_btn" code="user.registration.btn.submit-registration" text="Submit registration"/>
+    <spring:message var="submit_registration_btn" code="submit" text="Submit registration"/>
     <input type="submit" value="${submit_registration_btn}"  id="send_message" class="submit_form_button"/>
     <div class="clear"></div>
   </form:form>
