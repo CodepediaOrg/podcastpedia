@@ -25,13 +25,13 @@
 
 	<form:form id="add_podcast_form" class="vertical_style_form"
 		method="POST" modelAttribute="addPodcastForm">
-
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<div class="label_above_elements">
 			<label for="name" class="label">
 				<spring:message code="label.name" text="Name"/>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="name" cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -43,7 +43,7 @@
 				<spring:message code="label.email" text="Email - required, verified but never shown"/>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="email" cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -55,7 +55,7 @@
 				<spring:message code="add_podcast.pod_url" text="URL of podcast"/>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="feedUrl" cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -67,7 +67,7 @@
 				<spring:message code="label.identifier" text="Identifier - e.g. https://www.podcastpedia.org/AwesomePodcast"/>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="identifier" cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -80,7 +80,7 @@
 				- <spring:message code="category.tip" text="Category"/>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="categories" cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -143,7 +143,7 @@
 				</span>
 			</label>
 		</div>
-		<div class="error">
+		<div class="error_div">
 			<form:errors path="suggestedTags"  cssClass="error_form_validation"/>
 		</div>
 		<p>
@@ -156,7 +156,7 @@
                 Fanpage Facebook (complete URL - e.g. <em>https://www.facebook.com/Podcastpedia</em>)
             </label>
 		</div>
-        <div class="error">
+        <div class="error_div">
             <form:errors path="facebookPage" cssClass="error_form_validation"/>
         </div>
 		<p>
@@ -169,7 +169,7 @@
 				Fanpage Twitter (complete URL - e.g. <em>https://twitter.com/podcastpedia</em>)
 			</label>
 		</div>
-        <div class="error">
+        <div class="error_div">
             <form:errors path="twitterPage" cssClass="error_form_validation"/>
         </div>
 		<p>
@@ -182,7 +182,7 @@
 				Fanpage Google Plus (complete URL - e.g. <em>https://google.com/+PodcastpediaOrg</em>)
 			</label>
 		</div>
-        <div class="error">
+        <div class="error_div">
             <form:errors path="gplusPage" cssClass="error_form_validation"/>
         </div>
 		<p>
