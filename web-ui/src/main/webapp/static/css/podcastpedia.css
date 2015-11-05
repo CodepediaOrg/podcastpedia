@@ -862,7 +862,7 @@ ul.pureCssMenu ul li {
 .label_above_elements, #label_above_elements {
   margin: 0 0 5px 10px; }
 
-div.error, .vertical_style_form #captcha_paragraph {
+div.error_div, .vertical_style_form #captcha_paragraph {
   margin-left: 10px; }
 
 #advanced_search_wrapper {
