@@ -238,6 +238,6 @@
 			<spring:message var="search_button" code="search.btn" text="Search"/>
 			<input type="submit" name="Submit" id="subscribe" value="${search_button}" class="submit_form_button"/>
 		</p>
-		<dir class="clear"></dir>
+		<div class="clear"></div>
 	</form:form>
 </div>
