@@ -4,6 +4,7 @@
         <p>
             Thank you for registering with Podcastpedia.
             Click this <a href="https://podcastpedia.org/users/registration/confirmed?user=${user.username}&token=${user.registrationToken}">link</a> to finish the signup process.
+            You can then subscribe to your favorite podcasts and vote podcasts up or down.
         </p>
     </body>
 </html>
