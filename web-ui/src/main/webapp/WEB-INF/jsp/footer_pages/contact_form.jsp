@@ -28,6 +28,7 @@
   <c:url value="/contact.html" var="addComment_url"/>
 	<form:form name="contact_form" class="vertical_style_form"
 		method="POST" modelAttribute="contactForm" action="${addComment_url}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
 		<div id="label_above_elements">
 			<label for="name" class="label">
