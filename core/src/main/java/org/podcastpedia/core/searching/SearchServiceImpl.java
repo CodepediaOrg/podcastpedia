@@ -113,17 +113,8 @@ public class SearchServiceImpl implements SearchService {
 			//if it is the default "return all podcasts" as query text than all podcasts will be returned
 			//QueryText can be null when the request is coming from quick search on the start page
 			if(isDefaultSearchText(searchData)) {
-				searchData.setQueryText(null);
-				//if no order by is selected in this case
-				if(searchData.getOrderBy() == null){
-					//this cannot happen from quick search filters from start page
-					searchData.setOrderBy(OrderByOption.PUBLICATION_DATE);
-				}
-			} else {
-				//if some words are introduced then we should decide the full text indexing to bring the most relevant in front
-				searchData.setOrderBy(null);
-			}
-			// else it means the user has given some input text for natural mode search
+                searchData.setQueryText(null);
+            }
 		}
 
         //in boolean search mode (see - https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html)
@@ -168,6 +159,4 @@ public class SearchServiceImpl implements SearchService {
 	private boolean isDefaultSearchText(SearchData searchData) {
 		return searchData.getQueryText() == null || Arrays.asList(textGetAllPodcastsI18N).contains(searchData.getQueryText().trim());
 	}
-
-
 }
