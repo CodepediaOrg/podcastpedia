@@ -34,7 +34,7 @@
     <!-- password field -->
     <div id="label_above_elements">
       <label for="password" class="label">
-        <spring:message code="user.registration.label.password" text="Password"/>
+        <spring:message code="user.registration.label.new_password" text="New password"/>
       </label>
     </div>
     <p>
@@ -45,7 +45,7 @@
     <!-- confirm password field -->
     <div id="label_above_elements">
       <label for="matchingPassword" class="label">
-        <spring:message code="user.registration.password_confirmation" text="Confirm password"/>
+        <spring:message code="user.registration.new_password_confirmation" text="Confirm password"/>
       </label>
     </div>
     <p>
