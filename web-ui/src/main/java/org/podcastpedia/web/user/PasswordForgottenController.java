@@ -86,7 +86,7 @@ public class PasswordForgottenController {
 
             sessionStatus.setComplete();
             String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
-            return "redirect:/users/password-reset/confirm-email" + queryString;
+            return "redirect:/users/password-forgotten/confirm-email" + queryString;
             //return "user_registration_sent_email_def";
         } else {
             if (!reCaptchaResponse.isValid()) {
