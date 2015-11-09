@@ -126,7 +126,7 @@ public class SitemapServiceImpl implements SitemapService {
 		File[] files = targetDirectory.listFiles();
 		for(int i=0; i < files.length; i++){
 			if(isNotSitemapIndexFile(files, i)){
-				SitemapIndexUrl sitemapIndexUrl = new SitemapIndexUrl("http://www.podcastpedia.org/" + files[i].getName(),
+				SitemapIndexUrl sitemapIndexUrl = new SitemapIndexUrl("https://www.podcastpedia.org/" + files[i].getName(),
 																		new Date(files[i].lastModified()));
 				sig.addUrl(sitemapIndexUrl);
 			}
