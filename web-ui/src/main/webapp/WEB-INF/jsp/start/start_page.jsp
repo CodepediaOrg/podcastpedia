@@ -78,10 +78,10 @@
 				<li  class="bg_color">
 					<c:choose>
 						<c:when test="${podcast.identifier == null}">
-							<c:set var="urlPodcast" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+							<c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="urlPodcast" value="https://www.podcastpedia.org/${podcast.identifier}"/>
+							<c:set var="urlPodcast" value="/${podcast.identifier}"/>
 						</c:otherwise>
 					</c:choose>
 			    	<a href="${urlPodcast}">
@@ -121,10 +121,10 @@
 				<li  class="bg_color">
 					<c:choose>
 						<c:when test="${podcast.identifier == null}">
-							<c:set var="urlPodcast" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+							<c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="urlPodcast" value="https://www.podcastpedia.org/${podcast.identifier}"/>
+							<c:set var="urlPodcast" value="/${podcast.identifier}"/>
 						</c:otherwise>
 					</c:choose>
 					<a href="${urlPodcast}">
@@ -167,10 +167,10 @@
 					<li  class="bg_color">
 						<c:choose>
 							<c:when test="${podcast.identifier == null}">
-								<c:set var="urlPodcast" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+								<c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
 							</c:when>
 							<c:otherwise>
-								<c:set var="urlPodcast" value="https://www.podcastpedia.org/${podcast.identifier}"/>
+								<c:set var="urlPodcast" value="/${podcast.identifier}"/>
 							</c:otherwise>
 						</c:choose>
 						<a href="${urlPodcast}">
@@ -209,10 +209,10 @@
 					<li  class="bg_color">
 						<c:choose>
 							<c:when test="${podcast.identifier == null}">
-								<c:set var="urlPodcast" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+								<c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
 							</c:when>
 							<c:otherwise>
-								<c:set var="urlPodcast" value="https://www.podcastpedia.org/${podcast.identifier}"/>
+								<c:set var="urlPodcast" value="/${podcast.identifier}"/>
 							</c:otherwise>
 						</c:choose>
 						<a href="${urlPodcast}">
