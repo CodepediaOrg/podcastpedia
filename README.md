@@ -16,13 +16,13 @@ Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) pr
 ```
 * **podcastpedia** - is the parent project
 * **common** - contains domain objects and types used by the other modules (core, web-ui, api & admin)
-* **core** - code for database access and business layer; it support currently both the _api_ and _web-ui_ modules. 
+* **core** - code for database access and business layer; it support currently both the _api_ and _web-ui_ modules.
 * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
 * **api** - REST api supporting core functionalities for the application(in progress)
 * **sql** - contains database setup scripts and useful sql statements
 * **admin** - administration web application used to insert/update/remove podcasts from the directory; implemnted with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
 
-Setup Guide 
+Setup Guide
 ================
 _(~15min of which 13 min MySql installation)_
 ## Install and run the Podcastpedia.org website on your local machine
@@ -81,11 +81,11 @@ Change the username/password in the [pom.xml](sql/pom.xml) corresponding to your
 ```
 First step is to prepare the "podcast" user and the podcast_db with the following maven command
 ```
-mvn install -Pprepare-db
+mvn install -Pprepare-db -pl sql
 ```
 and the second step is to import the data into the database
 ```
-mvn install -Pimport-db
+mvn install -Pimport-db -pl sql
 ```
 
 That database setup should be ready now. You can choose to setup the database via the MySql console - more details is to find in the [sql README.md](sql/README.md)
