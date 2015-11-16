@@ -93,7 +93,7 @@ That database setup should be ready now. You can choose to setup the database vi
 
 ### Build project
 ```
-mvn clean package -DskipTests=true
+mvn clean install -DskipTests=true
 ```
 ***
 ### Run the website (_web-ui_ module)
@@ -103,12 +103,16 @@ Execute the following command in the parent/root directory
 ```
 mvn jetty:run -pl web-ui -Denv=dev
 ```
+Access homepage at [http://localhost:8080](http://localhost:8080) - 
+_user/password_ for login _test-dev@podcastpedia.org/test_
+
 #### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
 Execute the following command in the parent/root directory
 
 ```
 mvn tomcat7:run -pl web-ui -Denv=dev
 ```
+
 ***
 
 ## Contributing
