@@ -104,7 +104,7 @@ Execute the following command in the parent/root directory
 mvn jetty:run -pl web-ui -Denv=dev
 ```
 Access homepage at [http://localhost:8080](http://localhost:8080) - 
-_user/password_ for login _test-dev@podcastpedia.org/test_
+_"user/password"_ for login _"test-dev@podcastpedia.org/test"_
 
 #### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
 Execute the following command in the parent/root directory
@@ -112,7 +112,8 @@ Execute the following command in the parent/root directory
 ```
 mvn tomcat7:run -pl web-ui -Denv=dev
 ```
-
+Access homepage at [http://localhost:8080](http://localhost:8080) or [https://localhost:8443](https://localhost:8443) for SSL access - 
+_"user/password"_ for login _"test-dev@podcastpedia.org/test""_ or 
 ***
 
 ## Contributing
