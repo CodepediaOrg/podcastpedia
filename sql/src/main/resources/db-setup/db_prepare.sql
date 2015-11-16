@@ -12,14 +12,14 @@ CREATE DATABASE podcast_db;
 CREATE USER 'podcast'@'localhost' IDENTIFIED BY 'podcast';
 
 -- verify user creation
-select host, user, password from mysql.user;
+select host, user from mysql.user;
 
 -- verify user privileges
-SELECT host, user, select_priv, insert_priv, update_priv, delete_priv, create_priv, alter_priv, password FROM mysql.user WHERE user='podcast';
+SELECT host, user, select_priv, insert_priv, update_priv, delete_priv, create_priv, alter_priv FROM mysql.user WHERE user='podcast';
 -- should have no privilegesuser
 
 -- grant full privileges to the user, for easy development
-GRANT ALL PRIVILEGES ON *.* TO 'podcast'@'localhost';
+GRANT ALL PRIVILEGES ON podcast_db.* TO 'podcast'@'localhost';
 
 -- verify privileges set
-SELECT host, user, select_priv, insert_priv, update_priv, delete_priv, create_priv, alter_priv, password FROM mysql.user WHERE user='podcast';
+SELECT host, user, select_priv, insert_priv, update_priv, delete_priv, create_priv, alter_priv FROM mysql.user WHERE user='podcast';
