@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 
@@ -40,6 +41,7 @@ public class UserVotesController {
 	}
 
     @RequestMapping(value="podcasts/vote-up", method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteUpPodcast(@RequestParam("podcastId") Integer podcastId) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
@@ -51,6 +53,7 @@ public class UserVotesController {
     }
 
     @RequestMapping(value="podcasts/vote-down", method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteDownPodcast(@RequestParam("podcastId") Integer podcastId) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");

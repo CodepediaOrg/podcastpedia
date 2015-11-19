@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 
@@ -38,6 +39,7 @@ public class UserController {
 	}
 
     @RequestMapping(method= RequestMethod.GET)
+    @RolesAllowed("ROLE_USER")
     public String getPodcastSubscriptions(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
@@ -63,6 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
     public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
@@ -73,4 +76,15 @@ public class UserController {
         return "OK";
     }
 
+    @RequestMapping(value="unsubscribe", method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
+    public @ResponseBody String unsubscribeFromPodcast(@RequestParam("podcastId") Integer podcastId) {
+
+        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        userService.unsubscribeFromPodcast(userDetails.getUsername(), podcastId);
+
+        return "OK";
+    }
 }

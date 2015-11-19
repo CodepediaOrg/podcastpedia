@@ -263,6 +263,11 @@
       <version>0.0.8</version>
     </dependency>
 
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>jsr250-api</artifactId>
+    </dependency>
+
   </dependencies>
 
 	<build>
