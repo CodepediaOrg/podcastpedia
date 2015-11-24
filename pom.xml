@@ -361,6 +361,12 @@
         <artifactId>keycloak-spring-security-adapter</artifactId>
         <version>1.6.1.Final</version>
       </dependency>
+      <dependency>
+        <groupId>org.keycloak</groupId>
+        <artifactId>keycloak-tomcat7-adapter-dist</artifactId>
+        <version>1.6.1.Final</version>
+        <type>zip</type>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>
@@ -494,6 +500,12 @@
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
                     <version>${tomcat.jdbc.version}</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>org.keycloak</groupId>
+                    <artifactId>keycloak-tomcat7-adapter-dist</artifactId>
+                    <version>1.6.1.Final</version>
+                    <type>zip</type>
                   </dependency>
                 </dependencies>
               </plugin>
