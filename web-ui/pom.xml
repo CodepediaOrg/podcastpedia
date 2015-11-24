@@ -108,13 +108,6 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-taglibs</artifactId>
     </dependency>
-
-    <!-- MySQL JDBC connector http://dev.mysql.com/downloads/connector/j/ -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-
     <!-- Project rome rss, atom http://rometools.github.io/rome/ -->
     <dependency>
       <groupId>com.rometools</groupId>
