@@ -1,11 +1,14 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
+import org.keycloak.adapters.OidcKeycloakAccount;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -43,10 +46,14 @@ public class UserController {
     public String getPodcastSubscriptions(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LOG.debug("got request from " + userDetails.getUsername() + " and password " + userDetails.getPassword());
 
-        List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
+        //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+
+        String email = keycloakAccount.getKeycloakSecurityContext().getIdToken().getEmail();
+
+        List<Podcast> subscriptions = userService.getSubscriptions(email);
         model.addAttribute("subscriptions", subscriptions);
 
         return "podcast_subscriptions_def";
