@@ -21,11 +21,8 @@
             <a href="${urlHome}">Home</a>
           </li>
           <li>
-            <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
-            <form id="logout-form" action="${logoutUrl}" method="post">
-              <input type="submit" value="<spring:message code="user.logout"/>" />
-              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
+            <c:url var="logoutUrl" value="/sso/logout"/><!-- default URL used now by Spring Security 4 -->
+            <a href="${logoutUrl}"><spring:message code="user.logout"/></a>
           </li>
         </ul>
       </li>
