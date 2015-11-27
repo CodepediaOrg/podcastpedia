@@ -31,7 +31,11 @@
       <a href="<c:url value='/login/custom_login'/>"><spring:message code="user.login"/></a>
   </div>
 </sec:authorize>
-
+<sec:authorize access="isAuthenticated()">
+  <div id="login-button">
+    <a href="<c:url value='/sso/logout'/>"><spring:message code="user.logout"/></a>
+  </div>
+</sec:authorize>
 <div class="clear"></div>
 <%@ include file="header_common_part_m.jsp" %>
 
