@@ -5,6 +5,7 @@
 	    xmlns:p="http://www.springframework.org/schema/p"
 	    xmlns:context="http://www.springframework.org/schema/context"
 	    xmlns:mvc="http://www.springframework.org/schema/mvc"
+      xmlns:util="http://www.springframework.org/schema/util"
 	    xsi:schemaLocation="
 
 			http://www.springframework.org/schema/beans
@@ -13,11 +14,16 @@
 			http://www.springframework.org/schema/mvc
 			http://www.springframework.org/schema/mvc/spring-mvc.xsd
 
+      http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd
+
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- ========================= Import Tiles-related configuration ========================= -->
 	<import resource="applicationContext-web-ui-tiles.xml" />
+
+  <util:properties id="appProperties" location="classpath:app-#{systemProperties['env']}.properties"/>
 
 	<!--
 		- The controllers are autodetected POJOs labeled with the @Controller annotation.

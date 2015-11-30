@@ -465,7 +465,7 @@
                 <version>2.2</version>
                 <configuration>
                   <!-- http port -->
-                  <port>8080</port>
+                  <port>8181</port>
                   <!-- application path always starts with /-->
                   <path>/${project.artifactId}</path>
                   <!-- optional path to a context file -->
@@ -476,6 +476,9 @@
                     <appserver.home>${project.build.directory}/appserver-home</appserver.home>
                     <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
                     <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                    <JAVA_OPTS>-Xms256m -Xmx512m -XX:MaxPermSize=256m</JAVA_OPTS>
+                    <keycloakServer>http://localhost:8180</keycloakServer>
+                    <env>dev</env>
                   </systemProperties>
                   <!-- if you want to use test dependencies rather than only runtime -->
                   <useTestClasspath>false</useTestClasspath>

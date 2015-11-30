@@ -51,9 +51,9 @@ public class UserController {
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
-        String email = keycloakAccount.getKeycloakSecurityContext().getIdToken().getEmail();
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getId();
 
-        List<Podcast> subscriptions = userService.getSubscriptions(email);
+        List<Podcast> subscriptions = userService.getSubscriptions(userId);
         model.addAttribute("subscriptions", subscriptions);
 
         return "podcast_subscriptions_def";
@@ -75,10 +75,18 @@ public class UserController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
 
+        /*
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        userService.subscribeToPodcast(userDetails.getUsername(), podcastId);
+        */
+
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getId();
+
+        userService.subscribeToPodcast(userId, podcastId);
 
         return "OK";
     }

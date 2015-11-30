@@ -1,0 +1,1 @@
+CREATE SCHEMA `keycloakdb` DEFAULT CHARACTER SET utf8 ;
