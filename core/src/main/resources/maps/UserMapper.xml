@@ -215,10 +215,8 @@
       e.title_in_url as episode_title_in_url,
       e.is_new
     FROM
-    	podcasts p, subscriptions s, users u, episodes e
+    	podcasts p, subscriptions s, episodes e
 	  WHERE
-		  u.username = #{value}
-		AND
 		  s.email = #{value}
 		AND
 		  s.podcast_id= p.podcast_id

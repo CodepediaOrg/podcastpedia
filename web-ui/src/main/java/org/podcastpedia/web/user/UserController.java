@@ -51,7 +51,7 @@ public class UserController {
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getId();
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
 
         List<Podcast> subscriptions = userService.getSubscriptions(userId);
         model.addAttribute("subscriptions", subscriptions);
@@ -84,7 +84,7 @@ public class UserController {
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getId();
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
 
         userService.subscribeToPodcast(userId, podcastId);
 
