@@ -47,7 +47,6 @@ public class UserController {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
 
-        //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
@@ -74,12 +73,6 @@ public class UserController {
     @RequestMapping(method= RequestMethod.POST)
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
-
-        /*
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        */
 
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
