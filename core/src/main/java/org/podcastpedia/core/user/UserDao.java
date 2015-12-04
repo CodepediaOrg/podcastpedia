@@ -65,4 +65,14 @@ public interface UserDao {
      * @param user
      */
     void updateUserForPasswordReset(User user);
-}
+
+    /**
+     * Returns the podcast from the selected playist
+     *
+     * @param params a map containing the userId and the name of the playlist
+     * @return list of podcasts
+     */
+    List<Podcast> getPodcastsForPlaylist(Map<String, Object> params);
+
+    List<String> getPlaylistsForUser(String userId);
+ }

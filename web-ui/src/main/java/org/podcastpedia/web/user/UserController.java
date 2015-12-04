@@ -72,14 +72,16 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.POST)
     @RolesAllowed("ROLE_USER")
-    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
+    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId,
+                                                   @RequestParam("newPlaylist")String newPlaylist,
+                                                   @RequestParam("existingPlaylist")String existingPlaylist) {
 
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
         String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        userService.subscribeToPodcast(userId, podcastId);
+        String playlist = newPlaylist!=null?newPlaylist:existingPlaylist;
+        userService.subscribeToPodcast(userId, podcastId, playlist);
 
         return "OK";
     }
@@ -88,10 +90,12 @@ public class UserController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String unsubscribeFromPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
-        userService.unsubscribeFromPodcast(userDetails.getUsername(), podcastId);
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
+
+        userService.unsubscribeFromPodcast(userId, podcastId);
 
         return "OK";
     }

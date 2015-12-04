@@ -30,6 +30,25 @@ public class UserServiceImpl implements UserService {
         return subscriptions;
 	}
 
+    @Override
+    public List<Podcast> getPodcastsForPlaylist(String userId, String playlist) {
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("userId", userId);
+        params.put("playlist", playlist);
+
+        List<Podcast> subscriptions = userDao.getPodcastsForPlaylist(params);
+
+        //return only the last 3 episodes, ordered by publication date
+        for(Podcast subscription: subscriptions){
+            if(!subscription.getEpisodes().isEmpty() && subscription.getEpisodes().size() > 3){
+                subscription.setEpisodes(subscription.getEpisodes().subList(0,3));
+            }
+        }
+
+        return subscriptions;
+    }
+
 	@Override
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username) {
 		return userDao.getLatestEpisodesFromSubscriptions(username);
@@ -66,18 +85,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void subscribeToPodcast(String username, int podcastId) {
+    public void subscribeToPodcast(String username, int podcastId, String playlist) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("email", username);
         params.put("podcastId", podcastId);
+        params.put("playlist", playlist);
 
         userDao.subscribeToPodcast(params);
     }
 
     @Override
-    public void unsubscribeFromPodcast(String username, int podcastId) {
+    public void unsubscribeFromPodcast(String userId, int podcastId) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", username);
+        params.put("userId", userId);
         params.put("podcastId", podcastId);
 
         userDao.unsubscribeFromPodcast(params);
@@ -128,12 +148,19 @@ public class UserServiceImpl implements UserService {
         userDao.enableUser(user);
     }
 
+    @Override
+    public List<String> getPlaylistNames(String userId) {
+        return userDao.getPlaylistsForUser(userId);
+    }
+
     private String encryptPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
 
         return hashedPassword;
     }
+
+
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

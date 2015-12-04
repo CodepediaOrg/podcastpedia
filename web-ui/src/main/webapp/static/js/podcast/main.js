@@ -272,6 +272,25 @@ $(function (){
           $("#subscription_email_err_mess").remove();
       }
   });
+  $("#subscribe-form-playlist" ).dialog({
+    autoOpen: false,
+    height: 200,
+    width: 370,
+    modal: true,
+    buttons: {
+      "Subscribe": function() {
+          //TODO - do form validation, either create new or choose existing
+          postSubscribeToPlaylist();
+
+      },
+      Cancel: function() { $( this ).dialog( "close" ); }
+    },
+    close: function() {
+      //we reset the values
+      subscriptionEmail.val("").removeClass("input_in_error");
+      $("#subscription_email_err_mess").remove();
+    }
+  });
 
   $( "#dialog-subscribed" ).dialog({
       autoOpen: false,
@@ -300,7 +319,13 @@ $(function (){
     buttons: {
       "Log in": function() {
         $( this ).dialog("close");
-        window.location.href = "//podcastpedia.org/login/custom_login";
+        var clientId="client_id=podcastpedia";
+        var responseType="response_type=code";
+        //var redirectUri="redirect_uri=" + encodeURI(window.location.href);
+        var redirectUri="redirect_uri=" + encodeURI("http://localhost:8181/users/subscriptions");
+        //TODO make the host environment specific (dev & prod)
+        window.location.href = "//localhost:8180/auth/realms/demo/protocol/openid-connect/auth?"
+          + clientId + "&" + responseType + "&" + redirectUri;
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -311,20 +336,27 @@ $(function (){
     }
   });
 
-  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   $("#subscribe-to-podcast").click(function(){
+    $("#subscribe-form-playlist").dialog("open");
+  });
+  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
+  //$("#subscribe-to-podcast").click(function(){
+  function postSubscribeToPlaylist(){
     $.post("/users/subscriptions",
       {
         podcastId:  $("input#sub_podcastId").val(),
-        _csrf: $( "input[name='_csrf']" ).val()
+        _csrf: $( "input[name='_csrf']" ).val(),
+        newPlaylist: $( "input[name='newPlaylist']" ).val(),
+        existingPlaylist: $( "#playlist_names" ).val()
       },
 
       function(data){
         //we have received valid response
         $("#subscribe-to-podcast").css({ 'background-color': '#185B8B' });
         $("#subscribe-to-podcast").css({ 'pointer-events': 'none' });
+        $("#subscribe-form-playlist").dialog("close");
       });
-  });
+  }
 
   //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   $("#vote-up-podcast").click(function(){

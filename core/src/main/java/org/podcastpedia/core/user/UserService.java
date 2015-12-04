@@ -10,7 +10,9 @@ public interface UserService {
 
 	public List<Podcast> getSubscriptions(String username);
 
-	/**
+    List<Podcast> getPodcastsForPlaylist(String userId, String playlist);
+
+    /**
 	 * Returns a list with the latest episodes from a user, identified by username, subscriptions
 	 * ordered by the publication date DESC(endent)
 	 *
@@ -45,8 +47,9 @@ public interface UserService {
      * Subscribes the user identified by the @param username to the podcast identified by the @param podcastId
      * @param username
      * @param podcastId
+     * @param playlist
      */
-    public void subscribeToPodcast(String username, int podcastId);
+    public void subscribeToPodcast(String username, int podcastId, String playlist);
 
     /**
      * Unsubscribes the user identified by the @param username from the podcast identified by the @param podcastId
@@ -75,4 +78,12 @@ public interface UserService {
      * @param registrationToken that is generated when password is reset
      */
     public void enableUserAfterPasswordForgotten(String username, String registrationToken);
+
+    /**
+     *
+     *
+     * @param userId the id of the user
+     * @return a list of playlist names created by the user
+     */
+    public List<String> getPlaylistNames(String userId);
 }

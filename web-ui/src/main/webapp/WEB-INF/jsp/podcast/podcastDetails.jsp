@@ -96,7 +96,7 @@
       <sec:authorize access="isAnonymous()">
         <a href="#-3" class="icon-thumbs-down ask-for-login" id="vote-down-ask-for-login">${podcast.downVotes}</a>
       </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
+      <!-- if authenticated can vote down podcast -->
       <sec:authorize access="isAuthenticated()">
         <a href="#-3" class="icon-thumbs-down" id="vote-down-podcast">${podcast.downVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -106,7 +106,7 @@
       <sec:authorize access="isAnonymous()">
         <a href="#-3" class="icon-thumbs-up ask-for-login" id="vote-up-ask-for-login">${podcast.upVotes}</a>
       </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
+      <!-- if authenticated can vote up podcast -->
       <sec:authorize access="isAuthenticated()">
         <a href="#-3" class="icon-thumbs-up" id="vote-up-podcast">${podcast.upVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -233,6 +233,30 @@
 		</p>
 		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
 	</form>
+</div>
+
+<div id="subscribe-form-playlist" title="Select playlist">
+  <form class="vertical_style_form">
+    <div id="label_above_elements">
+      <label for="newPlayist" class="label">
+        <spring:message code="label.create_playlist" text="Create new playlist"/>
+      </label>
+    </div>
+    <p>
+      <input name="newPlaylist" id="newPlayist" class="form_input" style='width:200px'/>
+    </p>
+    <sec:authorize access="isAuthenticated()">
+      <p>
+        <select id="playlist_names" class="form_input">
+          <option value="" label="select playlist"/>
+          <c:forEach items="${playlists}" var="playlist">
+            <option value="${playlist}">${playlist}</option>
+          </c:forEach>
+        </select>
+      </p>
+    </sec:authorize>
+    <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
+  </form>
 </div>
 
 <!-- 			  -->

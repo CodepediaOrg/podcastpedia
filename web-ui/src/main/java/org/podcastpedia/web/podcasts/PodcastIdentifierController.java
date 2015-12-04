@@ -1,15 +1,20 @@
 package org.podcastpedia.web.podcasts;
 
 import org.apache.log4j.Logger;
+import org.keycloak.adapters.OidcKeycloakAccount;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.exception.BusinessException;
 import org.podcastpedia.common.types.ErrorCodeType;
 import org.podcastpedia.core.podcasts.PodcastService;
 import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +38,9 @@ public class PodcastIdentifierController {
 
 	@Autowired
 	private PodcastService podcastService;
+
+    @Autowired
+    private UserService userService;
 
 	/**
 	 * Add an empty searchData object to the model
@@ -82,6 +90,18 @@ public class PodcastIdentifierController {
 		model.addAttribute("roundedRatingScore",
 				Math.round(podcast.getRating()));
 		model.addAttribute("podcast", podcast);
+
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        if(!keycloakAuth.getPrincipal().equals("anonymousUser")){
+            OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+
+            String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
+            List<String> playlistNames = userService.getPlaylistNames(userId);
+
+            model.addAttribute("playlists", playlistNames);
+
+        }
+
 
 		return "m_podcastDetails";
 	}
