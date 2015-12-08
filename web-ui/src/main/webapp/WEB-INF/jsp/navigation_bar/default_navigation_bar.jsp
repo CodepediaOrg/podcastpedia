@@ -6,7 +6,7 @@
 	<ul>
     <sec:authorize access="isAuthenticated()">
       <li id="nav-mypodcastpedia">
-        <a href="#"><spring:message code="user.mypodcastpedia" text="My Podcastpedia"/></a>
+        <a href="<c:url value="/users/homepage"/>"><spring:message code="user.mypodcastpedia" text="My Podcastpedia"/></a>
         <ul>
           <li id="nav-my-subscriptions">
             <a href="<c:url value="/users/subscriptions"/>"><spring:message code="user.subscriptions"/></a>

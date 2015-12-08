@@ -271,7 +271,7 @@ ul.pureCssMenu a, ul.pureCssMenu li.dis a:hover, ul.pureCssMenu li.sep a:hover {
   text-decoration: none;
   padding: 2px 5px 2px 10px;
   _padding-left: 0;
-  font: normal 12px Trebuchet MS, Tahoma;
+  font: normal 12px Trebuchet MS,Tahoma;
   color: #cccccc;
   text-decoration: none;
   cursor: default; }
@@ -941,6 +941,7 @@ img.recommend_social {
 
 .btn-share {
   background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #217dbb);
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
   border-radius: 5px;
   text-decoration: none;
@@ -951,6 +952,7 @@ img.recommend_social {
   margin-right: 5px; }
   .btn-share:hover {
     background: #369EE4;
+    background-image: -webkit-linear-gradient(top, #369EE4, #2997e2);
     background-image: linear-gradient(to bottom, #369EE4, #2997e2);
     text-decoration: none;
     color: #053855; }
@@ -960,6 +962,7 @@ img.recommend_social {
 /* btn share for website and feed TODO - bring all together with sass */
 .btn-metadata2 {
   background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #217dbb);
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
   border-radius: 8px;
   color: #ffffff;
@@ -969,6 +972,7 @@ img.recommend_social {
   text-decoration: none; }
   .btn-metadata2:hover {
     background: #37A4ED;
+    background-image: -webkit-linear-gradient(top, #37A4ED, #299eec);
     background-image: linear-gradient(to bottom, #37A4ED, #299eec);
     text-decoration: none;
     color: #053855; }
@@ -976,6 +980,7 @@ img.recommend_social {
 .btn-metadata1 {
   border-radius: 8px;
   background: #d15c2e;
+  background-image: -webkit-linear-gradient(top, #d15c2e, #a74a25);
   background-image: linear-gradient(to bottom, #d15c2e, #a74a25);
   font-family: 'podcastpedia';
   color: #ffffff;
@@ -985,6 +990,7 @@ img.recommend_social {
   margin-right: 5px; }
   .btn-metadata1:hover {
     background: #e67a53;
+    background-image: -webkit-linear-gradient(top, #e67a53, #e47046);
     background-image: linear-gradient(to bottom, #e67a53, #e47046);
     text-decoration: none;
     color: #053855; }
@@ -1006,6 +1012,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
     margin-right: 5px; }
     #login-button a:hover {
       background: #185B8B;
+      background-image: -webkit-linear-gradient(top, #185B8B, #103f60);
       background-image: linear-gradient(to bottom, #185B8B, #103f60);
       text-decoration: none; }
 
@@ -1022,6 +1029,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   /* Set the base colour */
   background-color: #a00;
   /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
+  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.15));
   background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.15));
   /* Add a drop shadow */
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
@@ -1098,28 +1106,24 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   top: 42px;
   right: -43px;
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
           transform: rotate(45deg); }
 
 .github-fork-ribbon-wrapper.left .github-fork-ribbon {
   top: 42px;
   left: -43px;
   -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
           transform: rotate(-45deg); }
 
 .github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
   top: 80px;
   left: -43px;
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
           transform: rotate(45deg); }
 
 .github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
   top: 80px;
   right: -43px;
   -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
           transform: rotate(-45deg); }
 
 #podcast_metadata {
@@ -1560,6 +1564,11 @@ a.producer-social {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1; }
+
+#playlists li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px; }
 
 /***** LEFT OVERS */
 #about_podcasting_content {

@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 	public List<Podcast> getSubscriptions(String username) {
 
         List<Podcast> subscriptions = userDao.getSubscriptions(username);
+
         //return only the last 3 episodes, ordered by publication date
         for(Podcast subscription: subscriptions){
             if(!subscription.getEpisodes().isEmpty() && subscription.getEpisodes().size() > 3){

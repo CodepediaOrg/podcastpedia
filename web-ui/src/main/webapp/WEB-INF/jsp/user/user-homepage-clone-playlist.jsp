@@ -1,83 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 
+
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
 
-<c:if test="${empty subscriptions}">
-  <div class="bg_color shadowy common_mar_pad common_radius">
-    <spring:message code="user.no_subscriptions.welcome"/>
-  </div>
-</c:if>
+<!-- first there is the my playlists sections -->
+<div id="my_playlists" class="common_radius bg_color shadowy common_mar_pad" style="margin-bottom: 20px">
+  <h2 class="title_before_form">My playlists</h2>
+  <hr class="before_form_header_line"/>
+  <ul id="playlists">
+    <c:forEach items="${playlists}" var="playlist">
+      <li>
+        <c:url value="/users/playlists/${playlist}" var="playlistUrl" />
+        <a href="${playlistUrl}" class="btn-share"> ${playlist} </a>
+      </li>
+    </c:forEach>
+  </ul>
+</div>
+<div class="clear"></div>
 
-<h2 class="title_before_form">My playlists</h2>
-<hr class="before_form_header_line"/>
-
-
-<hr class="before_form_header_line"/>
-<h2 class="title_before_form">My subscriptions</h2>
+<!-- second part will display the latest updates -->
+<h2 class="title_before_form" style="color:white">Playlist &gt; ${playlist}</h2>
 <div class="results_list">
-	<c:forEach items="${subscriptions}" var="podcast" varStatus="loop">
-		<div class="bg_color shadowy podcast_wrapper">
-	    	<div class="title-and-pub-date">
-				<c:choose>
-					<c:when test="${podcast.mediaType == 'Audio'}">
-						<div class="icon-audio-episode"></div>
-					</c:when>
-					<c:otherwise>
-						<div class="icon-video-episode"></div>
-					</c:otherwise>
-				</c:choose>
-				<c:choose>
-					<c:when test="${podcast.identifier == null}">
-						<c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var="urlPodcast" value="/${podcast.identifier}"/>
-					</c:otherwise>
-				</c:choose>
-				<a class="item_title" href="${urlPodcast}">
-					<c:out value="${podcast.title}"/>
-				</a>
-				<div class="pub_date_media_type">
-					<div class="pub_date">
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${podcast.publicationDate}" />
-					</div>
-				</div>
-			<div class="clear"></div>
-			</div>
-			<hr>
-			<div class="pod_desc">
-				<a class="item_desc" href="${urlPodcast}">
-					${fn:substring(podcast.description,0,350)}
-				</a>
-			</div>
-			<div class="pod_desc_bigger">
-				<a class="item_desc" href="${urlPodcast}">
-					${fn:substring(podcast.description,0,750)}
-				</a>
-			</div>
-			<div class="clear"></div>
-			<div class="social_and_download_podcast">
-				<a href="#${2*loop.index}" class="icon-share-podcast btn-share">Share</a>
-				<c:choose>
-					<c:when test="${podcast.identifier == null}">
-						<c:set var="podcast_link" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var="podcast_link" value="https://www.podcastpedia.org/${podcast.identifier}"/>
-					</c:otherwise>
-				</c:choose>
-				<span class="podcast_url">${podcast_link}</span>
+  <c:forEach items="${subscriptions}" var="podcast" varStatus="loop">
+    <div class="bg_color shadowy podcast_wrapper">
+      <div class="title-and-pub-date">
+        <c:choose>
+          <c:when test="${podcast.mediaType == 'Audio'}">
+            <div class="icon-audio-episode"></div>
+          </c:when>
+          <c:otherwise>
+            <div class="icon-video-episode"></div>
+          </c:otherwise>
+        </c:choose>
+        <c:choose>
+          <c:when test="${podcast.identifier == null}">
+            <c:set var="urlPodcast" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var="urlPodcast" value="/${podcast.identifier}"/>
+          </c:otherwise>
+        </c:choose>
+        <a class="item_title" href="${urlPodcast}">
+          <c:out value="${podcast.title}"/>
+        </a>
+        <div class="pub_date_media_type">
+          <div class="pub_date">
+            <fmt:formatDate pattern="yyyy-MM-dd" value="${podcast.publicationDate}" />
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <hr>
+      <div class="pod_desc">
+        <a class="item_desc" href="${urlPodcast}">
+            ${fn:substring(podcast.description,0,350)}
+        </a>
+      </div>
+      <div class="pod_desc_bigger">
+        <a class="item_desc" href="${urlPodcast}">
+            ${fn:substring(podcast.description,0,750)}
+        </a>
+      </div>
+      <div class="clear"></div>
+      <div class="social_and_download_podcast">
+        <a href="#${2*loop.index}" class="icon-share-podcast btn-share">Share</a>
+        <c:choose>
+          <c:when test="${podcast.identifier == null}">
+            <c:set var="podcast_link" value="https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var="podcast_link" value="https://www.podcastpedia.org/${podcast.identifier}"/>
+          </c:otherwise>
+        </c:choose>
+        <span class="podcast_url">${podcast_link}</span>
         <a href="#${2*loop.index+1}" class="icon-last-episodes btn-share"><spring:message code="user.last_episodes"/></a>
         <a href="#${2*loop.index+1}" class="icon-unsubcribe-podcast btn-share" style="background: #8A2908"><spring:message code="user.unsubscribe"/></a>
         <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			</div>
+      </div>
       <div class="clear"></div>
       <div class="last_episodes not_shown">
         <h2><spring:message code="user.last_episodes"/></h2>
@@ -153,12 +159,13 @@
           </div>
         </c:forEach>
       </div>
-			<div class="clear"></div>
-		</div>
-	</c:forEach>
+      <div class="clear"></div>
+    </div>
+  </c:forEach>
 </div>
 
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="<c:url value="/static/js/user/subscriptions.js" />"></script>
+
 
