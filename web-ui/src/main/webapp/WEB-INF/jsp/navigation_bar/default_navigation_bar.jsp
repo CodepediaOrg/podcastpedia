@@ -5,29 +5,30 @@
   <div id="nav">
 	<ul>
     <sec:authorize access="isAuthenticated()">
-      <li id="nav-mypodcastpedia">
+      <li id="nav-mypodcastpedia-auth">
         <a href="<c:url value="/users/homepage"/>"><spring:message code="user.mypodcastpedia" text="My Podcastpedia"/></a>
         <ul>
-          <li id="nav-my-subscriptions">
-            <a href="<c:url value="/users/subscriptions"/>"><spring:message code="user.subscriptions"/></a>
-          </li>
           <!-- TO DO
           <li id="my-searches">
             <a href="/users/searches/>">My searches</a>
           </li>
           -->
-          <li id="nav-homepage-my-podcastpedia">
-            <c:url value="/" var="urlHome" />
-            <a href="${urlHome}">Home</a>
-          </li>
-          <li>
-            <c:url var="logoutUrl" value="/sso/logout"/><!-- default URL used now by Spring Security 4 -->
-            <a href="${logoutUrl}"><spring:message code="user.logout"/></a>
-          </li>
         </ul>
       </li>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
+      <li id="nav-mypodcastpedia">
+        <a href="<c:url value="/users/homepage"/>"><spring:message code="user.mypodcastpedia" text="My Podcastpedia"/></a>
+        <ul>
+          <!-- TO DO
+          <li id="my-searches">
+            <a href="/users/searches/>">My searches</a>
+          </li>
+          -->
+        </ul>
+      </li>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
       <li id="nav-homepage">
         <c:url value="/" var="urlHome" />
         <a href="${urlHome}">Home</a>
@@ -57,6 +58,12 @@
 		<li id="nav-responsive">
 			<a href="#"></a>
 			<ul>
+        <sec:authorize access="isAuthenticated()">
+          <li id="nav-homepage-resp">
+            <c:url value="/" var="urlHome" />
+            <a href="${urlHome}">Home</a>
+          </li>
+        </sec:authorize>
 				<li id="nav-tags-resp">
 					<a href="<c:url value="/tags/all/0"/>"><spring:message code="pod_details.tags"/></a>
 				</li>

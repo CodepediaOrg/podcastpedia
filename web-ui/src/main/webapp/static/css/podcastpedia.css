@@ -474,6 +474,7 @@ ul.pureCssMenu ul li {
 #podcasting #nav-podcasting a,
 #podcast-subscriptions #nav-mypodcastpedia > a,
 #latest-episodes-podcast-subscriptions #nav-mypodcastpedia > a,
+#my-podcastpedia #nav-mypodcastpedia-auth > a,
 #homepage #nav-mypodcastpedia > a {
   background-color: #185B8B; }
 
@@ -491,7 +492,7 @@ ul.pureCssMenu ul li {
   font-size: 1.3em; }
 
 /** to make a responsive menu duplicate list elements from the menu*/
-#nav-homepage a:after, #nav-homepage-my-podcastpedia a:after {
+#nav-homepage a:after, #nav-homepage-my-podcastpedia a:after, #nav-homepage-resp a:after {
   content: "\e600"; }
 
 #nav-tags a:after, #nav-tags-resp a:after {
@@ -512,7 +513,7 @@ ul.pureCssMenu ul li {
 #nav-podcasting a:after, #nav-podcasting-resp a:after {
   content: "\e609"; }
 
-#nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp {
+#nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp, #nav-homepage-resp {
   display: none; }
 
 /** media queries to hide and show menu items, based on the display width */
@@ -521,33 +522,33 @@ ul.pureCssMenu ul li {
     display: none; } }
 
 @media screen and (max-width: 1039px) {
-  #nav-podcasting-resp, #nav-contact-resp {
+  #nav-podcasting-resp, #nav-contact-resp, #nav-support-resp {
     display: block; }
-  #nav-podcasting, #nav-contact {
+  #nav-podcasting, #nav-contact, #nav-support {
     display: none; } }
 
 @media screen and (max-width: 900px) {
-  #nav-support-resp {
-    display: block; }
-  #nav-support {
-    display: none; } }
-
-@media screen and (max-width: 750px) {
   #nav-add-podcast-resp {
     display: block; }
   #nav-add-podcast {
     display: none; } }
 
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 750px) {
   #nav-categories-resp {
     display: block; }
   #nav-categories {
     display: none; } }
 
-@media screen and (max-width: 465px) {
+@media screen and (max-width: 610px) {
   #nav-tags-resp {
     display: block; }
   #nav-tags {
+    display: none; } }
+
+@media screen and (max-width: 465px) {
+  #nav-homepage-resp {
+    display: block; }
+  #nav-homepage {
     display: none; } }
 
 #logos {
