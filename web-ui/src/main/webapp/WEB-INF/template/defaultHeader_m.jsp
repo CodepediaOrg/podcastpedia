@@ -35,7 +35,7 @@
       <c:param name="response_type" value="code" />
       <c:param name="redirect_uri" value="http://localhost:8181/users/subscriptions" />
     </c:url>
-    <a href="<c:url value='/sso/login'/>"><spring:message code="user.login"/></a>
+    <a href="<c:url value='/users/homepage'/>"><spring:message code="user.login"/></a>
   </div>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
