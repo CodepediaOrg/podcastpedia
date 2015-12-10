@@ -234,7 +234,7 @@
   </select>
   <select id="getPlaylistsForUser" resultType="String" parameterType="String">
     SELECT
-      s.playlist
+      DISTINCT s.playlist
     FROM
       subscriptions s
     WHERE
