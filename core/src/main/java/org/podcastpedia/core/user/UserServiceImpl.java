@@ -3,6 +3,7 @@ package org.podcastpedia.core.user;
 import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
@@ -17,9 +18,10 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 
 	@Override
-	public List<Podcast> getSubscriptions(String username) {
+    @Cacheable(value="users", key = "#userId")
+	public List<Podcast> getSubscriptions(String userId) {
 
-        List<Podcast> subscriptions = userDao.getSubscriptions(username);
+        List<Podcast> subscriptions = userDao.getSubscriptions(userId);
 
         //return only the last 3 episodes, ordered by publication date
         for(Podcast subscription: subscriptions){
@@ -86,9 +88,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void subscribeToPodcast(String username, int podcastId, String playlist) {
+    @CacheEvict(value="users", key="#userId")
+    public void subscribeToPodcast(String userId, int podcastId, String playlist) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", username);
+        params.put("email", userId);
         params.put("podcastId", podcastId);
         params.put("playlist", playlist);
 
@@ -96,6 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value="users", key="#userId")
     public void unsubscribeFromPodcast(String userId, int podcastId) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", userId);

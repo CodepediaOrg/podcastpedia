@@ -3,7 +3,7 @@
 	updateCheck="true"
 	monitoring="autodetect"
 	dynamicConfig="true"
-	maxBytesLocalHeap="150M">
+	maxBytesLocalHeap="250M">
 
 	<diskStore path="java.io.tmpdir"/>
 
@@ -21,6 +21,15 @@
     timeToIdleSeconds="300"
     diskExpiryThreadIntervalSeconds="120"
     memoryStoreEvictionPolicy="LRU">
+    <persistence strategy="none"/>
+  </cache>
+
+  <cache name="users"
+         maxBytesLocalHeap="100M"
+         eternal="false"
+         timeToIdleSeconds="300"
+         diskExpiryThreadIntervalSeconds="120"
+         memoryStoreEvictionPolicy="LRU">
     <persistence strategy="none"/>
   </cache>
 
