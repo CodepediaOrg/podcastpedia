@@ -80,7 +80,7 @@ public class UserController {
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
         String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-        String playlist = newPlaylist!=null?newPlaylist:existingPlaylist;
+        String playlist = !"".equals(newPlaylist) ? newPlaylist : existingPlaylist;
         userService.subscribeToPodcast(userId, podcastId, playlist);
 
         return "OK";
@@ -96,6 +96,20 @@ public class UserController {
         String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
 
         userService.unsubscribeFromPodcast(userId, podcastId);
+
+        return "OK";
+    }
+
+    @RequestMapping(value="remove-from-playlist", method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
+    public @ResponseBody String removeFromPlaylist(@RequestParam("podcastId") Integer podcastId, @RequestParam("playlist") String playlist) {
+
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
+
+        userService.removeFromPlaylist(userId, podcastId, playlist);
 
         return "OK";
     }

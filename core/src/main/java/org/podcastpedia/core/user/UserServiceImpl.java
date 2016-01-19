@@ -109,6 +109,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CacheEvict(value="users", key="#userId")
+    public void removeFromPlaylist(String userId, Integer podcastId, String playlist) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("userId", userId);
+        params.put("podcastId", podcastId);
+        params.put("playlist", playlist);
+
+        userDao.removeFromPlaylist(params);
+    }
+
+
+
+    @Override
     @CacheEvict(value="podcasts", key="#podcastId")
     public void votePodcast(final String username, final int podcastId, final int vote) {
         PodcastVote podcastVote = new PodcastVote();
@@ -157,6 +170,7 @@ public class UserServiceImpl implements UserService {
     public List<String> getPlaylistNames(String userId) {
         return userDao.getPlaylistsForUser(userId);
     }
+
 
     private String encryptPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

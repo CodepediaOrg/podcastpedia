@@ -237,6 +237,16 @@
 
 <div id="subscribe-form-playlist" title="Select playlist">
   <form class="vertical_style_form">
+    <sec:authorize access="isAuthenticated()">
+      <p>
+        <select id="playlist_names" class="form_input">
+          <option value="" label="Existing playlist"/>
+          <c:forEach items="${playlists}" var="playlist">
+            <option value="${playlist}">${playlist}</option>
+          </c:forEach>
+        </select>
+      </p>
+    </sec:authorize>
     <div id="label_above_elements">
       <label for="newPlayist" class="label">
         <spring:message code="label.create_playlist" text="Create new playlist"/>
@@ -245,16 +255,6 @@
     <p>
       <input name="newPlaylist" id="newPlayist" class="form_input" style='width:200px'/>
     </p>
-    <sec:authorize access="isAuthenticated()">
-      <p>
-        <select id="playlist_names" class="form_input">
-          <option value="" label="select playlist"/>
-          <c:forEach items="${playlists}" var="playlist">
-            <option value="${playlist}">${playlist}</option>
-          </c:forEach>
-        </select>
-      </p>
-    </sec:authorize>
     <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
   </form>
 </div>

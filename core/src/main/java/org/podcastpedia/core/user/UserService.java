@@ -86,4 +86,14 @@ public interface UserService {
      * @return a list of playlist names created by the user
      */
     public List<String> getPlaylistNames(String userId);
+
+
+    /**
+     * Removes the podcast from the user's playlist
+     *
+     * @param userId of the logged in user
+     * @param podcastId of the podcast to be removed from the playlist
+     * @param playlist the playlist
+     */
+    void removeFromPlaylist(String userId, Integer podcastId, String playlist);
 }

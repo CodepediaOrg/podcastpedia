@@ -75,4 +75,11 @@ public interface UserDao {
     List<Podcast> getPodcastsForPlaylist(Map<String, Object> params);
 
     List<String> getPlaylistsForUser(String userId);
- }
+
+    /**
+     * Removes data entry from subscriptions table identified by username, podcastId and playlist
+     *
+     * @param params (userid, podcastId and playlist)
+     */
+    void removeFromPlaylist(Map<String, Object> params);
+}

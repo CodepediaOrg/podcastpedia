@@ -86,8 +86,7 @@
       CURRENT_TIMESTAMP,
       #{playlist}
     ) ON DUPLICATE KEY UPDATE
-    subscription_date=values(subscription_date),
-    playlist=values(playlist)
+    subscription_date=values(subscription_date)
   </insert>
   <delete id="unsubscribeFromPodcast" parameterType="java.util.Map" >
     DELETE FROM subscriptions
@@ -96,6 +95,16 @@
     AND
       podcast_id=#{podcastId}
   </delete>
+  <delete id="removeFromPlaylist" parameterType="java.util.Map" >
+    DELETE FROM subscriptions
+    WHERE
+    email=#{userId}
+    AND
+    podcast_id=#{podcastId}
+    AND
+    playlist=#{playlist}
+  </delete>
+
 
   <select id="getUserByUsername" resultMap="userResultMap" parameterType="String">
     SELECT
@@ -180,6 +189,7 @@
     <result column="title_in_url" property="titleInUrl" />
     <result column="publication_date" property="publicationDate"/>
     <result column="media_type" property="mediaType"/>
+    <result column="playlist" property="playlist"/>
     <collection property="episodes" ofType="Episode">
       <result property="description" column="episode_description"/>
       <result property="podcastId" column="podcast_id"/>
@@ -261,7 +271,8 @@
     e.episode_id,
     e.publication_date as episode_pub_date,
     e.title_in_url as episode_title_in_url,
-    e.is_new
+    e.is_new,
+    s.playlist
     FROM
     podcasts p, subscriptions s, episodes e
     WHERE

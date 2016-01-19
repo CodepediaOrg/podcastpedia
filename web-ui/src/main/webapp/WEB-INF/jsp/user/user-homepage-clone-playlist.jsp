@@ -80,8 +80,9 @@
         </c:choose>
         <span class="podcast_url">${podcast_link}</span>
         <a href="#${2*loop.index+1}" class="icon-last-episodes btn-share"><spring:message code="user.last_episodes"/></a>
-        <a href="#${2*loop.index+1}" class="icon-unsubcribe-podcast btn-share" style="background: #8A2908"><spring:message code="user.unsubscribe"/></a>
+        <a href="#${2*loop.index+1}" class="icon-remove-from-playlist btn-share" style="background: #8A2908"><spring:message code="user.remove"/></a>
         <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
+        <input type="hidden" name="playlist" value="${podcast.playlist}"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </div>
       <div class="clear"></div>
