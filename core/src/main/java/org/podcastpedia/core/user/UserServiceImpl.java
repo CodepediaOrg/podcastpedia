@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public List<Episode> getLatestEpisodesFromSubscriptions(String username) {
-		return userDao.getLatestEpisodesFromSubscriptions(username);
+	public List<Episode> getLatestEpisodesFromSubscriptions(String userId) {
+		return userDao.getLatestEpisodesFromSubscriptions(userId);
 	}
 
     @Override
@@ -89,11 +89,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @CacheEvict(value="users", key="#userId")
-    public void subscribeToPodcast(String userId, int podcastId, String playlist) {
+    public void subscribeToPodcast(String userId, int podcastId, String playlist, String email) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("email", userId);
         params.put("podcastId", podcastId);
         params.put("playlist", playlist);
+        params.put("email", email);
 
         userDao.subscribeToPodcast(params);
     }

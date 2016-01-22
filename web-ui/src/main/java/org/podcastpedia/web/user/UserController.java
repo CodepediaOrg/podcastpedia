@@ -62,9 +62,12 @@ public class UserController {
     public String getLatestEpisodesFromPodcastSubscriptions(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
+        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
-        List<Episode> latestEpisodes = userService.getLatestEpisodesFromSubscriptions(userDetails.getUsername());
+        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
+
+        List<Episode> latestEpisodes = userService.getLatestEpisodesFromSubscriptions(userId);
         model.addAttribute("latestEpisodes", latestEpisodes);
 
         return "latest_episodes_for_podcast_subscriptions_def";
@@ -80,8 +83,9 @@ public class UserController {
         OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
 
         String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
+        String email = keycloakAccount.getKeycloakSecurityContext().getIdToken().getEmail();
         String playlist = !"".equals(newPlaylist) ? newPlaylist : existingPlaylist;
-        userService.subscribeToPodcast(userId, podcastId, playlist);
+        userService.subscribeToPodcast(userId, podcastId, playlist, email);
 
         return "OK";
     }

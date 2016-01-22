@@ -48,8 +48,9 @@ public interface UserService {
      * @param username
      * @param podcastId
      * @param playlist
+     * @param email
      */
-    public void subscribeToPodcast(String username, int podcastId, String playlist);
+    public void subscribeToPodcast(String username, int podcastId, String playlist, String email);
 
     /**
      * Unsubscribes the user identified by the @param username from the podcast identified by the @param podcastId

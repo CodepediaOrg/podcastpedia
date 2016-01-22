@@ -16,10 +16,10 @@ public interface UserDao {
 	public List<Podcast> getSubscriptions(String username);
 
 	/**
-	 * Returns a list with the latest episodes from a user, identified by username, subscriptions
+	 * Returns a list with the latest episodes from a user, identified by userId, subscriptions
 	 * ordered by the publication date DESC(endent)
 	 *
-	 * @param username
+	 * @param userId of the user - comes from keycloak
 	 * @return
 	 */
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username);

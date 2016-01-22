@@ -74,31 +74,33 @@
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >
     INSERT into subscriptions
     (
-      email,
+      user_id,
       podcast_id,
       subscription_date,
-      playlist
+      playlist,
+      email
     )
     VALUES
     (
-      #{email},
+      #{user_id},
       #{podcastId},
       CURRENT_TIMESTAMP,
-      #{playlist}
+      #{playlist},
+      #{email}
     ) ON DUPLICATE KEY UPDATE
     subscription_date=values(subscription_date)
   </insert>
   <delete id="unsubscribeFromPodcast" parameterType="java.util.Map" >
     DELETE FROM subscriptions
     WHERE
-      email=#{userId}
+      user_id = #{userId}
     AND
       podcast_id=#{podcastId}
   </delete>
   <delete id="removeFromPlaylist" parameterType="java.util.Map" >
     DELETE FROM subscriptions
     WHERE
-    email=#{userId}
+    user_id = #{userId}
     AND
     podcast_id=#{podcastId}
     AND
@@ -230,7 +232,7 @@
     FROM
     	podcasts p, subscriptions s, episodes e
 	  WHERE
-		  s.email = #{userId}
+		  s.user_id = #{userId}
 		AND
 		  s.podcast_id= p.podcast_id
 		AND
@@ -248,7 +250,7 @@
     FROM
       subscriptions s
     WHERE
-      s.email=#{userId}
+      s.user_id=#{userId}
   </select>
   <select id="getPodcastsForPlaylist" resultMap="podcastsFound" parameterType="java.util.Map">
     SELECT
@@ -276,7 +278,7 @@
     FROM
     podcasts p, subscriptions s, episodes e
     WHERE
-    s.email = #{userId}
+    s.user_id = #{userId}
     AND
     s.playlist= #{playlist}
     AND
@@ -337,7 +339,7 @@
     WHERE
       u.username = #{value}
     AND
-      s.email = #{value}
+      s.user_id = #{value}
     AND
       s.podcast_id= p.podcast_id
     AND
