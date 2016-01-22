@@ -10,21 +10,19 @@
 #Exclude target folders
 **/target/
 
-#web-ui module
+# web-ui module
 web-ui/src/main/webapp/static/node_modules
 web-ui/src/main/webapp/META-INF/context-dev-gmail-personal.xml
 web-ui/src/main/webapp/META-INF/context-prod.xml
 web-ui/src/main/webapp/META-INF/context-prod-tunnel.xml
+web-ui/src/main/resources/keycloak-prod.json
+web-ui/src/main/resources/config/jetty9-ssl.xml
+web-ui/src/main/resources/config/jetty9-imap-ssl.xml
+web-ui/src/main/resources/config/jetty9-remote.xml
 
 #Exclude generated files
 **/MANIFEST.MF
 
-
-web-ui/src/main/resources/config/jetty9-ssl.xml
-
-web-ui/src/main/resources/config/jetty9-imap-ssl.xml
-web-ui/src/main/resources/config/jetty9-remote.xml
-
+# admin module
 admin/src/main/webapp/META-INF/context-tunnel-ssl.xml
-
 admin/src/main/resources/config/jetty9-tunnel.xml
