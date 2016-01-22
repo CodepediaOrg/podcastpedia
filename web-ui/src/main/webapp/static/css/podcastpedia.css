@@ -1567,9 +1567,10 @@ a.producer-social {
   border-color: #ebccd1; }
 
 #playlists li {
-  display: inline;
+  display: inline-block;
   list-style-type: none;
-  padding-right: 20px; }
+  padding-right: 8px;
+  padding-bottom: 15px; }
 
 /***** LEFT OVERS */
 #about_podcasting_content {
