@@ -465,11 +465,11 @@
                 <version>2.2</version>
                 <configuration>
                   <!-- http port -->
-                  <port>8181</port>
+                  <port>8080</port>
                   <!-- application path always starts with /-->
                   <path>/${project.artifactId}</path>
                   <!-- optional path to a context file -->
-                  <contextFile>context.xml</contextFile>
+                  <contextFile>context-dev.xml</contextFile>
                   <!-- optional system propoerties you want to add -->
                   <systemProperties>
                     <appserver.base>${project.build.directory}/appserver-base</appserver.base>
