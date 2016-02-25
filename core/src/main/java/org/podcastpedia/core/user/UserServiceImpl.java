@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value="users", key="#userId")
     public void subscribeToPodcast(String userId, int podcastId, String playlist, String email) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", userId);
+        params.put("userId", userId);
         params.put("podcastId", podcastId);
         params.put("playlist", playlist);
         params.put("email", email);

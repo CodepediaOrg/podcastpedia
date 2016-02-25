@@ -82,7 +82,7 @@
     )
     VALUES
     (
-      #{user_id},
+      #{userId},
       #{podcastId},
       CURRENT_TIMESTAMP,
       #{playlist},
