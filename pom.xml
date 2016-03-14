@@ -48,6 +48,7 @@
     <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
     <rome.version>1.5.0</rome.version>
     <jsr250-api.version>1.0</jsr250-api.version>
+    <keycloak-spring-security-adapter.version>1.9.0.Final</keycloak-spring-security-adapter.version>
   </properties>
 
     <licenses>
@@ -359,12 +360,12 @@
       <dependency>
         <groupId>org.keycloak</groupId>
         <artifactId>keycloak-spring-security-adapter</artifactId>
-        <version>1.7.0.Final</version>
+        <version>${keycloak-spring-security-adapter.version}</version>
       </dependency>
       <dependency>
         <groupId>org.keycloak</groupId>
         <artifactId>keycloak-tomcat8-adapter-dist</artifactId>
-        <version>1.7.0.Final</version>
+        <version>${keycloak-spring-security-adapter.version}</version>
         <type>zip</type>
       </dependency>
 
@@ -507,7 +508,7 @@
                   <dependency>
                     <groupId>org.keycloak</groupId>
                     <artifactId>keycloak-tomcat7-adapter-dist</artifactId>
-                    <version>1.6.1.Final</version>
+                    <version>${keycloak-spring-security-adapter.version}</version>
                     <type>zip</type>
                   </dependency>
                 </dependencies>
