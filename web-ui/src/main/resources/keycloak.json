@@ -1,10 +1,8 @@
 {
-  "realm": "demo",
-  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrVrCuTtArbgaZzL1hvh0xtL5mc7o0NqPVnYXkLvgcwiC3BjLGw1tGEGoJaXDuSaRllobm53JBhjx33UNv+5z/UMG4kytBWxheNVKnL6GgqlNabMaFfPLPCF8kAgKnsi79NMo+n6KnSY8YeUmec/p2vjO2NjsSAVcWEQMVhJ31LwIDAQAB",
-  "auth-server-url": "http://localhost:8180/auth",
+  "realm": "podcastpedia",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmh8fgK5nUdFb9LGKqLWQn5a8Z6HDUsSe2P5YJMJ6XjxtpzhdxeYuju87seH2aZh0zTBsgFXOXQNBeuVpk04GUWY4Xt6GqWdkkK7ynL/1S+mWi4Pi5lUXs+ugasQAM4JhGSJMyy3F0X2E/BC0Je4oDqcFuvaZrvwL9kCJz8JiAWfzsk3Dixzz42rBB3asvQDSPE6sJOc0OxzLT0MEPCQhwD9Vjnth1xUy8fKfSbWQMDV7bKfpHVuj4oLMuWIwYmjVXl1SqTH2f0iqcwbgA9v5z1vwQoc53GJEnuTtxG2XA4v6Hn7JQ7EKIatpZlVdsftqT8eSCGYdLJJv+HTg2GXXswIDAQAB",
+  "auth-server-url": "http://localhost/auth",
   "ssl-required": "external",
   "resource": "podcastpedia",
-  "credentials": {
-    "secret": "ee60e6c6-c5df-4e15-b011-c5bbe496a554"
-  }
+  "public-client": true
 }

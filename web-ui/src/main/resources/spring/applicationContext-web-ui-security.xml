@@ -17,7 +17,7 @@
     <security:authentication-provider ref="keycloakAuthenticationProvider" />
   </security:authentication-manager>
 
-  <bean id="adapterDeploymentContext" class="org.keycloak.adapters.springsecurity.AdapterDeploymentContextBean">
+  <bean id="adapterDeploymentContext" class="org.keycloak.adapters.springsecurity.AdapterDeploymentContextFactoryBean">
     <constructor-arg value="classpath:keycloak.json" />
   </bean>
   <bean id="keycloakAuthenticationEntryPoint" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationEntryPoint" />
@@ -48,6 +48,7 @@
   </bean>
 
   <security:http auto-config="false" use-expressions="true" entry-point-ref="keycloakAuthenticationEntryPoint">
+    <security:headers disabled="true"/>
     <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
     <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
     <security:intercept-url pattern="/users/registration" access="permitAll"/>
@@ -56,8 +57,9 @@
     <security:intercept-url pattern="/users/password-forgotten" access="permitAll"/>
     <security:intercept-url pattern="/users/password-forgotten/confirm-email" access="permitAll"/>
     <security:intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
-    <security:intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
-    <security:intercept-url pattern="/**" access="permitAll"/>
+    <security:intercept-url pattern="/sso/login" access="permitAll" requires-channel="https"/>
+    <security:intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')" requires-channel="https"/>
+    <security:intercept-url pattern="/**" access="permitAll" requires-channel="https"/>
     <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
   </security:http>
 
