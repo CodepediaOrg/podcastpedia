@@ -83,4 +83,14 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
       text-decoration: none;
     }
   }
+
+  input[type="submit"] {
+    background-color: orangered;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 4px 10px;
+    margin-right: 5px;
+    font-size: 1.1em;
+    margin-top: -6px;
+  }
 }
