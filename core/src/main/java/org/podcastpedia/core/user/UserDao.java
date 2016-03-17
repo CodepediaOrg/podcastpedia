@@ -19,7 +19,7 @@ public interface UserDao {
 	 * Returns a list with the latest episodes from a user, identified by userId, subscriptions
 	 * ordered by the publication date DESC(endent)
 	 *
-	 * @param userId of the user - comes from keycloak
+	 * @param username - email of the user
 	 * @return
 	 */
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username);
@@ -69,17 +69,17 @@ public interface UserDao {
     /**
      * Returns the podcast from the selected playist
      *
-     * @param params a map containing the userId and the name of the playlist
+     * @param params a map containing the email and the name of the playlist
      * @return list of podcasts
      */
     List<Podcast> getPodcastsForPlaylist(Map<String, Object> params);
 
-    List<String> getPlaylistsForUser(String userId);
+    List<String> getPlaylistsForUser(String email);
 
     /**
      * Removes data entry from subscriptions table identified by username, podcastId and playlist
      *
-     * @param params (userid, podcastId and playlist)
+     * @param params (email, podcastId and playlist)
      */
     void removeFromPlaylist(Map<String, Object> params);
 }

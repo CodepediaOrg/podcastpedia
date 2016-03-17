@@ -1,15 +1,13 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,14 +48,12 @@ public class UserHomePageController {
         LOG.debug("------ Returns the homepage for the user ------");
 
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        List<Podcast> subscriptions = userService.getSubscriptions(userId);
+        List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
         model.addAttribute("subscriptions", subscriptions);
 
-        List<String> playlistNames = userService.getPlaylistNames(userId);
+        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
         model.addAttribute("playlists", playlistNames);
 
         return "user_homepage_def";

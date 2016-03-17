@@ -9,6 +9,7 @@ import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,12 +51,10 @@ public class UserPlaylistController {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        List<String> playlistNames = userService.getPlaylistNames(userId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
         model.addAttribute("playlists", playlistNames);
 
         return "user_playlists_def";
@@ -67,15 +66,12 @@ public class UserPlaylistController {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to for this playlist ------");
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        List<String> playlistNames = userService.getPlaylistNames(userId);
+        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
         model.addAttribute("playlists", playlistNames);
 
-        List<Podcast> subscriptions = userService.getPodcastsForPlaylist(userId, playlist);
+        List<Podcast> subscriptions = userService.getPodcastsForPlaylist(userDetails.getUsername(), playlist);
         model.addAttribute("subscriptions", subscriptions);
         model.addAttribute("playlist", playlist);
 

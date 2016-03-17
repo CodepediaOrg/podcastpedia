@@ -18,10 +18,10 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 
 	@Override
-    @Cacheable(value="users", key = "#userId")
-	public List<Podcast> getSubscriptions(String userId) {
+    @Cacheable(value="users", key = "#email")
+	public List<Podcast> getSubscriptions(String email) {
 
-        List<Podcast> subscriptions = userDao.getSubscriptions(userId);
+        List<Podcast> subscriptions = userDao.getSubscriptions(email);
 
         //return only the last 3 episodes, ordered by publication date
         for(Podcast subscription: subscriptions){
@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService {
 	}
 
     @Override
-    public List<Podcast> getPodcastsForPlaylist(String userId, String playlist) {
+    public List<Podcast> getPodcastsForPlaylist(String email, String playlist) {
 
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
+        params.put("email", email);
         params.put("playlist", playlist);
 
         List<Podcast> subscriptions = userDao.getPodcastsForPlaylist(params);
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public List<Episode> getLatestEpisodesFromSubscriptions(String userId) {
-		return userDao.getLatestEpisodesFromSubscriptions(userId);
+	public List<Episode> getLatestEpisodesFromSubscriptions(String email) {
+		return userDao.getLatestEpisodesFromSubscriptions(email);
 	}
 
     @Override
@@ -87,33 +87,33 @@ public class UserServiceImpl implements UserService {
         return user != null;
     }
 
+
     @Override
-    @CacheEvict(value="users", key="#userId")
-    public void subscribeToPodcast(String userId, int podcastId, String playlist, String email) {
+    @CacheEvict(value="users", key="#email")
+    public void subscribeToPodcast(String email, int podcastId, String playlist) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
+        params.put("email", email);
         params.put("podcastId", podcastId);
         params.put("playlist", playlist);
-        params.put("email", email);
 
         userDao.subscribeToPodcast(params);
     }
 
     @Override
-    @CacheEvict(value="users", key="#userId")
-    public void unsubscribeFromPodcast(String userId, int podcastId) {
+    @CacheEvict(value="users", key="#email")
+    public void unsubscribeFromPodcast(String email, int podcastId) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
+        params.put("email", email);
         params.put("podcastId", podcastId);
 
         userDao.unsubscribeFromPodcast(params);
     }
 
     @Override
-    @CacheEvict(value="users", key="#userId")
-    public void removeFromPlaylist(String userId, Integer podcastId, String playlist) {
+    @CacheEvict(value="users", key="#email")
+    public void removeFromPlaylist(String email, Integer podcastId, String playlist) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userId", userId);
+        params.put("email", email);
         params.put("podcastId", podcastId);
         params.put("playlist", playlist);
 
@@ -168,8 +168,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getPlaylistNames(String userId) {
-        return userDao.getPlaylistsForUser(userId);
+    public List<String> getPlaylistNames(String email) {
+        return userDao.getPlaylistsForUser(email);
     }
 
 

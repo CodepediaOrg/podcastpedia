@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -93,10 +94,8 @@ public class PodcastIdentifierController {
 
         Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         if(!keycloakAuth.getPrincipal().equals("anonymousUser")){
-            OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
-
-            String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-            List<String> playlistNames = userService.getPlaylistNames(userId);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
 
             model.addAttribute("playlists", playlistNames);
 

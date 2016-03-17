@@ -1,8 +1,6 @@
 package org.podcastpedia.web.podcasts;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.exception.BusinessException;
@@ -13,8 +11,8 @@ import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -85,11 +83,8 @@ public class PodcastController {
 			model.addAttribute("roundedRatingScore", Math.round(podcast.getRating()));
 			model.addAttribute("podcast", podcast);
 
-            Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-            OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
-
-            String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-            List<String> playlistNames = userService.getPlaylistNames(userId);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
 
             model.addAttribute("playlists", playlistNames);
 

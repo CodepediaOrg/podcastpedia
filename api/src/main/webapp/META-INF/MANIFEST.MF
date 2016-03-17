@@ -1,13 +1,13 @@
 Manifest-Version: 1.0
+Implementation-Vendor: Codingpedia Association
 Implementation-Title: api
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: ama
-Specification-Vendor: Codingpedia Association
-Specification-Title: api
 Implementation-Vendor-Id: org.podcastpedia
+Specification-Vendor: Codingpedia Association
+Build-Jdk: 1.7.0_79
+Built-By: ama
+Specification-Title: api
 Created-By: Apache Maven 3.3.3
-Build-Jdk: 1.8.0_65
-Specification-Version: 0.0.1-SNAPSHOT
 Implementation-URL: http://www.podcastpedia.org
-Implementation-Vendor: Codingpedia Association
+Specification-Version: 0.0.1-SNAPSHOT
 

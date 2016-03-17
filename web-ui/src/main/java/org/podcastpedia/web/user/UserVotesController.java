@@ -1,14 +1,9 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.podcastpedia.common.domain.Episode;
-import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 
 
 @Controller
@@ -47,12 +41,9 @@ public class UserVotesController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteUpPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        userService.votePodcast(userId, podcastId, VOTE_UP);
+        userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_UP);
 
         return "OK";
     }
@@ -61,12 +52,9 @@ public class UserVotesController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteDownPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        userService.votePodcast(userId, podcastId, VOTE_DOWN);
+        userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_DOWN);
 
         return "OK";
     }

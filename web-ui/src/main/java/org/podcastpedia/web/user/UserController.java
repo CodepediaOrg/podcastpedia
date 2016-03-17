@@ -1,14 +1,11 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -47,12 +44,9 @@ public class UserController {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        List<Podcast> subscriptions = userService.getSubscriptions(userId);
+        List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
         model.addAttribute("subscriptions", subscriptions);
 
         return "podcast_subscriptions_def";
@@ -62,12 +56,9 @@ public class UserController {
     public String getLatestEpisodesFromPodcastSubscriptions(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        List<Episode> latestEpisodes = userService.getLatestEpisodesFromSubscriptions(userId);
+        List<Episode> latestEpisodes = userService.getLatestEpisodesFromSubscriptions(userDetails.getUsername());
         model.addAttribute("latestEpisodes", latestEpisodes);
 
         return "latest_episodes_for_podcast_subscriptions_def";
@@ -79,13 +70,9 @@ public class UserController {
                                                    @RequestParam("newPlaylist")String newPlaylist,
                                                    @RequestParam("existingPlaylist")String existingPlaylist) {
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
-
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-        String email = keycloakAccount.getKeycloakSecurityContext().getIdToken().getEmail();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String playlist = !"".equals(newPlaylist) ? newPlaylist : existingPlaylist;
-        userService.subscribeToPodcast(userId, podcastId, playlist, email);
+        userService.subscribeToPodcast(userDetails.getUsername(), podcastId, playlist);
 
         return "OK";
     }
@@ -94,12 +81,9 @@ public class UserController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String unsubscribeFromPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        userService.unsubscribeFromPodcast(userId, podcastId);
+        userService.unsubscribeFromPodcast(userDetails.getUsername(), podcastId);
 
         return "OK";
     }
@@ -108,12 +92,9 @@ public class UserController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String removeFromPlaylist(@RequestParam("podcastId") Integer podcastId, @RequestParam("playlist") String playlist) {
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        OidcKeycloakAccount keycloakAccount = ((KeycloakAuthenticationToken) keycloakAuth).getAccount();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String userId = keycloakAccount.getKeycloakSecurityContext().getIdToken().getSubject();
-
-        userService.removeFromPlaylist(userId, podcastId, playlist);
+        userService.removeFromPlaylist(userDetails.getUsername(), podcastId, playlist);
 
         return "OK";
     }

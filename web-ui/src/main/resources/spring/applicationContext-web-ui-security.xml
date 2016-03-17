@@ -1,64 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security.xsd">
 
-  <context:component-scan base-package="org.keycloak.adapters.springsecurity" />
+  <!-- Stateless RESTful services use BASIC authentication   -->
+  <http use-expressions="false" create-session="stateless" pattern="/rest/**">
+    <intercept-url pattern="/**" access="ROLE_REST"/>
+    <http-basic />
+  </http>
 
-  <security:authentication-manager alias="authenticationManager">
-    <security:authentication-provider ref="keycloakAuthenticationProvider" />
-  </security:authentication-manager>
+  <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
+    <!-- enable csrf protection -->
+    <csrf/>
+    <!-- configure the login form -->
+    <form-login
+      login-page="/login/custom_login"
+      login-processing-url="/j_spring_security_check"
+      authentication-failure-url="/login/custom_login?error"
+      default-target-url="/users/subscriptions"
+      authentication-success-handler-ref="myAuthenticationSuccessHandler"
+      username-parameter="username"
+      password-parameter="password" />
 
-  <bean id="adapterDeploymentContext" class="org.keycloak.adapters.springsecurity.AdapterDeploymentContextFactoryBean">
-    <constructor-arg value="classpath:keycloak.json" />
-  </bean>
-  <bean id="keyclo}akAuthenticationEntryPoint" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationEntryPoint" />
-  <bean id="keycloakAuthenticationProvider" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider" />
-  <bean id="keycloakPreAuthActionsFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter" />
-  <bean id="keycloakAuthenticationProcessingFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter">
-    <constructor-arg name="authenticationManager" ref="authenticationManager" />
-  </bean>
+    <!-- configure the logout function - will go to home page
+    logout-url="/j_spring_security_logout" -->
+    <logout
+      logout-success-url="/"
+      delete-cookies="JSESSIONID" />
 
-  <bean id="keycloakLogoutHandler" class="org.keycloak.adapters.springsecurity.authentication.KeycloakLogoutHandler">
-    <constructor-arg ref="adapterDeploymentContext" />
-  </bean>
+    <intercept-url pattern="/users/registration" access="permitAll"/>
+    <intercept-url pattern="/users/registration/confirm-email" access="permitAll"/>
+    <intercept-url pattern="/users/registration/confirmed" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/confirm-email" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
+    <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
+    <intercept-url pattern="/**" access="permitAll"/>
+  </http>
 
-  <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-    <constructor-arg name="logoutSuccessUrl" value="/" />
-    <constructor-arg name="handlers">
-      <list>
-        <ref bean="keycloakLogoutHandler" />
-        <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
-      </list>
-    </constructor-arg>
-    <property name="logoutRequestMatcher">
-      <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
-        <constructor-arg name="pattern" value="/sso/logout**" />
-        <constructor-arg name="httpMethod" value="GET" />
-      </bean>
-    </property>
-  </bean>
+  <beans:bean id="myAuthenticationSuccessHandler"
+              class="org.podcastpedia.web.util.MyCustomLoginSuccessHandler" >
+    <beans:constructor-arg name="defaultTargetUrl" value="/users/subscriptions"/>
+  </beans:bean>
 
-  <security:http auto-config="false" use-expressions="true" entry-point-ref="keycloakAuthenticationEntryPoint">
-    <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
-    <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
-    <security:intercept-url pattern="/users/registration" access="permitAll"/>
-    <security:intercept-url pattern="/users/registration/confirm-email" access="permitAll"/>
-    <security:intercept-url pattern="/users/registration/confirmed" access="permitAll"/>
-    <security:intercept-url pattern="/users/password-forgotten" access="permitAll"/>
-    <security:intercept-url pattern="/users/password-forgotten/confirm-email" access="permitAll"/>
-    <security:intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
-    <security:intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
-    <security:intercept-url pattern="/**" access="permitAll"/>
-    <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
-  </security:http>
+  <!-- Select users and user_roles from database -->
+  <authentication-manager  id="jdbcAuthenticationManager">
+    <authentication-provider>
+      <jdbc-user-service data-source-ref="dataSource"
+                         users-by-username-query=
+                           "select username, password, enabled from users where username=? and enabled=1"
+                         authorities-by-username-query=
+                           "select username, authority from authorities where username=?" />
+      <password-encoder ref="passwordEncoder"/>
+    </authentication-provider>
+  </authentication-manager>
+  <!-- This is used to hash the password of the user. -->
+  <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    <beans:constructor-arg index="0" value="10"/>
+  </beans:bean>
 
-</beans>
+  <authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="rest_user" password="123rest" authorities="ROLE_REST"/>
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+
+  <authentication-manager id="inMemoryAuthenticationManager">
+    <authentication-provider>
+      <user-service>
+        <user name="ama" password="ama" authorities="hasRole('ROLE_USER')"/>
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+
+</beans:beans>

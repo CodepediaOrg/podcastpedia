@@ -40,9 +40,14 @@
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
   <div id="login-button">
-    <a href="<c:url value='/sso/logout'/>"><spring:message code="user.logout"/></a>
+    <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
+    <form id="logout-form" action="${logoutUrl}" method="post">
+      <input type="submit" value="<spring:message code="user.logout"/>" />
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
   </div>
 </sec:authorize>
+
 <div class="clear"></div>
 <%@ include file="header_common_part_m.jsp" %>
 
