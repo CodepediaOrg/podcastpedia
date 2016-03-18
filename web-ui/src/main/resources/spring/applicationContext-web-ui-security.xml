@@ -45,7 +45,7 @@
 
   <beans:bean id="myAuthenticationSuccessHandler"
               class="org.podcastpedia.web.util.MyCustomLoginSuccessHandler" >
-    <beans:constructor-arg name="defaultTargetUrl" value="/users/subscriptions"/>
+    <beans:constructor-arg name="defaultTargetUrl" value="/users/homepage"/>
   </beans:bean>
 
   <!-- Select users and user_roles from database -->
