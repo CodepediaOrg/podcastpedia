@@ -274,14 +274,20 @@ $(function (){
   });
   $("#subscribe-form-playlist" ).dialog({
     autoOpen: false,
-    height: 200,
+    height: 220,
     width: 370,
     modal: true,
     buttons: {
-      "Subscribe": function() {
-          //TODO - do form validation, either create new or choose existing
-          postSubscribeToPlaylist();
-
+      "Add to playlist": function() {
+          var inputNewPlaylist = $("input#newPlayist");
+          var selectedPlaylistValue = $("#playlist_names option:selected").val();
+          var xorInputOrSelectPlaylist = (selectedPlaylistValue != "" && inputNewPlaylist.val() == "") ||(selectedPlaylistValue == "" && inputNewPlaylist.val() != "");
+          if(xorInputOrSelectPlaylist){
+            postSubscribeToPlaylist();
+          } else {
+            inputNewPlaylist.after("<br/><span style='color: red'>Please either add to existing playlist OR create a new one</span>");
+            return false;
+          }
       },
       Cancel: function() { $( this ).dialog( "close" ); }
     },

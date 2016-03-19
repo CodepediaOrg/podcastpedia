@@ -55,6 +55,7 @@ public class UserPlaylistController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
+        if(playlistNames.isEmpty()) playlistNames.add("default");
         model.addAttribute("playlists", playlistNames);
 
         return "user_playlists_def";
