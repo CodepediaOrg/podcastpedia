@@ -206,11 +206,11 @@
     <put-attribute name="body-id" value="my-podcastpedia" />
     <put-attribute name="content" value="/WEB-INF/jsp/user/user-homepage.jsp"/>
   </definition>
-  <definition name="user_playlist_def" extends="defaultTemplate_m">
+  <definition name="user_subscription_category_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="My Podcastpedia"/>
     <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     <put-attribute name="body-id" value="my-podcastpedia" />
-    <put-attribute name="content" value="/WEB-INF/jsp/user/user-homepage-clone-playlist.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/jsp/user/user-homepage-clone-subscription-category.jsp"/>
   </definition>
   <definition name="latest_episodes_for_podcast_subscriptions_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia"/>

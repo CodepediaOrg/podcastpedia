@@ -67,12 +67,12 @@ public class UserController {
     @RequestMapping(method= RequestMethod.POST)
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId,
-                                                   @RequestParam("newPlaylist")String newPlaylist,
-                                                   @RequestParam("existingPlaylist")String existingPlaylist) {
+                                                   @RequestParam("newSubscriptionCategory")String newSubscriptionCategory,
+                                                   @RequestParam("existingSubscriptionCategory")String existingSubscriptionCategory) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String playlist = !"".equals(newPlaylist) ? newPlaylist : existingPlaylist;
-        userService.subscribeToPodcast(userDetails.getUsername(), podcastId, playlist);
+        String subscriptionCategory = !"".equals(newSubscriptionCategory) ? newSubscriptionCategory : existingSubscriptionCategory;
+        userService.subscribeToPodcast(userDetails.getUsername(), podcastId, subscriptionCategory);
 
         return "OK";
     }
@@ -88,13 +88,12 @@ public class UserController {
         return "OK";
     }
 
-    @RequestMapping(value="remove-from-playlist", method= RequestMethod.POST)
+    @RequestMapping(value="remove-from-subscription-category", method= RequestMethod.POST)
     @RolesAllowed("ROLE_USER")
-    public @ResponseBody String removeFromPlaylist(@RequestParam("podcastId") Integer podcastId, @RequestParam("playlist") String playlist) {
+    public @ResponseBody String removeFromSubscriptionCategory(@RequestParam("podcastId") Integer podcastId, @RequestParam("subscriptionCategory") String subscriptionCategory) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        userService.removeFromPlaylist(userDetails.getUsername(), podcastId, playlist);
+        userService.removeFromSubscriptionCategory(userDetails.getUsername(), podcastId, subscriptionCategory);
 
         return "OK";
     }

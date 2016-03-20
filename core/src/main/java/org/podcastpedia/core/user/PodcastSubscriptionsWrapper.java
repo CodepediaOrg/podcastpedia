@@ -10,7 +10,7 @@ import java.util.List;
 public class PodcastSubscriptionsWrapper {
 
     List<Podcast> subscriptions;
-    List<String> playlists;
+    List<String> subscriptionCategories;
 
     public List<Podcast> getSubscriptions() {
         return subscriptions;
@@ -20,11 +20,11 @@ public class PodcastSubscriptionsWrapper {
         this.subscriptions = subscriptions;
     }
 
-    public List<String> getPlaylists() {
-        return playlists;
+    public List<String> getSubscriptionCategories() {
+        return subscriptionCategories;
     }
 
-    public void setPlaylists(List<String> playlists) {
-        this.playlists = playlists;
+    public void setSubscriptionCategories(List<String> subscriptionCategories) {
+        this.subscriptionCategories = subscriptionCategories;
     }
 }

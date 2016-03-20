@@ -84,9 +84,9 @@ public class PodcastController {
 			model.addAttribute("podcast", podcast);
 
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
+            List<String> subscriptionCategoryNames = userService.getSubscriptionCategoryNames(userDetails.getUsername());
 
-            model.addAttribute("playlists", playlistNames);
+            model.addAttribute("subscriptionCategories", subscriptionCategoryNames);
 
           return "m_podcastDetails";
 	  }

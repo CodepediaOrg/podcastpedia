@@ -1,8 +1,6 @@
 package org.podcastpedia.web.podcasts;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.exception.BusinessException;
@@ -13,6 +11,7 @@ import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -92,13 +91,17 @@ public class PodcastIdentifierController {
 				Math.round(podcast.getRating()));
 		model.addAttribute("podcast", podcast);
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
-        if(!keycloakAuth.getPrincipal().equals("anonymousUser")){
+        boolean userAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null &&
+            SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+            //when Anonymous Authentication is enabled
+            !(SecurityContextHolder.getContext().getAuthentication()
+                instanceof AnonymousAuthenticationToken);
+
+        if(userAuthenticated){
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
+            List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
 
-            model.addAttribute("playlists", playlistNames);
-
+            model.addAttribute("subscriptionCategories", subscriptionCategories);
         }
 
 

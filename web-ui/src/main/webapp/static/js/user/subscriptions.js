@@ -57,18 +57,18 @@ $(function (){
     });
   }
 
-  removeFromPlaylist();
+  removeFromSubscriptionCategory();
   //delegate again...
-  function removeFromPlaylist(){
-    $('.podcast_wrapper').delegate('.icon-remove-from-playlist', 'click',  function () {
+  function removeFromSubscriptionCategory(){
+    $('.podcast_wrapper').delegate('.icon-remove-from-subscription-category', 'click',  function () {
       var currentDiv=$(this).closest("div.podcast_wrapper");
       var podcastId = currentDiv.find("input[name=podcastId]").val();
-      var playlist = currentDiv.find("input[name=playlist]").val();
+      var subscriptionCategory = currentDiv.find("input[name=subscriptionCategory]").val();
 
-      $.post("/users/subscriptions/remove-from-playlist",
+      $.post("/users/subscriptions/remove-from-subscription-category",
         {
           podcastId:  podcastId,
-          playlist: playlist,
+          subscriptionCategory: subscriptionCategory,
           _csrf: $( "input[name='_csrf']" ).val()
         },
 

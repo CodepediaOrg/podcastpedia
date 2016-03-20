@@ -77,14 +77,14 @@
       email,
       podcast_id,
       subscription_date,
-      playlist
+      category
     )
     VALUES
     (
       #{email},
       #{podcastId},
       CURRENT_TIMESTAMP,
-      #{playlist}
+      #{category}
     ) ON DUPLICATE KEY UPDATE
     subscription_date=values(subscription_date)
   </insert>
@@ -95,14 +95,14 @@
     AND
       podcast_id=#{podcastId}
   </delete>
-  <delete id="removeFromPlaylist" parameterType="java.util.Map" >
+  <delete id="removeFromSubscriptionCategory" parameterType="java.util.Map" >
     DELETE FROM subscriptions
     WHERE
     email = #{email}
     AND
     podcast_id=#{podcastId}
     AND
-    playlist=#{playlist}
+    category=#{category}
   </delete>
 
 
@@ -189,7 +189,7 @@
     <result column="title_in_url" property="titleInUrl" />
     <result column="publication_date" property="publicationDate"/>
     <result column="media_type" property="mediaType"/>
-    <result column="playlist" property="playlist"/>
+    <result column="subscription_category" property="subscriptionCategory"/>
     <collection property="episodes" ofType="Episode">
       <result property="description" column="episode_description"/>
       <result property="podcastId" column="podcast_id"/>
@@ -242,15 +242,15 @@
     ORDER BY
     	p.publication_date DESC, e.publication_date DESC
   </select>
-  <select id="getPlaylistsForUser" resultType="String" parameterType="String">
+  <select id="getSubscriptionCategoriesForUser" resultType="String" parameterType="String">
     SELECT
-      DISTINCT s.playlist
+      DISTINCT s.category
     FROM
       subscriptions s
     WHERE
       s.email=#{email}
   </select>
-  <select id="getPodcastsForPlaylist" resultMap="podcastsFound" parameterType="java.util.Map">
+  <select id="getPodcastsForSubscriptionCategory" resultMap="podcastsFound" parameterType="java.util.Map">
     SELECT
     p.PODCAST_ID,
     p.URL,
@@ -272,13 +272,13 @@
     e.publication_date as episode_pub_date,
     e.title_in_url as episode_title_in_url,
     e.is_new,
-    s.playlist
+    s.category as subscription_category
     FROM
     podcasts p, subscriptions s, episodes e
     WHERE
     s.email = #{email}
     AND
-    s.playlist= #{playlist}
+    s.category= #{category}
     AND
     s.podcast_id= p.podcast_id
     AND

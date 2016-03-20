@@ -9,21 +9,21 @@
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
 <c:choose>
-  <c:when test="${empty playlists}">
+  <c:when test="${empty subscriptionCategories}">
     <div class="bg_color shadowy common_mar_pad common_radius">
       <spring:message code="user.no_subscriptions.welcome"/>
     </div>
   </c:when>
   <c:otherwise>
-    <!-- first there is the my playlists sections -->
-    <div id="my_playlists" class="common_radius bg_color shadowy common_mar_pad" style="margin-bottom: 20px">
-      <h2 class="title_before_form">My playlists</h2>
+    <!-- first there is the my subscriptions categories sections -->
+    <div id="my_subscription_categories" class="common_radius bg_color shadowy common_mar_pad" style="margin-bottom: 20px">
+      <h2 class="title_before_form"><spring:message code="user.subscriptions.categories.title"/></h2>
       <hr class="before_form_header_line"/>
-      <ul id="playlists">
-        <c:forEach items="${playlists}" var="playlist">
+      <ul id="subscription_categories">
+        <c:forEach items="${subscriptionCategories}" var="subscriptionCategory">
           <li>
-            <c:url value="/users/playlists/${playlist}" var="playlistUrl" />
-            <a href="${playlistUrl}" class="btn-share"> ${playlist} </a>
+            <c:url value="/users/subscription-categories/${subscriptionCategory}" var="subscriptionCategoryUrl" />
+            <a href="${subscriptionCategoryUrl}" class="btn-share"> ${subscriptionCategory} </a>
           </li>
         </c:forEach>
       </ul>

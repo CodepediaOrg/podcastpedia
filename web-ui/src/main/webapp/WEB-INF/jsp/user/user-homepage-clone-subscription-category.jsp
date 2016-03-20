@@ -9,15 +9,15 @@
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
 
-<!-- first there is the my playlists sections -->
-<div id="my_playlists" class="common_radius bg_color shadowy common_mar_pad" style="margin-bottom: 20px">
-  <h2 class="title_before_form">My playlists</h2>
+<!-- first there is the my subscriptions categories sections -->
+<div id="my_subscription_categories" class="common_radius bg_color shadowy common_mar_pad" style="margin-bottom: 20px">
+  <h2 class="title_before_form"><spring:message code="user.subscriptions.categories.title"/></h2>
   <hr class="before_form_header_line"/>
-  <ul id="playlists">
-    <c:forEach items="${playlists}" var="playlist">
+  <ul id="subscription_categories">
+    <c:forEach items="${subscriptionCategories}" var="subscriptionCategory">
       <li>
-        <c:url value="/users/playlists/${playlist}" var="playlistUrl" />
-        <a href="${playlistUrl}" class="btn-share"> ${playlist} </a>
+        <c:url value="/users/subscription-categories/${subscriptionCategory}" var="subscriptionCategoryUrl" />
+        <a href="${subscriptionCategoryUrl}" class="btn-share"> ${subscriptionCategory} </a>
       </li>
     </c:forEach>
   </ul>
@@ -25,7 +25,7 @@
 <div class="clear"></div>
 
 <!-- second part will display the latest updates -->
-<h2 class="title_before_form" style="color:white">Playlist &gt; ${playlist}</h2>
+<h2 class="title_before_form" style="color:white"><spring:message code="search_form.category"/> &gt; ${subscriptionCategory}</h2>
 <div class="results_list">
   <c:forEach items="${subscriptions}" var="podcast" varStatus="loop">
     <div class="bg_color shadowy podcast_wrapper">
@@ -80,9 +80,9 @@
         </c:choose>
         <span class="podcast_url">${podcast_link}</span>
         <a href="#${2*loop.index+1}" class="icon-last-episodes btn-share"><spring:message code="user.last_episodes"/></a>
-        <a href="#${2*loop.index+1}" class="icon-remove-from-playlist btn-share" style="background: #8A2908"><spring:message code="user.remove"/></a>
+        <a href="#${2*loop.index+1}" class="icon-remove-from-subscription-category btn-share" style="background: #8A2908"><spring:message code="user.remove"/></a>
         <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
-        <input type="hidden" name="playlist" value="${podcast.playlist}"/>
+        <input type="hidden" name="subscriptionCategory" value="${podcast.subscriptionCategory}"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </div>
       <div class="clear"></div>

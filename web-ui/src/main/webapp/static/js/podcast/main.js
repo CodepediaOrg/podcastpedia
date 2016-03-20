@@ -272,20 +272,20 @@ $(function (){
           $("#subscription_email_err_mess").remove();
       }
   });
-  $("#subscribe-form-playlist" ).dialog({
+  $("#subscribe-form-subscription-category" ).dialog({
     autoOpen: false,
     height: 220,
     width: 370,
     modal: true,
     buttons: {
-      "Add to playlist": function() {
-          var inputNewPlaylist = $("input#newPlayist");
-          var selectedPlaylistValue = $("#playlist_names option:selected").val();
-          var xorInputOrSelectPlaylist = (selectedPlaylistValue != "" && inputNewPlaylist.val() == "") ||(selectedPlaylistValue == "" && inputNewPlaylist.val() != "");
-          if(xorInputOrSelectPlaylist){
-            postSubscribeToPlaylist();
+      "Submit": function() {
+          var inputNewSubscriptionCategory = $("input#newSubscriptionCategory");
+          var selectedSubscriptionCategoryValue = $("#subscription_categories option:selected").val();
+          var xorInputOrSelectSubscriptionCategory = (selectedSubscriptionCategoryValue != "" && inputNewSubscriptionCategory.val() == "") ||(selectedSubscriptionCategoryValue == "" && inputNewSubscriptionCategory.val() != "");
+          if(xorInputOrSelectSubscriptionCategory){
+            postSubscribeToSubscriptionCategory();
           } else {
-            inputNewPlaylist.after("<br/><span style='color: red'>Please either add to existing playlist OR create a new one</span>");
+            inputNewSubscriptionCategory.after("<br/><span style='color: red'>Please either add to existing category OR create a new one</span>");
             return false;
           }
       },
@@ -343,24 +343,24 @@ $(function (){
   });
 
   $("#subscribe-to-podcast").click(function(){
-    $("#subscribe-form-playlist").dialog("open");
+    $("#subscribe-form-subscription-category").dialog("open");
   });
   //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   //$("#subscribe-to-podcast").click(function(){
-  function postSubscribeToPlaylist(){
+  function postSubscribeToSubscriptionCategory(){
     $.post("/users/subscriptions",
       {
         podcastId:  $("input#sub_podcastId").val(),
         _csrf: $( "input[name='_csrf']" ).val(),
-        newPlaylist: $( "input[name='newPlaylist']" ).val(),
-        existingPlaylist: $( "#playlist_names" ).val()
+        newSubscriptionCategory: $( "input[name='newSubscriptionCategory']" ).val(),
+        existingSubscriptionCategory: $( "#subscription_categories" ).val()
       },
 
       function(data){
         //we have received valid response
         $("#subscribe-to-podcast").css({ 'background-color': '#185B8B' });
         $("#subscribe-to-podcast").css({ 'pointer-events': 'none' });
-        $("#subscribe-form-playlist").dialog("close");
+        $("#subscribe-form-subscription-category").dialog("close");
       });
   }
 

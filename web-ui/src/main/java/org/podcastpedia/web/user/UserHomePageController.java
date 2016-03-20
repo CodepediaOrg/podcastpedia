@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("users/homepage")
 public class UserHomePageController {
 
-    protected static Logger LOG = Logger.getLogger(UserPlaylistController.class);
+    protected static Logger LOG = Logger.getLogger(UserSubscriptionCategoryController.class);
 
     @Autowired
     UserService userService;
@@ -53,8 +53,8 @@ public class UserHomePageController {
         List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
         model.addAttribute("subscriptions", subscriptions);
 
-        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
-        model.addAttribute("playlists", playlistNames);
+        List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+        model.addAttribute("subscriptionCategories", subscriptionCategories);
 
         return "user_homepage_def";
     }

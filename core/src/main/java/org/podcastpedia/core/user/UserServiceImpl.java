@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
 	}
 
     @Override
-    public List<Podcast> getPodcastsForPlaylist(String email, String playlist) {
+    public List<Podcast> getPodcastsForSubscriptionCategory(String email, String subscriptionCategory) {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("email", email);
-        params.put("playlist", playlist);
+        params.put("category", subscriptionCategory);
 
-        List<Podcast> subscriptions = userDao.getPodcastsForPlaylist(params);
+        List<Podcast> subscriptions = userDao.getPodcastsForSubscriptionCategory(params);
 
         //return only the last 3 episodes, ordered by publication date
         for(Podcast subscription: subscriptions){
@@ -90,11 +90,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @CacheEvict(value="users", key="#email")
-    public void subscribeToPodcast(String email, int podcastId, String playlist) {
+    public void subscribeToPodcast(String email, int podcastId, String subscriptionCategory) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("email", email);
         params.put("podcastId", podcastId);
-        params.put("playlist", playlist);
+        params.put("category", subscriptionCategory);
 
         userDao.subscribeToPodcast(params);
     }
@@ -111,13 +111,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @CacheEvict(value="users", key="#email")
-    public void removeFromPlaylist(String email, Integer podcastId, String playlist) {
+    public void removeFromSubscriptionCategory(String email, Integer podcastId, String category) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("email", email);
         params.put("podcastId", podcastId);
-        params.put("playlist", playlist);
+        params.put("category", category);
 
-        userDao.removeFromPlaylist(params);
+        userDao.removeFromSubscriptionCategory(params);
     }
 
 
@@ -168,8 +168,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getPlaylistNames(String email) {
-        return userDao.getPlaylistsForUser(email);
+    public List<String> getSubscriptionCategoryNames(String email) {
+        return userDao.getSubscriptionCategoriesForUser(email);
     }
 
 

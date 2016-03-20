@@ -69,17 +69,17 @@ public interface UserDao {
     /**
      * Returns the podcast from the selected playist
      *
-     * @param params a map containing the email and the name of the playlist
+     * @param params a map containing the email and the name of the subscription category
      * @return list of podcasts
      */
-    List<Podcast> getPodcastsForPlaylist(Map<String, Object> params);
+    List<Podcast> getPodcastsForSubscriptionCategory(Map<String, Object> params);
 
-    List<String> getPlaylistsForUser(String email);
+    List<String> getSubscriptionCategoriesForUser(String email);
 
     /**
-     * Removes data entry from subscriptions table identified by username, podcastId and playlist
+     * Removes data entry from subscriptions table identified by username, podcastId and subscription category
      *
-     * @param params (email, podcastId and playlist)
+     * @param params (email, podcast id and subscription category)
      */
-    void removeFromPlaylist(Map<String, Object> params);
+    void removeFromSubscriptionCategory(Map<String, Object> params);
 }

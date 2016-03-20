@@ -171,15 +171,15 @@ public class Podcast implements Serializable {
 	/** Gplus fan page */
 	private String gplusPage;
 
-    /** placeholder used to unsubscribe from when the user selects one of her playlists*/
-    private String playlist;
+    /** placeholder used to unsubscribe from when the user selects one of her subscription categories*/
+    private String subscriptionCategory;
 
-    public String getPlaylist() {
-        return playlist;
+    public String getSubscriptionCategory() {
+        return subscriptionCategory;
     }
 
-    public void setPlaylist(String playlist) {
-        this.playlist = playlist;
+    public void setSubscriptionCategory(String subscriptionCategory) {
+        this.subscriptionCategory = subscriptionCategory;
     }
 
     public String getIdentifier() {

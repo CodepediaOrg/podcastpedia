@@ -1,8 +1,6 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
-import org.keycloak.adapters.OidcKeycloakAccount;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
@@ -24,10 +22,10 @@ import java.util.List;
  * Created by ama on 05/12/15.
  */
 @Controller
-@RequestMapping("users/playlists")
-public class UserPlaylistController {
+@RequestMapping("users/subscription-categories")
+public class UserSubscriptionCategoryController {
 
-    protected static Logger LOG = Logger.getLogger(UserPlaylistController.class);
+    protected static Logger LOG = Logger.getLogger(UserSubscriptionCategoryController.class);
 
     @Autowired
     UserService userService;
@@ -47,35 +45,36 @@ public class UserPlaylistController {
 
     @RequestMapping(method= RequestMethod.GET)
     @RolesAllowed("ROLE_USER")
-    public String getPlaylists(ModelMap model) {
+    //TODO not used yet - when migrating to angular js move to backend API
+    public String getSubscriptionCategories(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
-        if(playlistNames.isEmpty()) playlistNames.add("default");
-        model.addAttribute("playlists", playlistNames);
+        List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+        if(subscriptionCategories.isEmpty()) subscriptionCategories.add("default");
+        model.addAttribute("subscriptionCategories", subscriptionCategories);
 
-        return "user_playlists_def";
+        return "user_subscription_categories_def";
     }
 
-    @RequestMapping(value="{playlist}", method= RequestMethod.GET)
+    @RequestMapping(value="{subscriptionCategory}", method= RequestMethod.GET)
     @RolesAllowed("ROLE_USER")
-    public String getPodcastsForPlaylist(@PathVariable("playlist") String playlist, ModelMap model) {
+    public String getPodcastsForSubscriptionCategory(@PathVariable("subscriptionCategory") String subscriptionCategory, ModelMap model) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to for this playlist ------");
+        LOG.debug("------ Returns the podcasts the user has subscribed to for this subscription category ------");
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<String> playlistNames = userService.getPlaylistNames(userDetails.getUsername());
-        model.addAttribute("playlists", playlistNames);
+        List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+        model.addAttribute("subscriptionCategories", subscriptionCategories);
 
-        List<Podcast> subscriptions = userService.getPodcastsForPlaylist(userDetails.getUsername(), playlist);
+        List<Podcast> subscriptions = userService.getPodcastsForSubscriptionCategory(userDetails.getUsername(), subscriptionCategory);
         model.addAttribute("subscriptions", subscriptions);
-        model.addAttribute("playlist", playlist);
+        model.addAttribute("subscriptionCategory", subscriptionCategory);
 
-        return "user_playlist_def";
+        return "user_subscription_category_def";
     }
 }

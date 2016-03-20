@@ -235,25 +235,25 @@
 	</form>
 </div>
 
-<div id="subscribe-form-playlist" title="Select playlist">
+<div id="subscribe-form-subscription-category" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">
   <form class="vertical_style_form">
     <sec:authorize access="isAuthenticated()">
       <p>
-        <select id="playlist_names" class="form_input">
-          <option value="" label="Existing playlist"/>
-          <c:forEach items="${playlists}" var="playlist">
-            <option value="${playlist}">${playlist}</option>
+        <select id="subscription_categories" class="form_input">
+          <option value="" label="<spring:message code="user.subscriptions.select_category.existing" text="Existing category"/>"/>
+          <c:forEach items="${subscriptionCategories}" var="subscriptionCategory">
+            <option value="${subscriptionCategory}">${subscriptionCategory}</option>
           </c:forEach>
         </select>
       </p>
     </sec:authorize>
     <div id="label_above_elements">
       <label for="newPlayist" class="label">
-        <spring:message code="label.create_playlist" text="Create new playlist"/>
+        <spring:message code="user.subscriptions.select_category.new" text="Add new category"/>
       </label>
     </div>
     <p>
-      <input name="newPlaylist" id="newPlayist" class="form_input" style='width:200px'/>
+      <input name="newSubscriptionCategory" id="newSubscriptionCategory" class="form_input" style='width:200px'/>
     </p>
     <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
   </form>

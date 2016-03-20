@@ -10,7 +10,7 @@ public interface UserService {
 
 	public List<Podcast> getSubscriptions(String username);
 
-    List<Podcast> getPodcastsForPlaylist(String email, String playlist);
+    List<Podcast> getPodcastsForSubscriptionCategory(String email, String subscriptionCategory);
 
     /**
 	 * Returns a list with the latest episodes from a user, identified by username, subscriptions
@@ -47,10 +47,10 @@ public interface UserService {
      * Subscribes the user identified by the @param username to the podcast identified by the @param podcastId
      * @param email
      * @param podcastId
-     * @param playlist
+     * @param subscriptionCategory
      * @param email
      */
-    public void subscribeToPodcast(String email, int podcastId, String playlist);
+    public void subscribeToPodcast(String email, int podcastId, String subscriptionCategory);
 
     /**
      * Unsubscribes the user identified by the @param username from the podcast identified by the @param podcastId
@@ -84,17 +84,17 @@ public interface UserService {
      *
      *
      * @param email the id of the user
-     * @return a list of playlist names created by the user
+     * @return a list of subscription categories created by the user
      */
-    public List<String> getPlaylistNames(String email);
+    public List<String> getSubscriptionCategoryNames(String email);
 
 
     /**
-     * Removes the podcast from the user's playlist
+     * Removes the podcast from the user's subscription category
      *
      * @param email of the logged in user
-     * @param podcastId of the podcast to be removed from the playlist
-     * @param playlist the playlist
+     * @param podcastId of the podcast to be removed from the subscription category
+     * @param category the subscription category
      */
-    void removeFromPlaylist(String email, Integer podcastId, String playlist);
+    void removeFromSubscriptionCategory(String email, Integer podcastId, String category);
 }

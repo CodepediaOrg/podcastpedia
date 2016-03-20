@@ -14,7 +14,7 @@
   </div>
 </c:if>
 
-<h2 class="title_before_form">My playlists</h2>
+<h2 class="title_before_form">My subscriptionCategories</h2>
 <hr class="before_form_header_line"/>
 
 
