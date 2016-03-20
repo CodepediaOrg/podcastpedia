@@ -10,6 +10,7 @@
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
+<script type="text/javascript">jwplayer.key="fr4dDcJMQ2v5OaYJSBDXPnTeK6yHi8+8B7H3bg==";</script>
 
 <div id="podcast_metadata" class="bg_color shadowy">
 	<img src="${podcast.urlOfImageToDisplay}" alt="Podcast image" id="pod_image">

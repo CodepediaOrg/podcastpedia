@@ -7,6 +7,7 @@
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
+<script type="text/javascript">jwplayer.key="fr4dDcJMQ2v5OaYJSBDXPnTeK6yHi8+8B7H3bg==";</script>
 
 <div id="search_feed_link">
 	<c:url value="/static/images/feed-icon-14x14.png" var="urlFeedPic"/>
