@@ -943,6 +943,7 @@ img.recommend_social {
 .btn-share {
   background: #3498db;
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
+  box-shadow: 0 2px 5px 0 #DADADE;
   border-radius: 5px;
   text-decoration: none;
   font-family: Arial;
@@ -963,6 +964,7 @@ img.recommend_social {
   background: #3498db;
   background-image: linear-gradient(to bottom, #3498db, #217dbb);
   border-radius: 8px;
+  box-shadow: 0 2px 5px 0 #DADADE;
   color: #ffffff;
   padding: 3px 8px;
   margin: 2px;

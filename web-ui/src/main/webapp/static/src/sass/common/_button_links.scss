@@ -12,6 +12,7 @@
 
 .btn-share {
   @include btn-background(#3498db, 10%);
+  box-shadow: 0 2px 5px 0 $background-grey;
   border-radius : 5px;
   text-decoration: none;
   font-family: Arial;
@@ -33,6 +34,7 @@
 .btn-metadata2 {
   @include btn-background(#3498db, 10%);
  	border-radius: 8px;
+  box-shadow: 0 2px 5px 0 $background-grey;
   color: #ffffff;
   padding: 3px 8px;
   margin: 2px;
