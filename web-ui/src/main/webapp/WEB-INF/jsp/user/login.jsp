@@ -79,9 +79,9 @@
   <h2 class="title_before_form"><spring:message code="user.registration.header" text="Registration"/></h2>
   <hr class="before_form_header_line"/>
 
-  <c:url value="/users/registration" var="submitPasswordResetUrl" />
+  <c:url value="/users/registration" var="submitEmailForPasswordResetUrl" />
   <form:form name="registration_form" class="vertical_style_form"
-             method="POST" modelAttribute="userRegistration" action="${submitPasswordResetUrl}" >
+             method="POST" modelAttribute="userRegistration" action="${submitEmailForPasswordResetUrl}" >
 
     <div id="label_above_elements">
       <label for="displayName" class="label">

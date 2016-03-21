@@ -31,13 +31,24 @@ public class User implements Serializable {
     /** registration token - UUID to be confirmed by the user when she clicks the link from email */
     private String registrationToken;
 
+    /** password reset token - UUID to be confirmed by the user when she clicks the link from email she gets when password was forgotten */
+    private String passwordResetToken;
+
     /** place holder for error on invalid captcha */
     private String invalidRecaptcha;
 
     /** list with podcast ids that the user is subscribing to */
 	private List<Integer> subscriptions;
 
-	public List<Integer> getSubscriptions() {
+    public String getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(String passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
+    }
+
+    public List<Integer> getSubscriptions() {
 		return subscriptions;
 	}
 

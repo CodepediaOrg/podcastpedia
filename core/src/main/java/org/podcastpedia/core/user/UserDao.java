@@ -66,6 +66,8 @@ public interface UserDao {
      */
     void updateUserForPasswordReset(User user);
 
+    void resetUserPassword(User user);
+
     /**
      * Returns the podcast from the selected playist
      *

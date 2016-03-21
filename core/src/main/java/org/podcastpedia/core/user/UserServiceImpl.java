@@ -71,14 +71,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserForPasswordReset(User user) {
-        //generate a new registration token
-        user.setRegistrationToken(UUID.randomUUID().toString());
-        //set the user on inactive, to be activated via email confirmation
-        user.setEnabled(USER_NOT_YET_ENABLED);
-        user.setPassword(encryptPassword(user.getPassword()));
+        //generate a new password reset token
+        user.setPasswordResetToken(UUID.randomUUID().toString());
 
         userDao.updateUserForPasswordReset(user);
     }
+
+    @Override
+    public void updateUserPassword(User user) {
+        //encryptPassword
+        user.setPassword(encryptPassword(user.getPassword()));
+
+        userDao.resetUserPassword(user);
+    }
+
 
     @Override
     public boolean isExistingUser(String username) {

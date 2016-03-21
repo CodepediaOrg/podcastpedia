@@ -16,9 +16,9 @@
   <h2 class="title_before_form"><spring:message code="user.password_forgotten.header" text="Password reset"/></h2>
   <hr class="before_form_header_line"/>
 
-  <c:url value="/users/password-forgotten" var="submitPasswordResetUrl"/>
-  <form:form name="password_reset_form" class="vertical_style_form"
-             method="POST" modelAttribute="user" action="${submitPasswordResetUrl}" >
+  <c:url value="/users/password-forgotten/send-email" var="submitEmailForPasswordResetUrl"/>
+  <form:form name="password_forgotten_send_email_form" class="vertical_style_form"
+             method="POST" modelAttribute="user" action="${submitEmailForPasswordResetUrl}" >
 
     <!--username field-->
     <div id="label_above_elements">
@@ -29,28 +29,6 @@
     <p>
       <form:input path="username" id="username" class="form_input"/>
       <form:errors path="username" cssClass="error_form_validation"/>
-    </p>
-
-    <!-- password field -->
-    <div id="label_above_elements">
-      <label for="password" class="label">
-        <spring:message code="user.registration.label.new_password" text="New password"/>
-      </label>
-    </div>
-    <p>
-      <form:password path="password" id="password" class="form_input"/>
-      <form:errors path="password" cssClass="error_form_validation"/>
-    </p>
-
-    <!-- confirm password field -->
-    <div id="label_above_elements">
-      <label for="matchingPassword" class="label">
-        <spring:message code="user.registration.new_password_confirmation" text="Confirm password"/>
-      </label>
-    </div>
-    <p>
-      <form:password path="matchingPassword" id="matchingPassword" class="form_input"/>
-      <form:errors path="matchingPassword" cssClass="error_form_validation"/>
     </p>
 
     <p class="captcha_help_p">

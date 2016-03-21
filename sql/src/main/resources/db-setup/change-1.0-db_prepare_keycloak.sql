@@ -21,4 +21,10 @@ CHANGE COLUMN `email` `user_id` VARCHAR(80) CHARACTER SET 'latin1' NOT NULL ;
 ALTER TABLE `podcast_db`.`subscriptions`
 ADD COLUMN `email` VARCHAR(85) NULL AFTER `category`;
 
+-- add passwd_reset_token
+ALTER TABLE `podcast_db`.`users`
+ADD COLUMN `password_reset_token` VARCHAR(45) NULL AFTER `user_id`;
+
+
+
 

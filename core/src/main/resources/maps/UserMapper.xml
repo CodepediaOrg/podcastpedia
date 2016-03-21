@@ -56,19 +56,16 @@
   <!-- ******* Reset User Password ********* -->
   <update id="updateUserForPasswordReset" parameterType="User">
     UPDATE users SET
-      password = #{password},
-      enabled = #{enabled},
-      registration_token = #{registrationToken}
+      password_reset_token = #{passwordResetToken}
     WHERE username = #{username}
   </update>
   <update id="resetUserPassword" parameterType="User">
     UPDATE users SET
-      enabled = #{enabled},
       password = #{password}
     WHERE
       username = #{username}
     AND
-      registration_token = #{registrationToken}
+      password_reset_token = #{passwordResetToken}
   </update>
 
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >

@@ -33,6 +33,9 @@ public class PasswordForgottenController {
     private PasswordForgottenFormValidator passwordForgottenFormValidator;
 
     @Autowired
+    private PasswordForgottenEmailSendFormValidator passwordForgottenEmailSendFormValidator;
+
+    @Autowired
     private UserEmailNotificationService userEmailNotificationService;
 
     @Autowired
@@ -52,6 +55,60 @@ public class PasswordForgottenController {
 	}
 
     @RequestMapping(method=RequestMethod.GET)
+    public String prepareEmailForPasswordForgottenForm(
+        @ModelAttribute("user") User user,
+        Model model){
+
+        LOG.debug("------ prepareEmailForPasswordResetForm -----");
+
+        return "password_forgotten_email_form_def";
+    }
+
+    @RequestMapping(value="send-email", method=RequestMethod.POST)
+    public String preparePasswordForgottenEmailRequest(
+        @ModelAttribute("user") User user,
+        BindingResult result,
+        Model model,
+        @RequestParam("recaptcha_challenge_field") String challangeField,
+        @RequestParam("recaptcha_response_field") String responseField,
+        ServletRequest servletRequest, SessionStatus sessionStatus
+    ){
+
+        LOG.debug("------ validate if the user is registered -----");
+        passwordForgottenEmailSendFormValidator.validate(user, result);
+
+        boolean userIsNotRegistered = result.hasErrors();
+        if(userIsNotRegistered){
+            //do nothing
+            String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
+            return "redirect:/users/password-forgotten/confirm-email" + queryString;
+        } else {
+            String remoteAddress = servletRequest.getRemoteAddr();
+            ReCaptchaResponse  reCaptchaResponse = this.reCaptcha.checkAnswer(
+                remoteAddress, challangeField, responseField);
+
+            model.addAttribute("user", user);
+            //if(!result.hasErrors()){
+            if(!result.hasErrors() && reCaptchaResponse.isValid()){
+                userService.updateUserForPasswordReset(user);
+                userEmailNotificationService.sendPasswortResetEmailConfirmation(user);
+
+                sessionStatus.setComplete();
+                String queryString="?email=" + user.getUsername() + "&displayName=" + user.getDisplayName();
+                return "redirect:/users/password-forgotten/confirm-email" + queryString;
+                //return "user_registration_sent_email_def";
+            } else {
+                if (!reCaptchaResponse.isValid()) {
+                    result.rejectValue("invalidRecaptcha", "invalid.captcha");
+                    model.addAttribute("invalidRecaptcha", true);
+                }
+
+                return "password_forgotten_def";
+            }
+        }
+    }
+
+    @RequestMapping(value="password-reset", method=RequestMethod.GET)
     public String preparePasswordForgottenForm(
         @ModelAttribute("user") User user,
         Model model){
@@ -61,7 +118,8 @@ public class PasswordForgottenController {
         return "password_forgotten_def";
     }
 
-    @RequestMapping(method=RequestMethod.POST)
+
+    @RequestMapping(value="password-reset", method=RequestMethod.POST)
     public String preparePasswordForgottenRequest(
         @ModelAttribute("user") User user,
         BindingResult result,

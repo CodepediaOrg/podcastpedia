@@ -29,12 +29,15 @@ public interface UserService {
     public void submitUserForRegistration(User user);
 
     /**
-     * Generates a new registration-token to be used in password reactivation and sets the user
-     * temporarily on disabled until she gets reactivated and changes her password
+     * Generates a new password reset token to be sent via email. Once the user
+     * clicks on the link received via email will be asked to give and confirm the new password
+     * to be used by the next logins
      *
      * @param user
      */
     void updateUserForPasswordReset(User user);
+
+    void updateUserPassword(User user);
 
     /**
      * Verifies if the given @param username is already registered(present in the database)

@@ -324,14 +324,12 @@ $(function (){
     modal: true,
     buttons: {
       "Log in": function() {
-        $( this ).dialog("close");
-        var clientId="client_id=podcastpedia";
-        var responseType="response_type=code";
-        //var redirectUri="redirect_uri=" + encodeURI(window.location.href);
-        var redirectUri="redirect_uri=" + encodeURI("http://localhost:8181/users/subscriptions");
-        //TODO make the host environment specific (dev & prod)
-        window.location.href = "//localhost:8180/auth/realms/demo/protocol/openid-connect/auth?"
-          + clientId + "&" + responseType + "&" + redirectUri;
+        var url = window.location.href;
+        var arr = url.split("/");
+        var protocol= arr[0];
+        var hostAndPort=arr[2];
+        window.location.href = "//" + hostAndPort + "/login/custom_login";
+        //window.location.href = "//podcastpedia.org/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );
