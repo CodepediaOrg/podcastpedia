@@ -39,6 +39,7 @@
     <intercept-url pattern="/users/password-forgotten" access="permitAll"/>
     <intercept-url pattern="/users/password-forgotten/confirm-email" access="permitAll"/>
     <intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/send-email" access="permitAll"/>
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
     <intercept-url pattern="/**" access="permitAll"/>
   </http>
