@@ -34,6 +34,9 @@ public interface UserDao {
     /** returns an user given its username */
     public User getUserByUsername(String username);
 
+    /** returns an user given its username and resetPasswordToken*/
+    public User getUserByUsernameAndResetPasswordToken(User user);
+
     /**
      * Adds username and podcastId to the subscriptions table
      * @param params

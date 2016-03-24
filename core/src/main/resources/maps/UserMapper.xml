@@ -11,6 +11,7 @@
     <result column="display_name" property="displayName"/>
     <result column="registration_date" property="registrationDate"/>
     <result column="registration_token" property="registrationToken"/>
+    <result column="password_reset_token" property="passwordResetToken"/>
   </resultMap>
 
   <insert id="addUser" parameterType="User" >
@@ -115,6 +116,21 @@
     WHERE
       username = #{value}
   </select>
+  <select id="getUserByUsernameAndResetPasswordToken" resultMap="userResultMap" parameterType="User">
+    SELECT
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date
+    FROM
+      users
+    WHERE
+      username = #{username}
+      AND
+      password_reset_token= #{passwordResetToken}
+  </select>
+
 
   <!-- user votes section -->
   <resultMap id="podcastVoteResultMap" type="PodcastVote">

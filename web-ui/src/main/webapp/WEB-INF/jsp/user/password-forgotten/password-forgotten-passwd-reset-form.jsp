@@ -16,7 +16,7 @@
   <h2 class="title_before_form"><spring:message code="user.password_forgotten.header" text="Password reset"/></h2>
   <hr class="before_form_header_line"/>
 
-  <c:url value="/users/password-forgotten" var="submitEmailForPasswordResetUrl"/>
+  <c:url value="/users/password-forgotten/password-reset" var="submitEmailForPasswordResetUrl"/>
   <form:form name="password_reset_form" class="vertical_style_form"
              method="POST" modelAttribute="user" action="${submitEmailForPasswordResetUrl}" >
 
@@ -44,6 +44,9 @@
 
     <spring:message var="submit_btn" code="submit" text="Submit registration"/>
     <input type="submit" value="${submit_btn}"  id="send_message" class="submit_form_button"/>
+
+    <form:hidden path="username" value="${user.username}" />
+    <form:hidden path="passwordResetToken" value="${user.passwordResetToken}" />
     <div class="clear"></div>
   </form:form>
 </div>

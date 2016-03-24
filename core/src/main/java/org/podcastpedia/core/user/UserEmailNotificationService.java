@@ -9,5 +9,5 @@ public interface UserEmailNotificationService {
 
     void sendRegistrationEmailConfirmation(User user);
 
-    void sendPasswortResetEmailConfirmation(User user);
+    void sendPasswortResetEmailConfirmation(String localAddr, User user);
 }

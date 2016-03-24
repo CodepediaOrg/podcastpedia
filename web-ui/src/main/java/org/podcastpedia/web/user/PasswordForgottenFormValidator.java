@@ -29,7 +29,7 @@ public class PasswordForgottenFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		User user = (User)target;
 
-        User userDetails = userDao.getUserByUsername(user.getUsername());
+        User userDetails = userDao.getUserByUsernameAndResetPasswordToken(user);
         if (userDetails == null){
 			errors.rejectValue("username", "invalid.email.not_registered");
 		} else {
@@ -38,7 +38,8 @@ public class PasswordForgottenFormValidator implements Validator{
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "invalid.required.password");
 
-        if (!user.getPassword().equals(user.getMatchingPassword())) {
+        boolean passwordsDontMatch = !user.getPassword().equals(user.getMatchingPassword());
+        if (passwordsDontMatch) {
             errors.rejectValue("matchingPassword", "password.missmatch");
         }
 	}
