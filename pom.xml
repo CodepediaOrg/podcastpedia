@@ -48,7 +48,6 @@
     <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
     <rome.version>1.5.0</rome.version>
     <jsr250-api.version>1.0</jsr250-api.version>
-    <keycloak-spring-security-adapter.version>1.9.0.Final</keycloak-spring-security-adapter.version>
   </properties>
 
     <licenses>
@@ -356,18 +355,6 @@
         <version>${jsr250-api.version}</version>
       </dependency>
 
-      <!-- keycloak -->
-      <dependency>
-        <groupId>org.keycloak</groupId>
-        <artifactId>keycloak-spring-security-adapter</artifactId>
-        <version>${keycloak-spring-security-adapter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.keycloak</groupId>
-        <artifactId>keycloak-tomcat8-adapter-dist</artifactId>
-        <version>${keycloak-spring-security-adapter.version}</version>
-        <type>zip</type>
-      </dependency>
 
     </dependencies>
   </dependencyManagement>
@@ -478,7 +465,6 @@
                     <derby.system.home>${project.build.directory}/appserver-base/logs</derby.system.home>
                     <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
                     <JAVA_OPTS>-Xms256m -Xmx512m -XX:MaxPermSize=256m</JAVA_OPTS>
-                    <keycloakServer>http://localhost:8180</keycloakServer>
                     <env>dev</env>
                   </systemProperties>
                   <!-- if you want to use test dependencies rather than only runtime -->
@@ -504,12 +490,6 @@
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
                     <version>${tomcat.jdbc.version}</version>
-                  </dependency>
-                  <dependency>
-                    <groupId>org.keycloak</groupId>
-                    <artifactId>keycloak-tomcat7-adapter-dist</artifactId>
-                    <version>${keycloak-spring-security-adapter.version}</version>
-                    <type>zip</type>
                   </dependency>
                 </dependencies>
               </plugin>

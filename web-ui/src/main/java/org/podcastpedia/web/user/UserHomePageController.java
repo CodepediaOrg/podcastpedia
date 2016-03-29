@@ -47,7 +47,6 @@ public class UserHomePageController {
 
         LOG.debug("------ Returns the homepage for the user ------");
 
-        Authentication keycloakAuth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
