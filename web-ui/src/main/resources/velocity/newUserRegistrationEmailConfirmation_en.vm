@@ -6,5 +6,18 @@
             Click this <a href="https://www.podcastpedia.org/users/registration/confirmed?user=${user.username}&token=${user.registrationToken}">link</a> to finish the signup process.
             You can then subscribe to your favorite podcasts and vote podcasts up or down.
         </p>
+        <p style="margin-top:21px">
+            Podcastpedia.org - the open source podcast directory
+            <br>
+            <a href="https://www.facebook.com/Podcastpedia" style="text-decoration: none">
+                <img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/fb_51.png" style="margin-right:5px;margin-top:3px">
+            </a>
+            <a href="https://twitter.com/podcastpedia" style="text-decoration: none">
+                <img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/twitter_51.png" style="margin-right:5px;margin-top:3px">
+            </a>
+            <a href="https://google.com/+PodcastpediaOrg " style="text-decoration: none">
+                <img height="21" width="21" src="http://www.podcastpedia.org/static/images/logos/gplus_51.png" style="margin-right:5px;margin-top:3px">
+            </a>
+        </p>
     </body>
 </html>
