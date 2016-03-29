@@ -97,6 +97,8 @@ public class PodcastIdentifierController {
             !(SecurityContextHolder.getContext().getAuthentication()
                 instanceof AnonymousAuthenticationToken);
 
+        //load in model subscription categories if user is signed in, so that she can add current podcast
+        //to one of the categories
         if(userAuthenticated){
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());

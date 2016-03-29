@@ -11,6 +11,7 @@ import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -83,10 +84,20 @@ public class PodcastController {
 			model.addAttribute("roundedRatingScore", Math.round(podcast.getRating()));
 			model.addAttribute("podcast", podcast);
 
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<String> subscriptionCategoryNames = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+          boolean userAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null &&
+              SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+              //when Anonymous Authentication is enabled
+              !(SecurityContextHolder.getContext().getAuthentication()
+                  instanceof AnonymousAuthenticationToken);
 
-            model.addAttribute("subscriptionCategories", subscriptionCategoryNames);
+          //load in model subscription categories if user is signed in, so that she can add current podcast
+          //to one of the categories
+          if(userAuthenticated) {
+              UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              List<String> subscriptionCategoryNames = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+
+              model.addAttribute("subscriptionCategories", subscriptionCategoryNames);
+          }
 
           return "m_podcastDetails";
 	  }
