@@ -64,6 +64,7 @@
         <module>api</module>
         <module>core</module>
         <module>sql</module>
+        <module>sql-migration</module>
     </modules>
   <dependencyManagement>
     <dependencies>
