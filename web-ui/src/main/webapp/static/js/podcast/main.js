@@ -272,6 +272,31 @@ $(function (){
           $("#subscription_email_err_mess").remove();
       }
   });
+  $("#subscribe-form-subscription-category" ).dialog({
+    autoOpen: false,
+    height: 220,
+    width: 370,
+    modal: true,
+    buttons: {
+      "Submit": function() {
+          var inputNewSubscriptionCategory = $("input#newSubscriptionCategory");
+          var selectedSubscriptionCategoryValue = $("#subscription_categories option:selected").val();
+          var xorInputOrSelectSubscriptionCategory = (selectedSubscriptionCategoryValue != "" && inputNewSubscriptionCategory.val() == "") ||(selectedSubscriptionCategoryValue == "" && inputNewSubscriptionCategory.val() != "");
+          if(xorInputOrSelectSubscriptionCategory){
+            postSubscribeToSubscriptionCategory();
+          } else {
+            inputNewSubscriptionCategory.after("<br/><span style='color: red'>Please either add to existing category OR create a new one</span>");
+            return false;
+          }
+      },
+      Cancel: function() { $( this ).dialog( "close" ); }
+    },
+    close: function() {
+      //we reset the values
+      subscriptionEmail.val("").removeClass("input_in_error");
+      $("#subscription_email_err_mess").remove();
+    }
+  });
 
   $( "#dialog-subscribed" ).dialog({
       autoOpen: false,
@@ -299,8 +324,12 @@ $(function (){
     modal: true,
     buttons: {
       "Log in": function() {
-        $( this ).dialog("close");
-        window.location.href = "//podcastpedia.org/login/custom_login";
+        var url = window.location.href;
+        var arr = url.split("/");
+        var protocol= arr[0];
+        var hostAndPort=arr[2];
+        window.location.href = "//" + hostAndPort + "/login/custom_login";
+        //window.location.href = "//podcastpedia.org/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -311,20 +340,27 @@ $(function (){
     }
   });
 
-  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   $("#subscribe-to-podcast").click(function(){
+    $("#subscribe-form-subscription-category").dialog("open");
+  });
+  //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
+  //$("#subscribe-to-podcast").click(function(){
+  function postSubscribeToSubscriptionCategory(){
     $.post("/users/subscriptions",
       {
         podcastId:  $("input#sub_podcastId").val(),
-        _csrf: $( "input[name='_csrf']" ).val()
+        _csrf: $( "input[name='_csrf']" ).val(),
+        newSubscriptionCategory: $( "input[name='newSubscriptionCategory']" ).val(),
+        existingSubscriptionCategory: $( "#subscription_categories" ).val()
       },
 
       function(data){
         //we have received valid response
         $("#subscribe-to-podcast").css({ 'background-color': '#185B8B' });
         $("#subscribe-to-podcast").css({ 'pointer-events': 'none' });
+        $("#subscribe-form-subscription-category").dialog("close");
       });
-  });
+  }
 
   //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   $("#vote-up-podcast").click(function(){

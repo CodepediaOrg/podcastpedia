@@ -11,6 +11,7 @@
     <result column="display_name" property="displayName"/>
     <result column="registration_date" property="registrationDate"/>
     <result column="registration_token" property="registrationToken"/>
+    <result column="password_reset_token" property="passwordResetToken"/>
   </resultMap>
 
   <insert id="addUser" parameterType="User" >
@@ -56,19 +57,16 @@
   <!-- ******* Reset User Password ********* -->
   <update id="updateUserForPasswordReset" parameterType="User">
     UPDATE users SET
-      password = #{password},
-      enabled = #{enabled},
-      registration_token = #{registrationToken}
+      password_reset_token = #{passwordResetToken}
     WHERE username = #{username}
   </update>
   <update id="resetUserPassword" parameterType="User">
     UPDATE users SET
-      enabled = #{enabled},
       password = #{password}
     WHERE
       username = #{username}
     AND
-      registration_token = #{registrationToken}
+      password_reset_token = #{passwordResetToken}
   </update>
 
   <insert id="subscribeToPodcast" parameterType="java.util.Map" >
@@ -76,23 +74,35 @@
     (
       email,
       podcast_id,
-      subscription_date
+      subscription_date,
+      category
     )
     VALUES
     (
       #{email},
       #{podcastId},
-      CURRENT_TIMESTAMP
+      CURRENT_TIMESTAMP,
+      #{category}
     ) ON DUPLICATE KEY UPDATE
     subscription_date=values(subscription_date)
   </insert>
   <delete id="unsubscribeFromPodcast" parameterType="java.util.Map" >
     DELETE FROM subscriptions
     WHERE
-      email=#{email}
+      email = #{email}
     AND
       podcast_id=#{podcastId}
   </delete>
+  <delete id="removeFromSubscriptionCategory" parameterType="java.util.Map" >
+    DELETE FROM subscriptions
+    WHERE
+    email = #{email}
+    AND
+    podcast_id=#{podcastId}
+    AND
+    category=#{category}
+  </delete>
+
 
   <select id="getUserByUsername" resultMap="userResultMap" parameterType="String">
     SELECT
@@ -106,6 +116,21 @@
     WHERE
       username = #{value}
   </select>
+  <select id="getUserByUsernameAndResetPasswordToken" resultMap="userResultMap" parameterType="User">
+    SELECT
+      username,
+      password,
+      display_name,
+      enabled,
+      registration_date
+    FROM
+      users
+    WHERE
+      username = #{username}
+      AND
+      password_reset_token= #{passwordResetToken}
+  </select>
+
 
   <!-- user votes section -->
   <resultMap id="podcastVoteResultMap" type="PodcastVote">
@@ -177,6 +202,7 @@
     <result column="title_in_url" property="titleInUrl" />
     <result column="publication_date" property="publicationDate"/>
     <result column="media_type" property="mediaType"/>
+    <result column="subscription_category" property="subscriptionCategory"/>
     <collection property="episodes" ofType="Episode">
       <result property="description" column="episode_description"/>
       <result property="podcastId" column="podcast_id"/>
@@ -215,11 +241,9 @@
       e.title_in_url as episode_title_in_url,
       e.is_new
     FROM
-    	podcasts p, subscriptions s, users u, episodes e
+    	podcasts p, subscriptions s, episodes e
 	  WHERE
-		  u.username = #{value}
-		AND
-		  s.email = #{value}
+		  s.email = #{email}
 		AND
 		  s.podcast_id= p.podcast_id
 		AND
@@ -231,6 +255,55 @@
     ORDER BY
     	p.publication_date DESC, e.publication_date DESC
   </select>
+  <select id="getSubscriptionCategoriesForUser" resultType="String" parameterType="String">
+    SELECT
+      DISTINCT s.category
+    FROM
+      subscriptions s
+    WHERE
+      s.email=#{email}
+  </select>
+  <select id="getPodcastsForSubscriptionCategory" resultMap="podcastsFound" parameterType="java.util.Map">
+    SELECT
+    p.PODCAST_ID,
+    p.URL,
+    p.identifier,
+    p.NUMBER_VISITORS,
+    p.DESCRIPTION,
+    p.PODCAST_IMAGE_URL,
+    p.TITLE,
+    p.last_episode_url,
+    p.title_in_url,
+    p.publication_date,
+    p.media_type,
+    e.description as episode_description,
+    e.link as episode_link,
+    e.media_url as episode_media_url,
+    e.media_type as episode_media_type,
+    e.title as episode_title,
+    e.episode_id,
+    e.publication_date as episode_pub_date,
+    e.title_in_url as episode_title_in_url,
+    e.is_new,
+    s.category as subscription_category
+    FROM
+    podcasts p, subscriptions s, episodes e
+    WHERE
+    s.email = #{email}
+    AND
+    s.category= #{category}
+    AND
+    s.podcast_id= p.podcast_id
+    AND
+    p.podcast_id = e.podcast_id
+    AND
+    p.availability=200
+    AND
+    e.availability = 200
+    ORDER BY
+    p.publication_date DESC, e.publication_date DESC
+  </select>
+
 
  	<resultMap id="episodesFound" type="Episode" >
     <id column="podcast_id" property="podcastId"  />

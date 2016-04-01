@@ -65,17 +65,18 @@ public class UserEmailNotificationServiceImpl implements UserEmailNotificationSe
     }
 
     @Override
-    public void sendPasswortResetEmailConfirmation(final User user) {
+    public void sendPasswortResetEmailConfirmation(final String localAddr, final User user) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             @SuppressWarnings({ "rawtypes", "unchecked" })
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setTo(user.getUsername());
                 message.setBcc("adrianmatei@gmail.com");
-                message.setSubject("Podcastpedia.org - confirm password change");
+                message.setSubject("Podcastpedia.org - reset password");
                 message.setSentDate(new Date());
                 message.setFrom("no-reply@podcastpedia.org");
                 Map model = new HashMap();
+                model.put("localAddr", localAddr);
                 model.put("user", user);
 
                 String text = buildEmailText(model, velocityEngine, "passwordResetEmailConfirmation");

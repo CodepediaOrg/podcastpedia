@@ -5,14 +5,13 @@
              xsi:schemaLocation="
     	http://www.springframework.org/schema/beans
     	http://www.springframework.org/schema/beans/spring-beans.xsd
-
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<!-- Stateless RESTful services use BASIC authentication   -->
+  <!-- Stateless RESTful services use BASIC authentication   -->
   <http use-expressions="false" create-session="stateless" pattern="/rest/**">
-      <intercept-url pattern="/**" access="ROLE_REST"/>
-      <http-basic />
+    <intercept-url pattern="/**" access="ROLE_REST"/>
+    <http-basic />
   </http>
 
   <http use-expressions="true" authentication-manager-ref="jdbcAuthenticationManager">
@@ -40,13 +39,15 @@
     <intercept-url pattern="/users/password-forgotten" access="permitAll"/>
     <intercept-url pattern="/users/password-forgotten/confirm-email" access="permitAll"/>
     <intercept-url pattern="/users/password-forgotten/confirmed" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/send-email" access="permitAll"/>
+    <intercept-url pattern="/users/password-forgotten/password-reset" access="permitAll"/>
     <intercept-url pattern="/users/**/*" access="hasRole('ROLE_USER')"/>
     <intercept-url pattern="/**" access="permitAll"/>
   </http>
 
   <beans:bean id="myAuthenticationSuccessHandler"
               class="org.podcastpedia.web.util.MyCustomLoginSuccessHandler" >
-    <beans:constructor-arg name="defaultTargetUrl" value="/users/subscriptions"/>
+    <beans:constructor-arg name="defaultTargetUrl" value="/users/homepage"/>
   </beans:bean>
 
   <!-- Select users and user_roles from database -->

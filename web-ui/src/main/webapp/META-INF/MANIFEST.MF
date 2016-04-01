@@ -4,10 +4,10 @@ Implementation-Title: web-ui
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: org.podcastpedia
 Specification-Vendor: Codingpedia Association
-Build-Jdk: 1.7.0_45
+Build-Jdk: 1.7.0_80
 Built-By: ama
 Specification-Title: web-ui
-Created-By: Apache Maven 3.0.5
+Created-By: Apache Maven 3.3.9
 Implementation-URL: http://www.podcastpedia.org
 Specification-Version: 0.0.1-SNAPSHOT
 

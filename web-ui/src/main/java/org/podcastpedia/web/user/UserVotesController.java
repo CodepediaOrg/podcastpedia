@@ -1,8 +1,6 @@
 package org.podcastpedia.web.user;
 
 import org.apache.log4j.Logger;
-import org.podcastpedia.common.domain.Episode;
-import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 
 
 @Controller
@@ -44,7 +41,6 @@ public class UserVotesController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteUpPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_UP);
@@ -56,7 +52,6 @@ public class UserVotesController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String voteDownPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         userService.votePodcast(userDetails.getUsername(), podcastId, VOTE_DOWN);

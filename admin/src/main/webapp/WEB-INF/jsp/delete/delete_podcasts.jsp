@@ -40,7 +40,7 @@
 		podcast, its episodes, the categories and tags associated with it will
 		be removed complete from the db.
 	</p>
-	
+
 	<div class="delete_podcast_form">
 		<!-- deletes podcast by Id form -->
 		<c:url value="/admin/delete/podcast_by_id" var="deletePodcastById_url" />
@@ -60,7 +60,22 @@
 			<input name="feedUrl" size="120" placeholder="URL feed of the podcast"/>
 			<button type="submit" class="btn btn-default">Delete</button>
 		</form:form>
-	</div>	
+	</div>
+
+  <h1>Delete user</h1>
+  <p>
+    Removes user related data from users, authorities and subscriptions
+  </p>
+
+  <div class="delete_user_form">
+    <!-- deletes podcast by Id form -->
+    <c:url value="/admin/delete/user_by_email" var="deleteUsertByEmail_url" />
+    <form:form method="POST" modelAttribute="deleteUserByEmailForm"
+               action="${deleteUsertByEmail_url}">
+      <input name="email" placeholder="User email"/>
+      <button type="submit" class="btn btn-default">Delete</button>
+    </form:form>
+  </div>
 
 </div>
 <!-- /.container -->

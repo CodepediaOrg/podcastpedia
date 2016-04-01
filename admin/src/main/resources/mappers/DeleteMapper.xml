@@ -1,62 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.podcastpedia.admin.dao.DeleteDao">
-    
-    <!-- ********* delete podcasts and episodes section ********* --> 	
+
+    <!-- ********* delete podcasts and episodes section ********* -->
 	<delete id="deletePodcastById" parameterType="int">
 		DELETE FROM podcasts WHERE podcast_id = #{id}
-	</delete>    
-	
+	</delete>
+
 	<delete id="deletePodcastByFeedUrl" parameterType="String">
 		DELETE FROM podcasts WHERE url = #{feedUrl}
 	</delete>
-	
+
 	<delete id="deleteEpisodesByPodcastId" parameterType="int">
 		DELETE FROM episodes WHERE podcast_id = #{id}
 	</delete>
-	
+
 	<delete id="deleteAllEpisodes">
 		DELETE FROM episodes WHERE 1=1
-	</delete>	
-		
+	</delete>
+
 	<delete id="deleteEpisodesByFeedUrl" parameterType="String">
-		DELETE FROM episodes 		
-			WHERE 
+		DELETE FROM episodes
+			WHERE
 				podcast_id = (SELECT p.podcast_id FROM podcasts p
 									WHERE p.url = #{feedUrl} )
-	</delete>	
-	
+	</delete>
+
 	<delete id="deletePodcastCategoriesByPodcastId" parameterType="int">
 		DELETE FROM podcasts_categories WHERE podcast_id = #{id}
 	</delete>
-		
+
 	<delete id="deletePodcastCategoriesByFeedUrl" parameterType="String">
-		DELETE FROM podcasts_categories 		
-			WHERE 
+		DELETE FROM podcasts_categories
+			WHERE
 				podcast_id = (SELECT p.podcast_id FROM podcasts p
 									WHERE p.url = #{feedUrl} )
-	</delete>	
-	
+	</delete>
+
 	<delete id="deletePodcastTagsByPodcastId" parameterType="int">
 		DELETE FROM podcasts_tags WHERE podcast_id = #{id}
-	</delete>	
-	
+	</delete>
+
 	<delete id="deletePodcastTagsByFeedUrl" parameterType="String">
-		DELETE FROM podcasts_tags 		
-			WHERE 
+		DELETE FROM podcasts_tags
+			WHERE
 				podcast_id = (SELECT p.podcast_id FROM podcasts p
 									WHERE p.url = #{feedUrl} )
-	</delete>	 
+	</delete>
 
  	<delete id="deleteEpisodes" parameterType="EpisodeListToBeDeleted">
-		DELETE FROM episodes 		
-			WHERE 
+		DELETE FROM episodes
+			WHERE
 				podcast_id = #{podcastId}
-			AND episode_id IN 
+			AND episode_id IN
 			<foreach item="item" collection="episodesIDs" open="(" separator="," close=")">
 				#{item}
-			</foreach>				
-	</delete>	 		  
+			</foreach>
+	</delete>
+
+  <!-- user related deletions -->
+  <delete id="deleteUserSubscriptions" parameterType="String">
+    DELETE FROM subscriptions WHERE email = #{email}
+  </delete>
+  <delete id="deleteUserFromAuthorities" parameterType="String">
+    DELETE FROM authorities WHERE username = #{email}
+  </delete>
+  <delete id="deleteUser" parameterType="String">
+    DELETE FROM users WHERE username = #{email}
+  </delete>
+
+
 </mapper>

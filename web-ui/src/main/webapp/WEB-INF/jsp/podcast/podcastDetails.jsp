@@ -10,6 +10,7 @@
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
+<script type="text/javascript">jwplayer.key="fr4dDcJMQ2v5OaYJSBDXPnTeK6yHi8+8B7H3bg==";</script>
 
 <div id="podcast_metadata" class="bg_color shadowy">
 	<img src="${podcast.urlOfImageToDisplay}" alt="Podcast image" id="pod_image">
@@ -96,7 +97,7 @@
       <sec:authorize access="isAnonymous()">
         <a href="#-3" class="icon-thumbs-down ask-for-login" id="vote-down-ask-for-login">${podcast.downVotes}</a>
       </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
+      <!-- if authenticated can vote down podcast -->
       <sec:authorize access="isAuthenticated()">
         <a href="#-3" class="icon-thumbs-down" id="vote-down-podcast">${podcast.downVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -106,7 +107,7 @@
       <sec:authorize access="isAnonymous()">
         <a href="#-3" class="icon-thumbs-up ask-for-login" id="vote-up-ask-for-login">${podcast.upVotes}</a>
       </sec:authorize>
-      <!-- if authenticated can subscribe automatically -->
+      <!-- if authenticated can vote up podcast -->
       <sec:authorize access="isAuthenticated()">
         <a href="#-3" class="icon-thumbs-up" id="vote-up-podcast">${podcast.upVotes}</a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -233,6 +234,30 @@
 		</p>
 		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
 	</form>
+</div>
+
+<div id="subscribe-form-subscription-category" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">
+  <form class="vertical_style_form">
+    <sec:authorize access="isAuthenticated()">
+      <p>
+        <select id="subscription_categories" class="form_input">
+          <option value="" label="<spring:message code="user.subscriptions.select_category.existing" text="Existing category"/>"/>
+          <c:forEach items="${subscriptionCategories}" var="subscriptionCategory">
+            <option value="${subscriptionCategory}">${subscriptionCategory}</option>
+          </c:forEach>
+        </select>
+      </p>
+    </sec:authorize>
+    <div id="label_above_elements">
+      <label for="newPlayist" class="label">
+        <spring:message code="user.subscriptions.select_category.new" text="Add new category"/>
+      </label>
+    </div>
+    <p>
+      <input name="newSubscriptionCategory" id="newSubscriptionCategory" class="form_input" style='width:200px'/>
+    </p>
+    <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
+  </form>
 </div>
 
 <!-- 			  -->

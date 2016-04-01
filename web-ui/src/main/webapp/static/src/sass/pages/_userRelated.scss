@@ -18,3 +18,10 @@
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
+#subscription_categories li {
+  display: inline-block;
+  list-style-type: none;
+  padding-right: 8px;
+  padding-bottom: 15px;
+}

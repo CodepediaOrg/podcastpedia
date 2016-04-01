@@ -41,4 +41,12 @@ public class DeleteServiceImpl implements DeleteService {
 
 	}
 
+    @Override
+    public void deleteUser(String email) {
+        deleteDao.deleteUserSubscriptions(email);
+        deleteDao.deleteUserFromAuthorities(email);
+        deleteDao.deleteUser(email);
+    }
+
+
 }

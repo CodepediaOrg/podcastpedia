@@ -3,6 +3,7 @@ package org.podcastpedia.admin.delete;
 import org.apache.log4j.Logger;
 import org.podcastpedia.admin.util.forms.PodcastByFeedUrlForm;
 import org.podcastpedia.admin.util.forms.PodcastByIdForm;
+import org.podcastpedia.admin.util.forms.UserByEmailForm;
 import org.podcastpedia.admin.util.read.ReadService;
 import org.podcastpedia.admin.util.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class DeleteController {
 
 	@Autowired
 	private DeleteService deleteService;
-	
+
 	@Autowired
 	private ReadService readService;
 
@@ -34,12 +35,13 @@ public class DeleteController {
 		model.addAttribute("markPodcastByIdForm", new PodcastByIdForm());
 		model.addAttribute("markPodcastByUrlForm",
 				new PodcastByFeedUrlForm());
-		
+
 		model.addAttribute("deletePodcastByIdForm", new PodcastByIdForm());
 		model.addAttribute("deletePodcastByFeedUrlForm",
 				new PodcastByFeedUrlForm());
-			
-		
+
+        model.addAttribute("deleteUserByEmailForm", new UserByEmailForm());
+
 		return "delete_podcasts_def";
 	}
 
@@ -72,7 +74,7 @@ public class DeleteController {
 
 		return "redirect:/admin/delete";
 	}
-	
+
 	@RequestMapping(value = "podcast_by_id", method = RequestMethod.POST)
 	public String deletePodcastById(
 			@ModelAttribute("deletePodcastByIdForm") PodcastByIdForm deletePodcastByIdForm,
@@ -103,11 +105,25 @@ public class DeleteController {
 	    Integer podcastIdForFeedUrl = readService.getPodcastIdForFeedUrl(deletePodcastByFeedUrlForm
 				.getFeedUrl().trim());
 	    deleteService.deletePodcastById(podcastIdForFeedUrl);
-	    
+
 		restClient.invokeRefreshNewestAndRecommendedPodcasts();
 		restClient.invokeRefreshReferenceData();
 		restClient.invokeFlushSearchResultsCache();
 
 		return "redirect:/admin/delete";
 	}
+
+    @RequestMapping(value = "user_by_email", method = RequestMethod.POST)
+    public String deleteUserByEmail(
+        @ModelAttribute("deleteUserByEmailForm") UserByEmailForm userByEmailForm,
+        BindingResult bindingResult, ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/admin/delete";
+        }
+
+        LOG.debug("------ deleteUserByEmail : deletes user and its subscriptions  -----");
+        deleteService.deleteUser(userByEmailForm.getEmail());
+
+        return "redirect:/admin/delete";
+    }
 }

@@ -16,10 +16,10 @@ public interface UserDao {
 	public List<Podcast> getSubscriptions(String username);
 
 	/**
-	 * Returns a list with the latest episodes from a user, identified by username, subscriptions
+	 * Returns a list with the latest episodes from a user, identified by userId, subscriptions
 	 * ordered by the publication date DESC(endent)
 	 *
-	 * @param username
+	 * @param username - email of the user
 	 * @return
 	 */
 	public List<Episode> getLatestEpisodesFromSubscriptions(String username);
@@ -33,6 +33,9 @@ public interface UserDao {
 
     /** returns an user given its username */
     public User getUserByUsername(String username);
+
+    /** returns an user given its username and resetPasswordToken*/
+    public User getUserByUsernameAndResetPasswordToken(User user);
 
     /**
      * Adds username and podcastId to the subscriptions table
@@ -65,4 +68,23 @@ public interface UserDao {
      * @param user
      */
     void updateUserForPasswordReset(User user);
+
+    void resetUserPassword(User user);
+
+    /**
+     * Returns the podcast from the selected playist
+     *
+     * @param params a map containing the email and the name of the subscription category
+     * @return list of podcasts
+     */
+    List<Podcast> getPodcastsForSubscriptionCategory(Map<String, Object> params);
+
+    List<String> getSubscriptionCategoriesForUser(String email);
+
+    /**
+     * Removes data entry from subscriptions table identified by username, podcastId and subscription category
+     *
+     * @param params (email, podcast id and subscription category)
+     */
+    void removeFromSubscriptionCategory(Map<String, Object> params);
 }

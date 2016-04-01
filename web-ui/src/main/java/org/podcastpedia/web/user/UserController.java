@@ -43,8 +43,8 @@ public class UserController {
     public String getPodcastSubscriptions(ModelMap model) {
 
         LOG.debug("------ Returns the podcasts the user has subscribed to ------");
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LOG.debug("got request from " + userDetails.getUsername() + " and password " + userDetails.getPassword());
 
         List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
         model.addAttribute("subscriptions", subscriptions);
@@ -66,12 +66,13 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.POST)
     @RolesAllowed("ROLE_USER")
-    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId) {
+    public @ResponseBody String subscribeToPodcast(@RequestParam("podcastId") Integer podcastId,
+                                                   @RequestParam("newSubscriptionCategory")String newSubscriptionCategory,
+                                                   @RequestParam("existingSubscriptionCategory")String existingSubscriptionCategory) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        userService.subscribeToPodcast(userDetails.getUsername(), podcastId);
+        String subscriptionCategory = !"".equals(newSubscriptionCategory) ? newSubscriptionCategory : existingSubscriptionCategory;
+        userService.subscribeToPodcast(userDetails.getUsername(), podcastId, subscriptionCategory);
 
         return "OK";
     }
@@ -80,10 +81,19 @@ public class UserController {
     @RolesAllowed("ROLE_USER")
     public @ResponseBody String unsubscribeFromPodcast(@RequestParam("podcastId") Integer podcastId) {
 
-        LOG.debug("------ Returns the podcasts the user has subscribed to ------");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         userService.unsubscribeFromPodcast(userDetails.getUsername(), podcastId);
+
+        return "OK";
+    }
+
+    @RequestMapping(value="remove-from-subscription-category", method= RequestMethod.POST)
+    @RolesAllowed("ROLE_USER")
+    public @ResponseBody String removeFromSubscriptionCategory(@RequestParam("podcastId") Integer podcastId, @RequestParam("subscriptionCategory") String subscriptionCategory) {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.removeFromSubscriptionCategory(userDetails.getUsername(), podcastId, subscriptionCategory);
 
         return "OK";
     }

@@ -7,9 +7,14 @@ import org.podcastpedia.common.exception.BusinessException;
 import org.podcastpedia.common.types.ErrorCodeType;
 import org.podcastpedia.core.podcasts.PodcastService;
 import org.podcastpedia.core.searching.SearchData;
+import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +38,9 @@ public class PodcastIdentifierController {
 
 	@Autowired
 	private PodcastService podcastService;
+
+    @Autowired
+    private UserService userService;
 
 	/**
 	 * Add an empty searchData object to the model
@@ -82,6 +90,22 @@ public class PodcastIdentifierController {
 		model.addAttribute("roundedRatingScore",
 				Math.round(podcast.getRating()));
 		model.addAttribute("podcast", podcast);
+
+        boolean userAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null &&
+            SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+            //when Anonymous Authentication is enabled
+            !(SecurityContextHolder.getContext().getAuthentication()
+                instanceof AnonymousAuthenticationToken);
+
+        //load in model subscription categories if user is signed in, so that she can add current podcast
+        //to one of the categories
+        if(userAuthenticated){
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+
+            model.addAttribute("subscriptionCategories", subscriptionCategories);
+        }
+
 
 		return "m_podcastDetails";
 	}

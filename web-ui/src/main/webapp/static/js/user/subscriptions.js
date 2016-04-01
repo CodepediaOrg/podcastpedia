@@ -57,6 +57,28 @@ $(function (){
     });
   }
 
+  removeFromSubscriptionCategory();
+  //delegate again...
+  function removeFromSubscriptionCategory(){
+    $('.podcast_wrapper').delegate('.icon-remove-from-subscription-category', 'click',  function () {
+      var currentDiv=$(this).closest("div.podcast_wrapper");
+      var podcastId = currentDiv.find("input[name=podcastId]").val();
+      var subscriptionCategory = currentDiv.find("input[name=subscriptionCategory]").val();
+
+      $.post("/users/subscriptions/remove-from-subscription-category",
+        {
+          podcastId:  podcastId,
+          subscriptionCategory: subscriptionCategory,
+          _csrf: $( "input[name='_csrf']" ).val()
+        },
+
+        function(data){
+          //we have received valid response, we hide it
+          currentDiv.addClass("not_shown");
+        });
+    });
+  }
+
   bindDynamicSocialSharing();
   function bindDynamicSocialSharing(){
     $('.item_wrapper').on('click', '.icon-share-episode', function (e) {

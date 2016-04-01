@@ -200,6 +200,18 @@
     <put-attribute name="body-id" value="podcast-subscriptions" />
     <put-attribute name="content" value="/WEB-INF/jsp/user/podcast_subscriptions.jsp"/>
   </definition>
+  <definition name="user_homepage_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="My Podcastpedia"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="my-podcastpedia" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/user-homepage.jsp"/>
+  </definition>
+  <definition name="user_subscription_category_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="My Podcastpedia"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="my-podcastpedia" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/user-homepage-clone-subscription-category.jsp"/>
+  </definition>
   <definition name="latest_episodes_for_podcast_subscriptions_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia"/>
     <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
@@ -227,17 +239,23 @@
     <put-attribute name="content" value="/WEB-INF/jsp/user/registration-email-sent.jsp"/>
   </definition>
 
+  <definition name="password_forgotten_email_form_def" extends="defaultTemplate_m">
+    <put-attribute name="title" value="Podcastpedia.org"/>
+    <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
+    <put-attribute name="body-id" value="password-forgotten" />
+    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten/password-forgotten-email-form.jsp"/>
+  </definition>
   <definition name="password_forgotten_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia.org"/>
     <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     <put-attribute name="body-id" value="password-forgotten" />
-    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten/password-forgotten-passwd-reset-form.jsp"/>
   </definition>
   <definition name="password_forgotten_sent_email_def" extends="defaultTemplate_m">
     <put-attribute name="title" value="Podcastpedia.org, confirm email"/>
     <put-attribute name="page_description" value="Podcastpedia.org, knowledge to go"/>
     <put-attribute name="body-id" value="password-forgotten-sent-email" />
-    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten-email-sent.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/jsp/user/password-forgotten/password-forgotten-email-sent.jsp"/>
   </definition>
 
 </tiles-definitions>

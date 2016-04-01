@@ -85,7 +85,8 @@
 #podcasting #nav-podcasting a,
 #podcast-subscriptions #nav-mypodcastpedia > a,
 #latest-episodes-podcast-subscriptions #nav-mypodcastpedia > a,
-#homepage #nav-mypodcastpedia > a,
+#my-podcastpedia #nav-mypodcastpedia-auth > a,
+#homepage #nav-mypodcastpedia > a
 {
   background-color:$podcastpedia-dark-blue;
 }
@@ -106,7 +107,7 @@
 }
 
 /** to make a responsive menu duplicate list elements from the menu*/
-#nav-homepage a:after, #nav-homepage-my-podcastpedia a:after {
+#nav-homepage a:after, #nav-homepage-my-podcastpedia a:after, #nav-homepage-resp a:after {
 	content: "\e600";
 }
 #nav-tags a:after, #nav-tags-resp a:after{
@@ -128,7 +129,7 @@
 	content: "\e609";
 }
 
-#nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp {
+#nav-categories-resp, #nav-add-podcast-resp, #nav-support-resp, #nav-contact-resp, #nav-podcasting-resp, #nav-tags-resp, #nav-homepage-resp {
   display: none;
 }
 
@@ -141,24 +142,15 @@
 }
 
 @media screen and (max-width: 1039px) {
-  #nav-podcasting-resp, #nav-contact-resp {
+  #nav-podcasting-resp, #nav-contact-resp, #nav-support-resp {
     display: block;
   }
-  #nav-podcasting, #nav-contact {
+  #nav-podcasting, #nav-contact, #nav-support {
     display: none;
   }
 }
 
 @media screen and (max-width: 900px) {
-  #nav-support-resp {
-    display: block;
-  }
-  #nav-support {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 750px) {
   #nav-add-podcast-resp {
     display: block;
   }
@@ -167,7 +159,7 @@
   }
 }
 
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 750px) {
   #nav-categories-resp {
     display: block;
   }
@@ -176,11 +168,20 @@
   }
 }
 
-@media screen and (max-width: 465px) {
-  #nav-tags-resp {
+@media screen and (max-width: 610px) {
+  #nav-tags-resp{
     display: block;
   }
   #nav-tags {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 465px) {
+   #nav-homepage-resp{
+    display: block;
+  }
+  #nav-homepage {
     display: none;
   }
 }

@@ -26,6 +26,11 @@ public class MyCustomLoginSuccessHandler extends SavedRequestAwareAuthentication
             if (redirectUrl != null && !redirectUrl.contains("users/password-reset")
                 && !redirectUrl.contains("users/registration")
                 && !redirectUrl.contains("login/custom_login")) {
+
+                if(redirectUrl.equals("http://localhost:8080/")) redirectUrl ="http://localhost:8080/users/homepage";
+                if(redirectUrl.equals("https://localhost:8443/")) redirectUrl ="http://localhost:8443/users/homepage";
+                if(redirectUrl.equals("https://www.podcastpedia.org/")) redirectUrl ="https://www.podcastpedia.org/users/homepage";
+
                 // we do not forget to clean this attribute from session
                 session.removeAttribute("url_prior_login");
                 // then we redirect

@@ -7,6 +7,7 @@
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
+<script type="text/javascript">jwplayer.key="fr4dDcJMQ2v5OaYJSBDXPnTeK6yHi8+8B7H3bg==";</script>
 
 <c:if test="${empty subscriptions}">
   <div class="bg_color shadowy common_mar_pad common_radius">
@@ -14,6 +15,12 @@
   </div>
 </c:if>
 
+<h2 class="title_before_form">My subscriptionCategories</h2>
+<hr class="before_form_header_line"/>
+
+
+<hr class="before_form_header_line"/>
+<h2 class="title_before_form">My subscriptions</h2>
 <div class="results_list">
 	<c:forEach items="${subscriptions}" var="podcast" varStatus="loop">
 		<div class="bg_color shadowy podcast_wrapper">

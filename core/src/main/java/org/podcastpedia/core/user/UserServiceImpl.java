@@ -3,6 +3,7 @@ package org.podcastpedia.core.user;
 import org.podcastpedia.common.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
@@ -17,9 +18,11 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 
 	@Override
-	public List<Podcast> getSubscriptions(String username) {
+    @Cacheable(value="users", key = "#email")
+	public List<Podcast> getSubscriptions(String email) {
 
-        List<Podcast> subscriptions = userDao.getSubscriptions(username);
+        List<Podcast> subscriptions = userDao.getSubscriptions(email);
+
         //return only the last 3 episodes, ordered by publication date
         for(Podcast subscription: subscriptions){
             if(!subscription.getEpisodes().isEmpty() && subscription.getEpisodes().size() > 3){
@@ -30,9 +33,28 @@ public class UserServiceImpl implements UserService {
         return subscriptions;
 	}
 
+    @Override
+    public List<Podcast> getPodcastsForSubscriptionCategory(String email, String subscriptionCategory) {
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("email", email);
+        params.put("category", subscriptionCategory);
+
+        List<Podcast> subscriptions = userDao.getPodcastsForSubscriptionCategory(params);
+
+        //return only the last 3 episodes, ordered by publication date
+        for(Podcast subscription: subscriptions){
+            if(!subscription.getEpisodes().isEmpty() && subscription.getEpisodes().size() > 3){
+                subscription.setEpisodes(subscription.getEpisodes().subList(0,3));
+            }
+        }
+
+        return subscriptions;
+    }
+
 	@Override
-	public List<Episode> getLatestEpisodesFromSubscriptions(String username) {
-		return userDao.getLatestEpisodesFromSubscriptions(username);
+	public List<Episode> getLatestEpisodesFromSubscriptions(String email) {
+		return userDao.getLatestEpisodesFromSubscriptions(email);
 	}
 
     @Override
@@ -49,14 +71,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserForPasswordReset(User user) {
-        //generate a new registration token
-        user.setRegistrationToken(UUID.randomUUID().toString());
-        //set the user on inactive, to be activated via email confirmation
-        user.setEnabled(USER_NOT_YET_ENABLED);
-        user.setPassword(encryptPassword(user.getPassword()));
+        //generate a new password reset token
+        user.setPasswordResetToken(UUID.randomUUID().toString());
 
         userDao.updateUserForPasswordReset(user);
     }
+
+    @Override
+    public void updateUserPassword(User user) {
+        //encryptPassword
+        user.setPassword(encryptPassword(user.getPassword()));
+
+        userDao.resetUserPassword(user);
+    }
+
 
     @Override
     public boolean isExistingUser(String username) {
@@ -65,23 +93,40 @@ public class UserServiceImpl implements UserService {
         return user != null;
     }
 
+
     @Override
-    public void subscribeToPodcast(String username, int podcastId) {
+    @CacheEvict(value="users", key="#email")
+    public void subscribeToPodcast(String email, int podcastId, String subscriptionCategory) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", username);
+        params.put("email", email);
         params.put("podcastId", podcastId);
+        params.put("category", subscriptionCategory);
 
         userDao.subscribeToPodcast(params);
     }
 
     @Override
-    public void unsubscribeFromPodcast(String username, int podcastId) {
+    @CacheEvict(value="users", key="#email")
+    public void unsubscribeFromPodcast(String email, int podcastId) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("email", username);
+        params.put("email", email);
         params.put("podcastId", podcastId);
 
         userDao.unsubscribeFromPodcast(params);
     }
+
+    @Override
+    @CacheEvict(value="users", key="#email")
+    public void removeFromSubscriptionCategory(String email, Integer podcastId, String category) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("email", email);
+        params.put("podcastId", podcastId);
+        params.put("category", category);
+
+        userDao.removeFromSubscriptionCategory(params);
+    }
+
+
 
     @Override
     @CacheEvict(value="podcasts", key="#podcastId")
@@ -128,12 +173,20 @@ public class UserServiceImpl implements UserService {
         userDao.enableUser(user);
     }
 
+    @Override
+    public List<String> getSubscriptionCategoryNames(String email) {
+        return userDao.getSubscriptionCategoriesForUser(email);
+    }
+
+
     private String encryptPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
 
         return hashedPassword;
     }
+
+
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
