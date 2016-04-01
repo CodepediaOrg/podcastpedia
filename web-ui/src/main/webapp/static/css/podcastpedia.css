@@ -835,7 +835,9 @@ ul.pureCssMenu ul li {
 .submit_form_button {
   background-color: #94BADA;
   font-family: "Century Gothic","Gill Sans",Arial,sans-serif;
-  margin: 10px 20px 10px 10px; }
+  margin: 10px 20px 10px 10px;
+  border-radius: 5px;
+  font-size: 1.1em; }
 
 #captcha_help_pic {
   height: 15px;
