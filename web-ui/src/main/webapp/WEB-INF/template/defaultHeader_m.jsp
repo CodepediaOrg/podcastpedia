@@ -28,13 +28,6 @@
 <!-- display login button if not authenticated-->
 <sec:authorize access="isAnonymous()">
   <div id="login-button">
-
-    <spring:eval expression="@appProperties['keycloak.server']" var="keycloakServer"/>
-    <c:url value="${keycloakServer}/auth/realms/demo/protocol/openid-connect/auth" var="signIn_URL">
-      <c:param name="client_id" value="podcastpedia" />
-      <c:param name="response_type" value="code" />
-      <c:param name="redirect_uri" value="http://localhost:8181/users/subscriptions" />
-    </c:url>
     <a href="<c:url value='/users/homepage'/>"><spring:message code="user.login"/></a>
   </div>
 </sec:authorize>

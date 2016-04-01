@@ -23,8 +23,6 @@
 	<!-- ========================= Import Tiles-related configuration ========================= -->
 	<import resource="applicationContext-web-ui-tiles.xml" />
 
-  <util:properties id="appProperties" location="classpath:app-#{systemProperties['env']}.properties"/>
-
 	<!--
 		- The controllers are autodetected POJOs labeled with the @Controller annotation.
 	-->
