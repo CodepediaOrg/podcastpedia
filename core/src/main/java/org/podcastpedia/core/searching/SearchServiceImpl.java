@@ -46,16 +46,34 @@ public class SearchServiceImpl implements SearchService {
 		response.setNumberOfItemsPerPage(searchData.getNumberResultsPerPage());
 		response.setCurrentPage(searchData.getCurrentPage());
 
-		if( isTargetPodcasts(searchData) ){
-            List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
-            response.setResults(mapPodcastsToResults(podcasts));
-		} else {
-            List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
-            response.setResults(mapEpisodesToResults(episodes));
-		}
+        List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
+        response.setResults(mapEpisodesToResults(episodes));
 
 		return response;
 	}
+
+    @Override
+    public SearchResult getPodcastsForSearchCriteria(SearchData searchData) throws UnsupportedEncodingException {
+
+        SearchResult response = new SearchResult();
+        if(searchData.getCategId()!=null && searchData.getCategId().isEmpty()){
+            searchData.setCategId(null);
+        }
+        searchData.setFirstItemOnPage((searchData.getCurrentPage()-1) * searchData.getNumberResultsPerPage());
+
+        LOG.debug("Received request in service to invoke dao to make a search in podcasts " +
+            " for text : " + searchData.getQueryText());
+
+        buildSQLQuerySearchText(searchData);
+
+        response.setNumberOfItemsPerPage(searchData.getNumberResultsPerPage());
+        response.setCurrentPage(searchData.getCurrentPage());
+
+        List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
+        response.setResults(mapPodcastsToResults(podcasts));
+
+        return response;
+    }
 
     private List<Result> mapPodcastsToResults(List<Podcast> podcasts) {
         List<Result> results = new ArrayList<>();

@@ -60,8 +60,17 @@ public class SearchSpringResource {
 									.exactPhrase(exactPhrase)
 									.build();
 
-		SearchResult searchResult = searchService.getResultsForSearchCriteria(searchData);
-
+		SearchResult searchResult;
+        boolean targetIsPodcasts = isTargetPodcasts(searchData);
+        if(targetIsPodcasts){
+            searchResult = searchService.getPodcastsForSearchCriteria(searchData);
+        } else {
+            searchResult = searchService.getResultsForSearchCriteria(searchData);
+        }
         return searchResult;
 	}
+
+    private boolean isTargetPodcasts(SearchData searchData) {
+        return searchData.getSearchTarget() !=null && searchData.getSearchTarget().equals("podcasts");
+    }
 }

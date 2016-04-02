@@ -127,8 +127,14 @@ public class SearchController {
 
 		if (advancedSearchData.getSearchTarget() == null)
 			advancedSearchData.setSearchTarget("episodes");
-		SearchResult searchResult = searchService
-				.getResultsForSearchCriteria(advancedSearchData);
+
+        SearchResult searchResult;
+        boolean targetIsPodcasts = isTargetPodcasts(advancedSearchData);
+        if(targetIsPodcasts){
+            searchResult = searchService.getPodcastsForSearchCriteria(advancedSearchData);
+        } else {
+            searchResult = searchService.getResultsForSearchCriteria(advancedSearchData);
+        }
 
 		String redirectUrl = null;
 		String tilesDef = null;
@@ -145,7 +151,11 @@ public class SearchController {
 			model.addAttribute("queryString", query.replaceAll("&", "&amp;"));
 			model.addAttribute("advancedSearchResult", searchResult);
 
-            tilesDef = "search_results_def";
+            if(targetIsPodcasts){
+                tilesDef = "search_results_def";
+            } else {
+                tilesDef = "search_results_podcasts_def";
+            }
 
 		} else {
 			// exactly one result found (either podcast or episode), redirect to it
@@ -166,5 +176,9 @@ public class SearchController {
 		return mv;
 
 	}
+
+    private boolean isTargetPodcasts(SearchData searchData) {
+        return searchData.getSearchTarget() !=null && searchData.getSearchTarget().equals("podcasts");
+    }
 
 }
