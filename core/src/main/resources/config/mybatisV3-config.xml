@@ -20,6 +20,9 @@
 -->
 
 <configuration>
+  <settings>
+    <setting name="logImpl" value="LOG4J"/>
+  </settings>
 	<typeAliases>
 		<typeAlias type="org.podcastpedia.common.domain.Podcast" alias="Podcast"/>
 		<typeAlias type="org.podcastpedia.common.domain.Category" alias="Category"/>
