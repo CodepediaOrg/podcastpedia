@@ -28,6 +28,7 @@ public class SearchResult implements Serializable{
 	private Integer numberOfItemsFound;
 	private Integer numberOfItemsPerPage;
 	private Integer currentPage;
+    private Integer numberOfPages;
 
 	/** placeholder for relative path query string to be used in subsequent calls in pagination */
 	private String queryString;
@@ -86,5 +87,13 @@ public class SearchResult implements Serializable{
 
     public void setResults(List<Result> results) {
         this.results = results;
+    }
+
+    public Integer getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(Integer numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 }

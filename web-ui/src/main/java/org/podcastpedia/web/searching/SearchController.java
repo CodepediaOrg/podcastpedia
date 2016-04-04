@@ -147,14 +147,21 @@ public class SearchController {
 		} else if (searchResult.getResults().size() > 1) {
 			String query = httpRequest.getQueryString();
 			query = query.substring(0, query.lastIndexOf("&currentPage="));
+            if (advancedSearchData.getNrOfResults() == null) {
+                query += "&nrOfResults=" + searchResult.getNumberOfItemsFound()
+                    + "&nrResultPages=" + searchResult.getNumberOfPages();
+            }
 
 			model.addAttribute("queryString", query.replaceAll("&", "&amp;"));
 			model.addAttribute("advancedSearchResult", searchResult);
+            model.addAttribute("numberOfResults",
+                searchResult.getNumberOfItemsFound());
+            model.addAttribute("numberOfPages", searchResult.getNumberOfPages());
 
             if(targetIsPodcasts){
-                tilesDef = "search_results_def";
-            } else {
                 tilesDef = "search_results_podcasts_def";
+            } else {
+                tilesDef = "search_results_def";
             }
 
 		} else {
