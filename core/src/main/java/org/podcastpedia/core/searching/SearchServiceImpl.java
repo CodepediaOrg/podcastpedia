@@ -56,6 +56,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
     @Override
+    @Cacheable(value="searchResults")
     public SearchResult getPodcastsForSearchCriteria(SearchData searchData) throws UnsupportedEncodingException {
 
         SearchResult response = new SearchResult();
