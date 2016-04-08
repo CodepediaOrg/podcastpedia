@@ -33,7 +33,11 @@ $(function (){
     $('.podcast_wrapper').delegate('.icon-last-episodes', 'click',  function () {
       var currentDiv=$(this).closest("div.podcast_wrapper");
       var lastEpisodesDiv = currentDiv.find("div.last_episodes")
-      lastEpisodesDiv.removeClass('not_shown').addClass('shown');
+      if(lastEpisodesDiv.hasClass('not_shown')){
+        lastEpisodesDiv.removeClass('not_shown').addClass('shown');
+      } else {
+        lastEpisodesDiv.removeClass('shown').addClass('not_shown');
+      }
     });
   }
 
