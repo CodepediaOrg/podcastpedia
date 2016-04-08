@@ -32,11 +32,14 @@ $(function (){
   function bindShowLastEpisodes(){
     $('.podcast_wrapper').delegate('.icon-last-episodes', 'click',  function () {
       var currentDiv=$(this).closest("div.podcast_wrapper");
-      var lastEpisodesDiv = currentDiv.find("div.last_episodes")
+      var lastEpisodesDiv = currentDiv.find("div.last_episodes");
+      var lastEpisodesButton = currentDiv.find("a.icon-last-episodes");
       if(lastEpisodesDiv.hasClass('not_shown')){
         lastEpisodesDiv.removeClass('not_shown').addClass('shown');
+        lastEpisodesButton.removeClass('icon-arrow-down').addClass('icon-arrow-up');
       } else {
         lastEpisodesDiv.removeClass('shown').addClass('not_shown');
+        lastEpisodesButton.removeClass('icon-arrow-up').addClass('icon-arrow-down');
       }
     });
   }

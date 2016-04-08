@@ -111,3 +111,13 @@
   font-size: 1em;
   margin-right: 5px;
 }
+
+.icon-arrow-down:after {
+  content: "\e901";
+  margin-left:3px;
+}
+
+.icon-arrow-up:after {
+  content: "\e900";
+  margin-left:3px;
+}
