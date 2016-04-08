@@ -212,6 +212,14 @@ div.not_shown, .item_url, .item_url_ep, .podcast_url {
   font-size: 1em;
   margin-right: 5px; }
 
+.icon-arrow-down:after {
+  content: "\e901";
+  margin-left: 3px; }
+
+.icon-arrow-up:after {
+  content: "\e900";
+  margin-left: 3px; }
+
 /* language menu */
 ul.pureCssMenu ul {
   display: none; }
