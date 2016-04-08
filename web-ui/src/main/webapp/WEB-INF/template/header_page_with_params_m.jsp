@@ -1,5 +1,6 @@
 ﻿<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%
 	String completeUrl= "" + request.getAttribute("javax.servlet.forward.request_uri");
@@ -37,6 +38,15 @@
 <sec:authorize access="isAnonymous()">
   <div id="login-button">
     <a href="<c:url value='/login/custom_login'/>"><spring:message code="user.login"/></a>
+  </div>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+  <div id="login-button">
+    <c:url var="logoutUrl" value="/logout"/><!-- default URL used now by Spring Security 4 -->
+    <form id="logout-form" action="${logoutUrl}" method="post">
+      <input type="submit" value="<spring:message code="user.logout"/>" />
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
   </div>
 </sec:authorize>
 
