@@ -23,6 +23,7 @@
 	    <result column="title_in_url" property="titleInUrl" />
 	    <result column="publication_date" property="publicationDate"/>
 	    <result column="media_type" property="mediaType"/>
+        <result column="update_frequency" property="updateFrequency"/>
 	</resultMap>
 
   <select id="getPodcastsForSearchCriteria" resultMap="podcastsFound" parameterType="SearchData" useCache="true">
@@ -37,7 +38,8 @@
     	p.last_episode_url,
     	p.title_in_url,
     	p.publication_date,
-    	p.media_type
+    	p.media_type,
+        p.update_frequency
     FROM
     	podcasts p
 	  <if test="categId != null">
