@@ -113,7 +113,7 @@ html {
 .border_radius, .common_radius {
   border-radius: 5px; }
 
-div.not_shown, .item_url, .item_url_ep, .podcast_url {
+div.not_shown, .item_url, .item_url_ep, .item_sharing_title, .podcast_url, .podcast_title {
   display: none; }
 
 /* icon fonts */

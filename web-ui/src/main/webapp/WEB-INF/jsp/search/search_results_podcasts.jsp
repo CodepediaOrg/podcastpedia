@@ -76,6 +76,7 @@
           </c:otherwise>
         </c:choose>
         <span class="podcast_url">${podcast_link}</span>
+        <span class="podcast_title">${podcast.title}</span>
         <a href="#${2*loop.index+1}" class="icon-last-episodes icon-arrow-down btn-share"><spring:message code="user.last_episodes"/></a>
 
         <c:if test="${podcast.updateFrequency == 'DAILY' || podcast.updateFrequency == 'WEEKLY' || podcast.updateFrequency == 'MONTHLY'}">
@@ -166,6 +167,7 @@
                 <spring:message code="global.dwnld.s" text="Download last episode"/>
               </a>
               <span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
+              <span class="item_sharing_title">${episode.title}</span>
             </div>
           </div>
         </c:forEach>
@@ -182,6 +184,10 @@
 
 <!-- jquery dialogs -->
 <div id="ask-for-login-form" title="Sign in">
+  <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
+</div>
+
+<div id="media_player" title="Media player">
   <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
 </div>
 

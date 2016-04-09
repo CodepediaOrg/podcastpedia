@@ -49,6 +49,7 @@ $(function (){
     $('.item_wrapper').on('click', '.icon-share-episode', function (e) {
       var currentDiv=$(this).closest("div.item_wrapper");
       var epUrl= currentDiv.find("span.item_url").text();
+      var epTitle= currentDiv.find("span.item_sharing_title").text();
 
       //verify existence of player to manipulate distance to div containing sharing buttons
       var playerDiv = currentDiv.find("div.shown");
@@ -70,7 +71,7 @@ $(function (){
         + " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
-        + " <a href='//twitter.com/share' class='twitter-share-button' data-url='" + epUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
+        + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + epUrl + "' data-text='"+ epTitle +"' data-via='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
         + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + epUrl + "'></div>"
@@ -90,6 +91,7 @@ $(function (){
     $('.podcast_wrapper').on('click', '.icon-share-podcast', function (e) {
       var currentDiv=$(this).closest("div.podcast_wrapper");
       var podcastUrl= currentDiv.find("span.podcast_url").text();
+      var podcastTitle= currentDiv.find("span.podcast_title").text();
 
       currentDiv.find("div.last_episodes").css("margin-bottom","70px");
 
@@ -102,7 +104,7 @@ $(function (){
         + " <div class='fb-like' data-href='"+ podcastUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
-        + " <a href='//twitter.com/share' class='twitter-share-button' data-url='" + podcastUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
+        + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + podcastUrl + "' data-text='"+ podcastTitle +"' data-via='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
         + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + podcastUrl + "'></div>"
