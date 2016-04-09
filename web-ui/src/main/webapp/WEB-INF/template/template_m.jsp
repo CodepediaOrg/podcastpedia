@@ -9,7 +9,7 @@
 		<meta name="google-site-verification" content="ZkFgaVcUEQ5HhjAA8-LOBUfcOY8Fh2PqiBqvM2xcFk0" />
 		<title><tiles:insertAttribute name="title" ignore="true"/></title>
 		<meta name="description" content="<tiles:insertAttribute name="page_description" ignore="true"/>">
-		<link href="<c:url value="/static/css/podcastpedia.min.css?v=1.10"/>" rel="stylesheet" type="text/css"/>
+		<link href="<c:url value="/static/css/podcastpedia.min.css?v=1.11"/>" rel="stylesheet" type="text/css"/>
 		<link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<link rel="shortcut icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<meta charset="utf-8">
