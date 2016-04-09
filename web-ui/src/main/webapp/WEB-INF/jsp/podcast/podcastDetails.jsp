@@ -48,7 +48,7 @@
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
-        <a href="#" class="btn-share" id="subscribe-to-podcast">Subscribe</a>
+        <a href="#" class="btn-share" id="subscribe-to-podcast"><spring:message code="user.subscribe" text="Subscribe"/></a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </sec:authorize>
     </p>
@@ -222,20 +222,6 @@
   <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
 </div>
 
-<div id="subscribe-form" title="Podcast subscription">
-	<form class="vertical_style_form">
-		<div id="label_above_elements">
-			<label for="email" class="label">
-				<spring:message code="label.email" text="Email - required, verified but never shown"/>
-			</label>
-		</div>
-		<p>
-			<input name="email" id="sub_email" class="form_input" style='width:200px'/>
-		</p>
-		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
-	</form>
-</div>
-
 <div id="subscribe-form-subscription-category" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">
   <form class="vertical_style_form">
     <sec:authorize access="isAuthenticated()">
@@ -258,13 +244,6 @@
     </p>
     <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
   </form>
-</div>
-
-<!-- 			  -->
-<div id="dialog-subscribed" title="Subscription successful">
-	<p>
-		<spring:message code="pod_details.subscription.thanks" text="Thank your for subscribing to the podcast. Will will send you an email with new episodes when they become available."/>
-	</p>
 </div>
 
 <div id="disqus_comments" class="shadowy">

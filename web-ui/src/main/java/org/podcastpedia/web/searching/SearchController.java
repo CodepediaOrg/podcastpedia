@@ -11,9 +11,13 @@ import org.podcastpedia.core.categories.CategoryService;
 import org.podcastpedia.core.searching.SearchData;
 import org.podcastpedia.core.searching.SearchResult;
 import org.podcastpedia.core.searching.SearchService;
+import org.podcastpedia.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +51,9 @@ public class SearchController {
 
 	@Autowired
 	private CategoryService categoryService;
+
+    @Autowired
+    private UserService userService;
 
 	/**
 	 * If the users decides to write "http://localhost:8080/search/" into the
@@ -132,6 +139,20 @@ public class SearchController {
         boolean targetIsPodcasts = isTargetPodcasts(advancedSearchData);
         if(targetIsPodcasts){
             searchResult = searchService.getPodcastsForSearchCriteria(advancedSearchData);
+            boolean userAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+                //when Anonymous Authentication is enabled
+                !(SecurityContextHolder.getContext().getAuthentication()
+                    instanceof AnonymousAuthenticationToken);
+
+            //load in model subscription categories if user is signed in, so that she can add current podcast
+            //to one of the categories
+            if(userAuthenticated) {
+                UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                List<String> subscriptionCategoryNames = userService.getSubscriptionCategoryNames(userDetails.getUsername());
+
+                model.addAttribute("subscriptionCategories", subscriptionCategoryNames);
+            }
         } else {
             searchResult = searchService.getResultsForSearchCriteria(advancedSearchData);
         }

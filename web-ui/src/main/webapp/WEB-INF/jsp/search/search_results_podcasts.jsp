@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
@@ -75,11 +76,26 @@
           </c:otherwise>
         </c:choose>
         <span class="podcast_url">${podcast_link}</span>
-        <a href="#${2*loop.index+1}" class="icon-last-episodes btn-share"><spring:message code="user.last_episodes"/></a>
+        <a href="#${2*loop.index+1}" class="icon-last-episodes icon-arrow-down btn-share"><spring:message code="user.last_episodes"/></a>
+
+        <c:if test="${podcast.updateFrequency == 'DAILY' || podcast.updateFrequency == 'WEEKLY' || podcast.updateFrequency == 'MONTHLY'}">
+            <!-- if not authenticated will be asked to log in -->
+            <sec:authorize access="isAnonymous()">
+              <a href="#${10*loop.index+1}" class="btn-share ask-for-login" style="background-color: orangered"><spring:message code="user.subscribe" text="Subscribe"/></a>
+            </sec:authorize>
+            <!-- if authenticated can subscribe automatically -->
+            <sec:authorize access="isAuthenticated()">
+              <a href="#${10*loop.index+1}" id="subscribe-to-podcast${loop.index}" class="btn-share subscribe-to-podcast-cls"><spring:message code="user.subscribe" text="Subscribe"/></a>
+              <input type="hidden" name="${_csrf.parameterName}${loop.index}" value="${_csrf.token}" />
+            </sec:authorize>
+        </c:if>
+
         <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </div>
+
       <div class="clear"></div>
+
       <div class="last_episodes not_shown">
         <h2><spring:message code="user.last_episodes"/></h2>
         <c:forEach items="${podcast.episodes}" var="episode" varStatus="loopEpisodes">
@@ -164,7 +180,42 @@
 </div>
 <div class="clear"></div>
 
+<!-- jquery dialogs -->
+<div id="ask-for-login-form" title="Sign in">
+  <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
+</div>
+
+
+<sec:authorize access="isAuthenticated()">
+  <c:forEach items="${advancedSearchResult.podcasts}" var="podcast" varStatus="loop">
+    <div id="subscribe-form-subscription-category${loop.index}" class="subscribe-form-subscription-category-cls" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">
+      <form class="vertical_style_form">
+        <sec:authorize access="isAuthenticated()">
+          <p>
+            <select class="form_input" id="subscription_categories${loop.index}">
+              <option value="" label="<spring:message code="user.subscriptions.select_category.existing" text="Existing category"/>"/>
+              <c:forEach items="${subscriptionCategories}" var="subscriptionCategory">
+                <option value="${subscriptionCategory}">${subscriptionCategory}</option>
+              </c:forEach>
+            </select>
+          </p>
+        </sec:authorize>
+        <div class="label_above_elements">
+          <label for="newPlayist" class="label">
+            <spring:message code="user.subscriptions.select_category.new" text="Add new category"/>
+          </label>
+        </div>
+        <p>
+          <input name="newSubscriptionCategory${loop.index}" class="form_input" id="newSubscriptionCategory${loop.index}" style='width:200px'/>
+          <input type="hidden" name="podcastId${loop.index}" id="sub_podcastId${loop.index}" value="${podcast.podcastId}"/>
+        </p>
+      </form>
+    </div>
+  </c:forEach>
+</sec:authorize>
+
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="<c:url value="/static/js/user/subscriptions.js" />"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script src="<c:url value="/static/js/search/podcasts-results.js" />"></script>
 
