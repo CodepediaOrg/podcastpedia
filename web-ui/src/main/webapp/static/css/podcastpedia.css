@@ -113,7 +113,7 @@ html {
 .border_radius, .common_radius {
   border-radius: 5px; }
 
-div.not_shown, .item_url, .item_url_ep, .item_sharing_title, .podcast_url, .podcast_title {
+div.not_shown, .item_url, .item_url_ep, .item_sharing_title, .item_media_url, .podcast_url, .podcast_title {
   display: none; }
 
 /* icon fonts */
@@ -1654,3 +1654,6 @@ a.producer-social {
   width: 120px;
   height: 120px;
   margin-right: 20px; }
+
+.ui-dialog {
+  z-index: 1000 !important; }
