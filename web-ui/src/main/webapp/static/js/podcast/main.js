@@ -102,7 +102,7 @@ $(function (){
 			} else {
 				episodeDiv += "<div class='icon-video-episode'></div>";
 			}
-			var episodeUrl='http://www.podcastpedia.org/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
+			var episodeUrl=getDomainAndPort() + '/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
 			episodeDiv += '<a href='+ episodeUrl +' class="item_title">' + episode.title + '</a>';
 
 			episodeDiv +='<div class="pub_date">';
@@ -281,12 +281,7 @@ $(function (){
     modal: true,
     buttons: {
       "Log in": function() {
-        var url = window.location.href;
-        var arr = url.split("/");
-        var protocol= arr[0];
-        var hostAndPort=arr[2];
-        window.location.href = "//" + hostAndPort + "/login/custom_login";
-        //window.location.href = "//podcastpedia.org/login/custom_login";
+        window.location.href = getDomainAndPort() + "/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -296,6 +291,15 @@ $(function (){
 
     }
   });
+
+  function getDomainAndPort(){
+    var url = window.location.href;
+    var arr = url.split("/");
+    var protocol= arr[0];
+    var hostAndPort=arr[2];
+
+    return protocol + "//" + hostAndPort;
+  }
 
   $("#subscribe-to-podcast").click(function(){
     $("#subscribe-form-subscription-category").dialog("open");

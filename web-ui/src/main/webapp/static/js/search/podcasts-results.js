@@ -173,7 +173,6 @@ $(function (){
           var protocol= arr[0];
           var hostAndPort=arr[2];
           window.location.href = "//" + hostAndPort + "/login/custom_login";
-          //window.location.href = "//podcastpedia.org/login/custom_login";
         },
         Cancel: function() {
           $( this ).dialog( "close" );

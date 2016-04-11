@@ -14,75 +14,53 @@
 	if number of episodes > 20 will display 20 per page, if not 10
 -->
 <div class="results_list">
-	<c:forEach items="${episodes}" var="episode" varStatus="loop">
-		<c:url var="episodeURL" value="/podcasts/${episode.podcastId}/${podcastTitleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
-		<div class="bg_color shadowy item_wrapper">
-	    	<div class="title-and-pub-date">
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<div class="icon-audio-episode"></div>
-					</c:when>
-					<c:otherwise>
-						<div class="icon-video-episode"></div>
-					</c:otherwise>
-				</c:choose>
-				<a href="${episodeURL}" class="item_title"> ${episode.title} </a>
-				<div class="pub_date">
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}" />
-					<c:choose>
-						<c:when test="${episode.isNew == 1}">
-							<span class="ep_is_new"><spring:message code="new"/></span>
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<hr>
-			<div class="ep_desc">
-				<a href="${episodeURL}" class="item_desc">
-					${fn:substring(episode.description,0,280)}
-				</a>
-			</div>
-			<div class="ep_desc_bigger">
-				<a href="${episodeURL}" class="item_desc">
-					${fn:substring(episode.description,0,600)}
-				</a>
-			</div>
-			<div class="clear"></div>
-			<div class="not_shown">
-				<div id='mediaspace${loop.index}' class="jwp">Flashplayer not supported</div>
-				<!-- switch player CAN or CANNOT be displayed -->
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<script type='text/javascript'>
-						  jwplayer('mediaspace${loop.index}').setup({
-						    'controlbar': 'bottom',
-						    'width': '100%',
-						    'aspectratio': '16:5',
-						    'file': '${episode.mediaUrl}'
-						  });
-						</script>
-					</c:when>
-					<c:otherwise>
-						<script type='text/javascript'>
-						  jwplayer('mediaspace${loop.index}').setup({
-						    'controlbar': 'bottom',
-						    'width': '100%',
-						    'aspectratio': '16:9',
-						    'file': '${episode.mediaUrl}'
-						  });
-						</script>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="social_and_download">
-				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
-				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
-				<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download><spring:message code="global.dwnld.s" text="Download last episode"/></a>
-				<span class="item_url">https://www.podcastpedia.org/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
-			</div>
-		</div>
-	</c:forEach>
+  <c:forEach items="${episodes}" var="episode" varStatus="loop">
+    <c:url var="episodeURL" value="/podcasts/${episode.podcastId}/${podcastTitleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
+    <div class="bg_color shadowy item_wrapper">
+      <div class="title-and-pub-date">
+        <c:choose>
+          <c:when test="${episode.mediaType == 'Audio'}">
+            <div class="icon-audio-episode"></div>
+          </c:when>
+          <c:otherwise>
+            <div class="icon-video-episode"></div>
+          </c:otherwise>
+        </c:choose>
+        <a href="${episodeURL}" class="item_title">${episode.title}</a>
+        <div class="pub_date">
+          <fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}" />
+          <c:choose>
+            <c:when test="${episode.isNew == 1}">
+              <span class="ep_is_new"><spring:message code="new"/></span>
+            </c:when>
+          </c:choose>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <hr>
+      <div class="ep_desc">
+        <a href="${episodeURL}" class="item_desc">
+            ${fn:substring(episode.description,0,280)}
+        </a>
+      </div>
+      <div class="ep_desc_bigger">
+        <a href="${episodeURL}" class="item_desc">
+            ${fn:substring(episode.description,0,600)}
+        </a>
+      </div>
+      <div class="clear"></div>
+      <div class="social_and_download">
+        <a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
+        <a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
+        <a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
+          <spring:message code="global.dwnld.s" text="Download last episode"/>
+        </a>
+        <span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
+        <span class="item_sharing_title">${episode.title}</span>
+        <span class="item_media_url">${episode.mediaUrl}</span>
+      </div>
+    </div>
+  </c:forEach>
 </div>
 
 <div class="clear"></div>
@@ -107,9 +85,12 @@
 </c:if>
 <div class="clear"></div>
 
+<!-- jquery dialogs -->
+<div id="media_player_modal_dialog" title="Media player">
+  <div id='mediaspace_modal'>Loading...</div>
+</div>
+
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-<!-- include loading dynamic player page -->
-<%@ include file="/WEB-INF/jsp/common/load_player_dynamically.jsp" %>
-<!-- dynamic social share -->
-<%@ include file="/WEB-INF/jsp/common/social_share_dynamically.jsp" %>
+<script src="<c:url value="/static/js/podcast/main.js" />"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>

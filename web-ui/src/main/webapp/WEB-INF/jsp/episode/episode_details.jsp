@@ -138,37 +138,13 @@
 				</a>
 			</div>
 			<div class="clear"></div>
-			<div class="not_shown">
-				<div id='mediaspace${loop.index}' class="jwp">Flashplayer not supported</div>
-				<!-- switch player CAN or CANNOT be displayed -->
-				<c:choose>
-					<c:when test="${episodeIterator.mediaType == 'Audio'}">
-						<script type='text/javascript'>
-						  jwplayer('mediaspace${loop.index}').setup({
-						    'controlbar': 'bottom',
-						    'width': '100%',
-						    'aspectratio': '16:5',
-						    'file': '${episodeIterator.mediaUrl}'
-						  });
-						</script>
-					</c:when>
-					<c:otherwise>
-						<script type='text/javascript'>
-						  jwplayer('mediaspace${loop.index}').setup({
-						    'controlbar': 'bottom',
-						    'width': '100%',
-						    'aspectratio': '16:9',
-						    'file': '${episodeIterator.mediaUrl}'
-						  });
-						</script>
-					</c:otherwise>
-				</c:choose>
-			</div>
 			<div class="social_and_download">
 				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
 				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
 				<a class="icon-download-ep btn-share" href="${episodeIterator.mediaUrl}" download><spring:message code="global.dwnld.s" text="Download last episode"/></a>
 				<span class="item_url">https://www.podcastpedia.org/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}/episodes/${episodeIterator.episodeId}/${episodeIterator.titleInUrl}</span>
+        <span class="item_sharing_title">${episode.title}</span>
+        <span class="item_media_url">${episode.mediaUrl}</span>
 			</div>
 		</div>
 	</c:forEach>
@@ -184,9 +160,15 @@
 
 <div class="clear"></div>
 
+<!-- jquery dialogs -->
+<div id="media_player_modal_dialog" title="Media player">
+  <div id='mediaspace_modal'>Loading...</div>
+</div>
+
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="<c:url value="/static/js/podcast/main.js" />"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <div id="disqus_comments" class="shadowy">
     <div id="disqus_thread"></div>
