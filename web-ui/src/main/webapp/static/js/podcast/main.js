@@ -25,7 +25,7 @@ $(function (){
 						$lastEpisodes.append(episodeDiv).fadeIn(800);
 					});
 
-					bindDynamicPlaying();
+          bindDynamiyPlaying();
 					bindDynamicSocialSharing();
 					bindDynamicSharringCurrentEpisode();
 					console.log("success", episodes);
@@ -34,6 +34,64 @@ $(function (){
 		});
 
 	});
+
+  // same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
+  bindDynamiyPlaying()
+  function bindDynamiyPlaying(){
+    $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
+    $(".icon-play-episode").click(function(){
+
+      var theDiv=$('#media_player_modal_dialog');
+      var windowW= $(window).width();
+      var dialogW;
+      var overlayImage='audio_overlay_jwplayer.png';
+      if(windowW > 1600){
+        dialogW = dialogW-300;
+        overlayImage='audio_overlay_jwplayer_bigger.png';
+      } else if(windowW > 1200){
+        dialogW = windowW-200;
+        overlayImage='audio_overlay_jwplayer.png';
+      } else if(windowW > 720){
+        dialogW = windowW-100;
+        overlayImage='audio_overlay_jwplayer_small.png';
+      } else {
+        dialogW = windowW-20;
+        overlayImage='audio_overlay_jwplayer_smaller.png';
+      }
+      var dialogH = (dialogW * 10)/16;
+
+      var epMediaUrl = $(this).siblings('.item_media_url').text();
+      var epTitle = $(this).siblings('.item_sharing_title').text();
+
+      //setup player
+      var playerInstance = jwplayer("mediaspace_modal");
+      playerInstance.setup({
+        'controlbar': 'bottom',
+        'width': '100%',
+        'aspectratio': '16:9',
+        'file': epMediaUrl,
+        'title': epTitle,
+        'autostart': true,
+        'image': '/static/images/player_overlay/' + overlayImage
+      });
+
+      theDiv.dialog("open");
+      $(theDiv).dialog({
+        autoOpen: false,
+        height: dialogH,
+        width: dialogW,
+        modal: true,
+        title: epTitle,
+        open: function(){
+          playerInstance.play();
+        },
+        close: function() {
+          playerInstance.remove();
+        }
+      });
+    });
+  }
+
 
 	function buildEpisodeDiv(episode, i, offset){
 		var episodeDiv=""
@@ -72,20 +130,6 @@ $(function (){
 
 			episodeDiv +='<div class="clear"></div>';
 
-			episodeDiv +='<div class="not_shown">';
-			episodeDiv +='<div id=mediaspace'+parseInt(offset+i) +'>Flashplayer not supported</div>';
-
-
-			//change with requireJs sometime soon
-			episodeDiv +="<script type='text/javascript'>";
-			if(episode.mediaType == 'Audio'){
-				episodeDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:5', 'file': '" + episode.mediaUrl+ "'});";
-			} else {
-				episodeDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:9', 'file': '" + episode.mediaUrl+ "'});";
-			}
-			episodeDiv +="</script>";
-			episodeDiv +='</div>';
-
 			episodeDiv +='<div class="social_and_download">';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
@@ -93,37 +137,11 @@ $(function (){
 			episodeDiv+= 'download&nbsp;';
 			episodeDiv +='</a>';
 			episodeDiv +='<span class="item_url">' + episodeUrl + '</span>';
+      episodeDiv +='<span class="item_sharing_title">' + episode.title + '</span>';
+      episodeDiv +='<span class="item_media_url">' + episode.mediaUrl + '</span>';
 			episodeDiv +='</div>';
 
 			return episodeDiv;
-	}
-
-
-	bindDynamicPlaying();
-	//delegate again...
-	function bindDynamicPlaying(){
-		$('.item_wrapper').delegate('.icon-play-episode', 'click',  function () {
-			var currentDiv=$(this).closest("div.item_wrapper");
-			var playerDiv = currentDiv.find("div.not_shown")
-			playerDiv.removeClass('not_shown').addClass('shown');
-			var jwpId = currentDiv.find("div.jwplayer ").attr("id")
-
-			// if we load the player, the div containing the player will set the distance to the share, play and download buttons
-			currentDiv.find("div.ep_desc").css("margin-bottom","5px");
-
-			//and also widen the distance to the share buttonsif they are available
-			var shareButtonsDiv = currentDiv.find("div.share_buttons");
-			if(shareButtonsDiv.length > 0){
-				playerDiv.css("margin-bottom","75px");
-			}
-
-			$('html, body').animate({
-				scrollTop: currentDiv.offset().top
-			}, 150);
-			if(typeof jwpId != 'undefined'){
-				jwplayer(jwpId).play();
-			}
-		 });
 	}
 
 
@@ -133,17 +151,6 @@ $(function (){
 			var currentDiv=$(this).closest("div.item_wrapper");
 			var epUrl= currentDiv.find("span.item_url").text();
 
-			//verify existence of player to manipulate distance to div containing sharing buttons
-			var playerDiv = currentDiv.find("div.shown");
-			if(playerDiv.length > 0){
-				playerDiv.css("margin-bottom","75px");
-			} else {
-				//player not shown widen the distance to insert the sharing buttons
-				currentDiv.find("div.ep_desc").css("margin-bottom","75px");
-				currentDiv.find("div.ep_desc_bigger").css("margin-bottom","75px");
-				currentDiv.find("div.pod_desc").css("margin-bottom","55px");
-				currentDiv.find("div.pod_desc_bigger").css("margin-bottom","55px");
-			}
 			//the share button is being replaced with social media buttons
 			$(e.target).remove();
 			var socialAndDownload = currentDiv.find("div.social_and_download");

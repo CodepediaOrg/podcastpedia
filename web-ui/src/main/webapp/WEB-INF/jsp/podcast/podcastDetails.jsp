@@ -159,32 +159,6 @@
 				</a>
 			</div>
 			<div class="clear"></div>
-			<div class="not_shown">
-				<div id='mediaspace${loop.index}'>Flashplayer not supported</div>
-				<!-- switch player CAN or CANNOT be displayed -->
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<script type='text/javascript'>
-							jwplayer('mediaspace${loop.index}').setup({
-								'controlbar': 'bottom',
-								'width': '100%',
-								'aspectratio': '16:5',
-								'file': '${episode.mediaUrl}'
-							});
-						</script>
-					</c:when>
-					<c:otherwise>
-						<script type='text/javascript'>
-							jwplayer('mediaspace${loop.index}').setup({
-								'controlbar': 'bottom',
-								'width': '100%',
-								'aspectratio': '16:9',
-								'file': '${episode.mediaUrl}'
-							});
-						</script>
-					</c:otherwise>
-				</c:choose>
-			</div>
 			<div class="social_and_download">
 				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
 				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
@@ -192,6 +166,8 @@
 					<spring:message code="global.dwnld.s" text="Download last episode"/>
 				</a>
 				<span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
+        <span class="item_sharing_title">${episode.title}</span>
+        <span class="item_media_url">${episode.mediaUrl}</span>
 			</div>
 		</div>
 	</c:forEach>
@@ -220,6 +196,10 @@
 <!-- jquery dialogs -->
 <div id="ask-for-login-form" title="Sign in">
   <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
+</div>
+
+<div id="media_player_modal_dialog" title="Media player">
+  <div id='mediaspace_modal'>Loading...</div>
 </div>
 
 <div id="subscribe-form-subscription-category" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">

@@ -1,5 +1,8 @@
 $(document).ready(function() {
-  // ***** Setup jwplayer in jquery dialog part ******
+
+  /* ***** Setup jwplayer in jquery dialog part ******
+    when modify make sure to update the implementation in podcast detail's main.js too
+   */
   $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
   $(".icon-play-episode").click(function(){
 
