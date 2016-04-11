@@ -36,97 +36,179 @@ $(function (){
 
 	});
 
-	function buildEpisodeDiv(episode, i, currentPage){
-		var offset=currentPage*10;
-		var episodesDiv=""
-			+ "<div class='bg_color shadowy item_wrapper'>"
-			+ "<div class='title-and-pub-date'>";
-			if(episode.mediaType == 'Audio'){
-				episodesDiv += "<div class='icon-audio-episode'></div>";
-			} else {
-				episodesDiv += "<div class='icon-video-episode'></div>";
-			}
-			var episodeUrl='http://www.podcastpedia.org/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
-			episodesDiv += '<a href='+ episodeUrl +' class="item_title">' + episode.title + '</a>';
+  // same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
+  bindDynamicPlaying()
+  function bindDynamicPlaying(){
+    $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
+    $(".icon-play-episode").click(function(){
 
-			episodesDiv +='<div class="pub_date">';
-        var epPubDate = new Date(episode.publicationDate);
-        episodesDiv += epPubDate.getFullYear() + "-" + epPubDate.getMonth() + "-" + epPubDate.getDate();
-        if(episode.isNew == 1){
-          episodesDiv +='<span class="ep_is_new">&nbsp;new</span>';
+      var theDiv=$('#media_player_modal_dialog');
+      var windowW= $(window).width();
+      var dialogW;
+      var overlayImage='audio_overlay_jwplayer.png';
+      if(windowW > 1600){
+        dialogW = dialogW-300;
+        overlayImage='audio_overlay_jwplayer_bigger.png';
+      } else if(windowW > 1200){
+        dialogW = windowW-200;
+        overlayImage='audio_overlay_jwplayer.png';
+      } else if(windowW > 720){
+        dialogW = windowW-100;
+        overlayImage='audio_overlay_jwplayer_small.png';
+      } else {
+        dialogW = windowW-20;
+        overlayImage='audio_overlay_jwplayer_smaller.png';
+      }
+      var dialogH = (dialogW * 10)/16;
+
+      var epMediaUrl = $(this).siblings('.item_media_url').text();
+      var epTitle = $(this).siblings('.item_sharing_title').text();
+
+      //setup player
+      var playerInstance = jwplayer("mediaspace_modal");
+      playerInstance.setup({
+        'controlbar': 'bottom',
+        'width': '100%',
+        'aspectratio': '16:9',
+        'file': epMediaUrl,
+        'title': epTitle,
+        'autostart': true,
+        'image': '/static/images/player_overlay/' + overlayImage
+      });
+
+      theDiv.dialog("open");
+      $(theDiv).dialog({
+        autoOpen: false,
+        height: dialogH,
+        width: dialogW,
+        modal: true,
+        title: epTitle,
+        open: function(){
+          playerInstance.play();
+        },
+        close: function() {
+          playerInstance.remove();
         }
-			episodesDiv +='</div>';
+      });
+    });
+  }
 
-			episodesDiv += '<div class="clear"></div>';
-			episodesDiv +='</div>';
-			episodesDiv +='<hr>';
-			episodesDiv +='<div class="ep_desc">';
-			episodesDiv += '<a href='+ episodeUrl +' class="item_desc">';
-			if(episode.description != null) episodesDiv += episode.description.substring(0,280);
-			episodesDiv +='</a>';
-			episodesDiv +='</div>';
+  function buildEpisodeDiv(episode, i, offset){
+    var episodeDiv=""
+      + "<div class='bg_color shadowy item_wrapper'>"
+      + "<div class='title-and-pub-date'>";
+    if(episode.mediaType == 'Audio'){
+      episodeDiv += "<div class='icon-audio-episode'></div>";
+    } else {
+      episodeDiv += "<div class='icon-video-episode'></div>";
+    }
+    var episodeUrl=getDomainAndPort() + '/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
+    episodeDiv += '<a href='+ episodeUrl +' class="item_title">' + episode.title + '</a>';
 
-			episodesDiv +='<div class="ep_desc_bigger">';
-			episodesDiv +='<a href='+ episodeUrl +' class="item_desc">';
-			if(episode.description != null) episodesDiv += episode.description.substring(0,600);
-			episodesDiv +='</a>';
-			episodesDiv +='</div>';
+    episodeDiv +='<div class="pub_date">';
+    var epPubDate = new Date(episode.publicationDate);
+    episodeDiv += epPubDate.getFullYear() + "-" + epPubDate.getMonth() + "-" + epPubDate.getDate();
+    if(episode.isNew === 1){
+      episodeDiv +='<span class="ep_is_new">&nbsp;new</span>';//TODO see what's up with internationalization
+    }
+    episodeDiv +='</div>';
 
-			episodesDiv +='<div class="clear"></div>';
+    episodeDiv += '<div class="clear"></div>';
+    episodeDiv +='</div>';
+    episodeDiv +='<hr>';
+    episodeDiv +='<div class="ep_desc">';
+    episodeDiv += '<a href='+ episodeUrl +' class="item_desc">';
+    if(episode.description != null) episodeDiv += episode.description.substring(0,280);
+    episodeDiv +='</a>';
+    episodeDiv +='</div>';
 
-			episodesDiv +='<div class="not_shown">';
-			episodesDiv +='<div id=mediaspace'+parseInt(offset+i) +'>Flashplayer not supported</div>';
+    episodeDiv +='<div class="ep_desc_bigger">';
+    episodeDiv +='<a href='+ episodeUrl +' class="item_desc">';
+    if(episode.description != null) episodeDiv += episode.description.substring(0,600);
+    episodeDiv +='</a>';
+    episodeDiv +='</div>';
 
+    episodeDiv +='<div class="clear"></div>';
 
-			//change with requireJs sometime soon
-			episodesDiv +="<script type='text/javascript'>";
-			if(episode.mediaType == 'Audio'){
-				episodesDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:5', 'file': '" + episode.mediaUrl+ "'});";
-			} else {
-				episodesDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:9', 'file': '" + episode.mediaUrl+ "'});";
-			}
-			episodesDiv +="</script>";
-			episodesDiv +='</div>';
+    episodeDiv +='<div class="social_and_download">';
+    episodeDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
+    episodeDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
+    episodeDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" download>';
+    episodeDiv+= 'download&nbsp;';
+    episodeDiv +='</a>';
+    episodeDiv +='<span class="item_url">' + episodeUrl + '</span>';
+    episodeDiv +='<span class="item_sharing_title">' + episode.title + '</span>';
+    episodeDiv +='<span class="item_media_url">' + episode.mediaUrl + '</span>';
+    episodeDiv +='</div>';
 
-			episodesDiv +='<div class="social_and_download">';
-			episodesDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
-			episodesDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
-			episodesDiv+= '<a class="icon-download-ep btn-share" href="'+ episode.mediaUrl +'" download>';
-			episodesDiv+= 'download&nbsp;';
-			episodesDiv +='</a>';
-			episodesDiv +='<span class="item_url">' + episodeUrl + '</span>';
-			episodesDiv +='</div>';
+    return episodeDiv;
+  }
 
-			return episodesDiv;
-	}
+  function getDomainAndPort(){
+    var url = window.location.href;
+    var arr = url.split("/");
+    var protocol= arr[0];
+    var hostAndPort=arr[2];
 
+    return protocol + "//" + hostAndPort;
+  }
 
-	bindDynamicPlaying();
-	//delegate again...
-	function bindDynamicPlaying(){
-		$('.item_wrapper').delegate('.icon-play-episode', 'click',  function () {
-			var currentDiv=$(this).closest("div.item_wrapper");
-			var playerDiv = currentDiv.find("div.not_shown")
-			playerDiv.removeClass('not_shown').addClass('shown');
-			var jwpId = currentDiv.find("div.jwplayer ").attr("id")
+  // same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
+  bindDynamiyPlaying()
+  function bindDynamiyPlaying(){
+    $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
+    $(".icon-play-episode").click(function(){
 
-			// if we load the player, the div containing the player will set the distance to the share, play and download buttons
-			currentDiv.find("div.ep_desc").css("margin-bottom","5px");
+      var theDiv=$('#media_player_modal_dialog');
+      var windowW= $(window).width();
+      var dialogW;
+      var overlayImage='audio_overlay_jwplayer.png';
+      if(windowW > 1600){
+        dialogW = dialogW-300;
+        overlayImage='audio_overlay_jwplayer_bigger.png';
+      } else if(windowW > 1200){
+        dialogW = windowW-200;
+        overlayImage='audio_overlay_jwplayer.png';
+      } else if(windowW > 720){
+        dialogW = windowW-100;
+        overlayImage='audio_overlay_jwplayer_small.png';
+      } else {
+        dialogW = windowW-20;
+        overlayImage='audio_overlay_jwplayer_smaller.png';
+      }
+      var dialogH = (dialogW * 10)/16;
 
-			//and also widen the distance to the share buttonsif they are available
-			var shareButtonsDiv = currentDiv.find("div.share_buttons");
-			if(shareButtonsDiv.length > 0){
-				playerDiv.css("margin-bottom","75px");
-			}
+      var epMediaUrl = $(this).siblings('.item_media_url').text();
+      var epTitle = $(this).siblings('.item_sharing_title').text();
 
-			$('html, body').animate({
-				scrollTop: currentDiv.offset().top
-			}, 150);
-			if(typeof jwpId != 'undefined'){
-				jwplayer(jwpId).play();
-			}
-		 });
-	}
+      //setup player
+      var playerInstance = jwplayer("mediaspace_modal");
+      playerInstance.setup({
+        'controlbar': 'bottom',
+        'width': '100%',
+        'aspectratio': '16:9',
+        'file': epMediaUrl,
+        'title': epTitle,
+        'autostart': true,
+        'image': '/static/images/player_overlay/' + overlayImage
+      });
+
+      theDiv.dialog("open");
+      $(theDiv).dialog({
+        autoOpen: false,
+        height: dialogH,
+        width: dialogW,
+        modal: true,
+        title: epTitle,
+        open: function(){
+          playerInstance.play();
+        },
+        close: function() {
+          playerInstance.remove();
+        }
+      });
+    });
+  }
 
 
 	bindDynamicSocialSharing();

@@ -182,6 +182,7 @@ public class SearchController {
             if(targetIsPodcasts){
                 tilesDef = "search_results_podcasts_def";
             } else {
+                model.addAttribute("episodes", searchResult.getEpisodes());
                 tilesDef = "search_results_def";
             }
 
