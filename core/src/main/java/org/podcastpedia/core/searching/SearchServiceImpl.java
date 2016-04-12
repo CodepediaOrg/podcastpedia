@@ -50,7 +50,7 @@ public class SearchServiceImpl implements SearchService {
 		response.setCurrentPage(searchData.getCurrentPage());
 
         List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
-        //response.setResults(mapEpisodesToResults(episodes));
+        response.setResults(mapEpisodesToResults(episodes));
         response.setEpisodes(episodes);
 
 		return response;
