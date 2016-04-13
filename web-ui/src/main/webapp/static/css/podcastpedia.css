@@ -425,7 +425,7 @@ ul.pureCssMenu ul li {
     padding: 0;
     position: relative;
     display: inline-table;
-    z-index: 501; }
+    z-index: 51; }
     #nav ul > li {
       float: left;
       width: 12em; }
