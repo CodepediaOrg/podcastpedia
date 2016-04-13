@@ -7,6 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
@@ -124,53 +125,7 @@
 	<!-- only if the podcast has more than 10 episodes will display an archive link with all the episodes,
           else all episodes of the podcast will be displayed -->
 
-	<c:forEach items="${lastEpisodes}" var="episode" varStatus="loop">
-		<div class="bg_color shadowy item_wrapper">
-			<div class="title-and-pub-date">
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<div class="icon-audio-episode"></div>
-					</c:when>
-					<c:otherwise>
-						<div class="icon-video-episode"></div>
-					</c:otherwise>
-				</c:choose>
-        <c:url var="episodeURL" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
-        <a href="${episodeURL}" class="item_title">${episode.title}</a>
-				<div class="pub_date">
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}" />
-					<c:choose>
-						<c:when test="${episode.isNew == 1}">
-							<span class="ep_is_new"><spring:message code="new"/></span>
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<hr>
-			<div class="ep_desc">
-				<a href="${episodeURL}" class="item_desc">
-						${fn:substring(episode.description,0,280)}
-				</a>
-			</div>
-			<div class="ep_desc_bigger">
-				<a href="${episodeURL}" class="item_desc">
-						${fn:substring(episode.description,0,600)}
-				</a>
-			</div>
-			<div class="clear"></div>
-			<div class="social_and_download">
-				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
-				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
-				<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
-					<spring:message code="global.dwnld.s" text="Download last episode"/>
-				</a>
-				<span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
-        <span class="item_sharing_title">${episode.title}</span>
-        <span class="item_media_url">${episode.mediaUrl}</span>
-			</div>
-		</div>
-	</c:forEach>
+  <tags:episodes/>
 	<input type="hidden" name="offset" id="offset-data-id" value="5"/>
 </div>
 

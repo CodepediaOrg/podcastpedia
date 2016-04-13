@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Annotation-driven controller that handles requests to display episodes and
  * episode archive pages.
- * 
+ *
  * @author ama
  */
 @Controller
@@ -58,7 +58,7 @@ public class EpisodeController {
 
 	/**
 	 * Controller method for episode page.
-	 * 
+	 *
 	 * @param podcastId
 	 * @param episodeId
 	 * @param show_other_episodes
@@ -87,12 +87,12 @@ public class EpisodeController {
 			episodeDetails.getEpisode().setRating(10f);
 		model.addAttribute("roundedRatingScore",
 				Math.round(episodeDetails.getEpisode().getRating()));
-		model.addAttribute("episode", episodeDetails.getEpisode());
+		model.addAttribute("episodeDetails", episodeDetails.getEpisode());
 
 		// set other episodes to be displayed
 		List<Episode> otherEpisodes = episodeDetails.getLastEpisodes();
 		if (otherEpisodes != null) {
-			model.addAttribute("otherEpisodes", otherEpisodes);
+			model.addAttribute("episodes", otherEpisodes);
 			model.addAttribute("otherEpisodesSize",
 					otherEpisodes.size());
 			model.addAttribute("nr_divs_with_ratings", otherEpisodes.size());

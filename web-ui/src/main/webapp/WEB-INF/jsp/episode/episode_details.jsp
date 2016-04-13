@@ -5,6 +5,7 @@
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
@@ -12,29 +13,29 @@
 
 <div id="current_episode" class="bg_color common_radius shadowy">
 	<h2>
-		${episode.title}
+		${episodeDetails.title}
 	</h2>
 	<div class="pub_date">
-		<fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}"/>
+		<fmt:formatDate pattern="yyyy-MM-dd" value="${episodeDetails.publicationDate}"/>
 		<c:choose>
-			<c:when test="${episode.isNew == 1}">
+			<c:when test="${episodeDetails.isNew == 1}">
 				<span class="ep_is_new"><spring:message code="new"/></span>
 			</c:when>
 		</c:choose>
 	</div>
 
-	<c:url var="currentEpisodeURL" value="/podcasts/${episode.podcastId}/${podcast_title_in_url}/episodes/${episode.episodeId}/${episode.titleInUrl}?show_other_episodes=true"/>
+	<c:url var="currentEpisodeURL" value="/podcasts/${episodeDetails.podcastId}/${podcast_title_in_url}/episodes/${episodeDetails.episodeId}/${episodeDetails.titleInUrl}?show_other_episodes=true"/>
 	<div id='mediaspace'><spring:message code="ep_details.pl_not_shown_part1" text="If player not shown please"/> <a href="${currentEpisodeURL}"> <spring:message code="global.click_here" text="click here"/> </a></div>
 
 	<!-- switch player CAN or CANNOT be displayed -->
 	<c:choose>
-		<c:when test="${episode.mediaType == 'Audio'}">
+		<c:when test="${episodeDetails.mediaType == 'Audio'}">
 			<script type='text/javascript'>
 			  jwplayer('mediaspace').setup({
 			    'controlbar': 'bottom',
 			    'width': '100%',
 			    'aspectratio': '16:5',
-			    'file': '${episode.mediaUrl}'
+			    'file': '${episodeDetails.mediaUrl}'
 			  });
 			</script>
 		</c:when>
@@ -44,53 +45,53 @@
 			    'controlbar': 'bottom',
 			    'width': '100%',
 			    'aspectratio': '16:9',
-			    'file': '${episode.mediaUrl}'
+			    'file': '${episodeDetails.mediaUrl}'
 			  });
 			</script>
 		</c:otherwise>
 	</c:choose>
 	<div class="ep_desc">
-		${fn:substring(episode.description,0,280)}
+		${fn:substring(episodeDetails.description,0,280)}
 	</div>
 	<div class="ep_desc_bigger">
-		${fn:substring(episode.description,0,600)}
+		${fn:substring(episodeDetails.description,0,600)}
 	</div>
 
 	<div id="social_and_download_curr_ep">
 		<a href="#-1" class="icon-share-episode btn-share">Share </a>
-		<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
+		<a class="icon-download-ep btn-share" href="${episodeDetails.mediaUrl}" download>
 			<spring:message code="global.dwnld.s" text="Download episode"/>
 		</a>
-		<span class="item_url_ep">https://www.podcastpedia.org/podcasts/${episode.podcastId}/${podcast_title_in_url}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
+		<span class="item_url_ep">https://www.podcastpedia.org/podcasts/${episodeDetails.podcastId}/${podcast_title_in_url}/episodes/${episodeDetails.episodeId}/${episodeDetails.titleInUrl}</span>
 	</div>
 	<div class="clear"></div>
 
 </div>
 
 <div id="episode_metadata" class="bg_color common_radius shadowy" >
-   	<img src="${episode.podcast.urlOfImageToDisplay}">
+   	<img src="${episodeDetails.podcast.urlOfImageToDisplay}">
 	<p>
 		<c:choose>
-			<c:when test="${episode.podcast.identifier == null}">
-				<c:set var="podcast_link" value="/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}"/>
+			<c:when test="${episodeDetails.podcast.identifier == null}">
+				<c:set var="podcast_link" value="/podcasts/${episodeDetails.podcastId}/${episodeDetails.podcast.titleInUrl}"/>
 			</c:when>
 			<c:otherwise>
-				<c:set var="podcast_link" value="/${episode.podcast.identifier}"/>
+				<c:set var="podcast_link" value="/${episodeDetails.podcast.identifier}"/>
 			</c:otherwise>
 		</c:choose>
-		<a href="${podcast_link}" class="btn-share">${episode.podcast.title}</a>
+		<a href="${podcast_link}" class="btn-share">${episodeDetails.podcast.title}</a>
 	</p>
 	<p id="feed-and-ep-link">
-		<a href="${episode.podcast.link}" target="_blank" class="icon-globe-producer producer-social" title="Website"></a>
-		<a href="${episode.podcast.url}" target="_blank"  class="icon-feed-producer  producer-social" title="Feed"></a>
-		<c:if test="${not empty episode.podcast.twitterPage}">
-			<a href="${episode.podcast.twitterPage}" target="_blank" class="icon-twitter-producer producer-social" title="Twitter"></a>
+		<a href="${episodeDetails.podcast.link}" target="_blank" class="icon-globe-producer producer-social" title="Website"></a>
+		<a href="${episodeDetails.podcast.url}" target="_blank"  class="icon-feed-producer  producer-social" title="Feed"></a>
+		<c:if test="${not empty episodeDetails.podcast.twitterPage}">
+			<a href="${episodeDetails.podcast.twitterPage}" target="_blank" class="icon-twitter-producer producer-social" title="Twitter"></a>
 		</c:if>
-		<c:if test="${not empty episode.podcast.fbPage}">
-			<a href="${episode.podcast.fbPage}" target="_blank" class="icon-facebook-producer producer-social" title="Facebook Fan Page"></a>
+		<c:if test="${not empty episodeDetails.podcast.fbPage}">
+			<a href="${episodeDetails.podcast.fbPage}" target="_blank" class="icon-facebook-producer producer-social" title="Facebook Fan Page"></a>
 		</c:if>
-		<c:if test="${not empty episode.podcast.gplusPage}">
-			<a href="${episode.podcast.gplusPage}" target="_blank" class="icon-google-plus-producer producer-social" title="Google+"></a>
+		<c:if test="${not empty episodeDetails.podcast.gplusPage}">
+			<a href="${episodeDetails.podcast.gplusPage}" target="_blank" class="icon-google-plus-producer producer-social" title="Google+"></a>
 		</c:if>
 	</p>
 	<!-- TODO when email job is ready uncomment this
@@ -103,58 +104,14 @@
 
 <div class="results_list">
  	<h3><spring:message code="pod_details.recent_episodes" text="Recent episodes: "/></h3>
-	<c:forEach items="${otherEpisodes}" var="episodeIterator" varStatus="loop">
-	  	<div class="bg_color shadowy item_wrapper">
-	    	<div class="title-and-pub-date">
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<div class="icon-audio-episode"></div>
-					</c:when>
-					<c:otherwise>
-						<div class="icon-video-episode"></div>
-					</c:otherwise>
-				</c:choose>
-				<c:url var="episodeURL" value="/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}/episodes/${episodeIterator.episodeId}/${episodeIterator.titleInUrl}"/>
-				<a href="${episodeURL}" class="item_title">${episodeIterator.title}</a>
-				<div class="pub_date">
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${episodeIterator.publicationDate}" />
-					<c:choose>
-						<c:when test="${episodeIterator.isNew == 1}">
-							<span class="ep_is_new"><spring:message code="new"/></span>
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<hr>
-			<div class="ep_desc">
-				<a href="${episodeURL}" class="item_desc">
-					${fn:substring(episodeIterator.description,0,280)}
-				</a>
-			</div>
-			<div class="ep_desc_bigger">
-				<a href="${episodeURL}" class="item_desc">
-					${fn:substring(episodeIterator.description,0,600)}
-				</a>
-			</div>
-			<div class="clear"></div>
-			<div class="social_and_download">
-				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
-				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
-				<a class="icon-download-ep btn-share" href="${episodeIterator.mediaUrl}" download><spring:message code="global.dwnld.s" text="Download last episode"/></a>
-				<span class="item_url">https://www.podcastpedia.org/podcasts/${episode.podcastId}/${episode.podcast.titleInUrl}/episodes/${episodeIterator.episodeId}/${episodeIterator.titleInUrl}</span>
-        <span class="item_sharing_title">${episode.title}</span>
-        <span class="item_media_url">${episode.mediaUrl}</span>
-			</div>
-		</div>
-	</c:forEach>
+  <tags:episodes/>
 	<input type="hidden" name="offset" id="offset-data-id" value="5"/>
-	<input type="hidden" name="podcastId" id="sub_podcastId" value="${episode.podcastId}"/>
+	<input type="hidden" name="podcastId" id="sub_podcastId" value="${episodeDetails.podcastId}"/>
 </div>
 
 <button type="button" id="more-episodes" style="display: block; border-radius:5px; padding:5px; width:100%;font-family:arial,sans-serif; font-size:1.5em;color:#2F4051" class="shadowy"><strong><spring:message code="ep_details.more_episodes" text="More"/></strong></button>
 <p id="archive_all_episodes">
-	<c:url var="allEpisodesUrl" value="/podcasts/${episode.podcastId}/${episode.titleInUrl}/episodes/archive/pages/1"/>
+	<c:url var="allEpisodesUrl" value="/podcasts/${episodeDetails.podcastId}/${episodeDetails.titleInUrl}/episodes/archive/pages/1"/>
 	<a href="${allEpisodesUrl}"> <spring:message code="pod_details.archive" text="Archive - all episodes"/> </a>
 </p>
 
