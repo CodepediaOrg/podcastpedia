@@ -1048,7 +1048,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   /* Set the font */
   font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: auto; }
   .github-fork-ribbon a {
     /* Set the text properties */
@@ -1093,7 +1093,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   position: absolute;
   overflow: hidden;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: none; }
   @media screen and (max-width: 1339px) {
     .github-fork-ribbon-wrapper {
