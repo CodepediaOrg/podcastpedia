@@ -1,39 +1,19 @@
 $(function (){
 
-  bindDynamicPlaying();
-  //delegate again...
-  function bindDynamicPlaying(){
-    $('.item_wrapper').delegate('.icon-play-episode', 'click',  function () {
-      var currentDiv=$(this).closest("div.item_wrapper");
-      var playerDiv = currentDiv.find("div.not_shown")
-      playerDiv.removeClass('not_shown').addClass('shown');
-      var jwpId = currentDiv.find("div.jwplayer ").attr("id")
-
-      // if we load the player, the div containing the player will set the distance to the share, play and download buttons
-      currentDiv.find("div.ep_desc").css("margin-bottom","5px");
-
-      //and also widen the distance to the share buttonsif they are available
-      var shareButtonsDiv = currentDiv.find("div.share_buttons");
-      if(shareButtonsDiv.length > 0){
-        playerDiv.css("margin-bottom","75px");
-      }
-
-      $('html, body').animate({
-        scrollTop: currentDiv.offset().top
-      }, 150);
-      if(typeof jwpId != 'undefined'){
-        jwplayer(jwpId).play();
-      }
-    });
-  }
-
   bindShowLastEpisodes();
   //delegate again...
   function bindShowLastEpisodes(){
     $('.podcast_wrapper').delegate('.icon-last-episodes', 'click',  function () {
       var currentDiv=$(this).closest("div.podcast_wrapper");
-      var lastEpisodesDiv = currentDiv.find("div.last_episodes")
-      lastEpisodesDiv.removeClass('not_shown').addClass('shown');
+      var lastEpisodesDiv = currentDiv.find("div.last_episodes");
+      var lastEpisodesButton = currentDiv.find("a.icon-last-episodes");
+      if(lastEpisodesDiv.hasClass('not_shown')){
+        lastEpisodesDiv.removeClass('not_shown').addClass('shown');
+        lastEpisodesButton.removeClass('icon-arrow-down').addClass('icon-arrow-up');
+      } else {
+        lastEpisodesDiv.removeClass('shown').addClass('not_shown');
+        lastEpisodesButton.removeClass('icon-arrow-up').addClass('icon-arrow-down');
+      }
     });
   }
 

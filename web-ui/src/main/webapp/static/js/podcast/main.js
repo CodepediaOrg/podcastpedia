@@ -25,7 +25,7 @@ $(function (){
 						$lastEpisodes.append(episodeDiv).fadeIn(800);
 					});
 
-					bindDynamicPlaying();
+          bindDynamiyPlaying();
 					bindDynamicSocialSharing();
 					bindDynamicSharringCurrentEpisode();
 					console.log("success", episodes);
@@ -34,6 +34,64 @@ $(function (){
 		});
 
 	});
+
+  // same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
+  bindDynamiyPlaying()
+  function bindDynamiyPlaying(){
+    $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
+    $(".icon-play-episode").click(function(){
+
+      var theDiv=$('#media_player_modal_dialog');
+      var windowW= $(window).width();
+      var dialogW;
+      var overlayImage='audio_overlay_jwplayer.png';
+      if(windowW > 1600){
+        dialogW = dialogW-300;
+        overlayImage='audio_overlay_jwplayer_bigger.png';
+      } else if(windowW > 1200){
+        dialogW = windowW-200;
+        overlayImage='audio_overlay_jwplayer.png';
+      } else if(windowW > 720){
+        dialogW = windowW-100;
+        overlayImage='audio_overlay_jwplayer_small.png';
+      } else {
+        dialogW = windowW-20;
+        overlayImage='audio_overlay_jwplayer_smaller.png';
+      }
+      var dialogH = (dialogW * 10)/16;
+
+      var epMediaUrl = $(this).siblings('.item_media_url').text();
+      var epTitle = $(this).siblings('.item_sharing_title').text();
+
+      //setup player
+      var playerInstance = jwplayer("mediaspace_modal");
+      playerInstance.setup({
+        'controlbar': 'bottom',
+        'width': '100%',
+        'aspectratio': '16:9',
+        'file': epMediaUrl,
+        'title': epTitle,
+        'autostart': true,
+        'image': '/static/images/player_overlay/' + overlayImage
+      });
+
+      theDiv.dialog("open");
+      $(theDiv).dialog({
+        autoOpen: false,
+        height: dialogH,
+        width: dialogW,
+        modal: true,
+        title: epTitle,
+        open: function(){
+          playerInstance.play();
+        },
+        close: function() {
+          playerInstance.remove();
+        }
+      });
+    });
+  }
+
 
 	function buildEpisodeDiv(episode, i, offset){
 		var episodeDiv=""
@@ -44,7 +102,7 @@ $(function (){
 			} else {
 				episodeDiv += "<div class='icon-video-episode'></div>";
 			}
-			var episodeUrl='http://www.podcastpedia.org/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
+			var episodeUrl=getDomainAndPort() + '/podcasts/' + episode.podcastId + '/' + episode.podcast.titleInUrl + '/episodes/' + episode.episodeId + '/' + episode.titleInUrl;
 			episodeDiv += '<a href='+ episodeUrl +' class="item_title">' + episode.title + '</a>';
 
 			episodeDiv +='<div class="pub_date">';
@@ -72,20 +130,6 @@ $(function (){
 
 			episodeDiv +='<div class="clear"></div>';
 
-			episodeDiv +='<div class="not_shown">';
-			episodeDiv +='<div id=mediaspace'+parseInt(offset+i) +'>Flashplayer not supported</div>';
-
-
-			//change with requireJs sometime soon
-			episodeDiv +="<script type='text/javascript'>";
-			if(episode.mediaType == 'Audio'){
-				episodeDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:5', 'file': '" + episode.mediaUrl+ "'});";
-			} else {
-				episodeDiv +="jwplayer(mediaspace"+ parseInt(offset+i) + ").setup({'controlbar': 'bottom',  'width': '100%',   'aspectratio': '16:9', 'file': '" + episode.mediaUrl+ "'});";
-			}
-			episodeDiv +="</script>";
-			episodeDiv +='</div>';
-
 			episodeDiv +='<div class="social_and_download">';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)) + '" class="icon-play-episode btn-share">Play </a>';
 			episodeDiv +='<a href="#' + parseInt(2*(offset+i)+1) + '" class="icon-share-episode btn-share">Share </a>';
@@ -93,37 +137,11 @@ $(function (){
 			episodeDiv+= 'download&nbsp;';
 			episodeDiv +='</a>';
 			episodeDiv +='<span class="item_url">' + episodeUrl + '</span>';
+      episodeDiv +='<span class="item_sharing_title">' + episode.title + '</span>';
+      episodeDiv +='<span class="item_media_url">' + episode.mediaUrl + '</span>';
 			episodeDiv +='</div>';
 
 			return episodeDiv;
-	}
-
-
-	bindDynamicPlaying();
-	//delegate again...
-	function bindDynamicPlaying(){
-		$('.item_wrapper').delegate('.icon-play-episode', 'click',  function () {
-			var currentDiv=$(this).closest("div.item_wrapper");
-			var playerDiv = currentDiv.find("div.not_shown")
-			playerDiv.removeClass('not_shown').addClass('shown');
-			var jwpId = currentDiv.find("div.jwplayer ").attr("id")
-
-			// if we load the player, the div containing the player will set the distance to the share, play and download buttons
-			currentDiv.find("div.ep_desc").css("margin-bottom","5px");
-
-			//and also widen the distance to the share buttonsif they are available
-			var shareButtonsDiv = currentDiv.find("div.share_buttons");
-			if(shareButtonsDiv.length > 0){
-				playerDiv.css("margin-bottom","75px");
-			}
-
-			$('html, body').animate({
-				scrollTop: currentDiv.offset().top
-			}, 150);
-			if(typeof jwpId != 'undefined'){
-				jwplayer(jwpId).play();
-			}
-		 });
 	}
 
 
@@ -133,17 +151,6 @@ $(function (){
 			var currentDiv=$(this).closest("div.item_wrapper");
 			var epUrl= currentDiv.find("span.item_url").text();
 
-			//verify existence of player to manipulate distance to div containing sharing buttons
-			var playerDiv = currentDiv.find("div.shown");
-			if(playerDiv.length > 0){
-				playerDiv.css("margin-bottom","75px");
-			} else {
-				//player not shown widen the distance to insert the sharing buttons
-				currentDiv.find("div.ep_desc").css("margin-bottom","75px");
-				currentDiv.find("div.ep_desc_bigger").css("margin-bottom","75px");
-				currentDiv.find("div.pod_desc").css("margin-bottom","55px");
-				currentDiv.find("div.pod_desc_bigger").css("margin-bottom","55px");
-			}
 			//the share button is being replaced with social media buttons
 			$(e.target).remove();
 			var socialAndDownload = currentDiv.find("div.social_and_download");
@@ -236,42 +243,6 @@ $(function (){
 		}
 	}
 
-    //email subscription part to be moved to separate file
-    //init subscriptionfileds fields
-    var subscriptionEmail = $("input#sub_email");
-
-    //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
-    $("#subscribeItAnchor").click(function(){
-        $("#subscribe-form" ).dialog("open");
-    });
-
-    $("#subscribe-form" ).dialog({
-        autoOpen: false,
-        height: 200,
-        width: 370,
-        modal: true,
-        buttons: {
-          "Subscribe": function() {
-              var bValid=true;
-              subscriptionEmail.removeClass( "input_in_error" );
-              $("#subscription_email_err_mess").remove();
-              bValid = bValid && checkLength( subscriptionEmail, "email", 6, 80 );
-              bValid = bValid && checkRegexp( subscriptionEmail, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, "e.g. test@podcastpedia.org");
-            if(bValid){
-                postEmailSubscription();
-            } else {
-                subscriptionEmail.after("<br/><span id='subscription_email_err_mess' class='error_form_validation'><spring:message code='invalid.required.email'/></span>");
-                return false;
-            }
-          },
-          Cancel: function() { $( this ).dialog( "close" ); }
-        },
-      close: function() {
-          //we reset the values
-          subscriptionEmail.val("").removeClass("input_in_error");
-          $("#subscription_email_err_mess").remove();
-      }
-  });
   $("#subscribe-form-subscription-category" ).dialog({
     autoOpen: false,
     height: 220,
@@ -298,20 +269,6 @@ $(function (){
     }
   });
 
-  $( "#dialog-subscribed" ).dialog({
-      autoOpen: false,
-      height: 150,
-      width: 450,
-      modal: true
-      /* when I add button it doesn't show correctly investigate why...
-       buttons: {
-       'Ok': function() {
-       $( this ).dialog( "close" );
-       }
-       }
-       */
-  });
-
   //when clicking on subscribe via email, subscribe via email checkbox from comments is checked
   $(".ask-for-login").click(function(){
     $("#ask-for-login-form" ).dialog("open");
@@ -324,12 +281,7 @@ $(function (){
     modal: true,
     buttons: {
       "Log in": function() {
-        var url = window.location.href;
-        var arr = url.split("/");
-        var protocol= arr[0];
-        var hostAndPort=arr[2];
-        window.location.href = "//" + hostAndPort + "/login/custom_login";
-        //window.location.href = "//podcastpedia.org/login/custom_login";
+        window.location.href = getDomainAndPort() + "/login/custom_login";
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -339,6 +291,15 @@ $(function (){
 
     }
   });
+
+  function getDomainAndPort(){
+    var url = window.location.href;
+    var arr = url.split("/");
+    var protocol= arr[0];
+    var hostAndPort=arr[2];
+
+    return protocol + "//" + hostAndPort;
+  }
 
   $("#subscribe-to-podcast").click(function(){
     $("#subscribe-form-subscription-category").dialog("open");
@@ -392,48 +353,6 @@ $(function (){
         $("#vote-down-podcast").css({ 'pointer-events': 'none' });
       });
   });
-
-  function postEmailSubscription(){
-    // Call a URL and pass two arguments
-    // Also pass a call back function
-    // See http://api.jquery.com/jQuery.post/
-    // See http://api.jquery.com/jQuery.ajax/
-    // You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!'
-    // See http://bugs.jquery.com/ticket/7535
-    // ATTENTION - project name must be included in the path
-    $.post("/email-subscription",
-        {
-            email:  $("input#sub_email").val(),
-            podcastId:  $("input#sub_podcastId").val()
-        },
-        function(data){
-            //we have received valid response
-            $("#subscribe-form" ).dialog( "close" );
-            $(function() {
-                $( "#dialog-subscribed" ).dialog("open");
-                setTimeout(function() { $( "#dialog-subscribed" ).dialog('close'); }, 5000);
-            });
-
-        });
-  }
-
-  function checkLength( o, n, min, max ) {
-    if ( o.val().length > max || o.val().length < min ) {
-        o.addClass( "input_in_error" );
-        return false;
-    } else {
-        return true;
-    }
-  }
-
-  function checkRegexp( o, regexp, n  ) {
-    if ( !( regexp.test( o.val() ) ) ) {
-        o.addClass( "input_in_error" );
-        return false;
-    } else {
-        return true;
-    }
-  }
 
 });
 

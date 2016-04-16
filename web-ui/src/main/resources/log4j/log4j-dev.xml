@@ -32,6 +32,10 @@
       <level value="DEBUG" />
       <appender-ref ref="ASYNC"/>
    </logger>
+  <logger name="org.podcastpedia.core.searching.SearchDao"  additivity="false">
+    <level value="TRACE" />
+    <appender-ref ref="ASYNC"/>
+  </logger>
 
     <root>
 	  <priority value="DEBUG"/>

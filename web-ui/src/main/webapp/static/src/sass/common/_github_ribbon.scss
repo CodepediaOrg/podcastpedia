@@ -17,7 +17,7 @@
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   /* Set the font */
   font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: auto;
   a {
     /* Set the text properties */
@@ -65,11 +65,11 @@
   position: absolute;
   overflow: hidden;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: none;
-  @include until-mq(1340px){ 
+  @include until-mq(1340px){
     display: none;
-  }  
+  }
   &.fixed {
     position: fixed;
   }

@@ -78,7 +78,7 @@ public class PodcastController {
 		  	} else {
 		  		lastEpisodes = podcast.getEpisodes();
 		  	}
-		  	model.addAttribute("lastEpisodes", lastEpisodes);
+		  	model.addAttribute("episodes", lastEpisodes);
 		  	model.addAttribute("nr_divs_with_ratings", lastEpisodes.size());
 			if(podcast.getRating() == null) podcast.setRating(10f);
 			model.addAttribute("roundedRatingScore", Math.round(podcast.getRating()));

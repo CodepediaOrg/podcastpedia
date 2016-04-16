@@ -7,6 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
 <c:url var="jwplayerURL" value="/static/js/jwplayer/jwplayer.js"/>
 <script type='text/javascript' src='${jwplayerURL}'></script>
@@ -48,7 +49,7 @@
       </sec:authorize>
       <!-- if authenticated can subscribe automatically -->
       <sec:authorize access="isAuthenticated()">
-        <a href="#" class="btn-share" id="subscribe-to-podcast">Subscribe</a>
+        <a href="#" class="btn-share" id="subscribe-to-podcast"><spring:message code="user.subscribe" text="Subscribe"/></a>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </sec:authorize>
     </p>
@@ -124,77 +125,7 @@
 	<!-- only if the podcast has more than 10 episodes will display an archive link with all the episodes,
           else all episodes of the podcast will be displayed -->
 
-	<c:forEach items="${lastEpisodes}" var="episode" varStatus="loop">
-		<div class="bg_color shadowy item_wrapper">
-			<div class="title-and-pub-date">
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<div class="icon-audio-episode"></div>
-					</c:when>
-					<c:otherwise>
-						<div class="icon-video-episode"></div>
-					</c:otherwise>
-				</c:choose>
-        <c:url var="episodeURL" value="/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}"/>
-        <a href="${episodeURL}" class="item_title">${episode.title}</a>
-				<div class="pub_date">
-					<fmt:formatDate pattern="yyyy-MM-dd" value="${episode.publicationDate}" />
-					<c:choose>
-						<c:when test="${episode.isNew == 1}">
-							<span class="ep_is_new"><spring:message code="new"/></span>
-						</c:when>
-					</c:choose>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<hr>
-			<div class="ep_desc">
-				<a href="${episodeURL}" class="item_desc">
-						${fn:substring(episode.description,0,280)}
-				</a>
-			</div>
-			<div class="ep_desc_bigger">
-				<a href="${episodeURL}" class="item_desc">
-						${fn:substring(episode.description,0,600)}
-				</a>
-			</div>
-			<div class="clear"></div>
-			<div class="not_shown">
-				<div id='mediaspace${loop.index}'>Flashplayer not supported</div>
-				<!-- switch player CAN or CANNOT be displayed -->
-				<c:choose>
-					<c:when test="${episode.mediaType == 'Audio'}">
-						<script type='text/javascript'>
-							jwplayer('mediaspace${loop.index}').setup({
-								'controlbar': 'bottom',
-								'width': '100%',
-								'aspectratio': '16:5',
-								'file': '${episode.mediaUrl}'
-							});
-						</script>
-					</c:when>
-					<c:otherwise>
-						<script type='text/javascript'>
-							jwplayer('mediaspace${loop.index}').setup({
-								'controlbar': 'bottom',
-								'width': '100%',
-								'aspectratio': '16:9',
-								'file': '${episode.mediaUrl}'
-							});
-						</script>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="social_and_download">
-				<a href="#${2*loop.index}" class="icon-play-episode btn-share">Play</a>
-				<a href="#${2*loop.index + 1}" class="icon-share-episode btn-share">Share</a>
-				<a class="icon-download-ep btn-share" href="${episode.mediaUrl}" download>
-					<spring:message code="global.dwnld.s" text="Download last episode"/>
-				</a>
-				<span class="item_url">https://www.podcastpedia.org/podcasts/${podcast.podcastId}/${podcast.titleInUrl}/episodes/${episode.episodeId}/${episode.titleInUrl}</span>
-			</div>
-		</div>
-	</c:forEach>
+  <tags:episodes/>
 	<input type="hidden" name="offset" id="offset-data-id" value="5"/>
 </div>
 
@@ -222,18 +153,8 @@
   <p><spring:message code="user.login.perform_operation" text="Please log in"/></p>
 </div>
 
-<div id="subscribe-form" title="Podcast subscription">
-	<form class="vertical_style_form">
-		<div id="label_above_elements">
-			<label for="email" class="label">
-				<spring:message code="label.email" text="Email - required, verified but never shown"/>
-			</label>
-		</div>
-		<p>
-			<input name="email" id="sub_email" class="form_input" style='width:200px'/>
-		</p>
-		<input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
-	</form>
+<div id="media_player_modal_dialog" title="Media player">
+  <div id='mediaspace_modal'>Loading...</div>
 </div>
 
 <div id="subscribe-form-subscription-category" title="<spring:message code="user.subscriptions.select_category.title" text="Select category"/>">
@@ -258,13 +179,6 @@
     </p>
     <input type="hidden" name="podcastId" id="sub_podcastId" value="${podcast.podcastId}"/>
   </form>
-</div>
-
-<!-- 			  -->
-<div id="dialog-subscribed" title="Subscription successful">
-	<p>
-		<spring:message code="pod_details.subscription.thanks" text="Thank your for subscribing to the podcast. Will will send you an email with new episodes when they become available."/>
-	</p>
 </div>
 
 <div id="disqus_comments" class="shadowy">

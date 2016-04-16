@@ -5,13 +5,12 @@ import org.podcastpedia.common.domain.Episode;
 import org.podcastpedia.common.domain.Podcast;
 import org.podcastpedia.common.types.OrderByOption;
 import org.podcastpedia.common.types.SearchModeType;
+import org.podcastpedia.core.episodes.EpisodeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class SearchServiceImpl implements SearchService {
@@ -20,6 +19,10 @@ public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	private SearchDao searchDao;
+
+    @Autowired
+    private EpisodeDao episodeDao;
+
 
 	public void setSearchDao(SearchDao searchDao) {
 		this.searchDao = searchDao;
@@ -46,16 +49,58 @@ public class SearchServiceImpl implements SearchService {
 		response.setNumberOfItemsPerPage(searchData.getNumberResultsPerPage());
 		response.setCurrentPage(searchData.getCurrentPage());
 
-		if( isTargetPodcasts(searchData) ){
-            List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
-            response.setResults(mapPodcastsToResults(podcasts));
-		} else {
-            List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
-            response.setResults(mapEpisodesToResults(episodes));
-		}
+        List<Episode> episodes = searchDao.getEpisodesForSearchCriteria(searchData);
+        response.setResults(mapEpisodesToResults(episodes));
+        response.setEpisodes(episodes);
 
 		return response;
 	}
+
+    @Override
+    @Cacheable(value="searchResults")
+    public SearchResult getPodcastsForSearchCriteria(SearchData searchData) throws UnsupportedEncodingException {
+
+        SearchResult response = new SearchResult();
+        if(searchData.getCategId()!=null && searchData.getCategId().isEmpty()){
+            searchData.setCategId(null);
+        }
+        searchData.setFirstItemOnPage((searchData.getCurrentPage()-1) * searchData.getNumberResultsPerPage());
+
+        LOG.debug("Received request in service to invoke dao to make a search in podcasts " +
+            " for text : " + searchData.getQueryText());
+
+        buildSQLQuerySearchText(searchData);
+
+        response.setNumberOfItemsPerPage(searchData.getNumberResultsPerPage());
+        response.setCurrentPage(searchData.getCurrentPage());
+
+        if(searchData.getNrOfResults()  == null){
+            int numberOfPodcastsFound = searchDao.getNumberOfPodcastsForSearchCriteria(searchData);
+            response.setNumberOfItemsFound(numberOfPodcastsFound);
+            // Casting to an int implicitly drops any decimal part. No need to call Math.floor().
+            int mod = numberOfPodcastsFound%searchData.getNumberResultsPerPage();
+            int dividedBy = numberOfPodcastsFound/searchData.getNumberResultsPerPage();
+            int numberOfPages = mod > 0 ? dividedBy +1 : dividedBy;
+            response.setNumberOfPages(numberOfPages);
+        } else {
+            response.setNumberOfPages(searchData.getNrResultPages());
+            response.setNumberOfItemsFound(searchData.getNrOfResults());
+        }
+
+        List<Podcast> podcasts = searchDao.getPodcastsForSearchCriteria(searchData);
+        response.setResults(mapPodcastsToResults(podcasts));
+        for(Podcast podcast:podcasts){
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("podcastId", podcast.getPodcastId());
+            params.put("count", 3);//get last 3 episodes as by subscriptions
+            List<Episode> lastEpisodes = episodeDao.getEpisodesForPodcastId(params);
+
+            podcast.setEpisodes(lastEpisodes);
+        }
+        response.setPodcasts(podcasts);
+
+        return response;
+    }
 
     private List<Result> mapPodcastsToResults(List<Podcast> podcasts) {
         List<Result> results = new ArrayList<>();

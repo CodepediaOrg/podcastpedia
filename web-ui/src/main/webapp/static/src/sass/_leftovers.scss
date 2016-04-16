@@ -76,3 +76,8 @@ height:120px;
 margin-right:20px;
 
 }
+
+.ui-dialog .ui-dialog-content {
+  z-index: 1000 !important ;
+  padding:0;
+}

@@ -113,7 +113,7 @@ html {
 .border_radius, .common_radius {
   border-radius: 5px; }
 
-div.not_shown, .item_url, .item_url_ep, .podcast_url {
+div.not_shown, .item_url, .item_url_ep, .item_sharing_title, .item_media_url, .podcast_url, .podcast_title {
   display: none; }
 
 /* icon fonts */
@@ -211,6 +211,14 @@ div.not_shown, .item_url, .item_url_ep, .podcast_url {
 .icon-video-pod, .icon-audio-video {
   font-size: 1em;
   margin-right: 5px; }
+
+.icon-arrow-down:after {
+  content: "\e901";
+  margin-left: 3px; }
+
+.icon-arrow-up:after {
+  content: "\e900";
+  margin-left: 3px; }
 
 /* language menu */
 ul.pureCssMenu ul {
@@ -417,7 +425,7 @@ ul.pureCssMenu ul li {
     padding: 0;
     position: relative;
     display: inline-table;
-    z-index: 501; }
+    z-index: 51; }
     #nav ul > li {
       float: left;
       width: 12em; }
@@ -1040,7 +1048,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   /* Set the font */
   font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: auto; }
   .github-fork-ribbon a {
     /* Set the text properties */
@@ -1085,7 +1093,7 @@ a.btn-share:visited, a.btn-metadata1:visited, a.btn-metadata2:visited {
   position: absolute;
   overflow: hidden;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   pointer-events: none; }
   @media screen and (max-width: 1339px) {
     .github-fork-ribbon-wrapper {
@@ -1646,3 +1654,7 @@ a.producer-social {
   width: 120px;
   height: 120px;
   margin-right: 20px; }
+
+.ui-dialog .ui-dialog-content {
+  z-index: 1000 !important;
+  padding: 0; }

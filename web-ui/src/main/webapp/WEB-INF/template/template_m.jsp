@@ -9,14 +9,17 @@
 		<meta name="google-site-verification" content="ZkFgaVcUEQ5HhjAA8-LOBUfcOY8Fh2PqiBqvM2xcFk0" />
 		<title><tiles:insertAttribute name="title" ignore="true"/></title>
 		<meta name="description" content="<tiles:insertAttribute name="page_description" ignore="true"/>">
-		<link href="<c:url value="/static/css/podcastpedia.min.css?v=1.10"/>" rel="stylesheet" type="text/css"/>
 		<link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<link rel="shortcut icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<meta charset="utf-8">
 		<meta property="og:image" content="<tiles:insertAttribute name="og_image" ignore="true"/>" />
 		<meta property="og:title" content="<tiles:insertAttribute name="og_title" ignore="true"/>" />
 		<meta property="og:description" content="<tiles:insertAttribute name="og_desc" ignore="true"/>"/>
+
+    <!-- order is important as I am overriding some stuff from jquery ui css -->
 		<link rel="stylesheet" href="<tiles:insertAttribute name="jquery_ui_css" ignore="true"/>" />
+        <link href="<c:url value="/static/css/podcastpedia.min.css?v=1.14"/>" rel="stylesheet" type="text/css"/>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script>
