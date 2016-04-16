@@ -3,8 +3,9 @@
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@ attribute name="isUserHomePage" required="true" %>
+<%@ attribute name="pageName" required="true" %>
 
 <div class="results_list">
     <c:forEach items="${podcasts}" var="podcast" varStatus="loop">
@@ -59,30 +60,37 @@
                     </c:otherwise>
                 </c:choose>
                 <span class="podcast_url">${podcast_link}</span>
-                <a href="#${2*loop.index+1}" class="icon-last-episodes  icon-arrow-down btn-share"><spring:message code="user.last_episodes"/></a>
+                <span class="podcast_title">${podcast.title}</span>
 
-                <c:if test="${isUserHomePage == 'true'}" >
+                <a href="#${2*loop.index+1}" class="icon-last-episodes icon-arrow-down btn-share"><spring:message code="user.last_episodes"/></a>
+
+                <c:if test="${pageName == 'search_results_podcasts'}">
+                    <!-- if not authenticated will be asked to log in -->
+                    <sec:authorize access="isAnonymous()">
+                        <a href="#${10*loop.index+1}" class="btn-share ask-for-login" style="background-color: orangered"><spring:message code="user.subscribe" text="Subscribe"/></a>
+                    </sec:authorize>
+                    <!-- if authenticated can subscribe automatically -->
+                    <sec:authorize access="isAuthenticated()">
+                        <a href="#${10*loop.index+1}" id="subscribe-to-podcast${loop.index}" class="btn-share subscribe-to-podcast-cls"><spring:message code="user.subscribe" text="Subscribe"/></a>
+                        <input type="hidden" name="${_csrf.parameterName}${loop.index}" value="${_csrf.token}" />
+                    </sec:authorize>
+                </c:if>
+
+                <c:if test="${pageName == 'user-homepage'}">
                     <a href="#${2*loop.index+1}" class="icon-unsubcribe-podcast btn-share" style="background: #8A2908"><spring:message code="user.unsubscribe"/></a>
                 </c:if>
-                <c:if test="${isUserHomePage == 'false'}" >
-                    <span class="podcast_title">${podcast.title}</span>
-                    <c:if test="${podcast.updateFrequency == 'DAILY' || podcast.updateFrequency == 'WEEKLY' || podcast.updateFrequency == 'MONTHLY'}">
-                        <!-- if not authenticated will be asked to log in -->
-                        <sec:authorize access="isAnonymous()">
-                            <a href="#${10*loop.index+1}" class="btn-share ask-for-login" style="background-color: orangered"><spring:message code="user.subscribe" text="Subscribe"/></a>
-                        </sec:authorize>
-                        <!-- if authenticated can subscribe automatically -->
-                        <sec:authorize access="isAuthenticated()">
-                            <a href="#${10*loop.index+1}" id="subscribe-to-podcast${loop.index}" class="btn-share subscribe-to-podcast-cls"><spring:message code="user.subscribe" text="Subscribe"/></a>
-                            <input type="hidden" name="${_csrf.parameterName}${loop.index}" value="${_csrf.token}" />
-                        </sec:authorize>
-                    </c:if>
+
+                <c:if test="${pageName == 'user-homepage-clone-subscription-category'}">
+                    <a href="#${2*loop.index+1}" class="icon-remove-from-subscription-category btn-share" style="background: #8A2908"><spring:message code="user.remove"/></a>
+                    <input type="hidden" name="subscriptionCategory" value="${podcast.subscriptionCategory}"/>
                 </c:if>
 
                 <input type="hidden" name="podcastId" value="${podcast.podcastId}"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </div>
+
             <div class="clear"></div>
+
             <div class="last_episodes not_shown">
                 <h2><spring:message code="user.last_episodes"/></h2>
                 <c:forEach items="${podcast.episodes}" var="episode" varStatus="loopEpisodes">

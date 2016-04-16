@@ -72,7 +72,7 @@ public class UserSubscriptionCategoryController {
         model.addAttribute("subscriptionCategories", subscriptionCategories);
 
         List<Podcast> subscriptions = userService.getPodcastsForSubscriptionCategory(userDetails.getUsername(), subscriptionCategory);
-        model.addAttribute("subscriptions", subscriptions);
+        model.addAttribute("podcasts", subscriptions);
         model.addAttribute("subscriptionCategory", subscriptionCategory);
 
         return "user_subscription_category_def";

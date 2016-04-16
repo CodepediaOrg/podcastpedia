@@ -49,7 +49,7 @@ public class UserHomePageController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<Podcast> subscriptions = userService.getSubscriptions(userDetails.getUsername());
-        model.addAttribute("subscriptions", subscriptions);
+        model.addAttribute("podcasts", subscriptions);
 
         List<String> subscriptionCategories = userService.getSubscriptionCategoryNames(userDetails.getUsername());
         model.addAttribute("subscriptionCategories", subscriptionCategories);

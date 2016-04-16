@@ -180,6 +180,7 @@ public class SearchController {
             model.addAttribute("numberOfPages", searchResult.getNumberOfPages());
 
             if(targetIsPodcasts){
+                model.addAttribute("podcasts", searchResult.getPodcasts());
                 tilesDef = "search_results_podcasts_def";
             } else {
                 model.addAttribute("episodes", searchResult.getEpisodes());
