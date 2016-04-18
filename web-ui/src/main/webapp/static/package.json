@@ -1,5 +1,5 @@
 {
-  "name": "podcastpedia-css-generator",
+  "name": "podcastpedia-js-css-build",
   "version": "0.0.1",
   "private": true,
   "description": "Project for CSS generation used in Podcastpedia.org",
@@ -7,7 +7,7 @@
   "main": "gulpfile.js",
   "devDependencies": {
     "del": "^2.2.0",
-    "gulp": "~3.9.0",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
@@ -15,8 +15,9 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
-    "gulp-uglify": "^1.5.1",
+    "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
+    "gulp-wrapper": "^1.0.0",
     "jshint": "^2.9.1",
     "jshint-stylish": "^1.0.2"
   },

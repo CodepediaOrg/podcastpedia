@@ -10,6 +10,7 @@ var gulp = require("gulp"),//http://gulpjs.com/
     uglify=require('gulp-uglify'),//https://www.npmjs.com/package/gulp-uglify,
     concat=require('gulp-concat'),//https://github.com/wearefractal/gulp-concat
     jshint=require('gulp-jshint'),//https://www.npmjs.com/package/gulp-jshint
+    wrapper = require('gulp-wrapper'), //https://www.npmjs.com/package/gulp-wrapper
 		log = util.log;
 
 var sassFiles = "src/sass/**/*.scss";
@@ -47,9 +48,13 @@ gulp.task('clean:css', function(cb){
 });
 
 gulp.task('compress:js', function() {
-    return gulp.src('src/js/pages/**/*.js')
+    return gulp.src('src/js/pages/podcast/*.js')
         .pipe(concat('app.js'))
         //.pipe(uglify())
+        .pipe(wrapper({
+          header: '$( document ).ready(function() {' + '\n',
+          footer: '\n' + '});'
+        }))
         .pipe(gulp.dest('target/js'));
 });
 

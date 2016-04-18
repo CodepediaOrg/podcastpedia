@@ -147,7 +147,7 @@
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
-<script src="<c:url value="/static/js/podcast/main.js" />"></script>
+<script src="<c:url value="/static/target/js/app.js" />"></script>
 
 <!-- jquery dialogs -->
 <div id="ask-for-login-form" title="Sign in">
