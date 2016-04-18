@@ -149,21 +149,23 @@ $(function (){
 	function bindDynamicSocialSharing(){
 		$('.item_wrapper').on('click', '.icon-share-episode', function (e) {
 			var currentDiv=$(this).closest("div.item_wrapper");
-			var epUrl= currentDiv.find("span.item_url").text();
+			var itemUrl= currentDiv.find("span.item_url").text();
+      var itemTitle= currentDiv.find("span.item_sharing_title").text();
 
-			//the share button is being replaced with social media buttons
+
+      //the share button is being replaced with social media buttons
 			$(e.target).remove();
 			var socialAndDownload = currentDiv.find("div.social_and_download");
 			socialAndDownload.prepend(
        "<div class='share_buttons'>"
         + "<div class='fb_like'>"
-        + " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+        + " <div class='fb-share-button' data-href='"+ itemUrl + " data-send='false' data-layout='button' data-mobile-iframe='true'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
-        + " <a href='//twitter.com/share' class='twitter-share-button' data-url='" + epUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
+        + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + itemUrl + "' data-text='"+ itemTitle +"' data-via='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
-        + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + epUrl + "'></div>"
+        + "  <div class='g-plusone' data-size='medium' data-annotation='none' data-href='" + itemUrl + "'></div>"
           + "</div>"
         + "</div>"
 			);
@@ -179,7 +181,8 @@ $(function (){
 	function bindDynamicSharringCurrentEpisode(){
 		$('#social_and_download_curr_ep').on('click', '.icon-share-episode', function (e) {
 			var currentDiv=$(this).closest("div#social_and_download_curr_ep");
-			var epUrl= currentDiv.find("span.item_url_ep").text();
+			var currentEpUrl= currentDiv.find("span.item_url_ep").text();
+      var currentEpTitle= currentDiv.find("span.item_title_ep").text();
 
 			//widen the distance to insert the sharing buttons
 			$('#current_episode').find(".ep_desc").css("margin-bottom","75px");
@@ -190,13 +193,13 @@ $(function (){
 			currentDiv.prepend(
 				 "<div class='share_buttons'>"
 					+ "<div class='fb_like'>"
-					+ " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+         + " <div class='fb-share-button' data-href='"+ currentEpUrl + " data-send='false' data-layout='button' data-mobile-iframe='true'></div>"
 					+ "</div> "
 					+ "<div class='twitter_share'> "
-					+ " <a href='https://twitter.com/share' class='twitter-share-button' data-url='" + epUrl + "' data-hashtags='podcastpedia'>Tweet</a>"
+         + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + currentEpUrl + "' data-text='"+ currentEpTitle +"' data-via='podcastpedia'>Tweet</a>"
 					+ "</div>"
 					+ "<div class='google_share'> "
-					+ "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + epUrl + "'></div>"
+					+ "  <div class='g-plusone' data-size='medium' data-annotation='none' data-href='" + currentEpUrl + "'></div>"
 				    + "</div>"
 			    + "</div>"
 			);
@@ -223,7 +226,7 @@ $(function (){
 	    if (typeof (FB) != 'undefined') {
 	        FB.init({ status: true, cookie: true, xfbml: true });
 	    } else {
-	        $.getScript("//connect.facebook.net/en_US/all.js#xfbml=1", function () {
+	        $.getScript("//connect.facebook.net/en_US/all.js#xfbml=1&version=v2.6&appId=1440349946220626", function () {
 	            FB.init({ status: true, cookie: true, xfbml: true });
 	        });
 	    }

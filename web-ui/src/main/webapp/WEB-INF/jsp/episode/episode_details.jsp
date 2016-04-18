@@ -63,6 +63,7 @@
 			<spring:message code="global.dwnld.s" text="Download episode"/>
 		</a>
 		<span class="item_url_ep">https://www.podcastpedia.org/podcasts/${episodeDetails.podcastId}/${podcast_title_in_url}/episodes/${episodeDetails.episodeId}/${episodeDetails.titleInUrl}</span>
+    <span class="item_title_ep">${episodeDetails.title}</span>
 	</div>
 	<div class="clear"></div>
 

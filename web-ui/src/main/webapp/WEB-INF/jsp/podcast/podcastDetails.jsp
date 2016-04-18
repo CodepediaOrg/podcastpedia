@@ -92,6 +92,7 @@
 			<a href="#-1" class="icon-share-episode btn-share">Share</a>
 
       <span class="item_url">${podcast_link}</span>
+      <span class="item_sharing_title">${podcast.title}</span>
 		</div>
     <div id="pod-details-voting">
       <!-- if not authenticated will be asked to log in -->

@@ -18,7 +18,7 @@
 
     <!-- order is important as I am overriding some stuff from jquery ui css -->
 		<link rel="stylesheet" href="<tiles:insertAttribute name="jquery_ui_css" ignore="true"/>" />
-        <link href="<c:url value="/static/css/podcastpedia.min.css?v=1.14"/>" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/static/css/podcastpedia.min.css?v=1.15"/>" rel="stylesheet" type="text/css"/>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

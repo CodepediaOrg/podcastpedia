@@ -70,13 +70,14 @@ $(function (){
       socialAndDownload.prepend(
         "<div class='share_buttons'>"
         + "<div class='fb_like'>"
-        + " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+        //+ " <div class='fb-like' data-href='"+ epUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+        + " <div class='fb-share-button' data-href='"+ epUrl + " data-send='false' data-layout='button' data-mobile-iframe='true'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
         + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + epUrl + "' data-text='"+ epTitle +"' data-via='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
-        + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + epUrl + "'></div>"
+        + "  <div class='g-plusone' data-size='medium' data-annotation='none' data-href='" + epUrl + "'></div>"
         + "</div>"
         + "</div>"
       );
@@ -103,13 +104,14 @@ $(function (){
       socialAndDownload.prepend(
         "<div class='share_buttons'>"
         + "<div class='fb_like'>"
-        + " <div class='fb-like' data-href='"+ podcastUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+        //+ " <div class='fb-like' data-href='"+ podcastUrl + " data-send='false' data-layout='button_count' data-width='70' data-height='72'></div>"
+        + " <div class='fb-share-button' data-href='"+ podcastUrl + " data-send='false' data-layout='button' data-mobile-iframe='true'></div>"
         + "</div> "
         + "<div class='twitter_share'> "
         + " <a href='//twitter.com/intent/tweet' class='twitter-share-button' data-url='" + podcastUrl + "' data-text='"+ podcastTitle +"' data-via='podcastpedia'>Tweet</a>"
         + "</div>"
         + "<div class='google_share'> "
-        + "  <div class='g-plusone' data-size='medium' data-annotation='bubble' data-href='" + podcastUrl + "'></div>"
+        + "  <div class='g-plusone' data-size='medium' data-annotation='none' data-href='" + podcastUrl + "'></div>"
         + "</div>"
         + "</div>"
       );
@@ -135,7 +137,7 @@ $(function (){
     if (typeof (FB) != 'undefined') {
       FB.init({ status: true, cookie: true, xfbml: true });
     } else {
-      $.getScript("//connect.facebook.net/en_US/all.js#xfbml=1", function () {
+      $.getScript("//connect.facebook.net/en_US/all.js#xfbml=1&version=v2.6&appId=1440349946220626", function () {
         FB.init({ status: true, cookie: true, xfbml: true });
       });
     }
