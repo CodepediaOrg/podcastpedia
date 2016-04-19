@@ -1,8 +1,6 @@
-
-
-  /* ***** Setup jwplayer in jquery dialog part ******
-    when modify make sure to update the implementation in podcast detail's main.js too
-   */
+// same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
+bindDynamiyPlaying()
+function bindDynamiyPlaying(){
   $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
   $(".icon-play-episode").click(function(){
 
@@ -55,4 +53,4 @@
       }
     });
   });
-
+}
