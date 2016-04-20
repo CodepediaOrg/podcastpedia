@@ -94,6 +94,12 @@
 			var itemUrl= currentDiv.find("span.item_url").text();
       var itemTitle= currentDiv.find("span.item_sharing_title").text();
 
+      //player not shown widen the distance to insert the sharing buttons
+      currentDiv.find("div.ep_desc").css("margin-bottom","75px");
+      currentDiv.find("div.ep_desc_bigger").css("margin-bottom","75px");
+      currentDiv.find("div.pod_desc").css("margin-bottom","55px");
+      currentDiv.find("div.pod_desc_bigger").css("margin-bottom","55px");
+      //currentDiv.find("div").css("margin-bottom","55px");
 
       //the share button is being replaced with social media buttons
 			$(e.target).remove();
