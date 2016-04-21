@@ -1,6 +1,6 @@
 // same code as the one in player_dialog.js, but have to reload it here because of the "more episodes" possibility -
-bindDynamiyPlaying()
-function bindDynamiyPlaying(){
+bindDynamicPlaying()
+function bindDynamicPlaying(){
   $("#media_player_modal_dialog").dialog({autoOpen: false, modal: true});
   $(".icon-play-episode").click(function(){
 

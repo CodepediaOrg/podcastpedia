@@ -24,7 +24,7 @@
 						$lastEpisodes.append(episodeDiv).fadeIn(800);
 					});
 
-          bindDynamiyPlaying();
+          bindDynamicPlaying();
 					bindDynamicSocialSharing();
 					bindDynamicSharringCurrentEpisode();
 					console.log("success", episodes);

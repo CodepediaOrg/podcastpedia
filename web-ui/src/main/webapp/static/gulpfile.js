@@ -16,24 +16,27 @@ var gulp = require("gulp"),//http://gulpjs.com/
 var sassFiles = "src/sass/**/*.scss";
 
 gulp.task("sass", function(){
-		log("Generate CSS files " + (new Date()).toString());
-        gulp.src(sassFiles)
-            .pipe(sass({ style: 'expanded' }))
-            .pipe(autoprefixer("last 3 version","safari 5", "ie 8", "ie 9"))
-            .pipe(gulp.dest("css"))
-            .pipe(rename({suffix: '.min'}))
-            .pipe(minifycss())
-            .pipe(gulp.dest('css'));
+  log("Generate CSS files " + (new Date()).toString());
+  gulp.src(sassFiles)
+      .pipe(sass({ style: 'expanded' }))
+      .pipe(autoprefixer("last 3 version","safari 5", "ie 8", "ie 9"))
+      .pipe(gulp.dest("target/css"))
+      .pipe(rename({suffix: '.min'}))
+      .pipe(minifycss())
+      .pipe(gulp.dest('target/css'));
+
+  gulp.src('src/resources/fonts/**/*.{ttf,woff,eof,svg,eot}')
+    .pipe(gulp.dest('target/css/fonts'));
 });
 
 gulp.task("watch", function(){
-    log("Watching scss files for modifications");
-    gulp.watch(sassFiles, ["sass"]);
+  log("Watching scss files for modifications");
+  gulp.watch(sassFiles, ["sass"]);
 });
 
 //copy fonts from source ("static/src/fonts")to the "css" directory because they are referenced by the css files
 gulp.task('copy:fonts', function() {
-    gulp.src('src/fonts/**/*.{ttf,woff,eof,svg,eot}')
+    gulp.src('src/resources/fonts/**/*.{ttf,woff,eof,svg,eot}')
         .pipe(gulp.dest('css/fonts'));
 });
 
@@ -48,7 +51,7 @@ gulp.task('clean:css', function(cb){
 });
 
 gulp.task('compress:js', function() {
-    return gulp.src('src/js/pages/podcast/*.js')
+    return gulp.src('src/js/pages/**/*.js')
         .pipe(concat('app.js'))
         //.pipe(uglify())
         .pipe(wrapper({
@@ -66,4 +69,4 @@ gulp.task('jshint', function() {
 });
 
 //when running just 'gulp' in the command line only the "sass" task will get executed
-gulp.task("default", ["clean:css", "copy:fonts", "sass"]);
+gulp.task("default", ["clean", "sass", 'compress:js']);
