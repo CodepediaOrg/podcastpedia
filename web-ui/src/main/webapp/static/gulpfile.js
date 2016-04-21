@@ -10,7 +10,20 @@ var gulp = require("gulp"),//http://gulpjs.com/
     concat=require('gulp-concat'),//https://github.com/wearefractal/gulp-concat
     jshint=require('gulp-jshint'),//https://www.npmjs.com/package/gulp-jshint
     wrapper = require('gulp-wrapper'), //https://www.npmjs.com/package/gulp-wrapper
-		log = util.log;
+		log = util.log,
+    gulpif=require('gulp-if');
+
+/* TODO - test image minification
+    imagemin = require('gulp-imagemin'),
+    pngquant = require('imagemin-pngquant'); // $ npm i -D imagemin-pngquant
+*/
+
+var config = {
+  images: 'images/*'
+};
+
+var env = process.env.NODE_ENV || 'dev'; //environment variable that defaults to 'dev'
+
 
 var sassFiles = "src/sass/**/*.scss";
 gulp.task("sass", function(){
@@ -51,14 +64,16 @@ gulp.task('clean:css', function(cb){
 });
 
 var jsFiles = "src/js/pages/**/*.js";
-gulp.task('compress:js', function() {
+gulp.task('js', function() {
     return gulp.src(jsFiles)
+        .pipe(jshint())
         .pipe(concat('app.js'))
-        //.pipe(uglify())
+        .pipe(gulpif(env ==='prod', uglify()))
         .pipe(wrapper({
           header: '$( document ).ready(function() {' + '\n',
           footer: '\n' + '});'
         }))
+
         .pipe(gulp.dest('target/js'));
 });
 
@@ -69,8 +84,22 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
+//minimize images
+gulp.task('min-images', () => {
+  return gulp.src(config.images)
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [
+        {removeViewBox: false},
+        {cleanupIDs: false}
+      ],
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest('target/images'));
+});
 
-gulp.task("build", ["clean", "copy:fonts", "sass", 'compress:js']);
+
+gulp.task("build", ["clean", "copy:fonts", "sass", 'js']);
 
 //task is executed when running only the "gulp" command
 gulp.task("default", ["build"]);
