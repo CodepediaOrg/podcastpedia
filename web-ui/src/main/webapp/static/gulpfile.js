@@ -3,7 +3,7 @@ var gulp = require("gulp"),//http://gulpjs.com/
 		util = require("gulp-util"),//https://github.com/gulpjs/gulp-util
 		sass = require("gulp-sass"),//https://www.npmjs.org/package/gulp-sass
 		autoprefixer = require('gulp-autoprefixer'),//https://www.npmjs.org/package/gulp-autoprefixer
-		minifycss = require('gulp-minify-css'),//https://www.npmjs.org/package/gulp-minify-css
+		//minifycss = require('gulp-minify-css'),//https://www.npmjs.org/package/gulp-minify-css
 		rename = require('gulp-rename'),//https://www.npmjs.org/package/gulp-rename,
     del=require('del'),//https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
     uglify=require('gulp-uglify'),//https://www.npmjs.com/package/gulp-uglify
@@ -11,7 +11,10 @@ var gulp = require("gulp"),//http://gulpjs.com/
     jshint=require('gulp-jshint'),//https://www.npmjs.com/package/gulp-jshint
     wrapper = require('gulp-wrapper'), //https://www.npmjs.com/package/gulp-wrapper
 		log = util.log,
-    gulpif=require('gulp-if');
+    gulpif=require('gulp-if'),
+    pump = require('pump'),
+    runSequence = require('run-sequence'),
+    sourcemaps = require('gulp-sourcemaps');
 
 /* TODO - test image minification
     imagemin = require('gulp-imagemin'),
@@ -28,24 +31,28 @@ var env = process.env.NODE_ENV || 'dev'; //environment variable that defaults to
 var sassFiles = "src/sass/**/*.scss";
 gulp.task("sass", function(){
   log("Generate CSS files " + (new Date()).toString());
+
+  var sassOptions = {
+    errLogToConsole: true
+  };
+
+  if(env === 'dev'){
+    sassOptions.outputStyle = 'expanded';
+    //sassOptions.sourceComments = 'map';
+  }
+
+  if(env === 'prod'){
+    sassOptions.outputStyle = 'compressed';
+  }
+
   gulp.src(sassFiles)
-      .pipe(sass({ style: 'expanded' }))
+      .pipe(gulpif(env ==='prod', sourcemaps.init()))
+      .pipe(sass(sassOptions).on('error', sass.logError))
       .pipe(autoprefixer("last 3 version","safari 5", "ie 8", "ie 9"))
+      .pipe(gulpif(env ==='prod', sourcemaps.write()))
       .pipe(gulp.dest("target/css"))
-      .pipe(rename({suffix: '.min'}))
-      .pipe(minifycss())
-      .pipe(gulp.dest('target/css'));
-
 });
 
-gulp.task("watch", function(){
-  log("Watching scss files for modifications");
-  gulp.watch(sassFiles, ["sass"]);
-
-  log("Watching js files for modifications");
-  gulp.watch(jsFiles, ["compress:js"]);
-
-});
 
 //copy fonts from source ("static/src/fonts")to the "css" directory because they are referenced by the css files
 gulp.task('copy:fonts', function() {
@@ -85,6 +92,7 @@ gulp.task('jshint', function() {
 });
 
 //minimize images
+/*
 gulp.task('min-images', () => {
   return gulp.src(config.images)
     .pipe(imagemin({
@@ -97,9 +105,23 @@ gulp.task('min-images', () => {
     }))
     .pipe(gulp.dest('target/images'));
 });
-
+*/
 
 gulp.task("build", ["clean", "copy:fonts", "sass", 'js']);
 
+gulp.task("watch", function(){
+  log("Watching scss files for modifications");
+  gulp.watch(sassFiles, ["sass"]);
+
+  log("Watching js files for modifications");
+  gulp.watch(jsFiles, ["js"]);
+
+});
+
+
+
 //task is executed when running only the "gulp" command
-gulp.task("default", ["build"]);
+//gulp.task('default', ['build']);
+gulp.task('default', function() {
+  runSequence('build');
+});
