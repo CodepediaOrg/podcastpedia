@@ -69,7 +69,7 @@ gulp.task('clean:css', function(cb){
   del.sync('target/css/**/*', cb);//https://github.com/sindresorhus/del#delsyncpatterns-options
 });
 
-var jsFiles = "src/js/pages/**/*.js";
+var jsFiles = "src/js/podcastpedia/**/*.js";
 gulp.task('js', function() {
     return gulp.src(jsFiles)
         .pipe(jshint())
