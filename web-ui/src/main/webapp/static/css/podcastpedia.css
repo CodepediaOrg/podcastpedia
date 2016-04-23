@@ -113,7 +113,7 @@ html {
 .border_radius, .common_radius {
   border-radius: 5px; }
 
-div.not_shown, .item_url, .item_url_ep, .item_sharing_title, .item_media_url, .podcast_url, .podcast_title {
+div.not_shown, .item_url, .item_url_ep, .item_title_ep, .item_sharing_title, .item_media_url, .podcast_url, .podcast_title {
   display: none; }
 
 /* icon fonts */
@@ -942,9 +942,6 @@ img.recommend_social {
 
 .social_media_share {
   margin: 10px 5px 10px 5px; }
-
-.twitter_share {
-  width: 80px; }
 
 /* fixing */
 .shown {
