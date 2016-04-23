@@ -3,7 +3,6 @@ var gulp = require("gulp"),//http://gulpjs.com/
 		util = require("gulp-util"),//https://github.com/gulpjs/gulp-util
 		sass = require("gulp-sass"),//https://www.npmjs.org/package/gulp-sass
 		autoprefixer = require('gulp-autoprefixer'),//https://www.npmjs.org/package/gulp-autoprefixer
-		//minifycss = require('gulp-minify-css'),//https://www.npmjs.org/package/gulp-minify-css
 		rename = require('gulp-rename'),//https://www.npmjs.org/package/gulp-rename,
     del=require('del'),//https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md
     uglify=require('gulp-uglify'),//https://www.npmjs.com/package/gulp-uglify
