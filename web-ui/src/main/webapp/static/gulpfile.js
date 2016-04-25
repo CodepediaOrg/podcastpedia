@@ -45,10 +45,10 @@ gulp.task("sass", function(){
   }
 
   gulp.src(sassFiles)
-      .pipe(gulpif(env ==='prod', sourcemaps.init()))
+      .pipe(gulpif(env ==='dev', sourcemaps.init()))
       .pipe(sass(sassOptions).on('error', sass.logError))
       .pipe(autoprefixer("last 3 version","safari 5", "ie 8", "ie 9"))
-      .pipe(gulpif(env ==='prod', sourcemaps.write()))
+      .pipe(gulpif(env ==='dev', sourcemaps.write()))
       .pipe(gulp.dest("target/css"))
 });
 
@@ -72,6 +72,7 @@ gulp.task('clean:css', function(cb){
 var jsFiles = "src/js/podcastpedia/**/*.js";
 gulp.task('js', function() {
     return gulp.src(jsFiles)
+        .pipe(gulpif(env ==='dev', sourcemaps.init()))
         .pipe(jshint())
         .pipe(concat('app.js'))
         .pipe(gulpif(env ==='prod', uglify()))
@@ -79,7 +80,7 @@ gulp.task('js', function() {
           header: '$( document ).ready(function() {' + '\n',
           footer: '\n' + '});'
         }))
-
+        .pipe(gulpif(env ==='dev', sourcemaps.write()))
         .pipe(gulp.dest('target/js'));
 });
 
