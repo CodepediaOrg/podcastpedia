@@ -25,7 +25,7 @@
 					});
 
           bindDynamicPlaying();
-					bindDynamicSocialSharing();
+					bindDynamicSocialSharingEpisodes();
 					bindDynamicSharringCurrentEpisode();
 					console.log("success", episodes);
 				}
@@ -87,8 +87,8 @@
 	}
 
 
-	bindDynamicSocialSharing();
-	function bindDynamicSocialSharing(){
+	bindDynamicSocialSharingEpisodes();
+	function bindDynamicSocialSharingEpisodes(){
 		$('.item_wrapper').on('click', '.icon-share-episode', function (e) {
 			var currentDiv=$(this).closest("div.item_wrapper");
 			var itemUrl= currentDiv.find("span.item_url").text();
@@ -97,8 +97,6 @@
       //player not shown widen the distance to insert the sharing buttons
       currentDiv.find("div.ep_desc").css("margin-bottom","75px");
       currentDiv.find("div.ep_desc_bigger").css("margin-bottom","75px");
-      currentDiv.find("div.pod_desc").css("margin-bottom","55px");
-      currentDiv.find("div.pod_desc_bigger").css("margin-bottom","55px");
       //currentDiv.find("div").css("margin-bottom","55px");
 
       //the share button is being replaced with social media buttons

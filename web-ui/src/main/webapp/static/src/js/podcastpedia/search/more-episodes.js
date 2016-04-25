@@ -25,7 +25,7 @@
 					});
 
 					bindDynamicPlaying();
-					bindDynamicSocialSharing();
+					bindDynamicSocialSharingEpisodes();
 					bindDynamicSharringCurrentEpisode();
 					console.log("success", episodes);
 				}
