@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.podcastpedia</groupId>
 		<artifactId>podcastpedia</artifactId>
-		<version>1.1.0-SNAPSHOT</version>
+		<version>1.1.0</version>
 	</parent>
 
   <artifactId>common</artifactId>
