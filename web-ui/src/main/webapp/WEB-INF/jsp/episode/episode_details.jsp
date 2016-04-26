@@ -63,6 +63,7 @@
 			<spring:message code="global.dwnld.s" text="Download episode"/>
 		</a>
 		<span class="item_url_ep">https://www.podcastpedia.org/podcasts/${episodeDetails.podcastId}/${podcast_title_in_url}/episodes/${episodeDetails.episodeId}/${episodeDetails.titleInUrl}</span>
+    <span class="item_title_ep">${episodeDetails.title}</span>
 	</div>
 	<div class="clear"></div>
 
@@ -124,7 +125,7 @@
 
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="<c:url value="/static/js/podcast/main.js" />"></script>
+<script src="<c:url value="/static/target/js/app.js" />"></script>
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <div id="disqus_comments" class="shadowy">

@@ -92,6 +92,7 @@
 			<a href="#-1" class="icon-share-episode btn-share">Share</a>
 
       <span class="item_url">${podcast_link}</span>
+      <span class="item_sharing_title">${podcast.title}</span>
 		</div>
     <div id="pod-details-voting">
       <!-- if not authenticated will be asked to log in -->
@@ -146,7 +147,7 @@
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
-<script src="<c:url value="/static/js/podcast/main.js" />"></script>
+<script src="<c:url value="/static/target/js/app.js" />"></script>
 
 <!-- jquery dialogs -->
 <div id="ask-for-login-form" title="Sign in">
