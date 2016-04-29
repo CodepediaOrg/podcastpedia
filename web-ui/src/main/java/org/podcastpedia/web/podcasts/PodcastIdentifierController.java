@@ -106,6 +106,14 @@ public class PodcastIdentifierController {
             model.addAttribute("subscriptionCategories", subscriptionCategories);
         }
 
+        //set og_url
+        String og_url;
+        if(podcast.getIdentifier()!=null){
+            og_url = "https://www.podcastpedia.org/" + podcast.getIdentifier();
+        } else {
+            og_url = "https://www.podcastpedia.org/" + podcast.getPodcastId() + "/" + podcast.getTitleInUrl();
+        }
+        model.addAttribute("og_url", og_url);
 
 		return "m_podcastDetails";
 	}

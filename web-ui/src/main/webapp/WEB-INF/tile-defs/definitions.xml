@@ -18,7 +18,8 @@
     	<put-attribute name="body-id" value="podcast-details"/>
     	<put-attribute name="content" value="/WEB-INF/jsp/podcast/podcastDetails.jsp"/>
  		  <put-attribute name="jquery_ui_css" value="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.min.css"/>
-    	<put-attribute name="og_title" expression="${podcast.title}"/>
+      <put-attribute name="og_url" expression="${og_url}"/>
+      <put-attribute name="og_title" expression="${podcast.title}"/>
  	    <put-attribute name="og_desc" expression="${podcast.description}"/>
  	    <put-attribute name="og_image" expression="${podcast.urlOfImageToDisplay}"/>
     </definition>
@@ -141,6 +142,7 @@
     	<put-attribute name="page_description" expression="${episode.description}"/>
       <put-attribute name="jquery_ui_css" value="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.min.css"/>
     	<put-attribute name="body-id" value="episode-details" />
+      <put-attribute name="og_url" expression="${og_url}"/>
     	<put-attribute name="og_title" expression="${episode.title}"/>
     	<put-attribute name="og_desc" expression="${episode.description}"/>
     	<put-attribute name="og_image" expression="${episode.podcast.urlOfImageToDisplay}"/>

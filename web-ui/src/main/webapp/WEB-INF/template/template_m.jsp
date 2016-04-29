@@ -12,6 +12,10 @@
 		<link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<link rel="shortcut icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon" />
 		<meta charset="utf-8">
+
+    <meta property="fb:app_id" content="1440349946220626"/>
+    <meta property="og:url" content="<tiles:insertAttribute name="og_url" ignore="true"/>" />
+    <meta property="og:type" content="website" />
 		<meta property="og:image" content="<tiles:insertAttribute name="og_image" ignore="true"/>" />
 		<meta property="og:title" content="<tiles:insertAttribute name="og_title" ignore="true"/>" />
 		<meta property="og:description" content="<tiles:insertAttribute name="og_desc" ignore="true"/>"/>
