@@ -105,8 +105,9 @@ public class EpisodeController {
 		}
 
         //set og_url
-        String og_url = "https://www.podcastpedia.org/" + episodeDetails.getEpisode().getPodcastId()
+        String og_url = "https://www.podcastpedia.org/podcasts/" + episodeDetails.getEpisode().getPodcastId()
                         + "/" + episodeDetails.getEpisode().getPodcast().getTitleInUrl()
+                        + "/episodes/" + episodeDetails.getEpisode().getEpisodeId()
                         + "/" + episodeDetails.getEpisode().getTitleInUrl();
         model.addAttribute("og_url", og_url);
 
