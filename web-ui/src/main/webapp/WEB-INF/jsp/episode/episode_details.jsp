@@ -125,7 +125,7 @@
 
 <!-- javascript libraries required -->
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="<c:url value="/static/target/js/app.js" />"></script>
+<script src="<c:url value="/static/target/js/app.js?v=0.1" />"></script>
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <div id="disqus_comments" class="shadowy">

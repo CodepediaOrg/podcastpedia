@@ -21,6 +21,7 @@
     url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true"
     />
 
+
   <Resource
     name="mail/Session"
     auth="Container"
@@ -33,6 +34,6 @@
     mail.smtp.ssl.enable="true"
     mail.smtp.starttls.enable="true"
     mail.smtp.debug="true"
-  />
+    />
 
 </Context>
