@@ -16,7 +16,7 @@
    <appender name="everythingDailyAppender"
            class="org.apache.log4j.DailyRollingFileAppender">
       <param name="Threshold" value="DEBUG" />
-      <param name="File" value="C:/podcastpedia/logs/admin/prod/everything.log"/>
+      <param name="File" value="${user.home}/logs/podcastpedia/admin/prod/everything.log"/>
       <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
       </layout>
@@ -25,7 +25,7 @@
    <appender name="episodeInsertsDailyAppender"
            class="org.apache.log4j.DailyRollingFileAppender">
       <param name="Threshold" value="DEBUG" />
-      <param name="File" value="C:/podcastpedia/logs/admin/prod/new_episodes.log"/>
+      <param name="File" value="${user.home}/logs/podcastpedia/admin/prod/new_episodes.log"/>
       <param name="DatePattern" value="'.'yyyy-MM-dd"/>
       <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
@@ -33,14 +33,14 @@
 	  <filter class="org.apache.log4j.varia.StringMatchFilter">
            <param name="StringToMatch" value="INSERT EPISODE epId" />
            <param name="AcceptOnMatch" value="true" />
-       </filter>  
-       <filter class="org.apache.log4j.varia.DenyAllFilter"/>     
+       </filter>
+       <filter class="org.apache.log4j.varia.DenyAllFilter"/>
    </appender>
-   
+
    <appender name="unavailableEpisodesDailyAppender"
            class="org.apache.log4j.DailyRollingFileAppender">
       <param name="Threshold" value="DEBUG" />
-      <param name="File" value="C:/podcastpedia/logs/admin/prod/unavailable_episodes.log"/>
+      <param name="File" value="${user.home}/logs/podcastpedia/admin/prod/unavailable_episodes.log"/>
       <param name="DatePattern" value="'.'yyyy-MM-dd"/>
       <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
@@ -49,46 +49,46 @@
            <param name="StringToMatch" value="EPISODE UNAVAILABLE" />
            <param name="AcceptOnMatch" value="true" />
       </filter>
-      <filter class="org.apache.log4j.varia.DenyAllFilter"/>      
-   </appender>   
-   
+      <filter class="org.apache.log4j.varia.DenyAllFilter"/>
+   </appender>
+
    <appender name="errorsDailyAppender"
            class="org.apache.log4j.DailyRollingFileAppender">
       <param name="Threshold" value="ERROR" />
-      <param name="File" value="C:/podcastpedia/logs/admin/prod/errors.log"/>
+      <param name="File" value="${user.home}/logs/podcastpedia/admin/prod/errors.log"/>
       <param name="DatePattern" value="'.'yyyy-MM-dd"/>
       <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
-      </layout>   
+      </layout>
    </appender>
-   
+
    <appender name="warningsDailyAppender"
            class="org.apache.log4j.DailyRollingFileAppender">
       <param name="Threshold" value="WARN" />
-      <param name="File" value="C:/podcastpedia/logs/admin/prod/warnings.log"/>
+      <param name="File" value="${user.home}/logs/podcastpedia/admin/prod/warnings.log"/>
       <param name="DatePattern" value="'.'yyyy-MM-dd"/>
       <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d %p [%c:%L] - &lt;%m&gt;%n" />
-      </layout>   
-   </appender>   
-      
+      </layout>
+   </appender>
+
    <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
 		<param name="BufferSize" value="150"/>
       <appender-ref ref="everythingDailyAppender"/>
       <appender-ref ref="episodeInsertsDailyAppender"/>
       <appender-ref ref="unavailableEpisodesDailyAppender"/>
       <appender-ref ref="errorsDailyAppender"/>
-      <appender-ref ref="warningsDailyAppender"/> 
+      <appender-ref ref="warningsDailyAppender"/>
    </appender>
-            
+
    <logger name="org.podcastpedia.admin">
       <level value="DEBUG" />
-       <appender-ref ref="ASYNC"/>                
+       <appender-ref ref="ASYNC"/>
    </logger>
-   
+
     <root>
 	  <priority value="INFO"/>
 	  <!-- log everything to the consolse -->
-      <appender-ref ref="pcmAdminConsoleAppender"/>   
+      <appender-ref ref="pcmAdminConsoleAppender"/>
 	</root>
 </log4j:configuration>
