@@ -104,8 +104,14 @@ public class EpisodeController {
 			model.addAttribute("show_other_episodes", false);
 		}
 
-		return "m_episodeDetails_def";
+        //set og_url
+        String og_url = "https://www.podcastpedia.org/podcasts/" + episodeDetails.getEpisode().getPodcastId()
+                        + "/" + episodeDetails.getEpisode().getPodcast().getTitleInUrl()
+                        + "/episodes/" + episodeDetails.getEpisode().getEpisodeId()
+                        + "/" + episodeDetails.getEpisode().getTitleInUrl();
+        model.addAttribute("og_url", og_url);
 
+		return "m_episodeDetails_def";
 	}
 
 	@RequestMapping(value = "{podcastId}/*/episodes/archive/pages/{currentPage}", method = RequestMethod.GET)
