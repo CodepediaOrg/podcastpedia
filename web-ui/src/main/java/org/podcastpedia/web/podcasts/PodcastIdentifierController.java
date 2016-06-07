@@ -115,6 +115,8 @@ public class PodcastIdentifierController {
         }
         model.addAttribute("og_url", og_url);
 
+        LOG.debug("------ Exiting method getPodcastDetails  ------");
+
 		return "m_podcastDetails";
 	}
 
