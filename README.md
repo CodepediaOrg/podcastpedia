@@ -14,12 +14,13 @@ Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) pr
 |   +---sql
 |   +---admin
 ```
-* **podcastpedia** - is the parent project
+* **podcastpedia** - the parent project
 * **common** - contains domain objects and types used by the other modules (core, web-ui, api & admin)
 * **core** - code for database access and business layer; it support currently both the _api_ and _web-ui_ modules.
 * **web-ui** - the web application that's actually behind the  [Podcastpedia.org](http://www.podcastpedia.org) website
 * **api** - REST api supporting core functionalities for the application(in progress)
 * **sql** - contains database setup scripts and useful sql statements
+* **sql-migration** - contains database delta scripts; uses [MyBatis Migrations](http://www.mybatis.org/migrations/)
 * **admin** - administration web application used to insert/update/remove podcasts from the directory; implemnted with [Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
 
 Setup Guide
@@ -29,11 +30,11 @@ _(~15min of which 13 min MySql installation)_
 
 ### Prerequisites
 ####
-* MySQL 5.5 or 5.6
+* MySQL 5.5, 5.6 or 5.7(recommended)
   * [Download MySQL Community Server](http://dev.mysql.com/downloads/mysql/)
   * [Prepare the MySQL database for Podcastpedia development](sql/README.md)
 
-* JDK 1.7 (if you want to use Jetty 9 with the jetty-maven-plugin from project)
+* JDK 1.7 or JDK 1.8
   * [Java SE Development Kit 7 Downloads](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
   * set `JAVA_HOME =  jdk-install-dir` in your environment variables
 * Maven 3.*
@@ -55,7 +56,7 @@ git clone https://github.com/PodcastpediaOrg/podcastpedia.git
 
 ### Prepare MySql Database
 #### Install MySql 5.5 and above
-1. [Download MySQL Community Server](http://dev.mysql.com/downloads/mysql/) version 5.5 or 5.6 for the platform of your choice.
+1. [Download MySQL Community Server](http://dev.mysql.com/downloads/mysql/) version 5.5, 5.6 or 5.7 for the platform of your choice.
 2. [Install the MySQL Server](http://dev.mysql.com/doc/refman/5.6/en/installing.html)
   1. [Installing MySQL on Microsoft Windows](http://dev.mysql.com/doc/refman/5.6/en/windows-installation.html)
   2. [Installing MySQL on Linux](http://dev.mysql.com/doc/refman/5.6/en/linux-installation.html)
@@ -95,6 +96,9 @@ That database setup should be ready now. You can choose to setup the database vi
 ```
 mvn clean install -DskipTests=true
 ```
+> Note the first time the build process takes longer, because of the [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)
+used to generate the .css and .js files.
+
 ***
 ### Run the website (_web-ui_ module)
 #### Jetty [(Maven Jetty Plugin)](http://www.eclipse.org/jetty/documentation/current/jetty-maven-plugin.html)
@@ -103,7 +107,7 @@ Execute the following command in the parent/root directory
 ```
 mvn jetty:run -pl web-ui -Denv=dev
 ```
-Access homepage at [http://localhost:8080](http://localhost:8080) - 
+Access homepage at [http://localhost:8080](http://localhost:8080) -
 _"user/password"_ for login _"test-dev@podcastpedia.org/test"_
 
 #### Tomcat [(Apache Tomcat Maven Plugin)](http://tomcat.apache.org/maven-plugin.html)
@@ -112,8 +116,8 @@ Execute the following command in the parent/root directory
 ```
 mvn tomcat7:run -pl web-ui -Denv=dev
 ```
-Access homepage at [http://localhost:8080](http://localhost:8080) or [https://localhost:8443](https://localhost:8443) for SSL access - 
-_"user/password"_ for login _"test-dev@podcastpedia.org/test""_ or 
+Access homepage at [http://localhost:8080](http://localhost:8080) or [https://localhost:8443](https://localhost:8443) for SSL access -
+_"user/password"_ for login _"test-dev@podcastpedia.org/test""_ or
 ***
 
 ## Contributing
