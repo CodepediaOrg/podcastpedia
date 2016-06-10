@@ -27,9 +27,9 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 		        @SuppressWarnings({ "rawtypes", "unchecked" })
 				public void prepare(MimeMessage mimeMessage) throws Exception {
 		             MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-		             message.setTo(configService.getValue("EMAIL_TO_SUGGEST_PODCAST"));
-		             message.setBcc("adrianmatei@gmail.com");
-		             message.setFrom(new InternetAddress(suggestedPodcast.getEmail()) );
+                     String[] emailsTo = {configService.getValue("EMAIL_TO_CONTACT_MESSAGE"), "adrianmatei@gmail.com"};
+                     message.setTo(emailsTo);
+		             message.setFrom(new InternetAddress(configService.getValue("EMAIL_FROM_CONTACT_MESSAGE")));
 		             message.setSubject("New suggested podcast");
 		             message.setSentDate(new Date());
 		             Map model = new HashMap();

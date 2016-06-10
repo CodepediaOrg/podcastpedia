@@ -15,34 +15,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailNotificationServiceImpl implements EmailNotificationService {
-	
+
 	@Autowired
-	private ConfigService configService;	
+	private ConfigService configService;
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
-    
+
 	public void sendContactNotification(final ContactForm contactForm) {
 	      MimeMessagePreparator preparator = new MimeMessagePreparator() {
 	        @SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 	             MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-	             message.setTo(configService.getValue("EMAIL_TO_CONTACT_MESSAGE"));
-	             message.setBcc("adrianmatei@gmail.com");
-	             message.setFrom(new InternetAddress(contactForm.getEmail()));
+                 String[] emailsTo = {configService.getValue("EMAIL_TO_CONTACT_MESSAGE"), "adrianmatei@gmail.com"};
+	             message.setTo(emailsTo);
+	             message.setFrom(new InternetAddress(configService.getValue("EMAIL_FROM_CONTACT_MESSAGE")));
 	             message.setSubject("New contact message " + contactForm.getTopic());
 	             message.setReplyTo(contactForm.getEmail());
 	             message.setSentDate(new Date());
-	             Map model = new HashMap();	             
+	             Map model = new HashMap();
 	             model.put("newMessage", contactForm);
-	             
+
 	             String text = VelocityEngineUtils.mergeTemplateIntoString(
 	                velocityEngine, "velocity/newContactMessageToAdmin.vm", "UTF-8", model);
 	             message.setText(text, true);
 	          }
 	       };
-	       this.mailSender.send(preparator);	  
+	       this.mailSender.send(preparator);
 	}
-	
+
 	public JavaMailSender getMailSender() {
 		return mailSender;
 	}
@@ -58,5 +58,5 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 	public void setVelocityEngine(VelocityEngine velocityEngine) {
 		this.velocityEngine = velocityEngine;
 	}
-	
+
 }
