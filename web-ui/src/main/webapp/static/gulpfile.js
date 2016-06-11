@@ -62,7 +62,7 @@ gulp.task('copy:fonts', function() {
 
 //deletes content of the target directory, sort of a "maven clean" functionality
 gulp.task('clean', function(cb){
-    del(config.dist+'/**/*', cb);
+    del(config.dist + '/**/*', cb);
 });
 
 //delete content of "css" folder, before creating a new one
