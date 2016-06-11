@@ -36,4 +36,18 @@
     mail.smtp.debug="true"
   />
 
+  <Resource
+    name="no-reply/mail/Session"
+    auth="Container"
+    type="javax.mail.Session"
+    mail.smtp.user="testing@podcastpedia.org"
+    password="Test1234"
+    mail.smtp.host="smtp.zoho.com"
+    mail.smtp.port="465"
+    mail.smtp.auth="true"
+    mail.smtp.ssl.enable="true"
+    mail.smtp.starttls.enable="false"
+    mail.smtp.debug="true"
+  />
+
 </Context>
