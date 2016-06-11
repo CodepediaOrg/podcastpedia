@@ -21,7 +21,8 @@ var gulp = require("gulp"),//http://gulpjs.com/
 */
 
 var config = {
-  images: 'images/*'
+  images: 'images/*',
+  dist: 'target'
 };
 
 var env = process.env.NODE_ENV || 'dev'; //environment variable that defaults to 'dev'
@@ -61,7 +62,7 @@ gulp.task('copy:fonts', function() {
 
 //deletes content of the target directory, sort of a "maven clean" functionality
 gulp.task('clean', function(cb){
-    del('target/**/*', cb);
+    del(config.dist+'/**/*', cb);
 });
 
 //delete content of "css" folder, before creating a new one

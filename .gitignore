@@ -13,6 +13,7 @@
 # web-ui module
 web-ui/src/main/webapp/static/node_modules
 web-ui/src/main/webapp/META-INF/context-dev-gmail-personal.xml
+/web-ui/src/main/webapp/static/node
 web-ui/src/main/webapp/META-INF/context-prod.xml
 web-ui/src/main/webapp/META-INF/context-prod-tunnel.xml
 web-ui/src/main/resources/keycloak-prod.json
