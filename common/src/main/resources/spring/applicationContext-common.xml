@@ -3,31 +3,34 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	    xsi:schemaLocation="
- 
-	http://www.springframework.org/schema/beans	 
+
+	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="applicationContext-common-dataSource.xml"/>
 
 	<bean id="configService" class="org.podcastpedia.common.util.config.ConfigServiceImpl">
 		<property name="configBean" ref="configBean"/>
-	</bean> 
-		
+	</bean>
+
     <bean id="configBean" class="org.podcastpedia.common.util.config.ConfigBeanJdbcImpl">
         <property name="dataSource" ref="configDataSource" />
     </bean>
-    
+
     <!-- ********************************* email service configuration ******************************* -->
    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
    		<property name="session" ref="smtpSession" />
-   </bean>    
-   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+   </bean>
+  <bean id="mailSenderNoReply" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="session" ref="smtpSessionNoReply" />
+  </bean>
+  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
       <property name="velocityProperties">
          <value>
           resource.loader=class
           class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
          </value>
       </property>
-   </bean>    
-	
+   </bean>
+
 </beans>

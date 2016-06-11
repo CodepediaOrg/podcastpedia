@@ -69,7 +69,7 @@
    </bean>
 
   <bean id="emailNotificationUserRegistration" class="org.podcastpedia.core.user.UserEmailNotificationServiceImpl">
-    <property name="mailSender" ref="mailSender"/>
+    <property name="mailSender" ref="mailSenderNoReply"/>
     <property name="velocityEngine" ref="velocityEngine"/>
   </bean>
 

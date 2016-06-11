@@ -14,4 +14,7 @@
 		<property name="jndiName" value="java:comp/env/mail/Session"/>
 	</bean>
 
+  <bean id="smtpSessionNoReply" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/no-reply/mail/Session"/>
+  </bean>
 </beans>
