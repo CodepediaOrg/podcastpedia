@@ -10,6 +10,7 @@
 #Exclude target folders
 **/target/
 
+
 # web-ui module
 web-ui/src/main/webapp/static/node_modules
 web-ui/src/main/webapp/META-INF/context-dev-gmail-personal.xml
@@ -28,6 +29,7 @@ web-ui/src/main/resources/config/jetty9-remote.xml
 # admin module
 admin/src/main/webapp/META-INF/context-tunnel-ssl.xml
 admin/src/main/resources/config/jetty9-tunnel.xml
+/admin/src/main/webapp/META-INF/context-admin-prod-tunnel.xml
 
 pom.xml.versionsBackup
 pom.xml.releaseBackup

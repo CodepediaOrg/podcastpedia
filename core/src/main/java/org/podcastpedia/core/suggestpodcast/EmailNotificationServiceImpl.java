@@ -18,6 +18,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 
 	@Autowired
 	private ConfigService configService;
+
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
 

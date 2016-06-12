@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
+import org.podcastpedia.common.util.config.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -21,6 +23,9 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 	private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
 
+    @Autowired
+    private ConfigService configService;
+
 
 	public void sendPodcastAdditionConfirmation(final String name, final String email, final String podcastUrl) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
@@ -29,7 +34,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 			     MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			     message.setTo(email);
 	             message.setBcc("adrianmatei@gmail.com");
-			     message.setFrom(EMAIL_FROM);
+			     message.setFrom(configService.getValue("admin.email.from.podcast.addition.confirmation"));
 			     message.setSubject(EMAIL_SUBJECT);
 			     message.setSentDate(new Date());
 
