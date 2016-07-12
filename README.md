@@ -129,4 +129,4 @@ be accepted.  If it involves code, please also write tests for it.
 
 ## License
 
-[MIT](LICENSE.txt) &copy; [Codingpedia Association](http://www.codingpedia.org/about-us/)
+[MIT](LICENSE.txt) &copy; Codingpedia Association](http://www.codingpedia.org/codingpedia-association/)
