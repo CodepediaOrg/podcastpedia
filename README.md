@@ -130,3 +130,7 @@ be accepted.  If it involves code, please also write tests for it.
 ## License
 
 [MIT](LICENSE.txt) &copy; [Codingpedia Association](http://www.codingpedia.org/codingpedia-association/)
+
+## Sponsors
+
+Many thanks to JetBrains for providing us with an open-source license for [IntelliJ IDEA](https://www.jetbrains.com/idea/)
