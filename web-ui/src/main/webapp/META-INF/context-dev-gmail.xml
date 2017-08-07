@@ -18,7 +18,7 @@
     username="podcast"
     password="podcast"
     driverClassName="com.mysql.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true"
+    url="jdbc:mysql://localhost:3306/podcast_db?allowMultiQueries=true&amp;useSSL=false"
     />
 
 	<Resource name="mail/Session"

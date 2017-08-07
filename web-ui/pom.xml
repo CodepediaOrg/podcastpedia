@@ -289,6 +289,10 @@
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
+            <manifestEntries>
+              <git-SHA-1>${buildNumber}</git-SHA-1>
+              <Release-Version>${project.version}</Release-Version>
+            </manifestEntries>
           </archive>
           <packagingExcludes>src/main/webapp/static/node_modules/</packagingExcludes>
           <warSourceExcludes>static/node_modules/,src/main/webapp/static/node_modules/</warSourceExcludes>

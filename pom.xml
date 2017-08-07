@@ -48,6 +48,7 @@
     <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
     <rome.version>1.5.0</rome.version>
     <jsr250-api.version>1.0</jsr250-api.version>
+    <buildnumber-maven-plugin.version>1.4</buildnumber-maven-plugin.version>
   </properties>
 
     <licenses>
@@ -500,7 +501,31 @@
               </plugin>
             </plugins>
         </pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>buildnumber-maven-plugin</artifactId>
+          <version>${buildnumber-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <phase>validate</phase>
+              <goals>
+                <goal>create</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <!-- Take only the first 13 characters of the git hash code as buildNumber-->
+            <shortRevisionLength>13</shortRevisionLength>
+          </configuration>
+        </plugin>
+      </plugins>
     </build>
 
+  <scm>
+    <url>https://github.com/PodcastpediaOrg/podcastpedia</url>
+    <connection>scm:git:git://github.com:PodcastpediaOrg/podcastpedia.git</connection>
+    <developerConnection>scm:git:git@github.com:PodcastpediaOrg/podcastpedia.git</developerConnection>
+  </scm>
 
 </project>

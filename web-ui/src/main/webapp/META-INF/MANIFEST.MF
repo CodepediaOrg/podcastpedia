@@ -1,13 +1,15 @@
 Manifest-Version: 1.0
-Implementation-Vendor: Codingpedia Association
 Implementation-Title: web-ui
-Implementation-Version: 1.2.0-SNAPSHOT
-Implementation-Vendor-Id: org.podcastpedia
-Specification-Vendor: Codingpedia Association
-Build-Jdk: 1.7.0_79
+Implementation-Version: 1.2.0
 Built-By: ama
+Specification-Vendor: Codingpedia Association
 Specification-Title: web-ui
-Created-By: Apache Maven 3.0.5
+Implementation-Vendor-Id: org.podcastpedia
+Implementation-Vendor: Codingpedia Association
+Release-Version: 1.2.0
+git-SHA-1: 434553639c95d
+Created-By: Apache Maven 3.3.3
+Build-Jdk: 1.8.0_65
+Specification-Version: 1.2.0
 Implementation-URL: http://www.podcastpedia.org
-Specification-Version: 1.2.0-SNAPSHOT
 
