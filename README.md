@@ -1,7 +1,7 @@
 podcastpedia
 ================
 
-[Podcastpedia.org](http://www.podcastpedia.org) - the open source podcast directory
+[Podcastpedia.org] - the open source podcast directory - **website was decommissioned**
 
 ## Project structure
 Podcastpedia is a multi-module  [Maven](http://maven.apache.org/download.cgi) project structured in the following way:
